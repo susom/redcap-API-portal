@@ -18,9 +18,9 @@
 	
 	// REDCap API Url
 	defined('REDCAP_API_URL')				|| define('REDCAP_API_URL',				'http://redcap.localhost.com/api/');
-	defined('REDCAP_API_TOKEN')			|| define('REDCAP_API_TOKEN',			'71408B6A55E7DF49692ADECA617BF740');
+	defined('REDCAP_API_TOKEN')			|| define('REDCAP_API_TOKEN',			'DF49692ADECA617BF740');
 	defined('REDCAP_FIRST_FIELD')			|| define('REDCAP_FIRST_FIELD',			'user_id');
-	defined('HASH_RANDOM_CODE')			|| define('HASH_RANDOM_CODE',				'MczPlkpscPhPwEXl8sdGtgRGr');
+	defined('HASH_RANDOM_CODE')			|| define('HASH_RANDOM_CODE',				'hPwEXl8sdGtgRGr');
 	defined('LOG_FILE')						|| define('LOG_FILE',						'/Users/andy123/Documents/local REDCap server/webtools/redcap_portal.log');
 	defined('SESSION_TIMEOUT')				|| define('SESSION_TIMEOUT',				60*30); // Session timeout in seconds
 	defined('SESSION_NAME')					|| define('SESSION_NAME',					'REDCAP_PORTAL'); // Session variable name
@@ -29,6 +29,7 @@
 	defined('EMAIL_ACTIVATION_EXPIRY')	|| define('EMAIL_ACTIVATION_EXPIRY',	3); // Number of minutes to wait before re-emailing an activation link
 	defined('PORTAL_MODEL_PATH')			|| define('PORTAL_BASE_PATH',				dirname(__FILE__)); // local dir for this file
 	defined('PORTAL_INC_PATH')				|| define('PORTAL_INC_PATH',				PORTAL_BASE_PATH."/inc"); // path to include files
+	defined('GOOGLE_RECAPTCHA_SECRET')  || define('GOOGLE_RECAPTCHA_SECRET' 	  '-_QnKL_6nfjYVH5l1JpDdwx'); 
 
 
 	

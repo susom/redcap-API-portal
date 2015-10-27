@@ -1,0 +1,187 @@
+/* 
+We created a this custom.css file so you can add customize styles without modifying the bootstrap stylesheet. However, you can use your own stylesheets if you prefer.  
+*/
+
+.modal-ish {
+  width: 360px;
+  text-align:center;
+  margin: 30px auto auto auto;
+  overflow: auto;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding-box;
+          background-clip: padding-box;
+}
+
+#content {
+  width:550px;
+  margin: 70px auto auto auto; 
+}
+
+
+
+
+.form-label {
+	text-align:right;
+	padding-right: 0 !important;
+}
+
+.padding-0 {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.padding-sm {
+	padding: 2 !important;
+	margin: 2 !important;
+}
+
+.padding-md {
+	padding: 5 !important;
+	margin: 5 !important;
+}
+
+.max-400 {
+	max-width: 400px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+
+.max-600 {
+	max-width: 600px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+.max-800 {
+	max-width: 800px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.headerText {
+	font-size: larger;
+	font-weight: bold;
+	padding-left:5px;
+}
+
+.strong {
+	font-weight:bold;
+}
+
+.g-recaptcha-right div div {
+    float: right;
+}
+
+.g-recaptcha-center div div {
+    margin: auto;
+}
+
+/* Jquery Validate */
+.help-block {
+	font-weight:bold;
+	color: #a94442;
+}
+
+/* xxyjl: should this be under learn folder? widen navbar for learn */
+/*
+.navbar-nav li a {
+    line-height: 150px;
+    height: 100px;
+    padding-top: 0;
+}*/
+
+.navbar-learn {
+   text-align:right;
+}
+.navbar-learn .navbar-brand {
+   padding:5px 5px;
+   width:296px;
+   height:82px;
+   background-image: url("/assets/img/LEARN_HEADER_296x82.png");
+}
+
+.navbar-learn .collapse.in > ul, .navbar-learn .collapsing > ul {
+   margin-top:0px;
+   margin-bottom:0px;
+   border: 1px solid #ccc;
+}
+.navbar-learn .collapse.in > ul > li, .navbar-learn .collapsing > ul > li {
+    background-color: #fefefe;
+    border-bottom: 1px dotted #ccc;
+    z-index: 10;
+}
+.navbar-learn .collapse.in > ul > li:last-child, .navbar-learn .collapsing > ul > li:last-child {
+    border:none;
+}
+
+
+
+
+/* LEARN-Branded Buttons 
+
+teal: #00b0a2
+blue: #00528e
+gray: #544f4c
+*/
+.btn-teal {
+   color: #fff;
+   background-color: #00528e;
+   border-color: #544f4c;
+}
+.btn-teal:hover,
+.btn-teal:focus,
+.btn-teal.focus,
+.btn-teal:active,
+.btn-teal.active,
+.open > .dropdown-toggle.btn-teal {
+  color: #fff;
+  background-color: #00b0a2;
+  border-color: #544f4c;
+}
+
+.panel-teal {
+  border-color: #00b0a2;
+}
+.panel-teal > .panel-heading {
+  color: #fff;
+  background-color: #00b0a2 !important;
+  border-color: #00b0a2;
+}
+.panel-teal > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #00b0a2;
+}
+.panel-teal > .panel-heading .badge {
+  color: #00b0a2;
+  background-color: #fff;
+}
+.panel-teal > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #00b0a2;
+}
+.list-group-item {
+  font-size:      1.4em;
+  cursor: pointer;
+}
+.list-group-item.retake,
+.list-group-item.retake:hover,
+.list-group-item.retake:focus {
+  color: #777;
+  cursor: pointer;
+  background-color: #eee;
+}
+
+

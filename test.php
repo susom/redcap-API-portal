@@ -1,6 +1,7 @@
 <?php
 	
 /* TEST FILE FOR INCLUDES */
+//testing something real quick
 
 
 require_once('models/config.php');

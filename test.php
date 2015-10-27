@@ -2,8 +2,7 @@
 	
 /* TEST FILE FOR INCLUDES */
 //testing something real quick
-//yep that other change isnt in master yet
-
+//awesome merge confilict fixed
 require_once('models/config.php');
 
 

@@ -2,6 +2,10 @@
 We created a this custom.css file so you can add customize styles without modifying the bootstrap stylesheet. However, you can use your own stylesheets if you prefer.  
 */
 
+body {
+  padding-bottom: 50px;
+}
+
 .modal-ish {
   width: 360px;
   text-align:center;
@@ -73,6 +77,10 @@ We created a this custom.css file so you can add customize styles without modify
 	margin-bottom: 10px;
 }
 
+.mb-30 {
+  margin-bottom: 30px; 
+}
+
 .headerText {
 	font-size: larger;
 	font-weight: bold;
@@ -98,21 +106,32 @@ We created a this custom.css file so you can add customize styles without modify
 }
 
 /* xxyjl: should this be under learn folder? widen navbar for learn */
-/*
+.navbar {
+    margin-bottom: 50px;
+}
 .navbar-nav li a {
-    line-height: 150px;
-    height: 100px;
-    padding-top: 0;
-}*/
+    border-radius:0 0 8px 8px;  
+}
+
+@media (min-width: 768px){
+  .navbar-nav>li>a {
+    padding-top: 22px;
+  }
+}
+
+.navbar-default {
+
+}
 
 .navbar-learn {
    text-align:right;
 }
 .navbar-learn .navbar-brand {
-   padding:5px 5px;
-   width:296px;
-   height:82px;
-   background-image: url("/assets/img/LEARN_HEADER_296x82.png");
+  margin:10px 0;
+  width: 230px;
+  height: 60px;
+  background: url("../img/LEARN_HEADER_296x82.png") 50% no-repeat;
+  background-size:contain;
 }
 
 .navbar-learn .collapse.in > ul, .navbar-learn .collapsing > ul {
@@ -183,5 +202,7 @@ gray: #544f4c
   cursor: pointer;
   background-color: #eee;
 }
+
+
 
 

@@ -1,32 +1,29 @@
 <?php
-
 require_once("models/config.php");
-	
+
 //Prevent the user visiting the login page if he/she is already logged in
 if(isUserLoggedIn()) { header("Location: $websiteUrl"); die(); }
 
 //--------------------------------------------------------------------
 // Login Posted
-if(!empty($_POST) && isset($_POST['new_login']))
-{
-	$errors = array();
-	$username = trim($_POST["username"]);
-	$password = trim($_POST["password"]);
+
+if(!empty($_POST) && isset($_POST['new_login'])) {
+	$errors 	= array();
+	$username 	= trim($_POST["username"]);
+	$password 	= trim($_POST["password"]);
 	
 	//Perform some basic validation
 	if($username == "") $errors[] = lang("ACCOUNT_SPECIFY_USERNAME");
 	if($password == "") $errors[] = lang("ACCOUNT_SPECIFY_PASSWORD");
 	
 	//End data validation
-	if(count($errors) == 0)
-	{
+	if(count($errors) == 0) {
 		// Continue with authentication
 		$auth = new RedcapAuth($username,$password);
 		//logIt("RA: <pre>".print_r($ra,true)."</pre>", "DEBUG");
 		
 		// Valid credentials
-		if($auth->authenticated_user_id != Null)
-		{
+		if($auth->authenticated_user_id != Null) {
 			// Log user in
 			$loggedInUser = new RedcapPortalUser($auth->authenticated_user_id);
 			setSessionUser($loggedInUser);
@@ -34,16 +31,15 @@ if(!empty($_POST) && isset($_POST['new_login']))
 			//Redirect to user account page
 			$destination = getSessionRedirectOr('index.php');
 			header("Location: $destination");die();
-		}
-		// Invalid credentials
-		else
-		{
+		} else { // Invalid credentials
 			$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID");
 		}
 	} // Validation
 	
 	// Add errors messages to session
-	foreach ($errors as $error) addSessionAlert($error);
+	foreach ($errors as $error) {
+		addSessionAlert($error);
+	}
 } // POST
 
 
@@ -51,8 +47,8 @@ if(!empty($_POST) && isset($_POST['new_login']))
 // Render Login Page
 
 // Use email for label if suppressing username
-$username_label = $portal_config['useEmailAsUsername'] ? "Email" : "Username";
-$username_validation = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
+$username_label 		= $portal_config['useEmailAsUsername'] ? "Email" : "Username";
+$username_validation 	= $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
 
 $loginPanel = new bootstrapPanel();
 $loginPanel->setType('primary');
@@ -82,11 +78,6 @@ $loginPanel->setFooter('
 				</div>'
 );
 
-
-
-
-
-
 $page = new htmlPage("Login | $websiteName");
 $page->printStart();
 require_once("navbar.php");
@@ -103,7 +94,6 @@ require_once("navbar.php");
 			<div class="text-center">
 				<a href="forgot-password.php">Forgot Password?</a>
 			</div>
-			
 		</div><!-- /max-600 -->
 	</div><!-- /row -->
 </div><!-- /container -->
@@ -134,7 +124,5 @@ require_once("navbar.php");
 		}
 	});
 </script>
-
-
 <?php
 $page->printEnd();

@@ -1,15 +1,13 @@
 <?php
-
 //------------------------------------------------------------------
 /* SESSION FUNCTIONS */
-	
+//------------------------------------------------------------------
+
 // Determines if session contains a user object and has not timed out -> returns user object
 function getSessionUser() {
-	if( isset($_SESSION[SESSION_NAME]['user']) && get_class($_SESSION[SESSION_NAME]['user']) == 'RedcapPortalUser' )
-	{
+	if( isset($_SESSION[SESSION_NAME]['user']) && get_class($_SESSION[SESSION_NAME]['user']) == 'RedcapPortalUser' ) {
 		// We have a user object in the session
-		if(!isSessionExpired() )
-		{
+		if(!isSessionExpired() ) {
 			return $_SESSION[SESSION_NAME]['user'];
 		}
 		// Session expired
@@ -19,16 +17,17 @@ function getSessionUser() {
 	return null;
 }
 
+
 // Takes a user object and saves the object to the session
 function setSessionUser($user) {
 	$_SESSION[SESSION_NAME]['user'] = $user;
 }
 
+
 // If a session redirect is present, then return the saved url and clear, otherwise return $default
 function getSessionRedirectOr($default = '') {
 	if ( isset($_SESSION[SESSION_NAME]['redirect']) && 
-		 !empty($_SESSION[SESSION_NAME]['redirect']) )
-	{
+		 !empty($_SESSION[SESSION_NAME]['redirect']) ) {
 		$default = $_SESSION[SESSION_NAME]['redirect'];
 		// Clear saved redirect
 		unset($_SESSION[SESSION_NAME]['redirect']);
@@ -36,10 +35,12 @@ function getSessionRedirectOr($default = '') {
 	return $default;
 }
 
+
 // Return the saved redirect url
 function setSessionRedirect($url) {
 	$_SESSION[SESSION_NAME]['redirect'] = $url;
 }
+
 
 // Returns the number of password reset attempts in this session
 function getSessionPassResetAttempt(){
@@ -49,32 +50,31 @@ function getSessionPassResetAttempt(){
 	return $attempt;
 }
 
+
 // Increments the number of password reset attempts in this session
 function incrementSessionPassResetAttempt() {
 	$_SESSION[SESSION_NAME]['password_reset_attempt'] = getSessionPassResetAttempt() + 1;
 	return getSessionPassResetAttempt();
 }
 
+
 // Clears the attempts counter in the session
 function clearSessionPassResetAttempt() {
 	unset($_SESSION[SESSION_NAME]['password_reset_attempt']);
 }
 
+
 // Determine if session has timed out - otherwise set/reset last activity
 function isSessionExpired() {
-	if( isset($_SESSION[SESSION_NAME]['LAST_ACTIVITY']) )
-	{
+	if( isset($_SESSION[SESSION_NAME]['LAST_ACTIVITY']) ) {
 		// Timestamp exists
-		if( time() - $_SESSION[SESSION_NAME]['LAST_ACTIVITY'] > SESSION_TIMEOUT )
-		{
+		if( time() - $_SESSION[SESSION_NAME]['LAST_ACTIVITY'] > SESSION_TIMEOUT ) {
 			// Timestamp expired
 			logIt("Session timeout.  Last activity " . (time() - $_SESSION[SESSION_NAME]['LAST_ACTIVITY']) . " sec ago", "INFO");
 			return true;
 		}
 		logIt("Session updated after " . (time() - $_SESSION[SESSION_NAME]['LAST_ACTIVITY']) . " secs", "DEBUG");
-	}
-	else
-	{
+	} else {
 		logIt("Session started: " . date('Y-m-d H:i:s'), "DEBUG");
 	}
 	
@@ -82,6 +82,7 @@ function isSessionExpired() {
 	$_SESSION[SESSION_NAME]['LAST_ACTIVITY'] = time();
 	return false;
 }
+
 
 // Erase the stored user and activity from session
 function clearSession() {
@@ -96,6 +97,7 @@ function clearSession() {
 
 //------------------------------------------------------------------
 /* SESSION MESSAGING */
+//------------------------------------------------------------------
 
 // Add a message for display on the next page - and optionally log the message
 function addSessionMessage($msg, $type = 'notice', $logIt = true) {
@@ -107,24 +109,24 @@ function addSessionMessage($msg, $type = 'notice', $logIt = true) {
 	if ($logIt) logIt($msg, strtoupper($type));	
 };
 
+
 // Shortcut for adding an alert and whether to log it as well
 function addSessionAlert($alert, $logIt = true) {
 	addSessionMessage($alert, 'alert', $logIt);
 }
 
+
 //** returns html for all the session messages
-function getSessionMessages($clear = true)
-{
+function getSessionMessages($clear = true) {
 	$types = array('alert','notice','success');
 	$messages = array();
 	foreach ($types as $type) {
-		if(isset($_SESSION[SESSION_NAME]['messages'][$type]) && count($_SESSION[SESSION_NAME]['messages'][$type]))
-		{
+		if(isset($_SESSION[SESSION_NAME]['messages'][$type]) && count($_SESSION[SESSION_NAME]['messages'][$type])) {
 			$messages[] = makeMessageBox($_SESSION[SESSION_NAME]['messages'][$type], $type);
 		} 
 	}
 	$result = count($messages) ? implode("\n",$messages) : '';
-	
+
 	// Clear out the session messages
 	if ($clear) $_SESSION[SESSION_NAME]['messages'] = array();
 
@@ -140,7 +142,7 @@ function makeMessageBox($messages, $type) {
 		'success' => 'alert-success'
 	);
 	$html = '
-		<div class="alert ' . $typeClass[$type] . ' text-center mb-10 fade in">
+		<div class="alert ' . $typeClass[$type] . ' text-center mb-30 fade in">
 				<a href="#" class="close" data-dismiss="alert">
 					<div style="position: relative; width: -4; height:0">
 						&times;
@@ -148,8 +150,7 @@ function makeMessageBox($messages, $type) {
 				</a>
 			';
 	$lines = array();
-	foreach ($messages as $msg)
-	{
+	foreach ($messages as $msg) {
 		$lines[] = "<p><strong>$msg</strong></p>";
 	}
 	$html .= implode("<hr>",$lines) . '
@@ -158,46 +159,49 @@ function makeMessageBox($messages, $type) {
 }
 
 
-
-
-
-
 //------------------------------------------------------------------
 /* LOGIN / STATUS FUNCTIONS */
+//------------------------------------------------------------------
 
 // Returns true if user object is defined globally
 function isUserLoggedIn() {
 	global $loggedInUser;
+
 	return (isset($loggedInUser) && !empty($loggedInUser));
 }
+
 
 // Returns true if user is suspended
 function isUserSuspended() {
 	global $loggedInUser;
+
 	return (isset($loggedInUser) && !empty($loggedInUser) && $loggedInUser->isSuspended());
 }
+
 
 // Returns true if user is active
 function isUserActive() {
 	global $loggedInUser;
+
 	return (isset($loggedInUser) && !empty($loggedInUser) && $loggedInUser->isActive());
 }
+
 
 // Allows any user that has logged in but profile may be incomplete
 function requireUserAccount() {
 	global $PAGE;
-	if( !isUserLoggedIn() )
-	{
+	if( !isUserLoggedIn() ) {
 		logIt($PAGE . " only allows users - force login", "DEBUG");
 		redirectToLogin();
-	}
-	elseif( isUserSuspended() )
-	{
+	} elseif( isUserSuspended() ) {
 		logIt("Redirecting suspended account to profile.php","DEBUG");
 		$msg = "Your account has been suspended.  You will be unable to access the site until this is resolved.";
 		logout($msg);
 	}
+
+	return;
 }
+
 
 // Allows only users marked as 'active' - otherwise redirect to profile
 function requireActiveUserAccount() {
@@ -206,12 +210,15 @@ function requireActiveUserAccount() {
 		$message = "Please complete your profile setup";
 		redirectToProfile($message);
 	}
+
+	return;
 }
+
 
 // Redirects to the login page with a referral url...
 function redirectToLogin() {
-	$current_url = $_SERVER['PHP_SELF'];
-	$current_page = basename($current_url);
+	$current_url 	= $_SERVER['PHP_SELF'];
+	$current_page 	= basename($current_url);
 	if ($current_page !== 'login.php' && !isset($_GET['logout']))
 	{
 		$url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
@@ -221,24 +228,25 @@ function redirectToLogin() {
 	header('Location: login.php'); die();
 }
 
+
 // Redirect user to profile page with optional message
 function redirectToProfile($message = Null) {
 	if (!empty($message)) addSessionMessage($message);
-	$current_url = $_SERVER['PHP_SELF'];
-	$current_page = basename($current_url);
-	if ($current_page !== 'profile.php')
-	{
+	$current_url 	= $_SERVER['PHP_SELF'];
+	$current_page 	= basename($current_url);
+	if ($current_page !== 'profile.php') {
 		header('Location: profile.php');
 		die();
 	}
+
+	return;
 }
 
 // Logout current user and session.  If called via timeout, then redirect back after login
 function logout($message, $timeout = false) {
 	//logIt("Logout called: $message / ".(int)$timeout, "DEBUG");
 	global $loggedInUser;
-	if( isUserLoggedIn() )
-	{
+	if( isUserLoggedIn() ) {
 		$loggedInUser->log_entry[] = "Logged out";
 		$loggedInUser->updateUser();
 		$loggedInUser = NULL;
@@ -252,20 +260,19 @@ function logout($message, $timeout = false) {
 	die();
 }
 
-
-
 //------------------------------------------------------------------
 // PASSWORD RESET / FORGOTTEN PASSWORD METHODS
 
 function verifyReCaptcha() {
 	$url = "https://www.google.com/recaptcha/api/siteverify";
 	$params = array(
-		'secret' => 	GOOGLE_RECAPTCHA_SECRET,
-		'response' => 	(isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : NULL),
-		'remoteip' => 	$_SERVER['REMOTE_ADDR']
+		'secret' 	=> 	GOOGLE_RECAPTCHA_SECRET,
+		'response' 	=> 	(isset($_POST['g-recaptcha-response']) ? $_POST['g-recaptcha-response'] : NULL),
+		'remoteip' 	=> 	$_SERVER['REMOTE_ADDR']
 	);
 	$response = RC::http_post($url, $params);
 	//logIt("ReCaptuca Result " . print_r($response,true) . " from " . print_r($params,true), "DEBUG");
+	
 	return json_decode($response,true);
 }
 
@@ -279,38 +286,31 @@ function getUserByPasswordToken($token) {
 			getRF('pass_reset_req_ts')
 		)
 	);
-	$result = RC::callApi($params);
+	$result 		= RC::callApi($params);
+	$errors 		= array();
+	$token_matches 	= array();
 	
-	$errors = array();
-	$token_matches = array();
-	
-	foreach ($result as $idx => $record)
-	{
-		$recordToken = trim($record[getRF('pass_reset_token')]);
-		
+	foreach ($result as $idx => $record) {
+		$recordToken = trim($record[getRF('pass_reset_token')]);	
 		logIt("Comparing $token with $recordToken - DEBUG","DEBUG");
 		
-		if( $token == $recordToken )
-		{
+		if( $token == $recordToken ) {
 			$token_matches[$record[REDCAP_FIRST_FIELD]] = $record;
 		}
 	}
 	
-	if (count($token_matches) == 0)
-	{
+	if (count($token_matches) == 0) {
 		logIt("Found no matching password tokens", "DEBUG");
 		return false;
 	}
 	
-	if (count($token_matches) > 1)
-	{
+	if (count($token_matches) > 1) {
 		// Found more than one match!
 		logIt("Found more than one match for a password reset token: $token", "ERROR");
 		return false;
 	}
 	
-	if (count($token_matches) == 1)
-	{
+	if (count($token_matches) == 1) {
 		$user_id = key($token_matches);
 		logIt("Found $user_id via password token", "INFO");
 		$user = new RedcapPortalUser($user_id);
@@ -320,14 +320,12 @@ function getUserByPasswordToken($token) {
 
 // Takes a user object and returns true if it is still in a valid reset session
 function isPasswordResetActive($user) {
-	if (empty($user->pass_reset_token))
-	{
+	if (empty($user->pass_reset_token)) {
 		logIt('Empty password reset token - password reset is expired',"DEBUG");
 		return false;
 	}
 	
-	if (empty($user->pass_reset_req_ts))
-	{
+	if (empty($user->pass_reset_req_ts)) {
 		logIt('Empty password reset request timestamp - password reset is assumed expired.', 'ERROR');
 		return false;
 	}
@@ -335,6 +333,7 @@ function isPasswordResetActive($user) {
 	
 	return $age_in_min <= PASS_TOKEN_EXPIRY;
 }
+
 
 // Takes a user object and returns that age of the password token in minutes
 function getPasswordTokenAgeInMin($user) {
@@ -344,6 +343,7 @@ function getPasswordTokenAgeInMin($user) {
 	logIt("Age of password token is $age_in_min min", "DEBUG");
 	return $age_in_min;
 }
+
 
 // Look up a user by email address - return false or user object
 function getUserByEmail($email) {
@@ -357,32 +357,27 @@ function getUserByEmail($email) {
 	
 	$errors = array();
 	$matches = array();
-	foreach ($result as $idx => $record)
-	{
+	foreach ($result as $idx => $record) {
 		$recordEmail = sanitize($record[getRF('email')]);
 		
 		logIt("email: $email / recordEmail: $recordEmail");
-		if( $email == $recordEmail )
-		{
+		if( $email == $recordEmail ) {
 			$matches[$record[REDCAP_FIRST_FIELD]] = $record;
 		}
 	}
 	
-	if (count($matches) == 0)
-	{
+	if (count($matches) == 0) {
 		logIt("Found no matching users with email: $email", "DEBUG");
 		return false;
 	}
 	
-	if (count($matches) > 1)
-	{
+	if (count($matches) > 1) {
 		// Found more than one match!
 		logIt("Found more than one match for email: $email", "ERROR");
 		return false;
 	}
 	
-	if (count($matches) == 1)
-	{
+	if (count($matches) == 1) {
 		$user_id = key($matches);
 		logIt("Found $user_id via email", "INFO");
 		$user = new RedcapPortalUser($user_id);
@@ -392,216 +387,89 @@ function getUserByEmail($email) {
 
 
 //------------------------------------------------------------------
-// A STATIC CLASS FOR REDCAP API METHODS
-class RC {
-	// Make API Call
-	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL, $json_decode = true) {
-		$default_params = array(
-			'token' => REDCAP_API_TOKEN,
-			'format' => 'json',
-			'content' => 'record'
-		);	
-		
-		$params = array_merge($default_params, $extra_params);
-		//logIt("New Params:" . print_r($params,true), "DEBUG");
-		
-		$result = self::http_post($api_url, $params);
-		//logIt('call API Raw result: ' . print_r($result,true), "DEBUG");
-		
-      
-      if ($json_decode) {
-         $result = json_decode($result, true);
-         if (isset($result->error)) {
-            echo 'Error in writeToApi: ' . $result->error . ' from ' . print_r($result,true);
-            return false;
-         }
-      } else {
-         // Return raw result
-      }
-      //logIt('call API result: ' . print_r($result,true), "DEBUG");
-      return $result;
-	}
-	
-	// Write to the API
-	public static function writeToApi($data, $extra_params = array(), $api_url = REDCAP_API_URL) {
-		// Force data into an array of arrays if not already set
-		if (!is_array(current($data))) $data = array($data);
-	
-		$extra_params = array_merge(
-			array(
-				'content' => 'record',
-				'type' => 'flat',
-				'data' => json_encode($data)
-			), $extra_params
-		);
-		$j = self::callApi($extra_params, $api_url);
-		return $j;
-	}
-	
-	// Send HTTP Post request and receive/return content
-	static function http_post($url="", $params=array(), $timeout=null, $content_type='application/x-www-form-urlencoded') {
-		// If params are given as an array, then convert to query string format, else leave as is
-		if ($content_type == 'application/json') {
-			// Send as JSON data
-			$param_string = (is_array($params)) ? json_encode($params) : $params;
-		} else {
-			// Send as Form encoded data
-			$param_string = (is_array($params)) ? http_build_query($params, '', '&') : $params;
-		}
-
-		// Check if cURL is installed first. If so, then use cURL instead of file_get_contents.
-		if (function_exists('curl_init'))
-		{
-			// Use cURL
-			$curlpost = curl_init();
-			curl_setopt($curlpost, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($curlpost, CURLOPT_VERBOSE, 0);
-			curl_setopt($curlpost, CURLOPT_FOLLOWLOCATION, true);
-			curl_setopt($curlpost, CURLOPT_AUTOREFERER, true);
-			curl_setopt($curlpost, CURLOPT_MAXREDIRS, 10);
-			curl_setopt($curlpost, CURLOPT_URL, $url);
-			curl_setopt($curlpost, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curlpost, CURLOPT_CUSTOMREQUEST, "POST");
-			curl_setopt($curlpost, CURLOPT_POSTFIELDS, $param_string);
-	//		if (!sameHostUrl($url)) curl_setopt($curlpost, CURLOPT_PROXY, PROXY_HOSTNAME); // If using a proxy
-			curl_setopt($curlpost, CURLOPT_FRESH_CONNECT, 1); // Don't use a cached version of the url
-			if (is_numeric($timeout)) {
-				curl_setopt($curlpost, CURLOPT_CONNECTTIMEOUT, $timeout); // Set timeout time in seconds
-			}
-			// If not sending as x-www-form-urlencoded, then set special header
-			if ($content_type != 'application/x-www-form-urlencoded') {
-				curl_setopt($curlpost, CURLOPT_HTTPHEADER, array("Content-Type: $content_type", "Content-Length: " . strlen($param_string)));
-			}
-			$response = curl_exec($curlpost);
-			$info = curl_getinfo($curlpost);
-			curl_close($curlpost);
-			// If returns an HTTP 404 error, return false
-			if (isset($info['http_code']) && $info['http_code'] == 404) return false;
-			else return $response;
-		}
-		// Try using file_get_contents if allow_url_open is enabled
-		elseif (ini_get('allow_url_fopen'))
-		{
-			// Set http array for file_get_contents
-			$http_array = array('method'=>'POST',
-				'header'=>"Content-type: $content_type",
-				'content'=>$param_string
-			);
-			if (is_numeric($timeout)) {
-				$http_array['timeout'] = $timeout; // Set timeout time in seconds
-			}
-	
-			// Use file_get_contents
-			$content = @file_get_contents($url, false, stream_context_create(array('http'=>$http_array)));
-	
-			// Return the content
-			if ($content !== false) {
-				return $content;
-			}
-			// If no content, check the headers to see if it's hiding there (why? not sure, but it happens)
-			else {
-				$content = implode("", $http_response_header);
-				// If header is a true header, then return false, else return the content found in the header
-				return (substr($content, 0, 5) == 'HTTP/') ? false : $content;
-			}
-			// Return false
-			return false;
-		}
-	}
-}
-
-	
-//------------------------------------------------------------------
 // OTHER METHODS
-	
+//------------------------------------------------------------------
+
 // Looks up the redcap field name for a given user property
 function getRF($property) {
 	global $redcap_field_map;
-	if( isset($redcap_field_map[$property]) )
-	{
+	if( isset($redcap_field_map[$property]) ) {
 		return $redcap_field_map[$property];
-	}
-	else
-	{
+	} else {
 		logIt("Error finding $property in redcap_field_map", "ERROR");
 		return false;
 	}
 }
+
 
 // lowercase and strip tags
 function sanitize($str) {
 	return strtolower(strip_tags(trim(($str))));
 }
 
+
 // Regex to validate email address
 function isValidemail($email) {
 	return preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",trim($email));
 }
 
+
 // Determine if length of string is in range
 function minMaxRange($min, $max, $what) {
-	if(strlen(trim($what)) < $min)
+	if(strlen(trim($what)) < $min || strlen(trim($what)) > $max) {
 		return true;
-	else if(strlen(trim($what)) > $max)
-		return true;
-	else
+	} else {
 		return false;
+	}
 }
+
 
 //@ Thanks to - http://phpsec.org
 function generateHash($plainText, $salt = null) {
-	if ($salt === null || strlen($salt) < 25)
-	{
+	if ($salt === null || strlen($salt) < 25) {
 		$salt = generateRandomString(25, true);
-	}
-	else
-	{
+	} else {
 		$salt = substr($salt, 0, 25);
 	}
+
 	return $salt . sha1($salt . $plainText);
 }
+
 
 // Used to pull from languge file
 function lang($key,$markers = NULL) {
 	global $lang;
 	
-	if($markers == NULL)
-	{
-		$str = $lang[$key];
-	}
-	else
-	{
+	$str = $lang[$key];
+	if($markers != NULL) {
 		//Replace any dyamic markers
-		$str = $lang[$key];
-
-		$iteration = 1;
-		
-		foreach($markers as $marker)
-		{
+		$iteration 	= 1;
+		foreach($markers as $marker) {
 			$str = str_replace("%m".$iteration."%",$marker,$str);
-			
 			$iteration++;
 		}
 	}
 	
 	//Ensure we have something to return
-	if($str == "")
-	{
+	if($str == "") {
 		return ("No language key found");
-	}
-	else
-	{
-		return $str;
-	}
+	} 
+	
+	return $str;
 }
+
 
 //Log to file
 function logIt($msg, $level = "INFO") {
 	global $loggedInUser, $user;
+	
 	$user_id = isset($loggedInUser) ? "[" . $loggedInUser->user_id . "]" : NULL;
 	if (!$user_id && is_object($user)) $user_id = "~" . $user->user_id . "~";
 	file_put_contents(LOG_FILE,	date( 'Y-m-d H:i:s' ) . "\t" . $level . "\t" . $user_id . "\t" . $msg . "\n", FILE_APPEND );
+
+	return;
 }
+
 
 // Creates random alphanumeric string
 function generateRandomString($length=25, $addNonAlphaChars=false, $onlyHandEnterableChars=false, $alphaCharsOnly=false) {
@@ -626,14 +494,14 @@ function generateRandomString($length=25, $addNonAlphaChars=false, $onlyHandEnte
 	// (because this could cause issues if opened in certain software - e.g. Excel)
 	if (preg_match('/^\d+E\d/', $string)) {
 		return generateRandomString($length, $addNonAlphaChars, $onlyHandEnterableChars);
-	} else {
-		return $string;
-	}
+	} 
+		
+	return $string;
 }
 
+
 // Clean and convert security answer to MD5 hash
-function hashSecurityAnswer($answer_orig)
-{
+function hashSecurityAnswer($answer_orig) {
 	// Trim and remove non-alphanumeric characters (but keep spaces and keep lower-case)
 	$answer = trim($answer_orig);	
 	// Replace non essential characters
@@ -647,16 +515,12 @@ function hashSecurityAnswer($answer_orig)
 }	
 
 
-
-
 //------------------------------------------------------------------
 // Used by UserPie Email
-function replaceDefaultHook($str)
-{
+function replaceDefaultHook($str) {
 	global $default_hooks,$default_replace;
 
 	return (str_replace($default_hooks,$default_replace,$str));
 }
-
 	
 ?>

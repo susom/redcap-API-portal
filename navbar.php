@@ -8,9 +8,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<div>
-				<a style="margin:5px;" class="navbar-brand" id="logo" href="http://lymphaticnetwork.org/">
-					<!--img src="assets/img/LEARN_HEADER_296x82.png" /-->
-				</a>
+				<a class="navbar-brand" id="logo" href="http://lymphaticnetwork.org/"></a>
 			</div>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,11 +31,11 @@
 <script type='text/javascript' ?>
 	$( document ).ready(function() {
 		var page = '<?php echo $PAGE ?>';
-		console.log ('Page: ' + page);
+		// console.log ('Page: ' + page);
 		$(".nav").find(".active").removeClass("active");
-		console.log ($(".nav").find('a[href~="' + page + '"]'));
-		console.log ($(".nav").find('a[href~="' + page + '"]').first());
-		console.log ($(".nav").find('a[href~="' + page + '"]').first().parent());
+		// console.log ($(".nav").find('a[href~="' + page + '"]'));
+		// console.log ($(".nav").find('a[href~="' + page + '"]').first());
+		// console.log ($(".nav").find('a[href~="' + page + '"]').first().parent());
 		$(".nav").find('a[href~="' + page + '"]').parent().addClass("active");
 		//$(this).parent().addClass("active");
 	});

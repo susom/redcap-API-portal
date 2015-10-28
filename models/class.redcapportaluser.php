@@ -1,5 +1,4 @@
 <?php
-
 /*
    This class can be used in two cases:
    
@@ -15,27 +14,26 @@
 
 // A class used for looking up users and matching credentials.
 class RedcapAuth {
-   public $username;
-   public $username_raw;
-   private $password;
-   private $password_raw;
+   public   $username;
+   public   $username_raw;
+   private  $password;
+   private  $password_raw;
    
-   public $username_matches = array();    // Array to store record indexes for username matches
-   public $email_matches = array();    // Array to store record indexes for email matches
+   public   $username_matches = array();    // Array to store record indexes for username matches
+   public   $email_matches    = array();    // Array to store record indexes for email matches
    
-   public $error = '';                 // a place to hold error messages
-   public $authenticated_user_id = NULL;  // If the credentials are valid, set the user id here
-   public $new_user_id;             // The ID of the new user that was created
+   public   $error = '';                 // a place to hold error messages
+   public   $authenticated_user_id = NULL;  // If the credentials are valid, set the user id here
+   public   $new_user_id;             // The ID of the new user that was created
    
-   public $suspended;
-   public $email_verified;
+   public   $suspended;
+   public   $email_verified;
    
    // When launched, provide current credentails
-   public function __construct($user, $pass = NULL, $email = NULL)
-   {
-      $this->username_raw = trim($user);
-      $this->username = sanitize($user);
-      $this->email = sanitize($email);
+   public function __construct($user, $pass = NULL, $email = NULL){
+      $this->username_raw  = trim($user);
+      $this->username      = sanitize($user);
+      $this->email         = sanitize($email);
       
       // Load the record data from the API and get any username matches
       self::loadRecords();
@@ -54,8 +52,7 @@ class RedcapAuth {
    
    public function verifyPassword($login_pass) {
       // The password contains 25 characters as a salt and then then generated password by SHA1 encrypting the salt+pass.
-      foreach ($this->username_matches as $id => $record)
-      {
+      foreach ($this->username_matches as $id => $record){
          // Trim the database-stored password
          $record_salt_pass = $record[getRF('password')];
          
@@ -64,8 +61,7 @@ class RedcapAuth {
          // Take the remaining characters as the password
          $record_pass = substr($record_salt_pass,25); //trim($record[getRF('password')]);
          logIt("Comparing $id:  salt=$record_salt / pass=$record_pass", "DEBUG");
-         if (!empty($record_pass) && !empty($record_salt))
-         {
+         if (!empty($record_pass) && !empty($record_salt)){
             $generated_pass = generateHash($login_pass, $record_salt);
             logIt("Generating: $generated_pass","DEBUG");
             if ($generated_pass == $record_salt_pass) {
@@ -74,12 +70,12 @@ class RedcapAuth {
             }
          }
       }
+
       return Null;
    }
    
    // Load all records from project to prepare to validate
-   public function loadRecords()
-   {
+   public function loadRecords(){
       $params = array(
          'fields' => array(REDCAP_FIRST_FIELD, getRF('username'), getRF('password'), getRF('email'))
       );
@@ -88,25 +84,22 @@ class RedcapAuth {
       // Scan records for email and username matches and to set nextId
       $new_id = 1;
       $username_matches = $email_matches = array();
-      foreach ($result as $idx => $record)
-      {
+
+      foreach ($result as $idx => $record){
          $id = $record[REDCAP_FIRST_FIELD];
-         if(is_numeric($id) && $id >= $new_id) $new_id = $id+1;
-         
-         if ($this->username == sanitize($record[getRF('username')])) $username_matches[$id] = $record;
-         if ($this->email == sanitize($record[getRF('email')])) $email_matches[$id] = $record;
+         if (is_numeric($id)  && $id >= $new_id)                        $new_id                 = $id+1;
+         if ($this->username  == sanitize($record[getRF('username')]))  $username_matches[$id]  = $record;
+         if ($this->email     == sanitize($record[getRF('email')]))     $email_matches[$id]     = $record;
       }
-      $this->next_user_id = $new_id;
+      $this->next_user_id     = $new_id;
       $this->username_matches = $username_matches;
-      $this->email_matches = $email_matches;
-      //print "RA:LOAD RECORDS<pre>".print_r($result,true)."</pre>";
+      $this->email_matches    = $email_matches;
+      // print "RA:LOAD RECORDS<pre>".print_r($result,true)."</pre>";
    }
    
    // Create a new user in the REDCap project
-   public function createNewUser($pass)
-   {
-      if (self::usernameExists())
-      {
+   public function createNewUser($pass) {
+      if (self::usernameExists()) {
          $this->error = "Error creating user (CODE 001)"; // Don't create a user if they already exist!
          return false;
       }
@@ -125,22 +118,19 @@ class RedcapAuth {
          getRF('username')    => $this->username,
          getRF('password')    => $password_salt_hash,
          getRF('email')       => $this->email,
-         getRF('created_ts') => date('Y-m-d H:i:s')
+         getRF('created_ts')  => date('Y-m-d H:i:s')
       );
       // Add event if longitudinal
       if (REDCAP_PORTAL_EVENT !== NULL) $data['redcap_event_name'] = REDCAP_PORTAL_EVENT;
-      
+
       logIt("CREATE NEW USER WITH DATA:".print_r($data,true), "DEBUG");
       $result = RC::writeToApi($data, array('returnContent'=>'ids'));
       
       $new_user_id = is_array($result) ? current($result) : null;
       
-      if (is_numeric($new_user_id))
-      {
+      if (is_numeric($new_user_id)) {
          $this->new_user_id = $new_user_id;
-      }
-      else
-      {
+      } else {
          logIt("Error creating new user: " . print_r($result,true), "ERROR");
          $this->error = "Error creating user via API";
       }
@@ -154,9 +144,7 @@ class RedcapAuth {
 class RedcapPortalUser 
 {
    public $errors = array();
-   
    public $user_id = Null; // User ID in REDCAP_FIRST_FIELD
-   
    public $mail_failure = false; // Used to record
    
 // public $username;
@@ -177,21 +165,16 @@ class RedcapPortalUser
    
    public $log_entry = array();  // Place to store log_entry that can be written to the log
    
-   function __construct($user_id)
-   {
+   function __construct($user_id) {
       if (empty($user_id)) {
          logIt("REDCap user created with missing user_id!","ERROR");
          addSessionAlert("Error accessing user information.  Please try again later.");
          logout();die();
       }
-      
       $this->user_id = $user_id;
-      
-      
       
       // Load the user attributes from API
       self::loadUser();
-      
    }
 
    #################### STATUS ###################
@@ -248,22 +231,17 @@ class RedcapPortalUser
       //logIt("Hooks: " . print_r($hooks,true), "DEBUG");   
          
       // Build the template - Optional, you can just use the sendMail function to message
-      if(!$mail->newTemplateMsg("new-registration.txt",$hooks))
-      {
+      if(!$mail->newTemplateMsg("new-registration.txt",$hooks)) {
          logIt("Error building rew-registration email template", "ERROR");
          $this->mail_failure = true;
-      }
-      else
-      {
+      } else {
          // Send the mail. Specify users email here and subject. 
          // SendMail can have a third parementer for message if you do not wish to build a template.
          if(!$mail->sendMail($this->email,"$websiteName Email Verification"))
          {
             logIt("Error sending email: " . print_r($mail,true), "ERROR");
             $this->mail_failure = true;
-         }
-         else
-         {
+         } else {
             // Update email_act_sent_ts
             $this->log_entry[] = "Verification email sent.";
             self::updateUser(array(
@@ -289,8 +267,7 @@ class RedcapPortalUser
       return (!empty($token) && $this->email_act_token == $token);
    }
    
-   function setEmailVerified()
-   {
+   function setEmailVerified() {
       $this->log_entry[] = "Email verified (setting ts)";
       
       // Update token
@@ -301,8 +278,7 @@ class RedcapPortalUser
       ), array('overwriteBehavior'=>'overwrite'));
    }
    
-   function setActive()
-   {
+   function setActive() {
       $this->log_entry[] = "Activating user";
       // Update
       return self::updateUser(array(
@@ -353,9 +329,7 @@ class RedcapPortalUser
    function isPasswordResetPending() {
       if (!empty($this->pass_reset_req_ts)) {
          return true;
-      }
-      else
-      {
+      } else {
          return false;
       }
    }
@@ -370,8 +344,7 @@ class RedcapPortalUser
    
    function isPasswordRecoveryConfigured() {
       global $password_reset_pairs;
-      foreach ($password_reset_pairs as $i => $pair)
-      {
+      foreach ($password_reset_pairs as $i => $pair) {
          // If any fields are empty, then return false
          if (empty($this->$pair['question']) || empty($this->$pair['answer'])) return false;
       }
@@ -410,8 +383,7 @@ class RedcapPortalUser
       
       logIt("updateUser data1:".print_r($data,true), "DEBUG");
       
-      if ($flushLog && count($this->log_entry > 0))
-      {
+      if ($flushLog && count($this->log_entry > 0)) {
          $newLog = array(getRF('log') => implode("\n",$this->log_entry));
          $data = array_merge($data,$newLog);
          //$this->log_entry = array();
@@ -419,8 +391,7 @@ class RedcapPortalUser
       
       //logIt("updateUser data2:".print_r($data,true), "DEBUG");
       $result = RC::writeToApi($data, $extra_params);
-      if (isset($result['error']))
-      {
+      if (isset($result['error'])) {
          logIt('Error updating User: ' . $result['error'] . " with: " . print_r($data,true));
          return false;
       }

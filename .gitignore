@@ -2,3 +2,5 @@ models/my_settings.php
 .tmp
 .DS_Store
 .svn
+test.php
+

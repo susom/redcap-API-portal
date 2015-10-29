@@ -6,10 +6,6 @@ if(isUserLoggedIn()){
 	logIt('Logged in - redirect to userpage...', 'DEBUG');
 	header("Location: userpage.php");
 	die();
-}else{
-	// You could include or display a page...
-	//	logIt('At index but not logged in - redirect to landing-page...', 'DEBUG');
-	//	include('landing-page.php');
 }
 
 $page = new htmlPage("Login | $websiteName");
@@ -18,10 +14,8 @@ $page->printStart();
 // Add nav bar
 require_once("navbar.php");
 print getSessionMessages();
-
-logIt("At index / Landing Page","DEBUG");
 ?>
-<div id="content" style="width: 75%;">
+<div id="content" style="width: 78%;">
     <h1>The National Lymphatic Disease and Lymphedema Registry</h1>
 
     </br>
@@ -43,7 +37,9 @@ logIt("At index / Landing Page","DEBUG");
 		<a class="btn btn-large" href="login.php">Login</a> 
 		<a class="btn btn-teal btn-large" href="register.php">Register</a>
 	</p>
+	
 	<br>
+
 	<div class="clear"></div>
 </div>
 <script>

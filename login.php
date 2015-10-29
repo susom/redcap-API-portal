@@ -1,8 +1,11 @@
 <?php
 require_once("models/config.php");
 
-//Prevent the user visiting the login page if he/she is already logged in
-if(isUserLoggedIn()) { header("Location: $websiteUrl"); die(); }
+//REDIRECT USERS THAT ARE ALREADY LOGGED IN
+if(isUserLoggedIn()) { 
+	header("Location: $websiteUrl"); 
+	exit; 
+}
 
 //--------------------------------------------------------------------
 // Login Posted
@@ -48,7 +51,7 @@ if(!empty($_POST) && isset($_POST['new_login'])) {
 
 // Use email for label if suppressing username
 $username_label 		= $portal_config['useEmailAsUsername'] ? "Email" : "Username";
-$username_validation 	= $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
+$username_validation	= $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
 
 $loginPanel = new bootstrapPanel();
 $loginPanel->setType('primary');
@@ -88,6 +91,7 @@ require_once("navbar.php");
 			<?php	print getSessionMessages(); ?>
 			<div class="max-400">
 				<form id="loginForm" name="loginForm" class="form-horizontal" action="" method="post">
+					<span class="headerText">Sign In</span>
 					<?php echo $loginPanel->getPanel() ?>
 				</form>
 			</div>

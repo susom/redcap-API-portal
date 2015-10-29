@@ -1,5 +1,4 @@
 <?php
-
 function getSurveyLink($id,$instrument,$event, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
 	$params = array(
 		'token' 		=> $api_token,
@@ -95,10 +94,6 @@ function informedConsented($id, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP
 	$status_hipaa 				= isset($json[0]['hipaa___1']					) ? $json[0]['hipaa___1']					 : 0;
 	$status_registry_consent 	= isset($json[0]['registry_consent___1']		) ? $json[0]['registry_consent___1']		 : 0;
 	$consent_complete 			= isset($json[0]['informed_consents_complete']	) ? $json[0]['informed_consents_complete']	 : 0;
-	// logIt( "getConsentStatus 1 medrec: ".$status_medrec, "DEBUG");
-	// logIt( "getConsentStatus 1 hipaa ".$status_hipaa, "DEBUG");
-	// logIt( "getConsentStatus 1 registry ". $status_registry_consent, "DEBUG");
-	// logIt( "getConsentStatus 1 complete ". $consent_complete, "DEBUG");
 	
 	//this won't work since she is using NO = 2; check each individually
 	$status  = $status_medrec + $status_hipaa + $status_registry_consent + $consent_complete;
@@ -126,6 +121,4 @@ function getAllCompletionStatus($id,$instruments,$event,  $api_token = REDCAP_AP
 	
 	return $result;
 }
-
-
 ?>

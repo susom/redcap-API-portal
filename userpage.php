@@ -1,5 +1,6 @@
 <?php 
 require_once("models/config.php");
+include(PORTAL_INC_PATH."/learn_functions.php");
 
 //requireUserAccount();	// Allow any user/pass to enter - even if they are missing profile requirements
 requireActiveUserAccount();	// Only allow 'active' users that presumably have met all requirements
@@ -10,7 +11,6 @@ requireActiveUserAccount();	// Only allow 'active' users that presumably have me
 $page = new htmlPage("User Page | $websiteName");
 $page->printStart();
 require_once("navbar.php");
-include("learn_functions.php");
 ?>
 <div class='container'>
    <div class="row">

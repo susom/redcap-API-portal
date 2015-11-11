@@ -1,0 +1,211 @@
+form:after, article:after, aside:after, figure:after, figcaption:after, footer:after, header:after, hgroup:after, nav:after, section:after,
+contents:after, .container:after { visibility: hidden; display: block; clear: both; height: 0; font-size: 0; content: " "; }
+
+a:hover { text-decoration:underline; }
+
+body { background:#f0f4f5; }
+#header { 
+	background:#fff; 
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+}
+#global-footer, #global-footer .container { background:#333; text-align:center;  }
+#brandbar { background:#000; height:32px; }
+#brandbar .container { padding-top:0; }
+.som_logo {
+	margin-top:3px; 
+}
+
+nav { 
+	width:620px; 
+}
+nav ul { margin:0; }
+
+
+.nav-item { 
+	line-height:100%; 
+	display:inline-block; 
+	position:relative; 
+}
+.nav-item > a { 
+	display: inline-block;
+    color: #fff;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 108%;
+    line-height: 210%;
+    margin: 0;
+    padding: 0px 30px;
+    text-align:center; 
+
+    height: 32px;
+    border-right: 1px solid #efefef;
+}
+.nav-item:last-child > a {
+	border-right:none; 
+}
+.nav-item-panel > aside {
+	display:block; 
+	padding:20px; 
+	
+}
+.nav-item-panel {
+	display:none; 
+	box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
+}
+.nav-item.hot .nav-item-panel { 
+	display:block; 
+	position:absolute; 
+	z-index:100;
+	left:-100px; 
+	width:320px; 
+	color: #eeeeee;
+	border-radius:0 0 10px 10px; 
+    /*text-shadow: 1px 1px 2px #333;*/
+	background-color: #666666;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAH0lEQVQImUXGMREAMBAEobWD/jP4VSYVhFU9w7Cf6gCFUwcVKa1TogAAAABJRU5ErkJggg==);
+}
+.nav-item.hot a, .nav-item a:hover {
+	background-color: #666666;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAH0lEQVQImUXGMREAMBAEobWD/jP4VSYVhFU9w7Cf6gCFUwcVKa1TogAAAABJRU5ErkJggg==);
+}
+
+.nav-item-panel .form-horizontal .control-label {
+	display:inline-block; 
+	padding-top:0; 
+	margin-bottom:5px; 
+}
+.nav-item-panel input{ 
+	margin-bottom:10px; 
+}
+.nav-item-panel a {
+	color:#fff; text-decoration:none; 
+	margin-top:5px;
+}
+.nav-item-panel h3 { color:#fff; margin-bottom:15px; }
+.nav-item-panel .footer-links { text-align:center; }
+.footer-links .emailus {
+	text-align:left; 
+	font-style:italic;
+	font-size:85%;
+	padding:10px 0 0; 
+}
+.nav-item-panel .btn { display:inline-block; margin:10px 0; text-decoration:none; }
+.nav-item-panel .recoverpw { margin-top:20px; color:#fff; }
+.nav-item-panel .login {margin-top:20px; }
+
+aside.loginForm { }
+aside.lostPass { display:none; }
+
+.col-centered { 
+	float:none;
+	margin:0 auto;
+}
+
+.consent #main-content { 
+	padding:30px 0; 
+	background:#333 url(https://redcap.stanford.edu/redcap_v6.9.4/Resources/images/bg_blackstripe.png) -107px 11px repeat; 
+	border-radius:10px;  
+}
+
+#content {
+	margin:40px auto 60px; 
+}
+h2.headline { 
+	font-size:32px; 
+	padding-bottom:8px; 
+}
+
+.registerForm .footer-links{ 
+ 	padding:15px; 
+}
+
+.eligibilityForm label {
+	display:block; 
+}
+
+.eligibilitySection blockquote {
+	position:absolute;
+	opacity:0;
+
+	transition: opacity 2s;
+}
+
+.eligibilitySection blockquote.uneligibile {
+	position:relative;
+	opacity:1;
+    width: 90%;
+    border-left: 0;
+    margin: 10px auto 0;
+    position: relative;
+}
+
+.uneligibile:after{
+	content: "";
+    border-top: 30px solid white;
+    width: 30px;
+    height: 60px;
+    background: tranparent;
+    position: absolute;
+    border-left: 30px solid #777;
+    border-bottom: 30px solid white;
+    top: 0;
+    right: -30px;
+}
+
+#feature-banner .feature-caption:before { 
+	border-radius:10px; 
+}
+section {
+	background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 0.2px rgba(0, 0, 0, 0.1);
+    padding:10px; 
+    border-radius:10px; 
+}
+
+.well {
+	background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 0.2px #ccc;
+    padding:0; 
+}
+.well h2 {     
+	margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 400;
+    background-color: #8c1515;
+    text-align: center; 
+    border-radius: 10px 10px 0 0;
+    padding-bottom:10px; 
+}
+.well p {
+	margin:10px 10px 15px; 
+}
+
+.well form { 
+	margin:10px 10px 15px; 
+}
+.well form input{
+	margin-bottom:10px; 
+}
+
+
+.footer-links {
+	border-top: 1px solid #dddddd;
+	clear:both; 
+}
+
+
+.well .footer-links {
+	margin:0 10px; 
+}
+.well .footer-links p { 
+	margin:5px 0 10px; 
+}
+
+.g-recaptcha {
+	position:relative; 
+	margin-left:-10px; 
+	margin-bottom:10px; 
+}

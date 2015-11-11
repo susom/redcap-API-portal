@@ -1,0 +1,426 @@
+/* SM.Commons.HeroBanner: base.less */
+.hero-banner-container .rsDefault .rsContent {
+  position: relative;
+}
+.hero-banner-container .rsDefault .rsContent .image {
+  width: 100%;
+}
+@media (max-width: 479px) {
+  .hero-banner-container .rsDefault .rsContent .image {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  width: 216%;
+}
+
+}
+@media (max-width: 479px) {
+  .hero-banner-container .rsDefault .rsContent .container .row .main-content .hero-banner-infobox-container {
+  width: 50%;
+}
+
+}
+/* The Everest design and the Royal Slider don't really place nice together out of the box 
+   This is primarily due to the fact that the Royal slider renders the slide divs and the arrow div as siblings and the parent 
+   container has an overflow hidden style.  Unfortunately, Everest design dictates that the arrows should be displayed *outside* 
+   of the boundaries of the slide window. To get this to all work together nicely, we have to jump through a few hoops, the 
+   following explains what's needed and why to help make maintenance easier in the future. */.hero-container > .container {
+  /* First we need to override the default bootstrap behavior on the child .container element, we do so mobile first.
+     We also remove the 10px worth of padding give by default (this is important bc we have to pay it back later) */
+
+  width: 100%;
+  padding: 0;
+  /* Because the arrows only need to be outside at higher resolutions we only change the medium and large display styles
+     For both we need to take the default bootstrap size and add 88px, since each arrow div is 44px wide. */
+  /* Now with royal slider we need to set the slider window, .rsContainer, to the original bootstrap widths, this ensures the photos 
+     line up properly with the rest of the element in the Everest layout.  Again, we do mobile first and only change the styling for
+     medium and large displays */
+}
+.hero-container > .container > .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.hero-container > .container > .row > .col-md-12 {
+  padding-left: 0;
+  padding-right: 0;
+}
+@media (min-width: 992px) {
+  .hero-container > .container {
+  width: 1028.75px;
+}
+
+}
+@media (min-width: 1200px) {
+  .hero-container > .container {
+  width: 1228.75px;
+}
+
+}
+.hero-container > .container .rsContainer {
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .hero-container > .container .rsContainer {
+  /* Here we also add in a margin left to push the slider window between the two slider arrow divs.  The value used here is 
+           taken from the width of one arrow div, 44px, and half of the .container's original padding value, 10px/2 = 5px.  The reason
+           for this is the original bootstrap widths take the original 10px padding into account, however we removed it above, so we have 
+           to add half of it back to get the math correct.  */
+  margin-left: 49px;
+  margin-left: 3.5rem;
+  width: 930.75px;
+}
+
+}
+@media (min-width: 1200px) {
+  .hero-container > .container .rsContainer {
+  width: 1130.75px;
+}
+
+}
+
+/* SM.Everest: base.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less */a.external {
+  position: relative;
+}
+a.external:after {
+  content: "\f061";
+  position: absolute;
+  bottom: 0;
+  right: -15px;
+  display: inline-block;
+  height: 19px;
+  padding-top: 1px;
+  font-size: 10px;
+  font-family: fontawesome;
+}
+/* END SM.Everest: base.less */
+/* SM.Everest: local.nav.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less *//* Local Navigation Styles - Everest */
+.navbar-local {
+  margin-bottom: 12px;
+  margin-bottom: 0.8571428571428571rem;
+  padding: 0;
+  outline: 0;
+}
+.navbar-local .local-nav-heading {
+  background-color: #8c1515;
+  -webkit-border-radius: 2px 0px 0px 2px;
+  -webkit-border-radius: 0.14285714285714285rem 0rem 0rem 0.14285714285714285rem;
+  -moz-border-radius: 2px 0px 0px 2px;
+  -moz-border-radius: 0.14285714285714285rem 0rem 0rem 0.14285714285714285rem;
+  border-radius: 2px 0px 0px 2px;
+  border-radius: 0.14285714285714285rem 0rem 0rem 0.14285714285714285rem;
+  -moz-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  width: 100%;
+}
+.navbar-local .tagline,
+.navbar-local h1.tagline {
+  height: 146px;
+  height: 10.428571428571429rem;
+}
+.navbar-local .tagline.no-heading,
+.navbar-local h1.tagline.no-heading {
+  padding: 2px 18px;
+  padding: 0.14285714285714285rem 1.2857142857142858rem;
+  height: 0;
+}
+.navbar-accordion > .nav {
+  /* First Level */
+
+}
+.navbar-accordion > .nav a:link,
+.navbar-accordion > .nav a:active,
+.navbar-accordion > .nav a:visited {
+  color: #ffffff;
+  line-height: 16px;
+  line-height: 1.1428571428571428rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  letter-spacing: 0.03571428571428571rem;
+}
+.navbar-accordion > .nav a:hover,
+.navbar-accordion > .nav a:focus,
+.navbar-accordion > .nav a.active {
+  background-color: #555555;
+}
+.navbar-accordion > .nav a i.fa.fa-chevron-down,
+.navbar-accordion > .nav a button.fa.fa-chevron-down {
+  font-size: 10px;
+}
+.navbar-accordion > .nav button.nav-sub-menu {
+  color: #ffffff;
+  text-indent: 0;
+}
+.navbar-accordion > .nav > li {
+  /* Second Level */
+
+}
+.navbar-accordion > .nav > li a {
+  padding: 9px 22px 9px 13px;
+  padding: 0.6428571428571429rem 1.5714285714285714rem 0.6428571428571429rem 0.9285714285714286rem;
+  background-color: #333333;
+}
+.navbar-accordion > .nav > li a.active {
+  background-color: #555555;
+}
+.navbar-accordion > .nav > li > ul > li,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li {
+  float: none;
+  /* Third Level */
+
+}
+.navbar-accordion > .nav > li > ul > li a,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li a {
+  padding: 6px 22px 6px 13px;
+  padding: 0.42857142857142855rem 1.5714285714285714rem 0.42857142857142855rem 0.9285714285714286rem;
+  background-color: #707070;
+}
+.navbar-accordion > .nav > li > ul > li a .has-children,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li a .has-children {
+  /*top: 0.5rem;*/
+
+  padding-top: 8px;
+  padding-top: 0.5714285714285714rem;
+}
+.navbar-accordion > .nav > li > ul > li a:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li a:hover {
+  text-decoration: none;
+}
+.navbar-accordion > .nav > li > ul > li a.active,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li a.active {
+  font-weight: 600;
+  background-color: #707070;
+}
+.navbar-accordion > .nav > li > ul > li a.active:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li a.active:hover {
+  background-color: #555555;
+}
+.navbar-accordion > .nav > li > ul > li > ul > li a,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a,
+.navbar-accordion > .nav > li > ul > li > ul > li a:link,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a:link,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a:link,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a:link,
+.navbar-accordion > .nav > li > ul > li > ul > li a:active,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a:active,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a:active,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a:active,
+.navbar-accordion > .nav > li > ul > li > ul > li a:visited,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a:visited,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a:visited,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a:visited {
+  color: #333333;
+  background-color: #dddddd;
+}
+.navbar-accordion > .nav > li > ul > li > ul > li a:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a:hover,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a:hover,
+.navbar-accordion > .nav > li > ul > li > ul > li a.active,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a.active,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a.active,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a.active {
+  color: #333333;
+}
+.navbar-accordion > .nav > li > ul > li > ul > li a:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > ul > li a:hover,
+.navbar-accordion > .nav > li > ul > li > .nav-item-panel > section > ul > li a:hover,
+.navbar-accordion > .nav > li > .nav-item-panel > section > ul > li > .nav-item-panel > section > ul > li a:hover {
+  background-color: #555555;
+  text-decoration: none;
+  color: #ffffff;
+}
+.navbar-accordion > .nav > li > a {
+  border-bottom: 1px solid #333333;
+}
+.navbar-accordion > .nav > li > a[data-toggle]:not(.collapsed) {
+  border-bottom: 2px solid #333333;
+}
+.navbar-accordion > .nav > li > a:last-child:after,
+.navbar-accordion > .nav > li > a.collapsed:after {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  z-index: 30;
+  content: "";
+  display: block;
+  height: 10px;
+  width: 100%;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjMiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.3)), color-stop(100%, rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.navbar-accordion > .nav .has-children {
+  padding: 12px 10px 6px 10px;
+  padding: 0.8571428571428571rem 0.7142857142857143rem 0.42857142857142855rem 0.7142857142857143rem;
+}
+/* Hide the local-nav when in mobile/tablet mode */
+@media (max-width: 991px) {
+  #mainContent .navbar-local {
+  display: none;
+}
+
+}
+.slide-right .header-global .navbar-mobile {
+  padding: 5px 7px 0px 7px;
+  padding: 0.35714285714285715rem 0.5rem 0rem 0.5rem;
+}
+.slide-right .header-global .navbar-local {
+  padding-top: 5px;
+  padding-top: 0.35714285714285715rem;
+}
+.slide-right .header-global .navbar-local .local-nav-heading {
+  display: none;
+}
+.slide-right .header-global .navbar-local > .nav {
+  border-top: 6px solid #8c1515;
+}
+.slide-right .header-global .navbar-local .nav {
+  float: none;
+  /*NOTE: this selector can be removed when everest navigation.jsp uses the common nav HTML */
+
+}
+.no-cssremunit body[class|="everest"] .navbar-local {
+  margin-bottom: 12px;
+}
+.no-cssremunit body[class|="everest"] .slide-right .navbar-local {
+  top: 5.625em;
+  /* 90px */
+
+  width: 16.25em;
+  /* 260px */
+
+  padding: 0 0.5625em;
+  /* 9px */
+
+}
+.lt-ie9 .navbar-local .nav > li a:after {
+  border-top: 1px solid #000000;
+}
+.lt-ie9 .navbar-local .nav > li li a:after {
+  border-top: 1px solid #666666;
+}
+.lt-ie9 .navbar-local .nav .has-children {
+  padding: 8px 10px 6px 10px;
+  padding: 0.5714285714285714rem 0.7142857142857143rem 0.42857142857142855rem 0.7142857142857143rem;
+}
+.lt-ie9 .slide-right .navbar-local {
+  position: relative;
+  top: 0;
+  left: 40px;
+  left: 2.857142857142857rem;
+}
+/* END SM.Everest: local.nav.less */
+/* SM.Base: main.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less */.everest-home .header-local {
+  -webkit-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0rem 0.21428571428571427rem 0.7142857142857143rem 0rem rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0rem 0.21428571428571427rem 0.7142857142857143rem 0rem rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0rem 0.21428571428571427rem 0.7142857142857143rem 0rem rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  position: relative;
+}
+.lt-ie9 .header-local {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#888888,direction=135,strength=3)";
+}
+.tagline-container {
+  display: table;
+  width: 100%;
+  background-color: #8c1515;
+}
+.tagline-container .tagline,
+.tagline-container h1.tagline {
+  padding: 12px;
+  padding: 0.8571428571428571rem;
+  color: #ffffff;
+  font-size: 22px;
+  font-size: 1.5714285714285714rem;
+  letter-spacing: 1px;
+  line-height: 130%;
+  text-transform: uppercase;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 400;
+}
+.tagline-container .tagline a,
+.tagline-container h1.tagline a {
+  color: #ffffff;
+}
+body[class*="everest-"] #outerContainer > .local-nav-heading .tagline-container {
+  padding: 6px;
+  padding: 0.42857142857142855rem;
+}
+@media (min-width: 992px) {
+  body[class*="everest-"] #outerContainer > .local-nav-heading .tagline-container {
+  display: none;
+}
+
+}
+body[class*="everest-page"] #outerContainer > .local-nav-heading .tagline-container {
+  margin-bottom: 24px;
+  margin-bottom: 1.7142857142857142rem;
+}
+
+/* SM.Everest: local.footer.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less *//** TYPOGRAPHY STYLES **/
+/** THEMATIC STYLES **/
+.footer-local {
+  color: #6c6c6c;
+}
+@media (min-width: 479px) {
+  .footer-local {
+  border-top-color: #d0d8da;
+}
+
+}
+.footer-local a {
+  color: #6c6c6c;
+  text-decoration: none;
+}
+.footer-local .link-social .fa {
+  background-color: #d0d8da;
+}
+.footer-local .link-social a {
+  background: none;
+}
+/* END SM.Everest: local.footer.less */
+/* SM.Everest: vendor.overrides.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less *//** TYPOGRAPHY STYLES **/
+/* Bootstrap */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+/** THEMATIC STYLES **/
+/* FontAwesome */
+.no-fontface .fa {
+  background-image: url("images/glyphicons-halflings.png");
+}
+/* END SM.Everest: vendor.overrides.less */
+/* SM.Everest: variables.less */
+/* END SM.Everest: variables.less */

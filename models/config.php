@@ -6,7 +6,9 @@ require_once(dirname(__FILE__)."/class.RCAPI.php");
 require_once(dirname(__FILE__)."/class.redcapportaluser.php");
 require_once(dirname(__FILE__)."/class.mail.php");
 require_once(dirname(__FILE__)."/class.htmlpage.php");
-$PAGE = basename($_SERVER["SCRIPT_FILENAME"]);
+$PAGE 		= basename($_SERVER["SCRIPT_FILENAME"]);
+$start_time	= microtime(true);
+// $end_time = microtime(true) - $start_time; //measure script time
 
 /*
 	Start Session and determine if we are authenticated

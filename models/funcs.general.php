@@ -256,7 +256,7 @@ function logout($message, $timeout = false) {
 	if ($timeout == true) setSessionRedirect($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
 	
 	// Goto Login page but redirect back to original page after authentication
-	header('Location: login.php');
+	header('Location: index.php');
 	die();
 }
 

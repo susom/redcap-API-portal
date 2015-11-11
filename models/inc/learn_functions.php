@@ -78,7 +78,7 @@ function informedConsented($id, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP
 			'format' 	=> 'json',		
 			'content' 	=> 'record',
 			'records' 	=> array($id),
-			'forms' 	=> array('informed_consents')
+			'forms' 	=> array('consent_forms')
  	);
 		
 	$result = RC::http_post( $api_url, $params);
@@ -93,7 +93,7 @@ function informedConsented($id, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP
 	$status_medrec 				= isset($json[0]['medrec_release_auth_txt___1']) ?  $json[0]['medrec_release_auth_txt___1'] : 0;
 	$status_hipaa 				= isset($json[0]['hipaa___1']					) ? $json[0]['hipaa___1']					 : 0;
 	$status_registry_consent 	= isset($json[0]['registry_consent___1']		) ? $json[0]['registry_consent___1']		 : 0;
-	$consent_complete 			= isset($json[0]['informed_consents_complete']	) ? $json[0]['informed_consents_complete']	 : 0;
+	$consent_complete 			= isset($json[0]['consent_forms_complete']	) ? $json[0]['consent_forms_complete']	 : 0;
 	
 	//this won't work since she is using NO = 2; check each individually
 	$status  = $status_medrec + $status_hipaa + $status_registry_consent + $consent_complete;

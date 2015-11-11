@@ -83,9 +83,21 @@ class RC {
 			if ($content_type != 'application/x-www-form-urlencoded') {
 				curl_setopt($curlpost, CURLOPT_HTTPHEADER, array("Content-Type: $content_type", "Content-Length: " . strlen($param_string)));
 			}
+
 			$response 	= curl_exec($curlpost);
 			$info 		= curl_getinfo($curlpost);
 			curl_close($curlpost);
+
+// //CURL IS 2x FASTER THAN file_get_contents  5sec vs 10sec script run time wow.
+// echo "<h2>informedConsented()</h2>";
+// echo "<pre>";
+// print_r($params);
+// print_r($info);
+// print_r($response);
+// global $start_time;
+// $end_time = microtime(true) - $start_time;
+// echo "<br> " .$end_time ." seconds";
+// exit;
 
 			// If returns an HTTP 404 error, return false
 			if (isset($info['http_code']) && $info['http_code'] == 404){ 
@@ -96,6 +108,8 @@ class RC {
 
 		} elseif (ini_get('allow_url_fopen')){ // Try using file_get_contents if allow_url_open is enabled
 			// Set http array for file_get_contents
+			echo "<pre>file_get_contents";
+			print_R($params);
 			$http_array = array(
 				'method'	=>'POST',
 				'header'	=>"Content-type: $content_type",

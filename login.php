@@ -43,6 +43,14 @@ if(!empty($_POST) && isset($_POST['new_login'])) {
 	foreach ($errors as $error) {
 		addSessionAlert($error);
 	}
+
+	header("Location: $websiteUrl"); 
+	exit; 
+
+	//DELETE STUFF BELOW WHEN SURE NOT NEEDED
+
+
+
 } // POST
 
 

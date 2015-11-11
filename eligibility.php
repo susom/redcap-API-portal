@@ -1,80 +1,19 @@
-<?php
+<?
 require_once("models/config.php");
 $pg_title = "Login | $websiteName";
 
+if(isset($_POST["age"])){
+  if($_POST['age'] != 99){
+    $pass = false;
+  }else{
+    $pass = true;
+  }
 
-//Prevent the user visiting the logged in page if he/she is already logged in
-if(isUserLoggedIn()) { 
-	header("Location: index.php"); 
-	die(); 
+  echo json_encode(array("eligibile" => $pass, "url" => "consent.php"));
+  exit;
 }
-
-// Process New User Request
-if(!empty($_POST['submit_new_user'])){
-	$errors 		= array();
-	$email 			= trim($_POST["email"]);
-
-	// use the email as the username if configured
-	$username 		= $portal_config['useEmailAsUsername'] ? $email : trim($_POST["username"]);
-	$password 		= trim($_POST["password"]);
-	$password_again = trim($_POST["password_again"]);
-	
-	// Verify reCaptcha
-	$reCaptcha = verifyReCaptcha();
-	if ($reCaptcha['success'] != true) {
-		$errors[] = "Invalid reCaptcha response - please try again.";
-		logIt("Invalid reCaptcha in registration with $email: ". implode(','. $reCaptcha['
-			error-codes']), "INFO");
-	}
-	
-	if(minMaxRange(5,50,$username)){
-		$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(5,50));
-	}
-	
-	if(minMaxRange(8,50,$password)){
-		$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));
-	}else if($password != $password_again){
-		$errors[] = lang("ACCOUNT_PASS_MISMATCH");
-	}
-
-	if(!isValidemail($email)){
-		$errors[] = lang("ACCOUNT_INVALID_EMAIL");
-	}
-
-	//End data validation
-	if(count($errors) == 0){
-		//Construct a user auth object
-		$auth = new RedcapAuth($username,NULL,$email);
-		
-		//Checking this flag tells us whether there were any errors such as possible data duplication occured
-		if($auth->emailExists()){
-			$errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));
-		}elseif($auth->usernameExists()){
-			$errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
-		}else{
-			//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-			if($auth->createNewUser($password)){
-				echo "does it get in here?";
-				addSessionMessage(lang('ACCOUNT_REGISTRATION_COMPLETE_TYPE2'));
-				// Redirect to profile page to complete registration
-				$loggedInUser = new RedcapPortalUser($auth->new_user_id);
-				setSessionUser($loggedInUser);
-				header("Location: profile.php");die();
-			}else{
-				$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
-			}
-		}
-	}
-	
-	// Add alerts to session for display
-	foreach ($errors as $error) {
-		addSessionAlert($error);
-	}
-}
-
   
-// Depeding on portal_config, make the username block
-$username_block = $validation_rules = '';
+
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
@@ -203,46 +142,54 @@ $username_block = $validation_rules = '';
         <div id="main-content" class="col-md-9" role="main">
           
 
-          <section class="registerForm">
-            <h2 class="headline">Register an Account</h2>
-            <p>This account will allow you to participate in any of our studies(??) : </p>
+          <section class="eligibilitySection">
+            <h2 class="headline">Eligibility</h2>
+            <p>This study is currently only seeking participants that are living in / at least __ old / some gender : </p>
             
-			<form id="newUserForm" name="newUser" class="form-horizontal" action="" method="post">
-				<div class="panel-body">
+            <form class="eligibilityForm" action method="post">
+              <div class="form-group">
+                Gender : 
+                <label><input type="radio" value="m"/> Male</label>
+                <label><input type="radio" value="f"/> Female</label>
+              </div>
 
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="email" class="control-label">Email:</label>
-							<input type="email" class="form-control" name="email" id="email" placeholder="Email Address" autofocus="">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="password" class="control-label">Password:</label>
-							<input type="password" class="form-control" name="password" id="password" placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="password_again" class="control-label text-nowrap">Confirm:</label>
-							<input type="password" class="form-control" name="password_again" id="password_again" placeholder="Password Again">
-						</div>
-					</div>
-				</div>
-				<div class="footer-links">
-					<div class="g-recaptcha g-recaptcha-right" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
-					<input type="submit" class="btn btn-default" name="submit_new_user" id="submitNewUser" value="Register Account">
-				</div>
-			</form>
+              <div class="form-group">
+                Age : 
+                <label><input type="text" name="age" type="number" /></label>
+              </div>
+              <input type="hidden" name="action" value="check_eligibility"/>
+              <input type="submit" class="btn btn-default" name="view_consent" id="viewConsent" value="Check Eligibility">
+            </form>
+            <blockquote>
+              Unfortunately, you are not eligible to participate in this study for the time being. Please leave us your email and we will contact you if the study requirements change!
+            </blockquote>
 
+            <script>
+            $(".eligibilityForm").submit(function(){
+              var thisform = $(this);
+              var dainput = $("input[name='age']").val();
+              $.post("", {age: dainput}, function(result){
+                  if(!result.eligibile){
+                    //swap out form
+                    var tempheight = thisform.height();
+                    thisform.hide();
 
+                    var message = $(".eligibilitySection blockquote").height(tempheight).addClass("uneligibile");
+                  }else{
+                    location.href=result.url;
+                  }
+              }, "json");
+
+              return false;
+            });
+            </script>
           </section>  
         </div>
 
         <div id="sidebar-second" class="col-md-3">
           <div class="well">
             <h2>Keep In Contact</h2>
-            <p>Not ready to make an account yet? Leave your email to get news and updates about our studies:</p>
+            <p>To remain in contact for future studies and updates.  Leave your email here:</p>
             <form id="newUserForm" name="newUser" class="form-horizontal" action="eligibility.php" method="post">
               <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" autofocus />
               <input type="submit" class="btn btn-default pull-right" name="view_consent" id="viewConsent" value="Submit Email">
@@ -269,39 +216,6 @@ $username_block = $validation_rules = '';
 <!-- END footer -->
 </body>
 </html>
-<script>
-$('#newUserForm').validate({
-	rules: {
-		<?php echo $validation_rules ?>
-		email: {
-			required: true,
-			email: true
-		},
-		password: {
-			required: true,
-			minlength: <?php echo PASSWORD_MIN_LENGTH ?>
-		},
-		password_again: {
-			equalTo: "#password"
-		}
-	},
-	highlight: function(element) {
-		$(element).closest('.form-group').addClass('has-error');
-	},
-	unhighlight: function(element) {
-		$(element).closest('.form-group').removeClass('has-error');
-	},
-	errorElement: 'span',
-	errorClass: 'help-block',
-	errorPlacement: function(error, element) {
-		if(element.parent('.input-group').length) {
-			error.insertAfter(element.parent());
-		} else {
-			error.insertAfter(element);
-		}
-	}
-});
-</script>
 <script src="https://fb.me/react-0.14.1.min.js"></script>
 <script src="https://fb.me/react-dom-0.14.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -342,16 +256,3 @@ $('#newUserForm').validate({
   // );
 </script>
 
-
-
-<div class='container'>
-	<div class="row">
-		<div class="max-600">
-			<?php	print getSessionMessages(); ?>
-			<div class="max-400">
-
-			</div>
-
-		</div>
-	</div>
-</div>

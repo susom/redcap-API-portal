@@ -1,4 +1,4 @@
-<?
+<?php
 require_once("models/config.php");
 $pg_title = "Login | $websiteName";
 
@@ -56,7 +56,7 @@ if(isUserLoggedIn()){
 <html lang="en">
 <!--<![endif]-->
 <head>
-<title><?=$pg_title?></title>
+<title><?php echo $pg_title?></title>
 <!-- TemplateParam name="theme" type="text" value="lagunita" -->
 
 <!-- Meta -->
@@ -167,12 +167,12 @@ $.ajax({
               $emailver = ($loggedInUser->isEmailVerified() ? "Email verified on " . date('d-M-Y', strtotime($loggedInUser->email_verified_ts)) . "." : "Email not verified.");
             ?>
             <li class="nav-item pull-left">
-                <a href="#" ><?=$activeuser ?></a> 
+                <a href="#" ><?php echo $activeuser ?></a> 
                 <div class="nav-item-panel">
                   <aside>
                   <ul>
-                  <li><?=$isactive?></li>
-                  <li><?=$emailver?></li>
+                  <li><?php echo $isactive?></li>
+                  <li><?php echo $emailver?></li>
                   <li><a href="index.php?logout=1">Logout</a></li>
                   </ul>
                   </aside>
@@ -407,7 +407,7 @@ $.ajax({
                       <?php echo $label ?>
                     </div>         
                   <?php 
-                      } 
+                  } 
                 }
               }
             }else{
@@ -430,7 +430,7 @@ $.ajax({
                 <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean imperdiet lobortis libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean vitae tortor ligula, quis laoreet ante. Phasellus in turpis ac elit consectetur viverra. Praesent nec massa vitae dui facilisis venenatis et at nisi. Proin fringilla vulputate velit, vel fermentum velit viverra nec. <a href="#">Download the document</a></p>
               </div>
             </div>
-            <? } ?>
+            <?php } ?>
           </section>
         </div>
         <div id="sidebar-second" class="col-md-3">
@@ -448,7 +448,7 @@ $.ajax({
                 <p><a class="more-link" href="#"><i class="glyphicon glyphicon-download-alt"></i> <span>Consent Forms</span></a></p>
               </div>
             </div>
-          <? }else{ ?>
+          <?php }else{ ?>
             <div class="well">
               <h2>About Stanford Lagunita</h2>
               <p>Stanford Lagunita is available both as HTML / Dreamweaver templates and as a WordPress theme. It can be used for any Stanford-related website and is ready to use without any additional styling.</p>
@@ -468,7 +468,7 @@ $.ajax({
                 <p><a class="more-link" href="#"><i class="fa fa-chevron-circle-right"></i> <span>More information</span></a></p>
               </div>
             </div>
-          <? } 
+          <?php } 
 
 
           ?>
@@ -565,7 +565,7 @@ function doRedirect(caller) {
 	// 	document.getElementById('navbar')
 	// );
 </script>
-<?
+<?php
 
 $end_time = microtime(true) - $start_time;
 print_r($end_time . " seconds");

@@ -321,7 +321,7 @@ $.ajax({
             ?>
             <h2 class="headline">Initial Registration</h2>
             <p>Please complete all forms listed below</p>          
-            <?
+            <?php
               if (!informedConsented($record)) {
                 $link = getSurveyLink($record, 'consent_forms', EVENT_1);
                 echo "<blockquote>Surveys are not available until you have completed the consent form.";
@@ -359,7 +359,6 @@ $.ajax({
                       if (($form_data["status"]) == 2) {
                         // logIt($form. " should be disabled ".$retakeHash . " with this status " .$form_data["status"]);
                         $grey .= " retake";
-                      }
                       ?>
                         <div class="<?php echo $grey?>" redirect=<?php echo $retakeHash?> link=<?php echo $link?> onclick="javascript: doRedirect($(this));">
                           <span class="glyphicon glyphicon-repeat" ></span>

@@ -123,7 +123,7 @@ if(isUserLoggedIn()){
         </div>
       </div>
     </div>
-    
+
     <!-- main content -->
     <div id="content" class="container" role="main" tabindex="0">
       <div class="row"> 

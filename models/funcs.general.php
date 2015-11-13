@@ -13,6 +13,11 @@ function getSessionUser() {
 		// Session expired
 		clearSession();
 		$_SESSION[SESSION_NAME]['message'] = "Session timed out.  Please login again.";
+	}elseif( !empty($_SESSION[SESSION_NAME]['register']) && isset($_SESSION[SESSION_NAME]['user']) ){
+ 		// We have a user object in the session
+		if(!isSessionExpired() ) {
+			return $_SESSION[SESSION_NAME]['user'];
+		}
 	}
 	return null;
 }
@@ -137,12 +142,12 @@ function getSessionMessages($clear = true) {
 function makeMessageBox($messages, $type) {
 	// Allowed type-to-class
 	$typeClass = array(
-		'alert' => 'alert-danger',
-		'notice' => 'alert-info',
-		'success' => 'alert-success'
+		'alert' 	=> 'alert-danger',
+		'notice' 	=> 'alert-info',
+		'success' 	=> 'alert-success'
 	);
 	$html = '
-		<div class="alert ' . $typeClass[$type] . ' text-center mb-30 fade in">
+		<div class="alert ' . $typeClass[$type] . ' text-center mb-30">
 				<a href="#" class="close" data-dismiss="alert">
 					<div style="position: relative; width: -4; height:0">
 						&times;
@@ -222,7 +227,7 @@ function redirectToLogin() {
 	if ($current_page !== 'login.php' && !isset($_GET['logout']))
 	{
 		$url = $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING'];
-		$url = str_replace('/webtools/lymphaticregistry/','',$url);
+		$url = str_replace('/webtools/','',$url);
 		setSessionRedirect($url);
 	}
 	header('Location: login.php'); die();

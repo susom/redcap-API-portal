@@ -201,48 +201,94 @@ $username_block = $validation_rules = '';
 
         <!-- Main column -->
         <div id="main-content" class="col-md-9" role="main">
-          
+          <section>
+              <h2 class="headline">Register for this Study</h2>
+              <p>Let's get started!  To begin you'll need to register for this study.</p>          
+              <form id="getstarted" action="eligibility.php" class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label for="email" class="control-label col-sm-2">Your Name:</label>
+                  <div class="col-sm-5"> 
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+                  </div>
+                  <div class="col-sm-5"> 
+                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="username" class="control-label col-sm-2">Your Email:</label>
+                  <div class="col-sm-10"> 
+                    <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="control-label col-sm-2">New Password:</label>
+                  <div class="col-sm-10"> 
+                    <input type="password" class="form-control" name="password" id="password" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="passwordtoo" class="control-label col-sm-2">Password Again:</label>
+                  <div class="col-sm-10"> 
+                    <input type="password" class="form-control" name="passwordtoo" id="passwordtoo" >
+                  </div>
+                </div>
 
-          <section class="registerForm">
-            <h2 class="headline">Register an Account</h2>
-            <p>This account will allow you to participate in any of our studies(??) : </p>
-            
-			<form id="newUserForm" name="newUser" class="form-horizontal" action="" method="post">
-				<div class="panel-body">
+                <div class="form-group">
+                  <label for="zip" class="control-label col-sm-2">Your Zip Code:</label>
+                  <div class="col-sm-10"> 
+                    <input type="number" class="form-control" name="zip" id="zip" placeholder="Zip Code">
+                  </div>
+                </div>
 
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="email" class="control-label">Email:</label>
-							<input type="email" class="form-control" name="email" id="email" placeholder="Email Address" autofocus="">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="password" class="control-label">Password:</label>
-							<input type="password" class="form-control" name="password" id="password" placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-xs-4 form-label">
-							<label for="password_again" class="control-label text-nowrap">Confirm:</label>
-							<input type="password" class="form-control" name="password_again" id="password_again" placeholder="Password Again">
-						</div>
-					</div>
-				</div>
-				<div class="footer-links">
-					<div class="g-recaptcha g-recaptcha-right" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
-					<input type="submit" class="btn btn-default" name="submit_new_user" id="submitNewUser" value="Register Account">
-				</div>
-			</form>
+                <div class="form-group">
+                  <span class="control-label col-sm-2"></span>
+                  <div class="col-sm-10"> 
+                    <label><input checked type="checkbox"> <em>Receive updates about this and future studies.  You can opt-out at anytime.</em></label>
+                  </div>
+                </div>
 
-
-          </section>  
+                <div class="form-group">
+                  <span class="control-label col-sm-2"></span>
+                  <div class="col-sm-10"> 
+                    <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
+                    <button type="submit" class="btn btn-primary" name="get_started">Register for the Study</button>
+                  </div>
+                </div>
+              </form>
+              <script>
+                $('#getstarted').validate({
+                  rules: {
+                    username: {
+                      <?php echo $username_validation ?>
+                    },
+                    password: {
+                      required: false
+                    }
+                  },
+                  highlight: function(element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                  },
+                  unhighlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                  },
+                  errorElement: 'span',
+                  errorClass: 'help-block',
+                  errorPlacement: function(error, element) {
+                    if(element.parent('.input-group').length) {
+                      error.insertAfter(element.parent());
+                    } else {
+                      error.insertAfter(element);
+                    }
+                  }
+                });
+              </script>
+            </section>
         </div>
 
         <div id="sidebar-second" class="col-md-3">
           <div class="well">
             <h2>Keep In Contact</h2>
-            <p>Not ready to make an account yet? Leave your email to get news and updates about our studies:</p>
+            <p>Not ready to register for an account yet? Leave your email to get news and updates about our studies:</p>
             <form id="newUserForm" name="newUser" class="form-horizontal" action="eligibility.php" method="post">
               <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" autofocus />
               <input type="submit" class="btn btn-default pull-right" name="view_consent" id="viewConsent" value="Submit Email">
@@ -341,17 +387,3 @@ $('#newUserForm').validate({
   //  document.getElementById('navbar')
   // );
 </script>
-
-
-
-<div class='container'>
-	<div class="row">
-		<div class="max-600">
-			<?php	print getSessionMessages(); ?>
-			<div class="max-400">
-
-			</div>
-
-		</div>
-	</div>
-</div>

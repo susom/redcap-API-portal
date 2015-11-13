@@ -18,7 +18,7 @@
 		"ACCOUNT_INVALID_EMAIL"					=> "Invalid email address",
 		"ACCOUNT_INVALID_USERNAME"				=> "Invalid username",
 		"ACCOUNT_USER_OR_EMAIL_INVALID"			=> "username or email address is invalid",
-		"ACCOUNT_USER_OR_PASS_INVALID"			=> "username or password is invalid",
+		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Account not found.  Please register for this study.",
 		"ACCOUNT_ALREADY_ACTIVE"				=> "Your account is already activatived",
 		"ACCOUNT_INACTIVE"						=> "Your account is in-active. Check your emails / spam folder for account activation instructions",
 		"ACCOUNT_USER_CHAR_LIMIT"				=> "Your username must be no fewer than %m1% characters or greater than %m2%",

@@ -41,12 +41,12 @@ if(isUserLoggedIn()){
      "follow_up_tissue_bank_genetics" =>  array("label" =>"Followup Tissue Bank Genetics"),
      "follow_up_medical_and_surgical_history" =>  array("label" =>"Followup Medical and Surgical History")
   );
-}else{
-  //IF NOT LOGGED IN
-  $username_label       = $portal_config['useEmailAsUsername'] ? "Email" : "Username";
-  $username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
-  $username_block       = $validation_rules = '';
 }
+
+$username_label       = $portal_config['useEmailAsUsername'] ? "Email" : "Username";
+$username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
+$username_block       = $validation_rules = '';
+$bad_login            = (!empty($_SESSION[SESSION_NAME]['new_username']) ? $_SESSION[SESSION_NAME]['new_username'] : null);
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
@@ -119,7 +119,7 @@ if(isUserLoggedIn()){
 <!-- Local version for development here -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.validate.min.js"></script>
-
+<!-- <script src="assets/lagunita/js/bootstrap.min.js"></script> -->
 
 <script>
 var start_time = new Date().getTime();
@@ -190,7 +190,7 @@ $.ajax({
                     <form id="loginForm" name="loginForm" class="form-horizontal" action="login.php" method="post" novalidate="novalidate">
                       <div class="fosrm-group">
                         <label for="username" class="control-label"><?=$username_label?></label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="<?=$username_label?>" autofocus="" autocomplete="off" aria-required="true" aria-invalid="true" aria-describedby="username-error">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="<?=$username_label?>" autofocus="" autocomplete="off" aria-required="true" aria-invalid="true" aria-describedby="username-error" <?=(!is_null($bad_login) ? "value='$bad_login'" : "")?>>
                         <label for="password" class="control-label">Password:</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Password" autocomplete="off" >
                       </div>
@@ -207,27 +207,9 @@ $.ajax({
                     <form name="newLostPass" class="form-horizontal" action="" method="post">
                       <label for="username" class="control-label">To begin enter your account email address.</label>
                       <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" autofocus />
-                      <div class="g-recaptcha g-recaptcha-center" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
                       <div class="footer-links">
                         <a class="login pull-left" href="#">Login</a>       
                         <input type="submit" class="btn btn-default pull-right" name="new_pass_reset_request" id="newfeedform" value="Forgot Password" />
-                      </div>
-                    </form>
-                  </aside>
-                </div>
-            </li>
-            <li class="nav-item pull-left">
-                <a href="#" >Register</a> 
-                <div class="nav-item-panel">
-                  <aside>
-
-                    <h3>Registry Consent Required</h3>  
-                    <p>Registration in the registry requires successful completion of our electronic consent process.</p>
-                    
-                    <form id="newUserForm" name="newUser" class="form-horizontal" action="eligibility.php" method="post">
-                      <!-- <div class="g-recaptcha g-recaptcha-right" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div> -->
-                      <div class="footer-links">
-                        <input type="submit" class="btn btn-default" name="view_consent" id="viewConsent" value="Start Electronic Consent">
                       </div>
                     </form>
                   </aside>
@@ -308,48 +290,114 @@ $.ajax({
 
         <!-- Main column -->
         <div id="main-content" class="col-md-9" role="main">
-          <!-- <div id="feature-banner" class="margin-bottom-30"> <img class="img-responsive" alt="" src="http://www.stanford.edu/assets/su-images/feature/ht_quad6am.jpg" />
+          <div id="feature-banner" class="margin-bottom-30"> <img class="img-responsive" alt="" src="http://www.stanford.edu/assets/su-images/feature/ht_quad6am.jpg" />
             <div class="feature-caption">
-              <h3>Fancy eh</h3>
-              <p>The Modified Lagunita Theme is a Stanford-branded HTML theme that can be used for any Stanford-related website.</p>
+              <h3>Welcome!</h3>
+              <p>Thank you for your interest in participating in this study.  The data gathered will help blah blah.</p>
             </div>
-          </div> -->
+          </div>
 
-          <section>
-            <?php
-            if(isUserLoggedIn()){
-            ?>
-            <h2 class="headline">Initial Registration</h2>
-            <p>Please complete all forms listed below</p>          
-            <?php
-              if (!informedConsented($record)) {
-                $link = getSurveyLink($record, 'consent_forms', EVENT_1);
-                echo "<blockquote>Surveys are not available until you have completed the consent form.";
-                echo "<a href=\"$link\" class=\"list-group-item \">Informed consent</a></blockquote>";
+          <?php
+          if(isUserLoggedIn()){
+          ?>
+            <section>
+              <h2 class="headline">Initial Registration</h2>
+              <p>Please complete all forms listed below</p>          
+              <?php
+                if (!informedConsented($record)) {
+                  $link = getSurveyLink($record, 'consent_forms', EVENT_1);
+                  echo "<blockquote>Surveys are not available until you have completed the consent form.";
+                  echo "<a href=\"$link\" class=\"list-group-item \">Informed consent</a></blockquote>";
+                }
+              ?>
+            </section>
+          <?php
+          }else{
+          
+          ?> 
+            <section>
+              <h2 class="headline">Register for this Study</h2>
+              <p>Let's get started!  To begin you'll need to register for this study.</p>          
+              <form id="getstarted" action="eligibility.php" class="form-horizontal" role="form">
+                <div class="form-group">
+                  <label for="email" class="control-label col-sm-2">Your Name:</label>
+                  <div class="col-sm-5"> 
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+                  </div>
+                  <div class="col-sm-5"> 
+                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="username" class="control-label col-sm-2">Your Email:</label>
+                  <div class="col-sm-10"> 
+                    <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" <?=(!is_null($bad_login) ? "value='$bad_login'" : "")?> >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password" class="control-label col-sm-2">New Password:</label>
+                  <div class="col-sm-10"> 
+                    <input type="password" class="form-control" name="password" id="password" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="passwordtoo" class="control-label col-sm-2">Password Again:</label>
+                  <div class="col-sm-10"> 
+                    <input type="password" class="form-control" name="passwordtoo" id="passwordtoo" >
+                  </div>
+                </div>
 
-              } 
-            }else{
-            ?> 
-            <h2 class="headline">Announcements</h2>
-            <p>This is a sample area for latest news and announcements. Items below use a "postcard" layout which allows you to float a thumbnail image to the left of your text.</p>          
-            <div class="postcard-left">
-              <div class="postcard-image"><img src="assets/lagunita/images/samples/QuadArchNPalms270.jpg" alt="" /></div>
-              <div class="postcard-text">
-                <h3><a href="#">Example Announcement</a></h3>
-                <p class="descriptor">March 21, 2014</p>
-                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean imperdiet lobortis libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean vitae tortor ligula, quis laoreet ante. Phasellus in turpis ac elit consectetur viverra. Praesent nec massa vitae dui facilisis venenatis et at nisi. Proin fringilla vulputate velit, vel fermentum velit viverra nec.</p>
-              </div>
-            </div>
-            <div class="postcard-left">
-              <div class="postcard-image"><img src="assets/lagunita/images/samples/QuadArchNPalms270.jpg" alt="" /></div>
-              <div class="postcard-text">
-                <h3><a href="#">Example Announcement</a></h3>
-                <p class="descriptor">March 1, 2014</p>
-                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean imperdiet lobortis libero. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean vitae tortor ligula, quis laoreet ante. Phasellus in turpis ac elit consectetur viverra. Praesent nec massa vitae dui facilisis venenatis et at nisi. Proin fringilla vulputate velit, vel fermentum velit viverra nec. <a href="#">Download the document</a></p>
-              </div>
-            </div>
-            <?php } ?>
-          </section>
+                <div class="form-group">
+                  <label for="zip" class="control-label col-sm-2">Your Zip Code:</label>
+                  <div class="col-sm-10"> 
+                    <input type="number" class="form-control" name="zip" id="zip" placeholder="Zip Code">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <span class="control-label col-sm-2"></span>
+                  <div class="col-sm-10"> 
+                    <label><input checked type="checkbox"> <em>Receive updates about this and future studies.  You can opt-out at anytime.</em></label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <span class="control-label col-sm-2"></span>
+                  <div class="col-sm-10"> 
+                    <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
+                    <button type="submit" class="btn btn-primary" name="get_started">Register for the Study</button>
+                  </div>
+                </div>
+              </form>
+              <script>
+                $('#getstarted').validate({
+                  rules: {
+                    username: {
+                      <?php echo $username_validation ?>
+                    },
+                    password: {
+                      required: false
+                    }
+                  },
+                  highlight: function(element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                  },
+                  unhighlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                  },
+                  errorElement: 'span',
+                  errorClass: 'help-block',
+                  errorPlacement: function(error, element) {
+                    if(element.parent('.input-group').length) {
+                      error.insertAfter(element.parent());
+                    } else {
+                      error.insertAfter(element);
+                    }
+                  }
+                });
+              </script>
+            </section>
+          <?php } ?>
         </div>
         <div id="sidebar-second" class="col-md-3">
           <?php if(isUserLoggedIn()){ ?>
@@ -368,15 +416,7 @@ $.ajax({
             </div>
           <?php }else{ ?>
             <div class="well">
-              <h2>About Stanford Lagunita</h2>
-              <p>Stanford Lagunita is available both as HTML / Dreamweaver templates and as a WordPress theme. It can be used for any Stanford-related website and is ready to use without any additional styling.</p>
-              <div class="footer-links">
-                <p><a class="more-link" href="http://wordpressthemes.stanford.edu/"><i class="fa fa-chevron-circle-right"></i> <span>See demo WordPress site</span></a></p>
-                <p><a class="more-link" href="https://stanford.box.com/lagunita-theme"><i class="fa fa-chevron-circle-right"></i> <span>Download HTML Theme</span></a></p>
-              </div>
-            </div>
-            <div class="well">
-              <h2>In the Spotlight</h2>
+              <h2>About the Well Registry</h2>
               <img src="assets/lagunita/images/samples/LemonsNTower1170.jpg" alt="" />
               <p class="caption">This is an optional image caption.</p>
               <p>This is a display element called a "well".  It can be used in either sidebar to highlight content in a shaded box.</p>
@@ -386,9 +426,8 @@ $.ajax({
                 <p><a class="more-link" href="#"><i class="fa fa-chevron-circle-right"></i> <span>More information</span></a></p>
               </div>
             </div>
-          <?php } 
-
-
+          <?php 
+            } 
           ?>
         </div>
       </div>
@@ -415,6 +454,10 @@ $.ajax({
 </body>
 </html>
 <script>
+$(document).ready(function(){
+  $(".alert").addClass("showit");
+});
+
 $(".nav-item > a").click(function(){
   $(".nav-item").removeClass("hot");
   if($(this).parent("li").hasClass("hot")){
@@ -426,6 +469,8 @@ $(".nav-item > a").click(function(){
 });
 
 $(document).on('click', function(event) {
+  $(".alert").removeClass("showit");
+
   if (!$(event.target).closest('#brandbar nav').length) {
     $(".nav-item").removeClass("hot");
   }
@@ -485,8 +530,8 @@ function doRedirect(caller) {
 </script>
 <?php
 
-$end_time = microtime(true) - $start_time;
-print_r($end_time . " seconds");
+// $end_time = microtime(true) - $start_time;
+// print_r($end_time . " seconds");
 exit;
 ?>
 

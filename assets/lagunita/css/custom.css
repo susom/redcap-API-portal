@@ -33,16 +33,12 @@ nav ul { margin:0; }
     text-decoration: none;
     font-size: 108%;
     line-height: 210%;
-    margin: 0;
+    margin: 0 15px 0 0;
     padding: 0px 30px;
     text-align:center; 
-
     height: 32px;
-    border-right: 1px solid #efefef;
 }
-.nav-item:last-child > a {
-	border-right:none; 
-}
+
 .nav-item-panel > aside {
 	display:block; 
 	padding:20px; 
@@ -56,7 +52,7 @@ nav ul { margin:0; }
 	display:block; 
 	position:absolute; 
 	z-index:100;
-	left:-100px; 
+	left:-210px; 
 	width:320px; 
 	color: #eeeeee;
 	border-radius:0 0 10px 10px; 
@@ -100,6 +96,11 @@ aside.lostPass { display:none; }
 	float:none;
 	margin:0 auto;
 }
+
+#main-content section form {
+	padding:40px; 
+}
+
 
 .consent #main-content { 
 	padding:30px 0; 
@@ -208,4 +209,20 @@ section {
 	position:relative; 
 	margin-left:-10px; 
 	margin-bottom:10px; 
+}
+
+
+.alert{
+	position:fixed;
+	top:-100px; left:50%; 
+	width:80%;
+	margin-left:-40%;
+	transition: .9s top ease;
+	border-radius:0 0 10px 10px;
+}
+.alert a { 
+	text-decoration:none; 
+}
+.alert.showit{
+	top:0; 
 }

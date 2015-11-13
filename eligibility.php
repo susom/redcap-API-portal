@@ -2,18 +2,11 @@
 require_once("models/config.php");
 $pg_title = "Login | $websiteName";
 
-if(isset($_POST["age"])){
-  if($_POST['age'] != 99){
-    $pass = false;
-  }else{
-    $pass = true;
-  }
-
-  echo json_encode(array("eligibile" => $pass, "url" => "consent.php"));
-  exit;
+if(isUserLoggedIn()){
+	logIt('Logged in - redirect to userpage...', 'DEBUG');
+	header("Location: userpage.php");
+	exit;
 }
-  
-
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
@@ -74,7 +67,7 @@ if(isset($_POST["age"])){
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
-  <script src="assets/lagunita/js/respond.js"></script>
+	<script src="assets/lagunita/js/respond.js"></script>
 <![endif]-->
 
 <!-- PLACING JSCRIPT IN HEAD OUT OF SIMPLICITY - http://stackoverflow.com/questions/10994335/javascript-head-body-or-jquery -->
@@ -100,7 +93,7 @@ if(isset($_POST["age"])){
                    "site-slogan" - display a site slogan in the header signature
      logo, h1  :   "hide" - hides the logo or H1 element, eg <h1 class="hide">
  -->
-<body class="site-slogan eligibility">
+<body class="site-slogan consent">
 <div id="su-wrap">
   <div id="su-content">
     <div id="brandbar">
@@ -130,73 +123,18 @@ if(isset($_POST["age"])){
         </div>
       </div>
     </div>
-    
+
     <!-- main content -->
     <div id="content" class="container" role="main" tabindex="0">
       <div class="row"> 
-        <?php
-          print getSessionMessages();
-        ?>
+      	<?php
+			print getSessionMessages();
+		?>
 
         <!-- Main column -->
-        <div id="main-content" class="col-md-9" role="main">
-          
-
-          <section class="eligibilitySection">
-            <h2 class="headline">Eligibility</h2>
-            <p>This study is currently only seeking participants that are living in / at least __ old / some gender : </p>
-            
-            <form class="eligibilityForm" action method="post">
-              <div class="form-group">
-                Gender : 
-                <label><input type="radio" value="m"/> Male</label>
-                <label><input type="radio" value="f"/> Female</label>
-              </div>
-
-              <div class="form-group">
-                Age : 
-                <label><input type="text" name="age" type="number" /></label>
-              </div>
-              <input type="hidden" name="action" value="check_eligibility"/>
-              <input type="submit" class="btn btn-default" name="view_consent" id="viewConsent" value="Check Eligibility">
-            </form>
-            <blockquote>
-              Unfortunately, you are not eligible to participate in this study for the time being. Please leave us your email and we will contact you if the study requirements change!
-            </blockquote>
-
-            <script>
-            $(".eligibilityForm").submit(function(){
-              var thisform = $(this);
-              var dainput = $("input[name='age']").val();
-              $.post("", {age: dainput}, function(result){
-                  if(!result.eligibile){
-                    //swap out form
-                    var tempheight = thisform.height();
-                    thisform.hide();
-
-                    var message = $(".eligibilitySection blockquote").height(tempheight).addClass("uneligibile");
-                  }else{
-                    location.href=result.url;
-                  }
-              }, "json");
-
-              return false;
-            });
-            </script>
-          </section>  
+        <div id="main-content" class="col-md-9 col-centered" role="main">
+          <iframe frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" src="http://redcap.stanford.edu/surveys/?s=C4LCPHX4FL"></iframe>
         </div>
-
-        <div id="sidebar-second" class="col-md-3">
-          <div class="well">
-            <h2>Keep In Contact</h2>
-            <p>To remain in contact for future studies and updates.  Leave your email here:</p>
-            <form id="newUserForm" name="newUser" class="form-horizontal" action="eligibility.php" method="post">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Address" autofocus />
-              <input type="submit" class="btn btn-default pull-right" name="view_consent" id="viewConsent" value="Submit Email">
-            </form>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -221,38 +159,38 @@ if(isset($_POST["age"])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 <script type="text/babel">
 // REACT COMPONENTS HERE
-  // var NavBar = React.createClass({
-  //  getInitialState : function(){
-  //    return ({
-  //      unLoggedIn: true
-  //    });
-  //  },
+	// var NavBar = React.createClass({
+	// 	getInitialState : function(){
+	// 		return ({
+	// 			unLoggedIn: true
+	// 		});
+	// 	},
 
-  //  render: function() {
-  //    return (
-  //      <div className="container">
-  //        <a className="main_logo" href={this.props.baseurl}></a>
-  //        <div className="menu">
-  //          {(
-  //            true 
-  //            ? <div><a href="login.php">Login</a> | <a href="register.php">Register</a></div>
-  //            : <div>
-  //              <a href="login.php">irvins@stanford.edu +</a> 
-  //              <ul>
-  //              <li>Account Status : Active</li>
-  //              <li>Update Password</li>
-  //              </ul>
-  //             </div>
-  //          )}
-  //        </div>
-  //      </div>
-  //    );
-  //  }
-  // });
+	// 	render: function() {
+	// 		return (
+	// 			<div className="container">
+	// 				<a className="main_logo" href={this.props.baseurl}></a>
+	// 				<div className="menu">
+	// 					{(
+	// 						true 
+	// 						? <div><a href="login.php">Login</a> | <a href="register.php">Register</a></div>
+	// 						: <div>
+	// 							<a href="login.php">irvins@stanford.edu +</a> 
+	// 							<ul>
+	// 							<li>Account Status : Active</li>
+	// 							<li>Update Password</li>
+	// 							</ul>
+	// 						 </div>
+	// 					)}
+	// 				</div>
+	// 			</div>
+	// 		);
+	// 	}
+	// });
 
-  // ReactDOM.render(
-  //  <NavBar baseurl="http://webtools.irvins.local/portal/"/>,
-  //  document.getElementById('navbar')
-  // );
+	// ReactDOM.render(
+	// 	<NavBar baseurl="http://webtools.irvins.local/portal/"/>,
+	// 	document.getElementById('navbar')
+	// );
 </script>
 

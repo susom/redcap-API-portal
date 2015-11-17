@@ -3,7 +3,7 @@ require_once("models/config.php");
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
-	header("Location: $websiteUrl/portal.php"); 
+	header("Location: $websiteUrl"); 
 	exit; 
 }
 

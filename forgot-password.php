@@ -233,14 +233,14 @@ elseif( !empty($_POST['new_pass_reset_request']) )
 	$email = sanitize($_POST["email"]);
 
 	//Perform some validation
-	
-	// Verify reCaptcha
-	$reCaptcha = verifyReCaptcha();
-	if ($reCaptcha['success'] != true) {
-		$errors[] = "Invalid reCaptcha response - please try again.";
-		logIt("Invalid reCaptcha in forgot-password with $email: ". implode(','. $reCaptcha['
-			error-codes']), "INFO");
-	}
+
+	// // Verify reCaptcha
+	// $reCaptcha = verifyReCaptcha();
+	// if ($reCaptcha['success'] != true) {
+	// 	$errors[] = "Invalid reCaptcha response - please try again.";
+	// 	logIt("Invalid reCaptcha in forgot-password with $email: ". implode(','. $reCaptcha['
+	// 		error-codes']), "INFO");
+	// }
 	
 	//Check for email
 	if(trim($email) == "")
@@ -259,8 +259,7 @@ elseif( !empty($_POST['new_pass_reset_request']) )
 	{
 		$errors[] = lang("ACCOUNT_INVALID_EMAIL");
 	}
-	
-	if(count($errors) == 0)
+		if(count($errors) == 0)
 	{
 		//Check if the user has any outstanding lost password requests
 		if(isPasswordResetActive($user))
@@ -287,7 +286,7 @@ elseif( !empty($_POST['new_pass_reset_request']) )
 				"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#"),
 				"subjectStrs" => array($confirm_url,$deny_url,$user->username)
 			);
-			
+
 			if(!$mail->newTemplateMsg("lost-password-request.txt",$hooks))
 			{
 				$errors[] = lang("MAIL_TEMPLATE_BUILD_ERROR");
@@ -307,7 +306,7 @@ elseif( !empty($_POST['new_pass_reset_request']) )
 						getRF('pass_reset_req_ts') => $user->pass_reset_req_ts
 					));
 					addSessionMessage( lang("FORGOTPASS_REQUEST_SUCCESS"), 'success', true );
-				
+
 					// Redirect to index page
 					header("Location: index.php"); die();
 				} // Mail
@@ -316,48 +315,9 @@ elseif( !empty($_POST['new_pass_reset_request']) )
 	} // End error-free section
 	// Add errors messages to session
 	foreach ($errors as $error) addSessionAlert($error);
+	 
 } // POST: new_pass_reset_request
 
-$emailForm = new bootstrapPanel();
-$emailForm->setType('primary');
-$emailForm->setIcon('lock');
-$emailForm->setHeader('<span class="headerText">Password Recovery</span>');
-$emailForm->setBody('
-			<form name="newLostPass" class="form-horizontal" action="" method="post">
-				<div class="mb-10">
-					To begin the password recovery process, please enter your account email address.
-				</div>
-				<input type="email" class="form-control text-center" name="email" id="email" placeholder="Enter Email Address" autofocus />
-				<br>
-				<div class="g-recaptcha g-recaptcha-center" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>'
-);
-$emailForm->setFooter('
-				<div class="text-right">
-					<input type="submit" class="btn btn-default" name="new_pass_reset_request" id="newfeedform" value="Forgot Password" />
-				</div>
-			</form>'
-);
-
-
-
-// RENDER Password Reset Request
-########### CREATE PAGE/FORMS ###########
-$page = new htmlPage("Forgot Password | $websiteName");
-$page->printStart();
-require_once("navbar.php");
-
-?>
-<div class='container'>
-	<div class="row">
-		<div class="max-600">
-			<?php	print getSessionMessages(); ?>
-			<div class="max-400">
-				<?php print $emailForm->getPanel() ?>
-			</div>
-		</div>
-	</div>
-</div>
-<?php
-$page->printEnd();
-
+header("Location: $websiteUrl"); 
+exit;
 

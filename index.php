@@ -187,27 +187,27 @@ include("models/inc/gl_header.php");
         <div id="sidebar-second" class="col-md-3">
           <?php if(isUserLoggedIn()){ ?>  
             <div class="well lowhang">
-              <h2>Low hanging fruit!</h2>
+              <h2>Low hanging fruit</h2>
               <p>Chose password reminder questions</p>
               <form class="secans form-vertical">
                 <div class="form-group">
                   <label>Question 1</label>
                   <select>
-                    <option></option>
+                    <option>What street did you live on in 3rd grade?</option>
                   </select>
                   <input type="text">
                 </div>
                 <div class="form-group">
-                  <label>Question 1</label>
+                  <label>Question 2</label>
                   <select>
-                    <option></option>
+                    <option>What food did you hate as a kid?</option>
                   </select>
                   <input type="text">
                 </div>
                 <div class="form-group">
-                  <label>Question 1</label>
+                  <label>Question 3</label>
                   <select>
-                    <option></option>
+                    <option>What is the most exotic ice cream flavor?</option>
                   </select>
                   <input type="text">
                 </div>
@@ -219,7 +219,7 @@ include("models/inc/gl_header.php");
             </div>
 
             <div class="well">
-              <h2>Fruit Basket (haha!)</h2>
+              <h2>Fruit Basket (hah!)</h2>
               <p>See how many fruits you have! Get fruits by completing surveys and other account completion tasks!</p>
 
               <ul class="fruit_basket">

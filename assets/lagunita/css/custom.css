@@ -259,7 +259,8 @@ section {
 	opacity:1 !important; 
 }
 
-.secans select , .secans input { display:block; }
+.secans select { margin-bottom:5px; }
+.secans select , .secans input { display:block; width:100%;  }
 
 .lowhang .footer-links .surveys {
 	width:50%; 

@@ -56,8 +56,6 @@ if(!empty($_POST['submit_new_user'])){
 				// Redirect to profile page to complete registration
 				$loggedInUser = new RedcapPortalUser($auth->new_user_id);
 				setSessionUser($loggedInUser);
-
-				addSessionAlert("Thank you for registering.  Please fill out this short eligibility survey.");
 				header("Location: survey.php?sid=1");die();
 			}else{
 				$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';

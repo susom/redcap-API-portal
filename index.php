@@ -150,8 +150,15 @@ include("models/inc/gl_header.php");
         <div id="main-content" class="col-md-9" role="main">
           <div id="feature-banner" class="margin-bottom-30"> <img class="img-responsive" alt="" src="http://www.stanford.edu/assets/su-images/feature/ht_quad6am.jpg" />
             <div class="feature-caption">
-              <h3>Welcome Back!</h3>
-              <p>Thank you for registering to participate in the study!  </p>
+              <?php
+              if(isUserLoggedIn()){
+                echo "<h3>Welcome Back!</h3>";
+                echo "<p>Thanks for your commitment.  You are almost done!  You have 4 more surveys to complete 100%</p>";
+              }else{
+                echo "<h3>Welcome to the Well Registry Portal</h3>";
+                echo "<p>Thank you for your interest in participating in the Well Registry.  Please register to begin!</p>";
+              }
+              ?>
             </div>
           </div>
 
@@ -179,14 +186,53 @@ include("models/inc/gl_header.php");
         </div>
         <div id="sidebar-second" class="col-md-3">
           <?php if(isUserLoggedIn()){ ?>  
+            <div class="well lowhang">
+              <h2>Low hanging fruit!</h2>
+              <p>Chose password reminder questions</p>
+              <form class="secans form-vertical">
+                <div class="form-group">
+                  <label>Question 1</label>
+                  <select>
+                    <option></option>
+                  </select>
+                  <input type="text">
+                </div>
+                <div class="form-group">
+                  <label>Question 1</label>
+                  <select>
+                    <option></option>
+                  </select>
+                  <input type="text">
+                </div>
+                <div class="form-group">
+                  <label>Question 1</label>
+                  <select>
+                    <option></option>
+                  </select>
+                  <input type="text">
+                </div>
+                <p class="surveys pull-left">Reward : <a href="#" class="single strawberry"></a></p>
+
+                <button type="submit" class="pull-right  btn btn-primary">Save Answers</button>
+
+              </form>
+            </div>
+
             <div class="well">
-              <h2>Random Module</h2>
-              <p>This is a display element called a "well".  It can be used in either sidebar to highlight content in a shaded box.</p>
-              <p>A <em>well</em> is perfect for featuring an event or calling out highlighted information.</p>
-                
-              <div class="footer-links">
-                <p><a class="more-link" href="#"><i class="fa fa-chevron-circle-right"></i> <span>More information</span></a></p>
-              </div>
+              <h2>Fruit Basket (haha!)</h2>
+              <p>See how many fruits you have! Get fruits by completing surveys and other account completion tasks!</p>
+
+              <ul class="fruit_basket">
+                <li><a href="#" class="strawberry"></a></li>
+                <li><a href="#" class="completed grapes"></a></li>
+                <li><a href="#" class="apple"></a></li>
+                <li><a href="#" class="orange"></a></li>
+                <li><a href="#" class="cherry"></a></li>
+                <li><a href="#" class="blueberry"></a></li>
+                <li><a href="#" class="banana"></a></li>
+                <li><a href="#" class="longan"></a></li>
+                <li><a href="#" class="pineapple"></a></li>
+              </ul>
             </div>
             <?php
             }

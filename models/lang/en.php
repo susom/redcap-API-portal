@@ -36,7 +36,7 @@
 		"ACCOUNT_DETAILS_UPDATED"				=> "Account details updated",
 		"ACTIVATION_MESSAGE"					=> "You will need first activate your account before you can login, follow the below link to activate your account. \n\n%m1%profile.php?activation=%m2%",							
 		"ACCOUNT_REGISTRATION_COMPLETE_TYPE1"	=> "You have successfully registered. You can now login <a href=\"login.php\">here</a>.",
-		"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "You have successfully registered.<br>Check your email for an activation token."
+		"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "Thank you for registering.  Please fill out this short eligibility survey."
 	));
 	
 	//Forgot password

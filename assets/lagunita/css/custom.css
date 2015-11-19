@@ -9,88 +9,11 @@ body { background:#f0f4f5; }
 	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
 }
 #global-footer, #global-footer .container { background:#333; text-align:center;  }
-#brandbar { background:#000; height:32px; }
-#brandbar .container { padding-top:0; }
-.som_logo {
-	margin-top:3px; 
-}
+#brandbar { background:#000;  }
 
-nav { 
-	width:620px; 
-}
-nav ul { margin:0; }
-
-
-.nav-item { 
-	line-height:100%; 
-	display:inline-block; 
-	position:relative; 
-}
-.nav-item > a { 
-	display: inline-block;
-    color: #fff;
-    font-weight: normal;
-    text-decoration: none;
-    font-size: 108%;
-    line-height: 210%;
-    margin: 0 15px 0 0;
-    padding: 0px 30px;
-    text-align:center; 
-    height: 32px;
-}
-
-.nav-item-panel > aside {
-	display:block; 
-	padding:20px; 
-	
-}
-.nav-item-panel {
-	display:none; 
-	box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
-}
-.nav-item.hot .nav-item-panel { 
-	display:block; 
-	position:absolute; 
-	z-index:100;
-	right:-15px; 
-	width:320px; 
-	color: #eeeeee;
-	border-radius:0 0 10px 10px; 
-    /*text-shadow: 1px 1px 2px #333;*/
-	background-color: #666666;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAH0lEQVQImUXGMREAMBAEobWD/jP4VSYVhFU9w7Cf6gCFUwcVKa1TogAAAABJRU5ErkJggg==);
-}
-.nav-item.hot a, .nav-item a:hover {
-	background-color: #666666;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAH0lEQVQImUXGMREAMBAEobWD/jP4VSYVhFU9w7Cf6gCFUwcVKa1TogAAAABJRU5ErkJggg==);
-}
-
-.nav-item-panel .form-horizontal .control-label {
-	display:inline-block; 
-	padding-top:0; 
-	margin-bottom:5px; 
-}
-.nav-item-panel input{ 
-	margin-bottom:10px; 
-}
-.nav-item-panel a {
-	color:#fff; text-decoration:none; 
-	margin-top:5px;
-}
-.nav-item-panel h3 { color:#fff; margin-bottom:15px; }
-.nav-item-panel .footer-links { text-align:center; }
-.footer-links .emailus {
-	text-align:left; 
-	font-style:italic;
-	font-size:85%;
-	padding:10px 0 0; 
-}
-.nav-item-panel .btn { display:inline-block; margin:10px 0; text-decoration:none; }
-.nav-item-panel .recoverpw { margin-top:20px; color:#fff; }
-.nav-item-panel .login {margin-top:20px; }
-
-aside.loginForm { }
-aside.lostPass { display:none; }
+#logo { display:block; margin:50px auto; }
+#main-content .well a { text-decoration:none; margin:0 20px; }
+#main-content .signinup p { padding:30px 0; text-align:Center;  }
 
 .col-centered { 
 	float:none;

@@ -15,11 +15,7 @@ $(".nav-item > a").click(function(){
 });
 
 $(document).on('click', function(event) {
-  $(".alert").removeClass("showit");
-
-  if (!$(event.target).closest('#brandbar nav').length) {
-    $(".nav-item").removeClass("hot");
-  }
+  $(".alert").removeClass("showit").delay(800).fadeOut("fast");
 });
 
 function doRedirect(caller) {

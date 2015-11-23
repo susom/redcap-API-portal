@@ -12,8 +12,20 @@ body { background:#f0f4f5; }
 #brandbar { background:#000;  }
 
 #logo { display:block; margin:50px auto; }
-#main-content .well a { text-decoration:none; margin:0 20px; }
-#main-content .signinup p { padding:30px 0; text-align:Center;  }
+.index #main-content .well .btn { text-decoration:none; margin:0 20px; }
+.index #main-content .signinup p { padding:30px 0; text-align:Center;  }
+
+.login .well .form-group { margin:0; overflow:hidden; }
+.login .well .btn { margin-right:2px; text-decoration:none; }
+.login input[type='radio']{  margin:0 3px; }
+.login .well .submits { margin-top:20px; }
+
+
+.showlogin,.showrecover { margin:5px 0 0 2px; }
+
+
+.lostPass { display:none; }
+.steptwo { display:none; }
 
 .col-centered { 
 	float:none;
@@ -38,6 +50,30 @@ h2.headline {
 	font-size:32px; 
 	padding-bottom:8px; 
 }
+
+.eligibility {
+	display:none;
+	border:1px solid #cfcfcf;
+	border-left:0; border-right:0; 
+	padding:15px 0 10px; 
+	margin:20px 0;
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transform: translate(0,0); 
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+     transform: translate(0,0); 
+}
+.modal { top: 50%;  transform: translateY(-50%); }
+.modal-header { border-bottom:0; }
+.modal-footer { border-top:0; }
+
+
+@media (min-width: 768px){
+	.eligibility .control-label { padding-top:0;  }
+}
+
 
 .registerForm .footer-links{ 
  	padding:15px; 
@@ -110,7 +146,7 @@ section {
 .well form { 
 	margin:10px 10px 15px; 
 }
-.well form input{
+.well form input[type="text"], .well form input[type="password"]{
 	margin-bottom:10px; 
 }
 
@@ -130,8 +166,7 @@ section {
 
 .g-recaptcha {
 	position:relative; 
-	margin-left:-10px; 
-	margin-bottom:10px; 
+	margin:0 auto 10px; 
 }
 
 

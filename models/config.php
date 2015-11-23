@@ -14,17 +14,12 @@ $start_time	= microtime(true);
 	Start Session and determine if we are authenticated
 	Authenticated means user+pass has matched, but does NOT mean the account is active
 */
-	
 session_start();
 $loggedInUser = getSessionUser();
 
 if( !empty($loggedInUser) ){
 	// Check for logout
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){
-		logIt("Logging out", "INFO");
 		logout("Goodbye!");
 	}
-	
-	// We have a user from the session
-	logIt("Rendering $PAGE","INFO");	
 }

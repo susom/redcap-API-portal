@@ -18,7 +18,7 @@
 		"ACCOUNT_INVALID_EMAIL"					=> "Invalid email address",
 		"ACCOUNT_INVALID_USERNAME"				=> "Invalid username",
 		"ACCOUNT_USER_OR_EMAIL_INVALID"			=> "username or email address is invalid",
-		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Account not found.  Please register for this study.",
+		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Email and/or Password Not Recognized.",
 		"ACCOUNT_ALREADY_ACTIVE"				=> "Your account is already activatived",
 		"ACCOUNT_INACTIVE"						=> "Your account is in-active. Check your emails / spam folder for account activation instructions",
 		"ACCOUNT_USER_CHAR_LIMIT"				=> "Your username must be no fewer than %m1% characters or greater than %m2%",
@@ -41,6 +41,7 @@
 	
 	//Forgot password
 	$lang = array_merge($lang,array(
+		"FORGOTPASS_SUGGEST"					=> "Click on the 'Forgot Password?' to reset your password.  Or <a href=\"register.php\">register here</a>.",
 		"FORGOTPASS_INVALID_TOKEN"				=> "Invalid token",
 		"FORGOTPASS_NEW_PASS_EMAIL"				=> "Please check your email account for instructions on how to reset your forgotten password.  Be sure to check your spam/junk folders if you do not see the message in the next few minutes.",
 		"FORGOTPASS_REQUEST_CANNED"				=> "Lost password request cancelled",

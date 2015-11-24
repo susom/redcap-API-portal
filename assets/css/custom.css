@@ -1,210 +1,319 @@
-/* 
-We created a this custom.css file so you can add customize styles without modifying the bootstrap stylesheet. However, you can use your own stylesheets if you prefer.  
-*/
+/*GENERAL RESETS AND STYLING*/
+form:after, article:after, aside:after, figure:after, figcaption:after, footer:after, header:after, hgroup:after, nav:after, section:after,
+contents:after, .container:after { visibility: hidden; display: block; clear: both; height: 0; font-size: 0; content: " "; }
 
-body {
-  padding-bottom: 50px;
+body { background:#f0f4f5; font-size:160%; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+
+/*GENERIC BOUNDED BOX*/
+.well {
+    box-shadow: 1px 1px 3px 0.2px #ccc;
+    padding:160px 0 60px; margin-top:100px;
+    border: 1px solid #ccc;
+    border-bottom:20px solid #8c1515;
+    background:#fff url(../img/Stanford_Medicine_logo-web-CS.png) 50% 20px no-repeat;
 }
-
-.modal-ish {
-  width: 360px;
-  text-align:center;
-  margin: 30px auto auto auto;
-  overflow: auto;
-  background-color: #ffffff;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding-box;
-          background-clip: padding-box;
-}
-
-#content {
-  width:550px;
-  margin: 70px auto auto auto; 
+.well h2 {     
+	margin: 0;
+    color: #333;
+    text-transform: capitalize;
+    font-weight: 400;
+    text-align: center; 
+    margin:10px 0 30px;
 }
 
 
-
-
-.form-label {
-	text-align:right;
-	padding-right: 0 !important;
+/*SESSION ALERT*/
+.alert{
+  position:fixed;
+  top:20%; left:50%;
+  transform: translateY(-50%); 
+  width:40%;
+  margin-left:-20%;
+  transition: .9s top ease;
+  border-radius:10px;
+  z-index:1100;
+    box-shadow: 0 0 3px #000;
+}
+.alert + #su-wrap {
+  position:relative;
+}
+.alert + #su-wrap:before {
+  position:absolute;
+  content:"";
+  top:0; left:0; right:0; bottom:0;
+  width:100%; height:100%;
+  opacity:.4;
+  background:#333;
+  z-index:100;
+}
+.alert a { 
+  text-decoration:none; 
+}
+.alert p {
+  padding:40px; 
 }
 
-.padding-0 {
-	padding: 0 !important;
-	margin: 0 !important;
-}
 
-.padding-sm {
-	padding: 2 !important;
-	margin: 2 !important;
+/*POPUP MODAL*/
+.modal.fade .modal-dialog {
+    -webkit-transform: translate(0,0); 
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+     transform: translate(0,0); 
 }
-
-.padding-md {
-	padding: 5 !important;
-	margin: 5 !important;
-}
-
-.max-400 {
-	max-width: 400px;
-	margin-left: auto ;
-	margin-right: auto ;
-}
+.modal { top: 50%;  transform: translateY(-50%); }
+.modal-header { border-bottom:0; }
+.modal-footer { border-top:0; }
 
 
-.max-600 {
-	max-width: 600px;
-	margin-left: auto ;
-	margin-right: auto ;
+/*JUMP PAGE*/
+.signinup { text-align:center; }
+.signinup a.btn { margin:0 20px; }
+
+
+/*LOGIN PAGE*/
+.login .loginForm, .login .lostPass { 
+	margin:0 auto; 
+	float:none;
 }
 
-.max-800 {
-	max-width: 800px;
-	margin-left: auto ;
-	margin-right: auto ;
+.login .well .form-group { margin:0 0 10px; overflow:hidden; }
+.login .control-label { font-weight:normal; margin-bottom:3px; padding-top:0; }
+.login input , .login .steptwo .control-label{ margin:0 0 15px; }
+.login input[type='radio']{ margin:0 3px; }
+
+.showlogin,.showrecover { margin:5px 0 0 2px; color:#007c92; }
+.lostPass { display:none; }
+.steptwo { display:none; }
+
+
+/*REGISTER PAGE*/
+
+
+
+
+.consent #main-content { 
+	padding:30px 0; 
+	background:#333 url(https://redcap.stanford.edu/redcap_v6.9.4/Resources/images/bg_blackstripe.png) -107px 11px repeat; 
+	border-radius:10px;  
 }
 
-.mb-10 {
-	margin-bottom: 10px;
+.eligibility {
+	display:none;
+	border:1px solid #cfcfcf;
+	border-left:0; border-right:0; 
+	padding:15px 0 10px; 
+	margin:20px 0;
 }
 
-.mb-30 {
-  margin-bottom: 30px; 
-}
 
-.headerText {
-	font-size: larger;
-	font-weight: bold;
-	padding-left:5px;
-}
-
-.strong {
-	font-weight:bold;
-}
-
-.g-recaptcha-right div div {
-    float: right;
-}
-
-.g-recaptcha-center div div {
-    margin: auto;
-}
-
-/* Jquery Validate */
-.help-block {
-	font-weight:bold;
-	color: #a94442;
-}
-
-/* xxyjl: should this be under learn folder? widen navbar for learn */
-.navbar {
-    margin-bottom: 50px;
-}
-.navbar-nav li a {
-    border-radius:0 0 8px 8px;  
-}
 
 @media (min-width: 768px){
-  .navbar-nav>li>a {
-    padding-top: 22px;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
-      margin-left: 0;
-  }
-}
-
-.navbar-learn {
-   text-align:right;
-}
-.navbar-learn .navbar-brand {
-  margin:10px 0;
-  width: 230px;
-  height: 60px;
-  background: url("../img/LEARN_HEADER_296x82.png") 50% no-repeat;
-  background-size:contain;
-}
-
-.navbar-learn .collapse.in > ul, .navbar-learn .collapsing > ul {
-   margin-top:0px;
-   margin-bottom:0px;
-   border: 1px solid #ccc;
-}
-.navbar-learn .collapse.in > ul > li, .navbar-learn .collapsing > ul > li {
-    background-color: #fefefe;
-    border-bottom: 1px dotted #ccc;
-    z-index: 10;
-}
-.navbar-learn .collapse.in > ul > li:last-child, .navbar-learn .collapsing > ul > li:last-child {
-    border:none;
+	.eligibility .control-label { padding-top:0;  }
 }
 
 
-
-
-/* LEARN-Branded Buttons 
-
-teal: #00b0a2
-blue: #00528e
-gray: #544f4c
-*/
-.btn-teal {
-   color: #fff;
-   background-color: #00528e;
-   border-color: #544f4c;
-}
-.btn-teal:hover,
-.btn-teal:focus,
-.btn-teal.focus,
-.btn-teal:active,
-.btn-teal.active,
-.open > .dropdown-toggle.btn-teal {
-  color: #fff;
-  background-color: #00b0a2;
-  border-color: #544f4c;
+.registerForm .footer-links{ 
+ 	padding:15px; 
 }
 
-.panel-teal {
-  border-color: #00b0a2;
-}
-.panel-teal > .panel-heading {
-  color: #fff;
-  background-color: #00b0a2 !important;
-  border-color: #00b0a2;
-}
-.panel-teal > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #00b0a2;
-}
-.panel-teal > .panel-heading .badge {
-  color: #00b0a2;
-  background-color: #fff;
-}
-.panel-teal > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #00b0a2;
-}
-.list-group-item {
-  font-size:      1.4em;
-  cursor: pointer;
-}
-.list-group-item.retake,
-.list-group-item.retake:hover,
-.list-group-item.retake:focus {
-  color: #777;
-  cursor: pointer;
-  background-color: #eee;
+.eligibilityForm label {
+	display:block; 
 }
 
+.eligibilitySection blockquote {
+	position:absolute;
+	opacity:0;
+
+	transition: opacity 2s;
+}
+
+.eligibilitySection blockquote.uneligibile {
+	position:relative;
+	opacity:1;
+    width: 90%;
+    border-left: 0;
+    margin: 10px auto 0;
+    position: relative;
+}
+
+.uneligibile:after{
+	content: "";
+    border-top: 30px solid white;
+    width: 30px;
+    height: 60px;
+    background: tranparent;
+    position: absolute;
+    border-left: 30px solid #777;
+    border-bottom: 30px solid white;
+    top: 0;
+    right: -30px;
+}
+
+#feature-banner .feature-caption:before { 
+	border-radius:10px; 
+}
+section {
+	background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 3px 0.2px rgba(0, 0, 0, 0.1);
+    padding:10px; 
+    border-radius:10px; 
+}
+
+
+.g-recaptcha {
+	position:relative; 
+	margin:0 auto 10px; 
+}
+
+
+
+
+.percent_complete {
+	color:green;
+	float:right; 
+	font-size:70%;
+	text-align:center; 
+}
+.percent_complete span {
+	display:block; 
+	font-size:70%;
+}
+.well .percent_complete {
+	float:none; 
+	font-size:500%; 
+	margin:10px 0;
+}
+
+.well .percent_complete span {
+	display:block; 
+	font-size:25%; 
+}
+
+.surveys { margin:10px 0; padding:0; }
+.surveys li {
+	margin:0 0 15px; padding:0;
+	list-style:none; 
+}
+
+.completed:before, .fruit_basket a:hover:before {
+	background-position-x:0 !important;
+	opacity:1 !important; 
+}
+
+.secans select { margin-bottom:5px; }
+.secans select , .secans input { display:block; width:100%;  }
+
+.lowhang .footer-links .surveys {
+	width:50%; 
+}
+.lowhang .footer-links { padding:10px 0; }
+.lowhang .surveys { margin:0; }
+.lowhang .surveys a.single {
+	display:inline-block; 
+	margin-left:0;
+}
+.lowhang .surveys a.single:before {
+	background-position-x:0;
+	opacity:1; 
+}
+
+.surveys a{
+	display:block; 
+	height:88px;
+	text-decoration:none; 
+	font-size:190%;
+	line-height:300%; 
+	margin-left:77px;
+	position:relative; 
+}
+.surveys a:hover {
+	text-decoration:underline;
+}
+.surveys a:before{
+	content:"";
+	opacity:.5;
+	position:absolute; left:-77px; top:0; 
+	width:67px; height:88px; 
+	background:url(../img/sprites_fruit.png) 100% 0 no-repeat;
+	transition: .5s opacity;
+}
+
+
+.grapes:before 	{background-position-y:-85.5px 		!important;}
+.apple:before 	{background-position-y:-171px		!important;}
+.orange:before 	{background-position-y:-256.5px 	!important;}
+.cherry:before 	{background-position-y:-342px 		!important;}
+.blueberry:before {background-position-y:-427.5px 	!important;}
+.banana:before 	{background-position-y:-513px 		!important;}
+.longan:before 	{background-position-y:-598.5px 	!important;}
+.pineappple:before {background-position-y:-684px 	!important;}
+
+.well .surveys li {
+	margin-bottom:10px;
+}
+.well .surveys a{
+	height:44px;
+	font-size:92%;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left:44px;
+	line-height:initial;
+	position:relative; 
+}
+.well .surveys a:before{
+	left:0; 
+	width:34px; height:44px; 
+	background-size:67px 390px;
+}
+
+
+
+
+.well .grapes:before 		{background-position-y:-44px  !important;}
+.well .apple:before 		{background-position-y:-88px  !important;}
+.well .orange:before 		{background-position-y:-132px !important;}
+.well .cherry:before 		{background-position-y:-176px !important;}
+.well .blueberry:before		{background-position-y:-220px !important;}
+.well .banana:before 		{background-position-y:-264px !important;}
+.well .longan:before 		{background-position-y:-308px !important;}
+.well .pineappple:before 	{background-position-y:-352px !important;}
+
+.well .surveys .hot { background:#ffc; }
+
+.fruit_basket {
+	margin:0 auto; padding:0;
+	text-align:center; 
+}
+.fruit_basket li { 
+	display:inline-block; 
+	margin:0 5px; 
+}
+.fruit_basket a { 
+	display:block;  
+	width:67px; height:88px; 
+	position:relative; 
+} 
+.fruit_basket a:before{
+	content:"";
+	opacity:.5;
+	position:absolute; left:0; top:0; 
+	width:67px; height:88px; 
+	background:url(../img/sprites_fruit.png) 100% 0 no-repeat;
+	transition: .5s opacity;
+}
+.fruit_basket .grapes:before 	{background-position-y:-85.5px 		!important;}
+.fruit_basket .apple:before 	{background-position-y:-171px		!important;}
+.fruit_basket .orange:before 	{background-position-y:-256.5px 	!important;}
+.fruit_basket .cherry:before 	{background-position-y:-342px 		!important;}
+.fruit_basket .blueberry:before {background-position-y:-427.5px 	!important;}
+.fruit_basket .banana:before 	{background-position-y:-513px 		!important;}
+.fruit_basket .longan:before 	{background-position-y:-598.5px 	!important;}
+.fruit_basket .pineappple:before {background-position-y:-684px 	!important;}
 
 
 

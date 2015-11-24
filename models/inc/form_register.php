@@ -1,25 +1,24 @@
-<section>
-  <h2 class="headline">Register for this Study</h2>
-  <p></p>          
+  <h2>Register for this Study</h2>
+      
   <form id="getstarted" action="register.php" class="form-horizontal" method="POST" role="form">
     <div class="form-group">
       <label for="email" class="control-label col-sm-3">Your Name:</label>
       <div class="col-sm-4"> 
         <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
       </div>
-      <div class="col-sm-5"> 
+      <div class="col-sm-4"> 
         <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
       </div>
     </div>
     <div class="form-group">
       <label for="username" class="control-label col-sm-3">Your Email:</label>
-      <div class="col-sm-9"> 
+      <div class="col-sm-8"> 
         <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" >
       </div>
     </div>
     <div class="form-group">
       <label for="usernametoo" class="control-label col-sm-3">Re-enter Email:</label>
-      <div class="col-sm-9"> 
+      <div class="col-sm-8"> 
         <input type="email" class="form-control" name="usernametoo" id="usernametoo" placeholder="Email Address" >
       </div>
     </div>
@@ -30,12 +29,64 @@
         <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
       </div>
 
-      <label for="city" class="control-label col-sm-2">or City/State:</label>
-      <div class="col-sm-3"> 
+      <label for="city" class="control-label col-sm-2">or City + State:</label>
+      <div class="col-sm-2"> 
         <input type="text" class="form-control city" name="city" id="city" placeholder="City">
       </div>
       <div class="col-sm-2"> 
-        <input type="text" class="form-control" name="state" id="state" placeholder="State" value="CA" >
+        <select name="state" id="state">
+          <option value="AL">AL</option>
+          <option value="AK">AK</option>
+          <option value="AZ">AZ</option>
+          <option value="AR">AR</option>
+          <option value="CA" selected>CA</option>
+          <option value="CO">CO</option>
+          <option value="CT">CT</option>
+          <option value="DE">DE</option>
+          <option value="DC">DC</option>
+          <option value="FL">FL</option>
+          <option value="GA">GA</option>
+          <option value="HI">HI</option>
+          <option value="ID">ID</option>
+          <option value="IL">IL</option>
+          <option value="IN">IN</option>
+          <option value="IA">IA</option>
+          <option value="KS">KS</option>
+          <option value="KY">KY</option>
+          <option value="LA">LA</option>
+          <option value="ME">ME</option>
+          <option value="MD">MD</option>
+          <option value="MA">MA</option>
+          <option value="MI">MI</option>
+          <option value="MN">MN</option>
+          <option value="MS">MS</option>
+          <option value="MO">MO</option>
+          <option value="MT">MT</option>
+          <option value="NE">NE</option>
+          <option value="NV">NV</option>
+          <option value="NH">NH</option>
+          <option value="NJ">NJ</option>
+          <option value="NM">NM</option>
+          <option value="NY">NY</option>
+          <option value="NC">NC</option>
+          <option value="ND">ND</option>
+          <option value="OH">OH</option>
+          <option value="OK">OK</option>
+          <option value="OR">OR</option>
+          <option value="PA">PA</option>
+          <option value="RI">RI</option>
+          <option value="SC">SC</option>
+          <option value="SD">SD</option>
+          <option value="TN">TN</option>
+          <option value="TX">TX</option>
+          <option value="UT">UT</option>
+          <option value="VT">VT</option>
+          <option value="VA">VA</option>
+          <option value="WA">WA</option>
+          <option value="WV">WV</option>
+          <option value="WI">WI</option>
+          <option value="WY">WY</option>
+        </select>
       </div>
     </div>
 
@@ -76,19 +127,26 @@
         </div>
       </div>
     </aside>
+  
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-        <label><input name="optin" checked type="checkbox"> <em>By clicking the Submit.  you agree to be contacted about WELL related studies and information.</em></label>
+        <!-- <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div> -->
+        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Submit</button>
+        <input type="hidden" name="submit_new_user" value="true"/>
       </div>
     </div>
 
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-        <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
-        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Submit</button>
-        <input type="hidden" name="submit_new_user" value="true"/>
+        <em>By clicking the Submit.  you agree to be contacted about WELL related studies and information.</em>
+      </div>
+    </div>
+    <div class="form-group">
+      <span class="control-label col-sm-3"></span>
+      <div class="col-sm-8"> 
+      <a href="login.php" class="showlogin">Already Registered?</a>
       </div>
     </div>
   </form>
@@ -218,4 +276,3 @@
       location.href="index.php";
     }
   </script>
-</section>

@@ -1,6 +1,5 @@
 <?php
 require_once("models/config.php");
-$pg_title = "Login | $websiteName";
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
@@ -102,33 +101,23 @@ $mail = new userPieMail();
 
 
 $username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
+
+
+$pg_title 		= "Register | $websiteName";
+$body_classes 	= "login register";
 include("models/inc/gl_header.php");
 ?>
-<body class="login">
-<div id="su-wrap">
-<div id="su-content">
-
-    <div id="brandbar"></div> 
-
-    <!-- main content -->
-    <div id="content" class="container" role="main" tabindex="0">
-      <div class="row"> 
-		<a href="index.php"><img src="assets/img/Stanford_Medicine_logo-web-CS.png" id="logo"/></a>
-		<?php
-		  print getSessionMessages();
-		?>
-
-		<!-- Main column -->
-		<div id="main-content" class="col-md-8 col-md-offset-2 registerAccount" role="main">
+<div id="content" class="container" role="main" tabindex="0">
+  <div class="row"> 
+	<div id="main-content" class="col-md-8 col-md-offset-2 registerAccount" role="main">
+		<div class="well row">
 		  <?php
 		  	include("models/inc/form_register.php");
 		  ?>
-		</div>
-      </div>
-    </div>
+	  	</div>
+	</div>
+  </div>
 </div>
-</div>
-</body>
 <?php 
 include("models/inc/gl_footer.php");
 ?>

@@ -1,21 +1,15 @@
+</div>
+</div>
+</body>
 </html>
 <script>
-$(document).ready(function(){
-  $(".alert").addClass("showit");
-});
-
-$(".nav-item > a").click(function(){
-  $(".nav-item").removeClass("hot");
-  if($(this).parent("li").hasClass("hot")){
-    $(this).parent("li").removeClass("hot");
-  }else{
-    $(this).parent("li").addClass("hot");
-  }
-  return false; 
-});
-
 $(document).on('click', function(event) {
-  $(".alert").removeClass("showit").delay(800).fadeOut("fast");
+	if ($(event.target).closest('.alert').length) {
+		$(".alert").fadeOut("fast",function(){
+			$(".alert").remove();
+		});
+	}
+  	
 });
 
 function doRedirect(caller) {

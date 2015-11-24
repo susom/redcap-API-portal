@@ -1,15 +1,14 @@
 <?php
 require_once("models/config.php");
-$pg_title = "Login : $websiteName";
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
-	header("Location: $websiteUrl/portal.php"); 
+	header("Location: " . $websiteUrl . "dashboard/index.php"); 
 	exit; 
 }
 if(isset($_GET["session_clear"])){
 	unset($_SESSION[SESSION_NAME]['login_attempts']);
-	header("Location: $websiteUrl/login.php"); 
+	header("Location: " . $websiteUrl . "login.php"); 
 }
 
 $attempts_remaining = (isset($_SESSION[SESSION_NAME]['login_attempts']) ? $_SESSION[SESSION_NAME]['login_attempts'] : 4);
@@ -31,7 +30,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 	if(count($errors) == 0) {
 		// Continue with authentication
 		$auth = new RedcapAuth($username,$password);
-		
+
 		// Valid credentials
 		if($auth->authenticated_user_id != Null) {
 			// Log user in
@@ -39,7 +38,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 			setSessionUser($loggedInUser);
 
 			//Redirect to user account page
-			$destination 		= getSessionRedirectOr('portal.php');
+			$destination 		= getSessionRedirectOr('/dashboard/index.php');
 			header("Location: $destination");
 		} else { // Invalid credentials
 			//IF NOT A REGISTERED USER - KEEP EMAIL AND PREFILL ON REGISTER FORM
@@ -49,7 +48,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 			if($attempts_remaining < 1){
 				$errors[] = lang("FORGOTPASS_SUGGEST");
 			}else{
-				$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . " Try again... " . $attempts_remaining . " attempts remaining.";
+				$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . "<br> Try again... " . $attempts_remaining . " attempts remaining.";
 			}
 		}
 	} 
@@ -62,79 +61,67 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 $disabled = ($attempts_remaining < 1 ? "disabled=disabled" : null);
 $username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
 
+$pg_title 		= "Login : $websiteName";
+$body_classes 	= "login";
 include("models/inc/gl_header.php");
 ?>
-<body class="login">
-<div id="su-wrap">
-<div id="su-content">
+<div id="content" class="container" role="main" tabindex="0">
+  <div class="row"> 
+    <div id="main-content" class="col-md-8 col-md-offset-2 logpass" role="main">
+		<div class="well row">
+			<form id="loginForm" name="loginForm" class="form-horizontal loginForm col-md-6 " action="login.php" method="post" novalidate="novalidate">
+				<h2>Please Login to continue</h2>
+				<div class="form-group">
+					<label for="username" class="control-label">Email Address</label>
+					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="Enter Email Address" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
+				</div>
+				<div class="form-group">
+					<label for="password" class="control-label">Password</label>
+					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="off" >
+				</div>
+				<div class="form-group">
+					<a class="showrecover pull-left" href="#">Forgot Password?</a>      
+					<input <?php echo $disabled?> type="submit" class="btn btn-success pull-right" name="new_login" id="newfeedform" value="Log In"/>      
+				</div>
+	        </form>
 
-    <div id="brandbar"></div> 
-
-    <div id="content" class="container" role="main" tabindex="0">
-      <div class="row"> 
-        <div id="main-content" class="col-md-4 col-md-offset-4 logpass" role="main">
-			<a href="index.php"><img src="assets/img/Stanford_Medicine_logo-web-CS.png" id="logo"/></a>
-			
-			<?php
-				print getSessionMessages();
-			?>
-
-			<div class="well">
-				<h2>Well Registry</h2>
-
-				<form id="loginForm" name="loginForm" class="form-horizontal loginForm" action="login.php" method="post" novalidate="novalidate">
-					<h3>Please login to continue</h3>
+	        <form id="pwresetForm" name="newLostPass" class="form-horizontal lostPass  col-md-6 " action="forgot-password.php" method="post">
+				<aside class="stepone">
+					<h2>Enter email to begin password reset</h2>
 					<div class="form-group">
 						<label for="username" class="control-label">Email Address</label>
-						<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="Enter Email Address" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
-						<label for="password" class="control-label">Password:</label>
-						<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="off" >
+						<input type="text" class="form-control" name="forgotemail" id="forgotemail" placeholder="Enter Email Address" autofocus value="<?php echo $badlogin?>"/>
 					</div>
 					<div class="form-group">
-						<a class="showrecover pull-left" href="#">Forgot Password?</a>      
-						<input <?php echo $disabled?> type="submit" class="btn btn-info pull-right" name="new_login" id="newfeedform" value="Login"/>      
+						<a class="showlogin pull-left" href="#">Login Now</a>       
+						<a href="#" class="btn btn-success pull-right nextstep" title="Forgot Password" >Next Step</a>
 					</div>
-		        </form>
+				</aside>
 
-		        <form id="pwresetForm" name="newLostPass" class="form-horizontal lostPass" action="forgot-password.php" method="post">
-					<aside class="stepone">
-						<h3>To begin password reset process:</h3>
-						<div class="form-group">
-							<label for="username" class="control-label">Enter email address:</label>
-							<input type="text" class="form-control" name="forgotemail" id="forgotemail" placeholder="Enter Email Address" autofocus value="<?php echo $badlogin?>"/>
-						</div>
-						<div class="form-group">
-							<a class="showlogin pull-left" href="#">Login Now</a>       
-							<a href="#" class="btn btn-info pull-right nextstep" title="Forgot Password" >Next Step</a>
-						</div>
-					</aside>
-
-					<aside class="steptwo">
-						<div class="form-group">
-							<label for="emailme" class="control-label">
-								<input type="radio" name="resetlink" id="emailme" checked value="emailme"/>
-								Email me a password reset link
-							</label>
-							
-						</div>
-						<div class="form-group">
-							<label for="secquestions" class="control-label">
-								<input type="radio" name="resetlink" id="secquestions" value="secquestions"/>
-								Answer my security questions
-							</label>
-						</div>
-						<div class="form-group submits">
-							<a class="showlogin pull-left" href="#">Login Now</a>       
-							<input type="submit" class="btn btn-info pull-right " name="new_pass_reset_request" id="newfeedform" value="Forgot Password" />
-						</div>
-					</aside>
-				</form>
-	        </div>	
-        </div>
-      </div>
+				<aside class="steptwo">
+					<h2>Chose recovery method</h2>
+					<div class="form-group">
+						<label for="emailme" class="control-label">
+							<input type="radio" name="resetlink" id="emailme" checked value="emailme"/>
+							Email me a password reset link
+						</label>
+						
+					</div>
+					<div class="form-group">
+						<label for="secquestions" class="control-label">
+							<input type="radio" name="resetlink" id="secquestions" value="secquestions"/>
+							Answer my security questions
+						</label>
+					</div>
+					<div class="form-group">
+						<a class="showlogin pull-left" href="#">Login Now</a>       
+						<input type="submit" class="btn btn-success pull-right " name="new_pass_reset_request" id="newfeedform" value="Forgot Password" />
+					</div>
+				</aside>
+			</form>
+        </div>	
     </div>
-
-</div>
+  </div>
 </div>
 <script>
 $(document).ready(function(){
@@ -185,7 +172,6 @@ $(document).ready(function(){
 	});
 });
 </script>
-</body>
 <?php 
 include("models/inc/gl_footer.php");
 ?>

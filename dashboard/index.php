@@ -46,49 +46,33 @@ include("inc/gl_head.php");
                         <div class="row m-n">
                           <div class="col-md-6 b-b b-r">
                             <a href="#" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i>
-                                <i class="i i-plus2 i-1x text-white"></i>
-                              </span>
                               <span class="clear">
-                                <span class="h3 block m-t-xs text-danger">2,000</span>
-                                <small class="text-muted text-u-c">New Visits</small>
+                                <span class="h3 block m-t-xs text-danger">Core</span>
+                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
                           <div class="col-md-6 b-b">
                             <a href="#" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i>
-                                <i class="i i-users2 i-sm text-white"></i>
-                              </span>
                               <span class="clear">
-                                <span class="h3 block m-t-xs text-success">75%</span>
-                                <small class="text-muted text-u-c">Bounce rate</small>
+                                <span class="h3 block m-t-xs text-success">Tobacco Use</span>
+                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
                           <div class="col-md-6 b-b b-r">
                             <a href="#" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                                <i class="i i-location i-sm text-white"></i>
-                              </span>
                               <span class="clear">
-                                <span class="h3 block m-t-xs text-info">25 <span class="text-sm">m</span></span>
-                                <small class="text-muted text-u-c">location</small>
+                                <span class="h3 block m-t-xs text-info">Diet</span>
+                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
                           <div class="col-md-6 b-b">
                             <a href="#" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i>
-                                <i class="i i-alarm i-sm text-white"></i>
-                              </span>
                               <span class="clear">
-                                <span class="h3 block m-t-xs text-primary">9:30</span>
-                                <small class="text-muted text-u-c">Meeting</small>
+                                <span class="h3 block m-t-xs text-primary">Physical Activity</span>
+                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>

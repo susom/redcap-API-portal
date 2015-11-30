@@ -146,20 +146,22 @@ function makeMessageBox($messages, $type) {
 		'notice' 	=> 'alert-info',
 		'success' 	=> 'alert-success'
 	);
-	$html = '
-		<div class="alert ' . $typeClass[$type] . ' text-center mb-30">
+
+	$pluralclass = (count($messages) < 2 ? "text-center" : "single-message");
+	$html = '<div class="alert ' . $typeClass[$type] .' ' . $pluralclass . ' mb-30">
 				<a href="#" class="close" data-dismiss="alert">
 					<div style="position: relative; width: -4; height:0">
 						&times;
 					</div>
 				</a>
+				<ul>
 			';
 	$lines = array();
 	foreach ($messages as $msg) {
-		$lines[] = "<p><strong>$msg</strong></p>";
+		$lines[] = "<li><strong>$msg</strong></li>";
 	}
-	$html .= implode("<hr>",$lines) . '
-		</div>';
+	$html .= implode("\n",$lines) . '
+		</ul></div>';
 	return $html;
 }
 
@@ -415,6 +417,7 @@ function sanitize($str) {
 
 // Regex to validate email address
 function isValidemail($email) {
+	// return preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", trim($email) );
 	return preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",trim($email));
 }
 

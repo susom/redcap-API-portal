@@ -12,11 +12,13 @@
 	
 	//Account
 	$lang = array_merge($lang,array(
+		"ACCOUNT_SPECIFY_F_L_NAME" 				=> "Please enter your First and Last name",
 		"ACCOUNT_SPECIFY_USERNAME" 				=> "Please enter your username",
 		"ACCOUNT_SPECIFY_PASSWORD" 				=> "Please enter your password",
 		"ACCOUNT_SPECIFY_EMAIL"					=> "Please enter your email address",
 		"ACCOUNT_INVALID_EMAIL"					=> "Invalid email address",
 		"ACCOUNT_INVALID_USERNAME"				=> "Invalid username",
+		"ACCOUNT_EMAIL_MISMATCH"				=> "Emails must match",
 		"ACCOUNT_USER_OR_EMAIL_INVALID"			=> "username or email address is invalid",
 		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Email and/or Password Not Recognized.",
 		"ACCOUNT_ALREADY_ACTIVE"				=> "Your account is already activatived",
@@ -27,16 +29,19 @@
 		"ACCOUNT_USERNAME_IN_USE"				=> "username %m1% is already in use",
 		"ACCOUNT_EMAIL_IN_USE"					=> "email %m1% is already in use",
 		"ACCOUNT_LINK_ALREADY_SENT"				=> "An activation email has already been sent to this email address in the last %m1% hour(s)",
-		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "We have emailed you a new activation link, please check your email",
+		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "Thank you for registering with WELL!  We have sent an account activation link to your email.  Please check your email.",
 		"ACCOUNT_NOW_ACTIVE"					=> "Your account is now active",
 		"ACCOUNT_SPECIFY_NEW_PASSWORD"			=> "Please enter your new password",	
 		"ACCOUNT_NEW_PASSWORD_LENGTH"			=> "New password must be no fewer than %m1% characters or greater than %m2%",	
 		"ACCOUNT_PASSWORD_INVALID"				=> "Current password doesn't match the one we have one record",	
 		"ACCOUNT_EMAIL_TAKEN"					=> "This email address is already taken by another user",
 		"ACCOUNT_DETAILS_UPDATED"				=> "Account details updated",
-		"ACTIVATION_MESSAGE"					=> "You will need first activate your account before you can login, follow the below link to activate your account. \n\n%m1%profile.php?activation=%m2%",							
+		"ACTIVATION_MESSAGE"					=> "You will need first activate your account before you can login, follow the below link to activate your account. \n\n%m1%login.php?activation=%m2%",							
 		"ACCOUNT_REGISTRATION_COMPLETE_TYPE1"	=> "You have successfully registered. You can now login <a href=\"login.php\">here</a>.",
-		"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "Thank you for registering.  Please fill out this short eligibility survey."
+		"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "Thank you for registering.  Please fill out this short eligibility survey.",
+		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "Thank you for you interest in WELL!  You are not eligible to participate at this time.  We will contact you about WELL related studies and information as we expand.",
+		"ACCOUNT_NEED_LOCATION"					=> "Please enter your Zip Code or City"
+
 	));
 	
 	//Forgot password

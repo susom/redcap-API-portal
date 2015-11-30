@@ -26,16 +26,24 @@ a:hover { text-decoration:underline; }
 
 
 /*SESSION ALERT*/
+.alert-info { 
+  background:#f0f8ff;
+}
+.alert-danger { 
+  /*background:#f0f8ff;*/
+}
+.alert-success { 
+  /*background:#f0f8ff;*/
+}
 .alert{
   position:fixed;
-  top:20%; left:50%;
+  top:35%; left:50%;
   transform: translateY(-50%); 
   width:40%;
   margin-left:-20%;
-  transition: .9s top ease;
-  border-radius:10px;
+  /*transition: .9s top ease;*/
   z-index:1100;
-    box-shadow: 0 0 3px #000;
+  box-shadow: 0 0 3px #000;
 }
 .alert + #su-wrap {
   position:relative;
@@ -52,8 +60,12 @@ a:hover { text-decoration:underline; }
 .alert a { 
   text-decoration:none; 
 }
-.alert p {
-  padding:40px; 
+.alert ul {     
+  margin: 20px 40px; padding:0; 
+}
+.alert.text-center ul {
+  list-style:none; 
+  margin: 40px;
 }
 
 
@@ -91,15 +103,8 @@ a:hover { text-decoration:underline; }
 
 
 /*REGISTER PAGE*/
-
-
-
-
-.consent #main-content { 
-	padding:30px 0; 
-	background:#333 url(https://redcap.stanford.edu/redcap_v6.9.4/Resources/images/bg_blackstripe.png) -107px 11px repeat; 
-	border-radius:10px;  
-}
+.register .eli_two { display:none; }
+.register fieldset { margin:0; padding:0; border:0; }
 
 .eligibility {
 	display:none;
@@ -108,13 +113,28 @@ a:hover { text-decoration:underline; }
 	padding:15px 0 10px; 
 	margin:20px 0;
 }
-
-
-
-@media (min-width: 768px){
-	.eligibility .control-label { padding-top:0;  }
+.eligibility .help-block {
+  position: absolute;
+  width: 200%;
+}
+.eli_two > .form-group {
+  min-height: 50px;
 }
 
+
+/*CONSENT FORM*/
+.WordSection1 { margin:20px; }
+.WordSection1 h1 { text-align:center; }
+.WordSection1 .submits { 
+  text-align:center; 
+  margin:40px 0; 
+}
+.WordSection1 .submits a { 
+  text-decoration:none; 
+  color:#fff; 
+  display:inline-block; 
+  margin:0 10px;
+}
 
 .registerForm .footer-links{ 
  	padding:15px; 

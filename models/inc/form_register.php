@@ -4,16 +4,16 @@
     <div class="form-group">
       <label for="email" class="control-label col-sm-3">Your Name:</label>
       <div class="col-sm-4"> 
-        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" value="<?php echo (isset($fname) ? $fname : "") ?>">
       </div>
       <div class="col-sm-4"> 
-        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
+        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" value="<?php echo (isset($lname) ? $lname : "") ?>">
       </div>
     </div>
     <div class="form-group">
       <label for="username" class="control-label col-sm-3">Your Email:</label>
       <div class="col-sm-8"> 
-        <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" >
+        <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" value="<?php echo (isset($email) ? $email : "") ?>">
       </div>
     </div>
     <div class="form-group">
@@ -91,56 +91,59 @@
     </div>
 
     <aside class="eligibility">
-      <div class="form-group">
-        <label class="control-label col-sm-6">Do you plan to continue living in Santa Clara County for the next 12 months or longer?</label>
-        <div class="col-sm-2"> 
-          <label><input name="nextyear" type="radio" value="1"> Yes</label>
-        </div>
+      <fieldset class="eli_one">
+        <div class="form-group">
+          <label class="control-label col-sm-6">Do you plan to continue living in Santa Clara County for the next 12 months or longer?</label>
+          <div class="col-sm-2"> 
+            <label><input name="nextyear" type="radio" value="1"> Yes</label>
+          </div>
 
-        <div class="col-sm-2"> 
-          <label><input name="nextyear" type="radio" value="0"> No</label>
+          <div class="col-sm-2"> 
+            <label><input name="nextyear" type="radio" value="0"> No</label>
+          </div>
         </div>
-      </div>
+      </fieldset>
 
-      <div class="form-group">
-        <label class="control-label col-sm-6">Are you 18 years old or older?</label>
-        <div class="col-sm-2"> 
-          <label><input name="oldenough" type="radio" value="1"> Yes</label>
+      <fieldset class="eli_two">
+        <div class="form-group">
+          <label class="control-label col-sm-6">Are you 18 years old or older?</label>
+          <div class="col-sm-2"> 
+            <label><input name="oldenough" type="radio" value="1"> Yes</label>
+          </div>
+          <div class="col-sm-2"> 
+            <label><input name="oldenough" type="radio" value="0"> No</label>
+          </div>
         </div>
-
-        <div class="col-sm-2"> 
-          <label><input name="oldenough" type="radio" value="0"> No</label>
+        <div class="form-group">
+          <label class="control-label col-sm-6">What is birth year?</label>
+          <div class="col-sm-4"> 
+            <select name="birthyear" id="birthyear">
+            <?php
+              $thisyear = date("Y");
+              for($i=0; $i < 100 ; $i++){
+                $cutoff = ($i == 18 ? "selected" : "");
+                echo "<option $cutoff>".($thisyear - $i)."</option>";
+              }
+            ?>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-6">What is birth year?</label>
-        <div class="col-sm-4"> 
-          <select name="birthyear" id="birthyear">
-          <?php
-            $thisyear = date("Y");
-            for($i=0; $i < 100 ; $i++){
-              $cutoff = ($i == 18 ? "selected" : "");
-              echo "<option $cutoff>".($thisyear - $i)."</option>";
-            }
-          ?>
-          </select>
-        </div>
-      </div>
+      </fieldset>
     </aside>
   
+    <div class="form-group">
+      <span class="control-label col-sm-3"></span>
+      <div class="col-sm-8"> 
+        <em>By clicking the Submit.  you agree to be contacted about WELL related studies and information.</em>
+      </div>
+    </div>
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
         <!-- <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div> -->
         <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Submit</button>
         <input type="hidden" name="submit_new_user" value="true"/>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <span class="control-label col-sm-3"></span>
-      <div class="col-sm-8"> 
-        <em>By clicking the Submit.  you agree to be contacted about WELL related studies and information.</em>
+        <input type="hidden" name="optin" value="true"/>
       </div>
     </div>
     <div class="form-group">
@@ -168,26 +171,16 @@
   </div>
 
   <script>
-    var eligible_zips = [94022,94024,94040,94041,94043,94085,94086,94087,94089,94301,94303,94304,94305,94306,95008,95014,95020,95030,95032,95033,95035,95037,95046,95050,95051,95053,95054,95070,95101,95110,95111,95112,95113,95116,95117,95118,95119,95120,95121,95122,95123,95124,95125,95126,95127,95128,95129,95130,95131,95132,95133,95134,95135,95136,95138,95139,95140,95141,95148,95190,95191,95192,95193,95194,95196];
-    var city_options  = ["Alviso","Campbell","Coyote","Cupertino","Gilroy","Holy City","Los Altos","Los Gatos","Milpitas","Morgan Hill","Mount Hamilton","Mountain View","New Almaden","Redqood Estates","San Jose","San Martin","Santa Clara","Saratoga","Stanford","Sunnyvale","Unincorporated Area","None of these cities, I live outside Santa Clara County"];
+    var eligible_zips   = [<?php echo implode(",",$eligible_zips) ?>];
+    var eligible_cities = ['<?php echo implode("','",$eligible_cities) ?>'];
 
-    var modalmsg      = { "pass" : "Congratulations! You are eligible to participate ino our study.  We have sent a message to the email address you provided.  Please click on the link provided in the message to confirm your email address and get started with our study.", 
-                          "fail" : "Thank you for your interest in WELL.  You are not able to participate at this time.  We will contact you about WELL related studies and information."}
-    
-    $(document).on('click', function(event) {
-
-      if ($(event.target).closest('#myModal').length) {
-        closeModal("myModal");
-      }
-    });
-
-    $("#zip,#city").blur(function(){
+    $("#zip,#city").keyup(function(){
       var locationcheck = $(this).val();
       var showeligible  = false;
       if(locationcheck != ""){        
         if($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1) {
           showeligible = true;
-        }else if($(this).hasClass("city") && city_options.indexOf(locationcheck) > -1){
+        }else if($(this).hasClass("city") && eligible_cities.indexOf(locationcheck) > -1){
           showeligible = true;
         }
       }
@@ -197,24 +190,47 @@
       }
     });
 
+    $("input[name='nextyear']").click(function(){
+      if($(this).val() == 1) {
+        $(".eli_two").slideDown("medium");
+      }
+    });
+
     $('#getstarted').validate({
       rules: {
+        firstname:{
+          required: true
+        },
+        lastname:{
+          required: true
+        },
         username: {
           <?php echo $username_validation ?>
         },
-        // usernametoo: {
-        //   euqalTo: "#username"
-        // },
-        // city:{
-        //   required: function(element) {
-        //     return $("#zip").is(':empty');
-        //   } 
-        // },
+        usernametoo: {
+          equalTo: "#username"
+        },
+        city:{
+          required: function(){
+            return !$("#zip").val();
+          }
+        },
         zip: {
-          required: function(element) {
-            return $("#city").is(':empty');
+          required: function(){
+            return !$("#city").val();
+          }
+        },
+        nextyear: {
+          required: function(){
+            return $(".eligibility").is(':visible');
+          }
+        },
+        oldenough: {
+          required: function(){
+            return $(".eli_two").is(':visible');
           }
         }
+
       },
       highlight: function(element) {
         $(element).closest('.form-group').addClass('has-error');
@@ -239,40 +255,11 @@
           formValues[field.name] = field.value;
       });
 
-      if(formValues.firstname == "" || formValues.lastname == "" || formValues.username == "" ){
+      if(formValues.firstname == "" || formValues.lastname == "" || formValues.username == "" || $(this).find(".help-block").length){
         return;
       }
 
       //ADD LOADING DOTS
       $("button[name='submit_new_user']").append("<img width=50 height=14 src='assets/img/loading_dots.gif'/>")
-
-      $.ajax({
-          url : "",
-          type: "POST",
-          dataType: 'json',
-          data : formValues,
-          success: function(data, textStatus, jqXHR){
-              console.log(data.pass);
-              $('#getstarted').trigger("reset");
-              msg = data.pass ? modalmsg.pass : modalmsg.fail;
-              showModal("myModal",msg);
-
-              $("button[name='submit_new_user'] img").remove();
-          },
-          error: function (jqXHR, textStatus, errorThrown){
-          }
-      });
-
-      return false;
     });
-
-    function showModal(mid,message){
-      $("#"+mid).css("opacity",1).show();
-      $("#modalmsg").text(message);
-      console.log("hahfds");
-      return;
-    }
-    function closeModal(mid){
-      location.href="index.php";
-    }
   </script>

@@ -23,17 +23,16 @@
     </div>
 
     <div class="form-group">
-      <label for="zip" class="control-label col-sm-3">Your Zip Code:</label>
+      <label for="zip" class="control-label col-sm-3">Your Location:</label>
       <div class="col-sm-2"> 
         <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
       </div>
 
-      <label for="city" class="control-label col-sm-2">or City + State:</label>
-      <div class="col-sm-2"> 
+      <div class="col-sm-4"> 
         <input type="text" class="form-control city" name="city" id="city" placeholder="City">
       </div>
       <div class="col-sm-2"> 
-        <select name="state" id="state">
+        <select name="state" class="form-control" id="state">
           <option value="AL">AL</option>
           <option value="AK">AK</option>
           <option value="AZ">AZ</option>
@@ -87,6 +86,7 @@
           <option value="WY">WY</option>
         </select>
       </div>
+      
     </div>
 
     <aside class="eligibility">
@@ -114,9 +114,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-sm-6">What is birth year?</label>
+          <label class="control-label col-sm-6">What is your birth year?</label>
           <div class="col-sm-4"> 
-            <select name="birthyear" id="birthyear">
+            <select name="birthyear" class="form-control" id="birthyear">
             <?php
               $thisyear = date("Y");
               for($i=0; $i < 100 ; $i++){
@@ -154,16 +154,49 @@
   </form>
 
   <script>
+    var eligible_map    = <?php echo $eligible_map ?>;
     var eligible_zips   = [<?php echo implode(",",$eligible_zips) ?>];
-    var eligible_cities = ['<?php echo implode("','",$eligible_cities) ?>'];
+
+    var zip_to_city     = {};
+    for(var i in eligible_map){
+      for (var n in eligible_map[i]){
+        zip_to_city[eligible_map[i][n]] = i;
+      }
+    }
 
     $("#zip,#city").keyup(function(){
-      var locationcheck = $(this).val();
+      var locationcheck = $(this).val().toUpperCase();
       var showeligible  = false;
+
       if(locationcheck != ""){        
-        if($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1) {
+        if( ($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1 ) ) {
+          $("#city").val(zip_to_city[parseInt(locationcheck)]);
           showeligible = true;
-        }else if($(this).hasClass("city") && eligible_cities.indexOf(locationcheck) > -1){
+        }
+
+        if( $(this).hasClass("city") && eligible_map.hasOwnProperty(locationcheck) ) {
+          if( eligible_map[locationcheck].length == 1 ){
+            $("#zip").val(eligible_map[locationcheck][0]);
+          }else{
+            var possible_zips = eligible_map[locationcheck];
+            var lengthcheck   = eligible_map[locationcheck][0].toString().length;
+            var common_nums   = [];
+            for(var i = 0; i < lengthcheck; i++){
+              for(var n in possible_zips){
+                var a_zip       = possible_zips[n].toString();
+                if(n == 0){
+                  common_nums[i]  = a_zip[i];
+                }else{
+                  if(common_nums[i] !== a_zip[i]){
+                    common_nums.pop();
+                    break;
+                    break;
+                  }
+                }
+              }
+            }
+            $("#zip").val(common_nums.join("")).focus();
+          }
           showeligible = true;
         }
       }

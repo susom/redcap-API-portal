@@ -1174,10 +1174,8 @@ you wish to be in this study, please click the button that says "I agree to
 participate."<span style="mso-spacerun:yes">&nbsp; </span>You will then be
 directed<span style="mso-spacerun:yes">&nbsp; </span>to complete the WELL survey.<o:p></o:p></span></p>
 
-
-<form method="POST" class="submits">
-	<a href="index.php?logout=1" class="btn btn-primary">I do not agree</a>
-	<input type="hidden" name="consented" value="true"/>
-	<button type="submit" class="btn btn-info">I agree to participate</button>
-</form>
 </div>
+<form method="POST" class="submits">
+	<input type="hidden" name="consented" value="true"/>
+	<button type="submit" class="btn btn-info">I Agree to Participate</button>
+</form>

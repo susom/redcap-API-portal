@@ -93,7 +93,9 @@ include("models/inc/gl_header.php");
 				<?php 
 				$options = '<option>Choose a question from the list</option>\n';
 				foreach ($template_security_questions as $k => $v){
-					$options .= "<option value=\"$k\">$v</option>\n";
+					if(!empty($v)){
+						$options .= "<option value=\"$k\">$v</option>\n";
+					}
 				}
 						
 				// Build html for each question/answer pair
@@ -102,9 +104,19 @@ include("models/inc/gl_header.php");
 					<div class="form-group">
 						<label for="sec_q<?php echo $i ?>" class="control-label col-sm-3">Security Question <?php echo $i ?>:</label>
 						<div class="col-sm-8">
-							<select name="<?php echo $pair['question'] ?>" class="form-control" id="<?php echo $pair['question'] ?>">
-							<?php echo $options ?>
-							</select>
+							<?php 
+								if($i == 3){
+							?>
+									<input type="text" name="<?php echo $pair['question'] ?>" class="form-control" id="<?php echo $pair['question'] ?>" placeholder="Write a custom security question"/>
+							<?php
+								}else{
+							?>
+									<select name="<?php echo $pair['question'] ?>" class="form-control" id="<?php echo $pair['question'] ?>">
+									<?php echo $options ?>
+									</select>
+							<?php 
+								}
+							?>
 							<input type="text" placeholder="Password Recovery Answer" class="form-control" aria-label="password recovery answer" name="<?php echo $pair['answer'] ?>" id="<?php echo $pair['answer'] ?>" value="<?php echo $loggedInUser->$pair['answer'] ?>">
 						</div><!-- /input-group -->
 					</div>

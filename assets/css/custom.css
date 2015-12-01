@@ -2,7 +2,7 @@
 form:after, article:after, aside:after, figure:after, figcaption:after, footer:after, header:after, hgroup:after, nav:after, section:after,
 contents:after, .container:after { visibility: hidden; display: block; clear: both; height: 0; font-size: 0; content: " "; }
 
-body { background:#f0f4f5; font-size:160%; }
+body { background:#f0f4f5; font-size:160%; height: 100%; }
 a { text-decoration:none; }
 a:hover { text-decoration:underline; }
 
@@ -61,24 +61,20 @@ a:hover { text-decoration:underline; }
   text-decoration:none; 
 }
 .alert ul {     
-  margin: 20px 40px; padding:0; 
+  margin: 20px 40px 40px; padding:0; 
 }
 .alert.text-center ul {
   list-style:none; 
-  margin: 40px;
+  margin: 30px 40px 50px;
 }
+.alert .btn {
+  position:fixed;
+  bottom:15px; 
+  left:50%; 
+  width:80px; 
+  margin-left:-40px;
 
-
-/*POPUP MODAL*/
-.modal.fade .modal-dialog {
-    -webkit-transform: translate(0,0); 
-    -ms-transform: translate(0,0);
-    -o-transform: translate(0,0);
-     transform: translate(0,0); 
 }
-.modal { top: 50%;  transform: translateY(-50%); }
-.modal-header { border-bottom:0; }
-.modal-footer { border-top:0; }
 
 
 /*JUMP PAGE*/
@@ -123,13 +119,19 @@ a:hover { text-decoration:underline; }
 
 
 /*CONSENT FORM*/
-.WordSection1 { margin:20px; }
+.WordSection1 { margin:20px;     
+  overflow-y: scroll;
+  height:50vh;; 
+  border:1px solid #efefef; 
+  border-radius:5px; 
+}
+
 .WordSection1 h1 { text-align:center; }
-.WordSection1 .submits { 
+.consent .submits { 
   text-align:center; 
   margin:40px 0; 
 }
-.WordSection1 .submits a { 
+.consent .submits a { 
   text-decoration:none; 
   color:#fff; 
   display:inline-block; 

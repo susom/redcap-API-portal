@@ -8,12 +8,18 @@ if(isUserLoggedIn()) {
 	exit; 
 }
 
+
+//ELIGIBLE CITY/ZIP COMBINATIONS
+include("models/inc/city_zips.php");
 $username_label 	= "";
 $badlogin 			= "";
-$eligible_zips 		= array(94022,94024,94040,94041,94043,94085,94086,94087,94089,94301,94303,94304,94305,94306,95008,95014,95020,95030,95032,95033,95035,95037,95046,95050,95051,95053,95054,95070,95101,95110,95111,95112,95113,95116,95117,95118,95119,95120,95121,95122,95123,95124,95125,95126,95127,95128,95129,95130,95131,95132,95133,95134,95135,95136,95138,95139,95140,95141,95148,95190,95191,95192,95193,95194,95196);
-$eligible_cities 	= array("Alviso","Campbell","Coyote","Cupertino","Gilroy","Holy City","Los Altos","Los Gatos","Milpitas","Morgan Hill","Mount Hamilton","Mountain View","New Almaden","Redqood Estates","San Jose","San Martin","Santa Clara","Saratoga","Stanford","Sunnyvale","Unincorporated Area","None of these cities, I live outside Santa Clara County");
-	
-// Process New User Request
+$eligible_zips 		= array();
+foreach($city_zips as $city => $zips){
+	$eligible_zips 	= array_merge($eligible_zips, $zips);
+}
+$eligible_map		= json_encode($city_zips);
+
+// PROCESS NEW USER
 if(!empty($_POST['submit_new_user'])){
 	$errors 	= array();
 	$email 		= trim($_POST["username"]);

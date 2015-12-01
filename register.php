@@ -3,7 +3,8 @@ require_once("models/config.php");
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
-	header("Location: $websiteUrl"); 
+	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");
+	header("Location: " . $destination);
 	exit; 
 }
 
@@ -20,7 +21,7 @@ if(!empty($_POST['submit_new_user'])){
 
 	// use the email as the username if configured
 	$username 	= $portal_config['useEmailAsUsername'] ? $email : trim($_POST["username"]);
-	$password 	= md5("somelongthingsurewhynot" + $username); //put a temp pw thing for now
+	$password 	= md5("somelongthingsurewhynot" + $username); //USE A TEMP PASSWORD FOR NOW
 	
 	$fname 		= (!empty($_POST["firstname"]) 	? $_POST["firstname"] : null ) ;
 	$lname 		= (!empty($_POST["lastname"]) 	? $_POST["lastname"] : null) ;
@@ -30,7 +31,9 @@ if(!empty($_POST['submit_new_user'])){
 
 	$nextyear 	= (isset($_POST["nextyear"]) 	? $_POST["nextyear"] 	:null ) ;
 	$oldenough 	= (isset($_POST["oldenough"]) 	? $_POST["oldenough"] 	: null) ;
+	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
+	$actualage 	= date("Y") - $birthyear;
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
 
@@ -57,7 +60,7 @@ if(!empty($_POST['submit_new_user'])){
 	//End data validation
 	if(count($errors) == 0){
 		//Construct a user auth object
-		$auth = new RedcapAuth($username,NULL,$email);
+		$auth = new RedcapAuth($username,NULL,$email, $fname, $lname);
 		
 		//Checking this flag tells us whether there were any errors such as possible data duplication occured
 		if($auth->emailExists()){
@@ -65,19 +68,19 @@ if(!empty($_POST['submit_new_user'])){
 		}else{
 			//IF THEY DONT PASS ELIGIBILITY THEN THEY GET A THANK YOU , BUT NO ACCOUNT CREATION 
 			//BUT NEED TO STORE THEIR STUFF FOR CONTACT
-			if($oldenough && $nextyear && $optin){
+			if($oldenough && $nextyear && $optin && $actualage >= 18){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
 					
-					// Redirect to profile page to complete registration
+					// THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
 					$loggedInUser = new RedcapPortalUser($auth->new_user_id);
-					setSessionUser($loggedInUser);
 				}else{
 					$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
 				}
 			}else{
 				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE"), "notice" );
+				//ADD THEIR EMAIL , NAME TO CONTACT DB
 			}
 
 			//CLEAN UP
@@ -89,8 +92,27 @@ if(!empty($_POST['submit_new_user'])){
 	foreach ($errors as $error) {
 		addSessionAlert($error);
 	}
-}elseif(!empty($_GET['activation'])){
+}elseif(!empty($_GET['activation']) && !empty($_GET['uid'])){
+	$uid 		= $_GET['uid'];
+	$activation = $_GET['activation'];
 
+	$newuser = new RedcapPortalUser($uid);
+	if($newuser->isEmailTokenValid($activation)){
+		//SET EMAIL = VERIFIED
+		$newuser->setEmailVerified();
+
+		//SET USER IN SESSION
+		$loggedInUser = new RedcapPortalUser($uid);
+		setSessionUser($loggedInUser);
+
+		//REDIRECT TO CONSENT
+		header("Location: consent.php");
+		exit;
+	}else{
+		// Invalid token match
+		$errors[] = "The supplied email activation token is invalid or expired.  This can happen if you regenerated a new token but followed the link from an older request.";
+		addSessionAlert("Invalid email activation token");
+	}
 }
 
 $username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";

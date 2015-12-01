@@ -3,6 +3,7 @@ require_once(dirname(__FILE__)."/settings.php");
 require_once(dirname(__FILE__)."/lang/".$langauge.".php");
 require_once(dirname(__FILE__)."/funcs.general.php");
 require_once(dirname(__FILE__)."/class.RCAPI.php");
+require_once(dirname(__FILE__)."/class.redcapAuth.php");
 require_once(dirname(__FILE__)."/class.redcapportaluser.php");
 require_once(dirname(__FILE__)."/class.mail.php");
 require_once(dirname(__FILE__)."/class.htmlpage.php");

@@ -1,10 +1,20 @@
 <?php
 require_once("models/config.php");
 
-//REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
-if(isUserLoggedIn()) { 
-	header("Location: $websiteUrl"); 
+//REDIRECT USERS THAT ARE ALREADY LOGGED IN AND CONSENTED TO THE PORTAL PAGE
+if(isUserLoggedIn() && isUserActive()) { 
+	$destination = $websiteUrl . "dashboard/index.php";
+	header("Location: " . $destination);
 	exit; 
+}
+
+if( !empty($_POST) && isset($_POST['consented']) ){
+	//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
+	$loggedInUser->setActive();
+
+	//REDIRECT TO SECURITY QUESTIONS
+	header("Location: account_setup.php");
+	exit;
 }
 
 $pg_title 		= "Consent | $websiteName";
@@ -16,7 +26,7 @@ include("models/inc/gl_header.php");
 	<div id="main-content" class="col-md-8 col-md-offset-2 consent" role="main">
 		<div class="well row">
 		  <?php
-		  	include("well_consent_doc.php");
+		  	include("models/inc/well_consent_doc.php");
 		  ?>
 	  	</div>
 	</div>

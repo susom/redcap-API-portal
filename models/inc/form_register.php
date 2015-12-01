@@ -1,6 +1,5 @@
-  <h2>Register for this Study</h2>
-      
   <form id="getstarted" action="register.php" class="form-horizontal" method="POST" role="form">
+    <h2>Register for this Study</h2>
     <div class="form-group">
       <label for="email" class="control-label col-sm-3">Your Name:</label>
       <div class="col-sm-4"> 
@@ -153,22 +152,6 @@
       </div>
     </div>
   </form>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header"></div>
-        <div class="modal-body">
-          <p id='modalmsg'></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script>
     var eligible_zips   = [<?php echo implode(",",$eligible_zips) ?>];

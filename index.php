@@ -1,8 +1,6 @@
 <?php
 require_once("models/config.php");
 
-// addSessionAlert("hehehehe");
-
 $pg_title     = "$websiteName";
 $body_classes = "index signinup";
 include("models/inc/gl_header.php");

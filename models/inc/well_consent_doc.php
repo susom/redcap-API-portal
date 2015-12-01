@@ -1175,8 +1175,9 @@ participate."<span style="mso-spacerun:yes">&nbsp; </span>You will then be
 directed<span style="mso-spacerun:yes">&nbsp; </span>to complete the WELL survey.<o:p></o:p></span></p>
 
 
-<p class="submits">
+<form method="POST" class="submits">
 	<a href="index.php?logout=1" class="btn btn-primary">I do not agree</a>
-	<a href="dashboard/" class="btn btn-info">I agree to participate</a>
-</p>
+	<input type="hidden" name="consented" value="true"/>
+	<button type="submit" class="btn btn-info">I agree to participate</button>
+</form>
 </div>

@@ -97,7 +97,7 @@ a:hover { text-decoration:underline; }
 .login input , .login .steptwo .control-label{ margin:0 0 15px; }
 .login input[type='radio']{ margin:0 3px; }
 
-.showlogin,.showrecover { margin:5px 0 0 2px; color:#007c92; }
+.showlogin,.showrecover,.showregister { margin:5px 0 0 2px; color:#007c92; }
 .lostPass { display:none; }
 .steptwo { display:none; }
 
@@ -136,53 +136,21 @@ a:hover { text-decoration:underline; }
   margin:0 10px;
 }
 
-.registerForm .footer-links{ 
- 	padding:15px; 
-}
 
-.eligibilityForm label {
-	display:block; 
-}
+/*ACCOUNT SETUP*/
+.accountSetup select { margin-bottom:8px; }
 
-.eligibilitySection blockquote {
-	position:absolute;
-	opacity:0;
 
-	transition: opacity 2s;
-}
 
-.eligibilitySection blockquote.uneligibile {
-	position:relative;
-	opacity:1;
-    width: 90%;
-    border-left: 0;
-    margin: 10px auto 0;
-    position: relative;
-}
 
-.uneligibile:after{
-	content: "";
-    border-top: 30px solid white;
-    width: 30px;
-    height: 60px;
-    background: tranparent;
-    position: absolute;
-    border-left: 30px solid #777;
-    border-bottom: 30px solid white;
-    top: 0;
-    right: -30px;
-}
 
-#feature-banner .feature-caption:before { 
-	border-radius:10px; 
-}
-section {
-	background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 3px 0.2px rgba(0, 0, 0, 0.1);
-    padding:10px; 
-    border-radius:10px; 
-}
+
+
+
+
+
+
+
 
 
 .g-recaptcha {

@@ -3,9 +3,11 @@ require_once("models/config.php");
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
-	header("Location: " . $websiteUrl . "dashboard/index.php"); 
+	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");
+	header("Location: " . $destination);
 	exit; 
 }
+
 if(isset($_GET["session_clear"])){
 	unset($_SESSION[SESSION_NAME]['login_attempts']);
 	header("Location: " . $websiteUrl . "login.php"); 
@@ -35,10 +37,16 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 		if($auth->authenticated_user_id != Null) {
 			// Log user in
 			$loggedInUser 		= new RedcapPortalUser($auth->authenticated_user_id);
+			unset($_SESSION[SESSION_NAME]['login_attempts']);
 			setSessionUser($loggedInUser);
 
-			//Redirect to user account page
-			$destination 		= getSessionRedirectOr('/dashboard/index.php');
+			//CHECK IF USER AGREED TO CONSENT YET
+			if(!$loggedInUser->active){
+				$destination 	= "consent.php";
+			}else{
+				$destination 	= getSessionRedirectOr('/portal/dashboard/index.php');
+			}
+			
 			header("Location: $destination");
 		} else { // Invalid credentials
 			//IF NOT A REGISTERED USER - KEEP EMAIL AND PREFILL ON REGISTER FORM
@@ -80,12 +88,15 @@ include("models/inc/gl_header.php");
 					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="off" >
 				</div>
 				<div class="form-group">
-					<a class="showrecover pull-left" href="#">Forgot Password?</a>      
+					<div class="pull-left">
+						<a class="showrecover" href="#">Forgot Password?</a> <br>
+						<a class="showregister" href="register.php">Register for Study</a>  
+					</div>    
 					<input <?php echo $disabled?> type="submit" class="btn btn-success pull-right" name="new_login" id="newfeedform" value="Log In"/>      
 				</div>
 	        </form>
 
-	        <form id="pwresetForm" name="newLostPass" class="form-horizontal lostPass  col-md-6 " action="forgot-password.php" method="post">
+	        <form id="pwresetForm" name="newLostPass" class="form-horizontal lostPass  col-md-6 " action="forgot_password.php" method="post">
 				<aside class="stepone">
 					<h2>Enter email to begin password reset</h2>
 					<div class="form-group">
@@ -94,7 +105,7 @@ include("models/inc/gl_header.php");
 					</div>
 					<div class="form-group">
 						<a class="showlogin pull-left" href="#">Login Now</a>       
-						<a href="#" class="btn btn-success pull-right nextstep" title="Forgot Password" >Next Step</a>
+						<button type='submit' class="btn btn-success pull-right nextstep" title="Forgot Password" >Next Step</button>
 					</div>
 				</aside>
 
@@ -139,10 +150,38 @@ $(document).ready(function(){
 	});
 
 	$(".nextstep").click(function(){
-		$(".logpass form").hide();
-		$(".stepone").hide();
-		$(".steptwo").show();
-		$(".lostPass").fadeIn("medium");
+		if($("#forgotemail").val()){
+			$(".logpass form").hide();
+			$(".stepone").hide();
+			$(".steptwo").show();
+			$(".lostPass").fadeIn("medium");
+		}else{
+			$("#forgotemail").closest('.form-group').addClass('has-error');
+		}
+		return false;
+	});
+
+	$('#pwresetForm').validate({
+		rules: {
+			forgotemail: {
+				required: true
+			}
+		},
+		highlight: function(element) {
+			$(element).closest('.form-group').addClass('has-error');
+		},
+		unhighlight: function(element) {
+			$(element).closest('.form-group').removeClass('has-error');
+		},
+		errorElement: 'span',
+		errorClass: 'help-block',
+		errorPlacement: function(error, element) {
+			if(element.parent('.input-group').length) {
+			  error.insertAfter(element.parent());
+			} else {
+			  error.insertAfter(element);
+			}
+		}
 	});
 
 	$('#loginForm').validate({

@@ -1,0 +1,19 @@
+/*WEATHER WIDGET*/
+h2.weather, .fullDay { display:none !important; }
+.weatherSummary { padding:0; margin:0; border-radius:5px; box-shadow:2px 2px 2px #ccc;}
+.today{
+  width:90%; min-height:150px;
+  margin:0 20px; padding:0; position:relative; 
+  text-shadow:1px 1px #333; 
+}
+.today p { display:inline-block; margin:0 0 5px; padding:0;  }
+.today p:nth-child(3) { position:absolute; left:75px; top:4px; }
+.today p:nth-child(3):before { content:"- ";}
+.today p:nth-child(4), .today p:nth-child(5), .today p:nth-child(6) { float:left; width:285px;  }
+.today p:first-child {display:block; margin:0; }
+.today img { display:inline-block; float:left; margin:0 20px 0 0; }
+
+/*DASHBOARD*/
+.corefour .block { text-align:center; min-height:40px;}
+.corefour .disabled span { color:#c3c3c3; }
+.corefour .disabled { background:#e3e3e3; }

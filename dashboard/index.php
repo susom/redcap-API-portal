@@ -23,56 +23,39 @@ include("inc/gl_head.php");
                   <section class="row m-b-md">
                     <div class="col-sm-6">
                       <h3 class="m-b-xs text-black">Dashboard</h3>
-                      <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> New York City</small>
-                    </div>
-                    <div class="col-sm-6 text-right text-left-xs m-t-md">
-                      <div class="btn-group">
-                        <a class="btn btn-rounded btn-default b-2x dropdown-toggle" data-toggle="dropdown">Widgets <span class="caret"></span></a>
-                        <ul class="dropdown-menu text-left pull-right">
-                          <li><a href="#">Notification</a></li>
-                          <li><a href="#">Messages</a></li>
-                          <li><a href="#">Analysis</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">More settings</a></li>
-                        </ul>
-                      </div>
-                      <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a>
-                      <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a>
+                      <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> San Francisco</small>
                     </div>
                   </section>
+
                   <div class="row">
                     <div class="col-sm-6">
-                      <div class="panel b-a">
+                      <div class="panel b-a corefour">
                         <div class="row m-n">
                           <div class="col-md-6 b-b b-r">
                             <a href="#" class="block padder-v hover">
                               <span class="clear">
                                 <span class="h3 block m-t-xs text-danger">Core</span>
-                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
-                          <div class="col-md-6 b-b">
-                            <a href="#" class="block padder-v hover">
+                          <div class="col-md-6 b-b disabled">
+                            <a href="#" class="block padder-v hover ">
                               <span class="clear">
                                 <span class="h3 block m-t-xs text-success">Tobacco Use</span>
-                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
-                          <div class="col-md-6 b-b b-r">
-                            <a href="#" class="block padder-v hover">
+                          <div class="col-md-6 b-b b-r disabled">
+                            <a href="#" class="block padder-v hover ">
                               <span class="clear">
                                 <span class="h3 block m-t-xs text-info">Diet</span>
-                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
-                          <div class="col-md-6 b-b">
+                          <div class="col-md-6 b-b disabled">
                             <a href="#" class="block padder-v hover">
                               <span class="clear">
                                 <span class="h3 block m-t-xs text-primary">Physical Activity</span>
-                                <small class="text-muted text-u-c">&nbsp;</small>
                               </span>
                             </a>
                           </div>
@@ -80,33 +63,8 @@ include("inc/gl_head.php");
                       </div>
                     </div>
                     
-                    <div class="col-sm-3 hide">
-                      <section class="panel b-a">
-                        <header class="panel-heading b-b b-light">
-                          <ul class="nav nav-pills pull-right">
-                            <li>
-                              <a href="ajax.pie.html" class="text-muted" data-bjax data-target="#b-c">
-                                <i class="i i-cycle"></i>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" class="panel-toggle text-muted">
-                                <i class="i i-plus text-active"></i>
-                                <i class="i i-minus text"></i>
-                              </a>
-                            </li>
-                          </ul>
-                          Connection
-                        </header>
-                        <div class="panel-body text-center bg-light lter" id="b-c">
-                          <div class="easypiechart inline m-b m-t" data-percent="60" data-line-width="4" data-bar-Color="#23aa8c" data-track-Color="#c5d1da" data-color="#2a3844" data-scale-Color="false" data-size="120" data-line-cap='butt' data-animate="2000">
-                            <div>
-                              <span class="h2 m-l-sm step"></span>%
-                              <div class="text text-xs">completed</div>
-                            </div>
-                          </div>
-                        </div>
-                      </section>                      
+                    <div class="col-sm-6">
+                      <div class="weather">San Francisco,CA</div>
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">
@@ -194,3 +152,8 @@ include("inc/gl_head.php");
 <?php
 include("inc/gl_foot.php");
 ?>
+<script type="text/javascript">
+$(document).ready(function () {
+  $(".weather").weatherFeed({relativeTimeZone:true});
+});
+</script>

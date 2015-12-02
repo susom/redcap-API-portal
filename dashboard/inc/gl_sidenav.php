@@ -9,39 +9,18 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="thumb avatar pull-left m-r">                        
                 <img src="images/a0.png" class="dker" alt="...">
-                <i class="on md b-black"></i>
+                
               </span>
               <span class="hidden-nav-xs clear">
                 <span class="block m-t-xs">
                   <strong class="font-bold text-lt">John.Smith</strong> 
-                  <b class="caret"></b>
+                  
                 </span>
                 <span class="text-muted text-xs block">Art Director</span>
               </span>
             </a>
 
-            <ul class="dropdown-menu animated fadeInRight m-t-xs">                      
-              <li>
-                <span class="arrow top hidden-nav-xs"></span>
-                <a href="#">Settings</a>
-              </li>
-              <li>
-                <a href="profile.html">Profile</a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="badge bg-danger pull-right">3</span>
-                  Notifications
-                </a>
-              </li>
-              <li>
-                <a href="docs.html">Help</a>
-              </li>
-              <li class="divider"></li>
-              <li>
-                <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
-              </li>
-            </ul>
+            
 
           </div>
         </div>                
@@ -64,38 +43,40 @@
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
                 </span>
-                <b class="badge bg-danger pull-right">4</b>
+                <b class="badge bg-danger pull-right">5</b>
                 <i class="i i-stack icon">
                 </i>
                 <span class="font-bold">My Surveys</span>
               </a>
               <ul class="nav dk">
                 <li >
-                  <a href="layout-color.html" class="auto">                                                        
+                  <a href="survey.php?sid=1" class="auto">                                                        
                     <i class="i i-dot"></i>
-
-                    <span>Color option</span>
+                    <span>Screening Questions</span>
                   </a>
                 </li>
                 <li >
-                  <a href="layout-hbox.html" class="auto">                                                        
+                  <a href="survey.php?sid=1" class="auto">                                                        
                     <i class="i i-dot"></i>
-
-                    <span>Hbox layout</span>
+                    <span>Socio-Demographic</span>
                   </a>
                 </li>
                 <li >
-                  <a href="layout-boxed.html" class="auto">                                                        
+                  <a href="survey.php?sid=1" class="auto">                                                        
                     <i class="i i-dot"></i>
-
-                    <span>Boxed layout</span>
+                    <span>Health Behavior</span>
                   </a>
                 </li>
                 <li >
-                  <a href="layout-fluid.html" class="auto">                                                        
+                  <a href="survey.php?sid=1" class="auto">                                                        
                     <i class="i i-dot"></i>
-
-                    <span>Fluid layout</span>
+                    <span>Social & Neighborhood</span>
+                  </a>
+                </li>
+                <li >
+                  <a href="survey.php?sid=1" class="auto">                                                        
+                    <i class="i i-dot"></i>
+                    <span>Wellness Questions</span>
                   </a>
                 </li>
               </ul>
@@ -126,108 +107,6 @@
                     <span>Icons</span>
                   </a>
                 </li>
-                <li >
-                  <a href="grid.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Grid</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="widgets.html" class="auto">                            
-                    <b class="badge bg-dark pull-right">8</b>                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Widgets</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="components.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Components</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="list.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>List group</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="#table" class="auto">                            
-                    <span class="pull-right text-muted">
-                      <i class="i i-circle-sm-o text"></i>
-                      <i class="i i-circle-sm text-active"></i>
-                    </span>                            
-                    <i class="i i-dot"></i>
-
-                    <span>Table</span>
-                  </a>
-                  <ul class="nav dker">
-                    <li >
-                      <a href="table-static.html">                                <i class="i i-dot"></i>
-                        <span>Table static</span>
-                      </a>
-                    </li>
-                    <li >
-                      <a href="table-datatable.html">                            
-                        <b class="label bg-dark pull-right">1.10</b>                                <i class="i i-dot"></i>
-                        <span>Datatable</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li >
-                  <a href="#form" class="auto">                            
-                    <span class="pull-right text-muted">
-                      <i class="i i-circle-sm-o text"></i>
-                      <i class="i i-circle-sm text-active"></i>
-                    </span>                            
-                    <i class="i i-dot"></i>
-
-                    <span>Form</span>
-                  </a>
-                  <ul class="nav dker">
-                    <li >
-                      <a href="form-elements.html">                                <i class="i i-dot"></i>
-                        <span>Form elements</span>
-                      </a>
-                    </li>
-                    <li >
-                      <a href="form-validation.html">                                <i class="i i-dot"></i>
-                        <span>Form validation</span>
-                      </a>
-                    </li>
-                    <li >
-                      <a href="form-wizard.html">                                <i class="i i-dot"></i>
-                        <span>Form wizard</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li >
-                  <a href="chart.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Chart</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="portlet.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Portlet</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="timeline.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Timeline</span>
-                  </a>
-                </li>
               </ul>
             </li>
             <li >
@@ -236,93 +115,53 @@
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
                 </span>
-                <i class="i i-docs icon">
-                </i>
+                <i class="i i-docs icon"></i>
                 <span class="font-bold">My Profile</span>
               </a>
               <ul class="nav dk">
                 <li >
                   <a href="profile.html" class="auto">                                                        
                     <i class="i i-dot"></i>
-
                     <span>Profile</span>
                   </a>
                 </li>
                 <li >
                   <a href="profile-2.html" class="auto">                                                        
                     <i class="i i-dot"></i>
-
-                    <span>Profile 2</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="search.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Search</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="invoice.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Invoice</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="intro.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Intro</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="master.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Master</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="gmap.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Google Map</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="jvectormap.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Vector Map</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="signin.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Signin</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="signup.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Signup</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="404.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>404</span>
+                    <span>Account Settings</span>
                   </a>
                 </li>
               </ul>
             </li>
             
+            <li >
+              <a href="#" class="auto">
+                <span class="pull-right text-muted">
+                  <i class="i i-circle-sm-o text"></i>
+                  <i class="i i-circle-sm text-active"></i>
+                </span>
+                <i class="i i-lab icon">
+                </i>
+                <span class="font-bold">Theme StyleGuide</span>
+              </a>
+              <ul class="nav dk">
+                <li >
+                  <a href="/portal/dashboard/theme_styleguide/docs.html" target="_blank">                                                        
+                    <i class="i i-dot"></i>
+                    <span>Help</span>
+                  </a>
+                </li>
+                <li >
+                  <a href="/portal/dashboard/theme_styleguide/" target="_blank">                            
+                    <i class="i i-dot"></i>
+                    <span>Example Site</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
           </ul>
 
+    
           <div class="line dk hidden-nav-xs"></div>
         </nav>
         <!-- / nav -->
@@ -330,9 +169,7 @@
     </section>
     
     <footer class="footer hidden-xs no-padder text-center-nav-xs">
-      <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
-        <i class="i i-logout"></i>
-      </a>
+      
       <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
         <i class="i i-circleleft text"></i>
         <i class="i i-circleright text-active"></i>

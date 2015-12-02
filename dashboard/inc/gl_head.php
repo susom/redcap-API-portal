@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="css/font.css" type="text/css" />
   <link rel="stylesheet" href="css/app.css" type="text/css" />  
   <link rel="stylesheet" href="js/calendar/bootstrap_calendar.css" type="text/css" />
+
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
+  <link rel="stylesheet" href="css/weather.css" />
+  <link rel="stylesheet" type="text/css" href="css/custom.css"/>
+  
   <!--[if lt IE 9]>
     <script src="js/ie/html5shiv.js"></script>
     <script src="js/ie/respond.min.js"></script>

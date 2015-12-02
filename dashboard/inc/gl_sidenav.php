@@ -1,4 +1,4 @@
-<aside class="bg-black aside-md hidden-print hidden-xs" id="nav">          
+<aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">
       <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
@@ -27,13 +27,12 @@
 
 
         <!-- nav -->                 
-        <nav class="nav-primary hidden-xs">
+        <nav class="nav-primary hidden-xs ">
           <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
           <ul class="nav nav-main" data-ride="collapse">
             <li  class="active">
-              <a href="index.html" class="auto">
-                <i class="i i-statistics icon">
-                </i>
+              <a href="index.php" class="auto">
+                <i class="i i-statistics icon"></i>
                 <span class="font-bold">My Home</span>
               </a>
             </li>
@@ -43,38 +42,31 @@
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
                 </span>
-                <b class="badge bg-danger pull-right">5</b>
-                <i class="i i-stack icon">
-                </i>
+                <b class="badge bg-danger pull-right">4</b>
+                <i class="i i-stack icon"></i>
                 <span class="font-bold">My Surveys</span>
               </a>
               <ul class="nav dk">
                 <li >
-                  <a href="survey.php?sid=1" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Screening Questions</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="survey.php?sid=1" class="auto">                                                        
+                  <a href="survey.php?sid=2" class="auto">                                                        
                     <i class="i i-dot"></i>
                     <span>Socio-Demographic</span>
                   </a>
                 </li>
                 <li >
-                  <a href="survey.php?sid=1" class="auto">                                                        
+                  <a href="survey.php?sid=3" class="auto">                                                        
                     <i class="i i-dot"></i>
                     <span>Health Behavior</span>
                   </a>
                 </li>
                 <li >
-                  <a href="survey.php?sid=1" class="auto">                                                        
+                  <a href="survey.php?sid=4" class="auto">                                                        
                     <i class="i i-dot"></i>
                     <span>Social & Neighborhood</span>
                   </a>
                 </li>
                 <li >
-                  <a href="survey.php?sid=1" class="auto">                                                        
+                  <a href="survey.php?sid=5" class="auto">                                                        
                     <i class="i i-dot"></i>
                     <span>Wellness Questions</span>
                   </a>

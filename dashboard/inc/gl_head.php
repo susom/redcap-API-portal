@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
   <link rel="stylesheet" href="css/weather.css" />
   <link rel="stylesheet" type="text/css" href="css/custom.css"/>
-  
+
   <!--[if lt IE 9]>
     <script src="js/ie/html5shiv.js"></script>
     <script src="js/ie/respond.min.js"></script>
@@ -24,3 +24,6 @@
   <![endif]-->
 </head>
 <body class="<?php echo $body_classes ?>">
+<?php
+  print getSessionMessages();
+?>

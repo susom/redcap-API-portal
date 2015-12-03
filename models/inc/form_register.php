@@ -195,7 +195,10 @@
                 }
               }
             }
-            $("#zip").val(common_nums.join("")).focus();
+            var haszip = $("#zip").val();
+            if(eligible_map[locationcheck].indexOf(parseInt(haszip)) < 0){
+              $("#zip").val(common_nums.join("")).focus();
+            }
           }
           showeligible = true;
         }

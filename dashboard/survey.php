@@ -59,8 +59,16 @@ include("inc/gl_head.php");
 
                   <div class="row">
                     <div class="col-sm-9">
-                      <iframe id="surveyFrame" frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" 
+                      <div class="row">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-11 surveyFrame">
+                          <iframe id="surveyFrame" frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" 
                         src="<?php echo $iframe_src; ?>"></iframe>
+                        </div>
+                        <div class="submits">
+                          <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="col-sm-3">
@@ -79,10 +87,6 @@ include("inc/gl_head.php");
                       </div>
                     </div>
                   </div>           
-                  
-                  <div class="submits">
-                    <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
-                  </div>
                 </section>
               </section>
             </section>
@@ -103,5 +107,7 @@ include("inc/gl_foot.php");
 var ifr     = document.getElementById( "surveyFrame" );
 var ifrDoc  = ifr.contentDocument || ifr.contentWindow.document;
 
-var theForm = ifrDoc.getElementById( yourFormId );
+var theForm = ifrDoc.getElementById( "form" );
+
+console.log(theform);
 </script>

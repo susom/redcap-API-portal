@@ -39,7 +39,7 @@ if(!empty($_POST['submit_new_user'])){
 	$oldenough 	= (isset($_POST["oldenough"]) 	? $_POST["oldenough"] 	: null) ;
 	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
-	$actualage 	= date("Y") - $birthyear;
+	$actualage 	= ((!in_array($zip,$eligible_zips) && !array_key_exists($city, $city_zips)) ? null : date("Y") - $birthyear);
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
 
@@ -66,8 +66,8 @@ if(!empty($_POST['submit_new_user'])){
 	//End data validation
 	if(count($errors) == 0){
 		//Construct a user auth object
-		$auth = new RedcapAuth($username,NULL,$email, $fname, $lname);
-		
+		$auth = new RedcapAuth($username,NULL,$email, $fname, $lname, $zip, $city,$state, $actualage);
+
 		//Checking this flag tells us whether there were any errors such as possible data duplication occured
 		if($auth->emailExists()){
 			$errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));
@@ -85,8 +85,9 @@ if(!empty($_POST['submit_new_user'])){
 					$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
 				}
 			}else{
-				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE"), "notice" );
 				//ADD THEIR EMAIL , NAME TO CONTACT DB
+				$auth->createNewUser($password, FALSE);
+				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE"), "notice" );
 			}
 
 			//CLEAN UP
@@ -98,6 +99,7 @@ if(!empty($_POST['submit_new_user'])){
 	foreach ($errors as $error) {
 		addSessionAlert($error);
 	}
+
 }elseif(!empty($_GET['activation']) && !empty($_GET['uid'])){
 	$uid 		= $_GET['uid'];
 	$activation = $_GET['activation'];

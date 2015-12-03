@@ -1,3 +1,4 @@
+
 /*WEATHER WIDGET*/
 h2.weather, .fullDay { display:none !important; }
 .weatherSummary { padding:0; margin:0; border-radius:5px; box-shadow:2px 2px 2px #ccc;}
@@ -18,3 +19,16 @@ h2.weather, .fullDay { display:none !important; }
 .corefour .disabled span { color:#c3c3c3; }
 .corefour .disabled { background:#e3e3e3; }
 .corefour .disabled a {cursor:default; }
+
+/*SURVEY FRAMES*/
+.surveyFrame { 
+	padding:10px 0; 
+	background:#fff ; 
+	border-radius:10px;  
+}
+.survey .submits { 
+	clear:both;  
+	padding:20px; 
+	text-align:Center; 
+}
+.survey .submits .btn { margin:0 5px; }

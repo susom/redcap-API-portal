@@ -1,6 +1,8 @@
 <?php
 require_once("../models/config.php");
 
+echo "<pre>";
+print_r($loggedInUser);
 $pg_title 		= "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");

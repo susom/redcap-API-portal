@@ -30,12 +30,15 @@ class RedcapAuth {
    public   $email_verified;
    
    // When launched, provide current credentails
-   public function __construct($user, $pass = NULL, $email = NULL, $first = NULL, $last = NULL){
+   public function __construct($user, $pass = NULL, $email = NULL, $first = NULL, $last = NULL, $zip = NULL, $city = NULL, $state = NULL, $age = NULL){
       $this->username_raw  = trim($user);
       $this->username      = sanitize($user);
       $this->email         = sanitize($email);
       $this->firstname     = sanitize(trim($first));
       $this->lastname      = sanitize(trim($last));
+      $this->zip           = sanitize(trim($zip));
+      $this->city          = sanitize(trim($city));
+      $this->age           = sanitize(trim($age));
       
       // Load the record data from the API and get any username matches
       self::loadRecords();
@@ -100,7 +103,7 @@ class RedcapAuth {
    }
    
    // Create a new user in the REDCap project
-   public function createNewUser($pass) {
+   public function createNewUser($pass, $verifymail = true) {
       if (self::usernameExists()) {
          $this->error = "Error creating user (CODE 001)"; // Don't create a user if they already exist!
          return false;
@@ -121,6 +124,10 @@ class RedcapAuth {
          getRF('password')    => $password_salt_hash,
          getRF('firstname')   => $this->firstname,
          getRF('lastname')    => $this->lastname,
+         getRF('zip')         => $this->zip,
+         getRF('city')        => $this->city,
+         getRF('state')       => $this->state,
+         getRF('age')         => $this->age,
          getRF('email')       => $this->email,
          getRF('created_ts')  => date('Y-m-d H:i:s')
       );
@@ -129,15 +136,17 @@ class RedcapAuth {
 
       logIt("CREATE NEW USER WITH DATA:".print_r($data,true), "DEBUG");
       $result = RC::writeToApi($data, array('returnContent'=>'ids'));
-      
+
       $new_user_id = is_array($result) ? current($result) : null;
       
       if (is_numeric($new_user_id)) {
          $this->new_user_id = $new_user_id;
 
-         $newuser = new RedcapPortalUser($new_user_id);
-         $newuser->createEmailToken();
-         $newuser->emailEmailToken();
+         if($verifymail){
+            $newuser = new RedcapPortalUser($new_user_id);
+            $newuser->createEmailToken();
+            $newuser->emailEmailToken();
+         }
       } else {
          logIt("Error creating new user: " . print_r($result,true), "ERROR");
          $this->error = "Error creating user via API";

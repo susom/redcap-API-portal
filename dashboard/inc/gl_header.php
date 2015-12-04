@@ -27,7 +27,7 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a href="<?php echo PORTAL_BASE_PATH ?>/index.php?logout=1">Logout</a>
+          <a href="<?php echo $websiteUrl ?>/index.php?logout=1">Logout</a>
         </li>
       </ul>
     </li>

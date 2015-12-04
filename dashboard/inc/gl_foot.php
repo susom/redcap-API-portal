@@ -18,7 +18,7 @@
   <script src="js/sortable/jquery.sortable.js"></script>
   <script src="js/app.plugin.js"></script>
   
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="js/weather.js"></script>
 </body>
 </html>

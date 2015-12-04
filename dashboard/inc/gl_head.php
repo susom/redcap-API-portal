@@ -34,7 +34,7 @@ $location   = $city . "," . $state;
   <link rel="stylesheet" href="css/app.css" type="text/css" />  
   <link rel="stylesheet" href="js/calendar/bootstrap_calendar.css" type="text/css" />
 
-  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
   <link rel="stylesheet" href="css/weather.css" />
   <link rel="stylesheet" type="text/css" href="css/custom.css"/>
 

@@ -254,7 +254,7 @@ function redirectToProfile($message = Null) {
 // Logout current user and session.  If called via timeout, then redirect back after login
 function logout($message, $timeout = false) {
 	//logIt("Logout called: $message / ".(int)$timeout, "DEBUG");
-	global $loggedInUser;
+	global $loggedInUser,$websiteUrl;
 	if( isUserLoggedIn() ) {
 		$loggedInUser->log_entry[] = "Logged out";
 		$loggedInUser->updateUser();
@@ -265,7 +265,8 @@ function logout($message, $timeout = false) {
 	if ($timeout == true) setSessionRedirect($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
 	
 	// Goto Login page but redirect back to original page after authentication
-	header('Location: index.php');
+	$destination = $websiteUrl."login.php";
+	header('Location: $destination');
 	die();
 }
 

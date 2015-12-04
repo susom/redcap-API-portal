@@ -3,7 +3,7 @@ require_once("../models/config.php");
 
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
-  $destination = "login.php";
+  $destination = $websiteUrl."login.php";
   header("Location: " . $destination);
   exit; 
 }else{

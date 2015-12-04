@@ -60,7 +60,7 @@ function doRedirect(caller) {
 	// });
 
 	// ReactDOM.render(
-	// 	<NavBar baseurl="http://webtools.irvins.local/portal/"/>,
+	// 	<NavBar baseurl="http://webtools.irvins.loc/portal/"/>,
 	// 	document.getElementById('navbar')
 	// );
 </script>

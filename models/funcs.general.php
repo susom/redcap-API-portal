@@ -540,7 +540,7 @@ function getSurveyLink($id,$instrument,$event=null, $api_token = REDCAP_API_TOKE
 		'instrument' 	=> $instrument,
 		'event' 		=> $event
 	);
-	$result = RC::callApi($params);
+	$result = RC::callApi($params,REDCAP_API_URL,false);
 
 	return $result;
 }

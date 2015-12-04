@@ -8,13 +8,6 @@ if(!isUserLoggedIn()) {
   exit; 
 }
 
-// GET SURVEY LINKS
-$work = getSurveyLink($loggedInUser->user_id,"socio","event_1_arm_1");
-echo "<pre>";
-print_r($work);
-
-
-
 $pg_title 		= "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");

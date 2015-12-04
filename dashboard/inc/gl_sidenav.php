@@ -1,3 +1,15 @@
+<?php
+// GET SURVEY LINKS
+$surveys = array();
+$surveys[]  = array("Socio-Demographic",      "sociodemographic_questions"          ,"enrollment_arm_1");
+$surveys[]  = array("Health Behavior",        "health_behavior_questions"           ,"enrollment_arm_1");
+$surveys[]  = array("Social & Neighborhood",  "social_and_neighborhood_environment" ,"enrollment_arm_1");
+$surveys[]  = array("Socio Demographic",      "wellness_questions"                  ,"survey_arm_2");
+foreach($surveys as $index => $instrument_event){
+  array_push($instrument_event, getSurveyLink($loggedInUser->id,$instrument_event[1],$instrument_event[2]));
+  $surveys[$index]  = $instrument_event;
+}
+?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">
@@ -44,30 +56,19 @@
                 <span class="font-bold">My Surveys</span>
               </a>
               <ul class="nav dk">
-                <li >
-                  <a href="survey.php?sid=2" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Socio-Demographic</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="survey.php?sid=3" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Health Behavior</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="survey.php?sid=4" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Social & Neighborhood</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="survey.php?sid=5" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Wellness Questions</span>
-                  </a>
-                </li>
+                <?php
+                print_R($surveys);
+                foreach($surveys as $survey){
+                  $surveylink = "survey.php?url=".urlencode(str_replace("local","loc",$survey[3]));
+                  $surveyname = $survey[0];
+                  print_r("<li >
+                      <a href='$surveylink' class='auto'>                                                        
+                        <i class='i i-dot'></i>
+                        <span>$surveyname</span>
+                      </a>
+                    </li>\n");
+                }
+                ?>
               </ul>
             </li>
             <li >

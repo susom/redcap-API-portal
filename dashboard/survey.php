@@ -8,37 +8,8 @@ if(!isUserLoggedIn()) {
   exit; 
 }
 
-$sid              = $_GET["sid"];
-$iframe_src       = "http://redcap.stanford.edu/surveys/?s=C4LCPHX4FL";
-for($i = 1; $i < 6; $i++){
-  $sid_class[$i] = null;
-}
-$sid_class[$sid ] = "class='hot'";
-
-switch($_GET["sid"]){
-  case 1:
-  break;
-
-  case 2:
-  $iframe_src = "http://redcap.stanford.edu/surveys/?s=7yIVRhnMba";
-  break;
-
-  case 3:
-  $iframe_src = "http://redcap.stanford.edu/surveys/?s=zXnFvdeSzI";
-  break;
-  
-  case 4:
-  $iframe_src = "http://redcap.stanford.edu/surveys/?s=8sFwdQBJ4V";
-  break;
-  
-  case 5:
-  $iframe_src = "http://redcap.stanford.edu/surveys/?s=7yIVRhnMba";
-  break;
-  
-  default:
-  
-  break;
-}
+$surveyurl  = $_GET["url"];
+$iframe_src = urldecode($surveyurl);
 
 $navmini        = true;
 $pg_title       = "Surveys : $websiteName";

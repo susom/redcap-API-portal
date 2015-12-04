@@ -83,6 +83,7 @@ class RC {
 			if ($content_type != 'application/x-www-form-urlencoded') {
 				curl_setopt($curlpost, CURLOPT_HTTPHEADER, array("Content-Type: $content_type", "Content-Length: " . strlen($param_string)));
 			}
+
 			$response 	= curl_exec($curlpost);
 			$info 		= curl_getinfo($curlpost);
 			curl_close($curlpost);

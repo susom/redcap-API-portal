@@ -1,4 +1,4 @@
-<aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : " irv"); ?>" id="nav">          
+<aside class="bg-black aside-md hidden-print hidden-xs <?php echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">
       <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">

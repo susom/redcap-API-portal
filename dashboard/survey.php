@@ -1,6 +1,13 @@
 <?
 require_once("../models/config.php");
 
+//REDIRECT USERS THAT ARE NOT LOGGED IN
+if(!isUserLoggedIn()) { 
+  $destination = "login.php";
+  header("Location: " . $destination);
+  exit; 
+}
+
 $sid              = $_GET["sid"];
 $iframe_src       = "http://redcap.stanford.edu/surveys/?s=C4LCPHX4FL";
 for($i = 1; $i < 6; $i++){

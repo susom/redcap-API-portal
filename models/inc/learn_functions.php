@@ -1,4 +1,5 @@
 <?php
+echo "hahaha";
 function getSurveyLink($id,$instrument,$event, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
 	$params = array(
 		'token' 		=> $api_token,
@@ -117,7 +118,7 @@ function getAllCompletionStatus($id,$instruments,$event,  $api_token = REDCAP_AP
 		'records' 	=> $id,
 		'fields'	=> $complete_fieldnames
 	);
-	$result = RC::callApi($extra_params,$api_url);	
+	$result = RC::callApi($extra_params);	
 	
 	return $result;
 }

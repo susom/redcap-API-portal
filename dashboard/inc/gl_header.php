@@ -18,7 +18,7 @@
         <span class="thumb-sm avatar pull-left">
           <img src="images/a0.png" alt="...">
         </span>
-        John.Smith <b class="caret"></b>
+        <?php echo $firstname . " " . $lastname; ?> <b class="caret"></b>
       </a>
       <ul class="dropdown-menu animated fadeInRight">            
         <li>

@@ -38,6 +38,7 @@ class RedcapAuth {
       $this->lastname      = sanitize(trim($last));
       $this->zip           = sanitize(trim($zip));
       $this->city          = sanitize(trim($city));
+      $this->state         = sanitize(trim($state));
       $this->age           = sanitize(trim($age));
       
       // Load the record data from the API and get any username matches
@@ -138,7 +139,7 @@ class RedcapAuth {
       $result = RC::writeToApi($data, array('returnContent'=>'ids'));
 
       $new_user_id = is_array($result) ? current($result) : null;
-      
+
       if (is_numeric($new_user_id)) {
          $this->new_user_id = $new_user_id;
 

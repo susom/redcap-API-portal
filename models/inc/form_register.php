@@ -32,7 +32,7 @@
         <input type="text" class="form-control city" name="city" id="city" placeholder="City">
       </div>
       <div class="col-sm-2"> 
-        <select name="state" class="form-control" id="state">
+        <select name="state" class="form-control state" id="state">
           <option value="AL">AL</option>
           <option value="AK">AK</option>
           <option value="AZ">AZ</option>

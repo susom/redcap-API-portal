@@ -6,7 +6,7 @@
 
 class RC {
 	// Make API Call
-	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL, $json_decode = true) {
+	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL,  $json_decode = true) {
 		$default_params = array(
 			'token' 	=> REDCAP_API_TOKEN,
 			'format' 	=> 'json',
@@ -46,7 +46,7 @@ class RC {
 			), $extra_params
 		);
 
-		$j = self::callApi($extra_params, $api_url);
+		$j = self::callApi($extra_params);
 		return $j;
 	}
 	

@@ -1,8 +1,20 @@
 <?php
 require_once("../models/config.php");
 
+//REDIRECT USERS THAT ARE NOT LOGGED IN
+if(!isUserLoggedIn()) { 
+  $destination = "login.php";
+  header("Location: " . $destination);
+  exit; 
+}
+
+// GET SURVEY LINKS
+$work = getSurveyLink($loggedInUser->user_id,"socio","event_1_arm_1");
 echo "<pre>";
-print_r($loggedInUser);
+print_r($work);
+
+
+
 $pg_title 		= "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
@@ -25,7 +37,7 @@ include("inc/gl_head.php");
                   <section class="row m-b-md">
                     <div class="col-sm-6">
                       <h3 class="m-b-xs text-black">Dashboard</h3>
-                      <small>Welcome back, John Smith, <i class="fa fa-map-marker fa-lg text-primary"></i> San Francisco</small>
+                      <small>Welcome back, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
                     </div>
                   </section>
 
@@ -66,7 +78,7 @@ include("inc/gl_head.php");
                     </div>
                     
                     <div class="col-sm-6">
-                      <div class="weather">San Francisco,CA</div>
+                      <div class="weather"><?php echo $location ?></div>
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">

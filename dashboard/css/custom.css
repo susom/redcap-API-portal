@@ -32,3 +32,55 @@ h2.weather, .fullDay { display:none !important; }
 	text-align:Center; 
 }
 .survey .submits .btn { margin:0 5px; }
+
+
+/*SESSION ALERT*/
+.alert-info { 
+  background:#f0f8ff;
+}
+.alert-danger { 
+  /*background:#f0f8ff;*/
+}
+.alert-success { 
+  /*background:#f0f8ff;*/
+}
+.alert{
+  position:fixed;
+  top:35%; left:50%;
+  transform: translateY(-50%); 
+  width:40%;
+  margin-left:-20%;
+  /*transition: .9s top ease;*/
+  z-index:1100;
+  box-shadow: 0 0 3px #000;
+}
+.alert + section {
+  position:relative;
+}
+.alert + section:before {
+  position:absolute;
+  content:"";
+  top:0; left:0; right:0; bottom:0;
+  width:100%; height:100%;
+  opacity:.4;
+  background:#333;
+  z-index:100;
+}
+.alert a { 
+  text-decoration:none; 
+}
+.alert ul {     
+  margin: 20px 40px 40px; padding:0; 
+}
+.alert.text-center ul {
+  list-style:none; 
+  margin: 30px 40px 50px;
+}
+.alert .btn {
+  position:fixed;
+  bottom:15px; 
+  left:50%; 
+  width:80px; 
+  margin-left:-40px;
+
+}

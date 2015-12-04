@@ -13,15 +13,12 @@
               </span>
               <span class="hidden-nav-xs clear">
                 <span class="block m-t-xs">
-                  <strong class="font-bold text-lt">John.Smith</strong> 
+                  <strong class="font-bold text-lt"><?php echo $firstname . " " . $lastname; ?></strong> 
                   
                 </span>
-                <span class="text-muted text-xs block">Art Director</span>
+                <span class="text-muted text-xs block"></span>
               </span>
             </a>
-
-            
-
           </div>
         </div>                
 

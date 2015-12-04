@@ -532,5 +532,32 @@ function replaceDefaultHook($str) {
 
 	return (str_replace($default_hooks,$default_replace,$str));
 }
+
+function getSurveyLink($id,$instrument,$event=null, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
+	$params = array(
+		'content' 		=> 'surveyLink',		
+		'record' 		=> $id,
+		'instrument' 	=> $instrument,
+		'event' 		=> $event
+	);
+	$result = RC::callApi($params);
+
+	return $result;
+}
+
+function getAllCompletionStatus($id,$instruments,$event,  $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
+	$complete_fieldnames = array();
+	foreach ($instruments as &$value) {
+		$complete_fieldnames[] = $value.'_complete';		
+	}
+
+	$extra_params = array(
+		'content' 	=> 'record',
+		'records' 	=> $id,
+		'fields'	=> $complete_fieldnames
+	);
+	$result = RC::callApi($extra_params);	
 	
+	return $result;
+}
 ?>

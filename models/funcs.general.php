@@ -266,8 +266,8 @@ function logout($message, $timeout = false) {
 	
 	// Goto Login page but redirect back to original page after authentication
 	$destination = $websiteUrl."login.php";
-	header('Location: $destination');
-	die();
+	header("Location: $destination");
+	exit;
 }
 
 //------------------------------------------------------------------

@@ -1,4 +1,4 @@
-<aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
+<aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : " irv"); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">
       <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
@@ -123,13 +123,13 @@
               </a>
               <ul class="nav dk">
                 <li >
-                  <a href="/portal/dashboard/theme_styleguide/docs.html" target="_blank">                                                        
+                  <a href="<?php echo $websiteUrl; ?>dashboard/theme_styleguide/docs.html" target="_blank">                                                        
                     <i class="i i-dot"></i>
                     <span>Help</span>
                   </a>
                 </li>
                 <li >
-                  <a href="/portal/dashboard/theme_styleguide/" target="_blank">                            
+                  <a href="<?php echo $websiteUrl; ?>dashboard/theme_styleguide/" target="_blank">                            
                     <i class="i i-dot"></i>
                     <span>Example Site</span>
                   </a>

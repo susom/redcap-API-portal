@@ -44,7 +44,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 			if(!$loggedInUser->active){
 				$destination 	= "consent.php";
 			}else{
-				$destination 	= getSessionRedirectOr('/portal/dashboard/index.php');
+				$destination 	= getSessionRedirectOr($websiteUrl.'dashboard/index.php');
 			}
 			
 			header("Location: $destination");

@@ -31,4 +31,8 @@ $(document).on('click', function(event) {
   }
     
 });
+
+$("a.disabled").click(function(){
+  return false;
+});
 </script>

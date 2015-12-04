@@ -6,6 +6,11 @@ if(!isUserLoggedIn()) {
   $destination = "login.php";
   header("Location: " . $destination);
   exit; 
+}else{
+  //if they are logged in and active
+  //find survey completion and go there?
+  // GET SURVEY LINKS
+  include("../models/surveys.php");
 }
 
 $pg_title 		= "Dashboard : $websiteName";

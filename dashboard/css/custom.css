@@ -84,3 +84,10 @@ h2.weather, .fullDay { display:none !important; }
   margin-left:-40px;
 
 }
+
+/*disabled overide sidenav*/
+.nav-primary a.disabled { 
+	background:#12131a !important; 
+	color:#8287a9 !important;
+	cursor:default; 
+}

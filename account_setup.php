@@ -64,7 +64,9 @@ if( isset($_POST['account_update']) ) {
 
 	if( $valid && $all_valid ) {
 		//REDIRECT TO THE DASHBOARD
-		header("Location: dashboard/");
+		include("models/surveys.php");
+
+		header("Location: dashboard/survey.php?url=". urlencode($surveys[0][3]) ); //survey link of first survey
 		exit;
 	}
 } 

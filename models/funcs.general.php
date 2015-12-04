@@ -533,7 +533,7 @@ function replaceDefaultHook($str) {
 	return (str_replace($default_hooks,$default_replace,$str));
 }
 
-function getSurveyLink($id,$instrument,$event=null, $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
+function getSurveyLink($id,$instrument,$event=null) {
 	$params = array(
 		'content' 		=> 'surveyLink',		
 		'record' 		=> $id,
@@ -545,7 +545,7 @@ function getSurveyLink($id,$instrument,$event=null, $api_token = REDCAP_API_TOKE
 	return $result;
 }
 
-function getAllCompletionStatus($id,$instruments,$event,  $api_token = REDCAP_API_TOKEN, $api_url = REDCAP_API_URL) {
+function getAllCompletionStatus($id,$instruments,$event=null) {
 	$complete_fieldnames = array();
 	foreach ($instruments as &$value) {
 		$complete_fieldnames[] = $value.'_complete';		
@@ -556,7 +556,7 @@ function getAllCompletionStatus($id,$instruments,$event,  $api_token = REDCAP_AP
 		'records' 	=> $id,
 		'fields'	=> $complete_fieldnames
 	);
-	$result = RC::callApi($extra_params);	
+	$result = RC::callApi($extra_params, REDCAP_API_URL);	
 	
 	return $result;
 }

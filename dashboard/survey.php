@@ -6,10 +6,15 @@ if(!isUserLoggedIn()) {
   $destination = "login.php";
   header("Location: " . $destination);
   exit; 
+}else{
+  //if they are logged in and active
+  //find survey completion and go there?
+  // GET SURVEY LINKS
+  include("../models/surveys.php");
 }
 
 $surveyurl  = $_GET["url"];
-$iframe_src = urldecode($surveyurl);
+$iframe_src = urldecode(str_replace("local","loc",$surveyurl));
 
 $navmini        = true;
 $pg_title       = "Surveys : $websiteName";
@@ -43,9 +48,9 @@ include("inc/gl_head.php");
                           <iframe id="surveyFrame" frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" 
                         src="<?php echo $iframe_src; ?>"></iframe>
                         </div>
-                        <div class="submits">
+                        <!-- <div class="submits">
                           <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
-                        </div>
+                        </div> -->
                       </div>
                     </div>
 

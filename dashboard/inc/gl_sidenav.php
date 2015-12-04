@@ -1,15 +1,3 @@
-<?php
-// GET SURVEY LINKS
-$surveys = array();
-$surveys[]  = array("Socio-Demographic",      "sociodemographic_questions"          ,"enrollment_arm_1");
-$surveys[]  = array("Health Behavior",        "health_behavior_questions"           ,"enrollment_arm_1");
-$surveys[]  = array("Social & Neighborhood",  "social_and_neighborhood_environment" ,"enrollment_arm_1");
-$surveys[]  = array("Socio Demographic",      "wellness_questions"                  ,"survey_arm_2");
-foreach($surveys as $index => $instrument_event){
-  array_push($instrument_event, getSurveyLink($loggedInUser->id,$instrument_event[1],$instrument_event[2]));
-  $surveys[$index]  = $instrument_event;
-}
-?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">
@@ -57,9 +45,8 @@ foreach($surveys as $index => $instrument_event){
               </a>
               <ul class="nav dk">
                 <?php
-                print_R($surveys);
                 foreach($surveys as $survey){
-                  $surveylink = "survey.php?url=".urlencode(str_replace("local","loc",$survey[3]));
+                  $surveylink = "survey.php?url=".urlencode($survey[3]);
                   $surveyname = $survey[0];
                   print_r("<li >
                       <a href='$surveylink' class='auto'>                                                        
@@ -72,7 +59,7 @@ foreach($surveys as $index => $instrument_event){
               </ul>
             </li>
             <li >
-              <a href="#" class="auto">
+              <a href="#" class="auto disabled">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
@@ -81,7 +68,7 @@ foreach($surveys as $index => $instrument_event){
                 </i>
                 <span class="font-bold">My Progress</span>
               </a>
-              <ul class="nav dk">
+              <!-- <ul class="nav dk">
                 <li >
                   <a href="buttons.html" class="auto">                                                        
                     <i class="i i-dot"></i>
@@ -97,10 +84,10 @@ foreach($surveys as $index => $instrument_event){
                     <span>Icons</span>
                   </a>
                 </li>
-              </ul>
+              </ul> -->
             </li>
             <li >
-              <a href="#" class="auto">
+              <a href="#" class="auto disabled">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
@@ -108,7 +95,7 @@ foreach($surveys as $index => $instrument_event){
                 <i class="i i-docs icon"></i>
                 <span class="font-bold">My Profile</span>
               </a>
-              <ul class="nav dk">
+              <!-- <ul class="nav dk">
                 <li >
                   <a href="profile.html" class="auto">                                                        
                     <i class="i i-dot"></i>
@@ -121,7 +108,7 @@ foreach($surveys as $index => $instrument_event){
                     <span>Account Settings</span>
                   </a>
                 </li>
-              </ul>
+              </ul> -->
             </li>
             
             <li >

@@ -91,3 +91,137 @@ h2.weather, .fullDay { display:none !important; }
 	color:#8287a9 !important;
 	cursor:default; 
 }
+
+
+/*SIDE BAR SURVEY COMPLETE*/
+.well { background:#fff; }
+.well h2 { margin:0; }
+.well .surveys li {
+	display:block; 
+	width:100%; 
+}
+
+.well .percent_complete {
+	color:green;
+	float:right; 
+	font-size:70%;
+	text-align:center; 
+}
+.well .percent_complete span {
+	display:block; 
+	font-size:70%;
+}
+.well .percent_complete {
+	float:none; 
+	font-size:500%; 
+	margin:10px 0;
+}
+
+.well .percent_complete span {
+	display:block; 
+	font-size:25%; 
+}
+
+.well .surveys { margin:10px 0; padding:0; }
+.well .surveys li {
+	margin:0 0 15px; padding:0;
+	list-style:none; 
+}
+
+.well .completed:before, .fruit_basket a:hover:before {
+	background-position-x:0 !important;
+	opacity:1 !important; 
+}
+
+.well .surveys a{
+	display:block; 
+	height:88px;
+	text-decoration:none; 
+	font-size:190%;
+	line-height:300%; 
+	margin-left:77px;
+	position:relative; 
+}
+.well .surveys a:hover {
+	text-decoration:underline;
+}
+.well .surveys a:before{
+	content:"";
+	opacity:.5;
+	position:absolute; left:-77px; top:0; 
+	width:67px; height:88px; 
+	background:url(../images/sprites_fruit.png) 100% 0 no-repeat;
+	transition: .5s opacity;
+}
+
+
+.grapes:before 	{background-position-y:-85.5px 		!important;}
+.apple:before 	{background-position-y:-171px		!important;}
+.orange:before 	{background-position-y:-256.5px 	!important;}
+.cherry:before 	{background-position-y:-342px 		!important;}
+.blueberry:before {background-position-y:-427.5px 	!important;}
+.banana:before 	{background-position-y:-513px 		!important;}
+.longan:before 	{background-position-y:-598.5px 	!important;}
+.pineappple:before {background-position-y:-684px 	!important;}
+
+.well .surveys li {
+	margin-bottom:10px;
+}
+.well .surveys a{
+	height:44px;
+	font-size:92%;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left:44px;
+	line-height:initial;
+	position:relative; 
+}
+.well .surveys a:before{
+	left:0; 
+	width:34px; height:44px; 
+	background-size:67px 390px;
+}
+
+
+
+
+.well .grapes:before 		{background-position-y:-44px  !important;}
+.well .apple:before 		{background-position-y:-88px  !important;}
+.well .orange:before 		{background-position-y:-132px !important;}
+.well .cherry:before 		{background-position-y:-176px !important;}
+.well .blueberry:before		{background-position-y:-220px !important;}
+.well .banana:before 		{background-position-y:-264px !important;}
+.well .longan:before 		{background-position-y:-308px !important;}
+.well .pineappple:before 	{background-position-y:-352px !important;}
+
+.well .surveys .hot { background:#ffc; }
+
+.fruit_basket {
+	margin:0 auto; padding:0;
+	text-align:center; 
+}
+.fruit_basket li { 
+	display:inline-block; 
+	margin:0 5px; 
+}
+.fruit_basket a { 
+	display:block;  
+	width:67px; height:88px; 
+	position:relative; 
+} 
+.fruit_basket a:before{
+	content:"";
+	opacity:.5;
+	position:absolute; left:0; top:0; 
+	width:67px; height:88px; 
+	background:url(../img/sprites_fruit.png) 100% 0 no-repeat;
+	transition: .5s opacity;
+}
+.fruit_basket .grapes:before 	{background-position-y:-85.5px 		!important;}
+.fruit_basket .apple:before 	{background-position-y:-171px		!important;}
+.fruit_basket .orange:before 	{background-position-y:-256.5px 	!important;}
+.fruit_basket .cherry:before 	{background-position-y:-342px 		!important;}
+.fruit_basket .blueberry:before {background-position-y:-427.5px 	!important;}
+.fruit_basket .banana:before 	{background-position-y:-513px 		!important;}
+.fruit_basket .longan:before 	{background-position-y:-598.5px 	!important;}
+.fruit_basket .pineappple:before {background-position-y:-684px 	!important;}

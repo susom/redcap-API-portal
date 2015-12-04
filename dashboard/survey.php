@@ -48,23 +48,34 @@ include("inc/gl_head.php");
                           <iframe id="surveyFrame" frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" 
                         src="<?php echo $iframe_src; ?>"></iframe>
                         </div>
-                        <!-- <div class="submits">
-                          <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
-                        </div> -->
+                        <div class="submits">
+                          <!-- <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button> -->
+                        </div>
                       </div>
                     </div>
 
                     <div class="col-sm-3">
                       <div class="well">
                         <h2>Survey Completion</h2>
-                        <h3 class="percent_complete">0%! <span>0 of 5 complete</span></h3>
+                        <h3 class="percent_complete">0%! <span>0 of <?php count($surveys); ?> complete</span></h3>
                         <div class="footer-links">
                           <ul class="surveys">
-                            <li <?php echo $sid_class[1] ?>><a class=" grapes" href="survey.php?sid=1">Screening Questions for the Wellness Living Laboratory</a></li>
-                            <li <?php echo $sid_class[2] ?>><a class=" apple" href="survey.php?sid=2">Socio-Demographic Questions</a></li>
-                            <li <?php echo $sid_class[3] ?>><a class=" orange" href="survey.php?sid=3">Health Behavior Questions</a></li>
-                            <li <?php echo $sid_class[4] ?>><a class=" cherry" href="survey.php?sid=4">Social and Neighborhood Environment</a></li>
-                            <li <?php echo $sid_class[5] ?>><a class=" banana" href="survey.php?sid=5">Wellness Questions</a></li>
+                            <?php
+                            $fruits = array("grapes","apple","orange","cherry","banana");
+                            foreach($surveys as $idx => $survey){
+                              $surveylink     = "survey.php?url=".urlencode($survey[3]);
+                              $surveyname     = $survey[0];
+                              $surveycomplete = $survey[4] +1;
+                              print_r("<li >
+                                  <a href='$surveylink' class='".$fruits[$idx]."'>                                                        
+                                    <span >$surveyname</span>
+                                  </a>
+                                  <div class='progress progress-sm progress-striped  active'>
+                                    <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='".$surveycomplete."%' style='width: ".$surveycomplete."%'></div>
+                                  </div>
+                                </li>\n");
+                            }
+                            ?>
                           </ul>
                         </div>
                       </div>

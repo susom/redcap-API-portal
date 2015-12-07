@@ -164,7 +164,7 @@
       }
     }
 
-    $("#zip,#city").keyup(function(){
+    $("#zip,#city").blur(function(){
       var locationcheck = $(this).val().toUpperCase();
       var showeligible  = false;
 
@@ -200,12 +200,15 @@
               $("#zip").val(common_nums.join("")).focus();
             }
           }
+
           showeligible = true;
         }
       }
 
       if(showeligible){
         $(".eligibility").slideDown("medium");
+      }else{
+        $(".eligibility").slideUp("fast");
       }
     });
 

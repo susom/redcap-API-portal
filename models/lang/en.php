@@ -27,7 +27,7 @@
 		"ACCOUNT_PASS_CHAR_LIMIT"				=> "Your password must be no fewer than %m1% characters or greater than %m2%",
 		"ACCOUNT_PASS_MISMATCH"					=> "passwords must match",
 		"ACCOUNT_USERNAME_IN_USE"				=> "username %m1% is already in use",
-		"ACCOUNT_EMAIL_IN_USE"					=> "email %m1% is already in use",
+		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "Email %m1% is already in use. If you have forgotten your password, you may reset it from the <a href='login.php'>Login Form</a>",
 		"ACCOUNT_LINK_ALREADY_SENT"				=> "An activation email has already been sent to this email address in the last %m1% hour(s)",
 		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "Thank you for registering with WELL!  We have sent an account activation link to your email.  Please check your email and click the link inside.",
 		"ACCOUNT_NOW_ACTIVE"					=> "Your account is now active",

@@ -70,7 +70,34 @@ if(!empty($_POST['submit_new_user'])){
 
 		//Checking this flag tells us whether there were any errors such as possible data duplication occured
 		if($auth->emailExists()){
-			$errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));
+			$olduser = new RedcapPortalUser($auth->username_matches[4]["id"]);
+			if($olduser->isActive()){
+				//CURRENT ACCOUNT + ACTIVE (LINK ALREADY CLICKED)
+				$errors[] = lang("ACCOUNT_EMAIL_IN_USE_ACTIVE",array($email));
+			}else{
+				//CURRENT ACCOUTN NOT ACTIVE
+				if($oldenough && $nextyear && $optin && $actualage >= 18){
+					//WAS FORMERLY INELIGIBLE NOW ELIGIBLE, SEND ACTIVATION LINK
+					$errors[] = lang("ACCOUNT_NEW_ACTIVATION_SENT",array($email));
+	
+					// getUserByEmail($email)
+					//SEND NEW ACTIVATION LINK
+					$olduser->updateUser(array(
+						getRF("zip") 	=> $zip,
+				        getRF("city") 	=> $city,
+				        getRF("state") 	=> $state,
+				        getRF("age") 	=> $actualage
+				      ));
+		            $olduser->createEmailToken();
+		            $olduser->emailEmailToken();
+
+		            //CLEAN UP
+					unset($fname, $lname, $email, $zip, $city);
+				}else{
+					//WAS FORMERLY AND STILL IS INELIGIBLE
+					$errors[] = lang("ACCOUNT_NOT_YET_ELIGIBLE",array($email));
+				}
+			}
 		}else{
 			//IF THEY DONT PASS ELIGIBILITY THEN THEY GET A THANK YOU , BUT NO ACCOUNT CREATION 
 			//BUT NEED TO STORE THEIR STUFF FOR CONTACT
@@ -79,10 +106,6 @@ if(!empty($_POST['submit_new_user'])){
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
 					
-					// echo "<pre>";
-					// print_r($auth);
-					// exit;
-
 					// THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
 					$loggedInUser = new RedcapPortalUser($auth->new_user_id);
 				}else{

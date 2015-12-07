@@ -17,7 +17,7 @@ if( !empty($_GET["confirm"]) ){
 	
 	// Look up a matching user
 	$user 	= getUserByPasswordToken($token);
-	
+
 	// Validation
 	if($token == ""){
 		// logIt("Invalid confirm password reset received: $token","DEBUG");
@@ -47,7 +47,14 @@ if( !empty($_GET["confirm"]) ){
 	}
 }elseif( !empty($_POST['resetlink'])  ){
 	// PASSWORD RESET EMAIL LINK REQUEST SUBMITTED
-	$email = sanitize($_POST["forgotemail"]);
+	$email 	= sanitize($_POST["forgotemail"]);
+	$user 	= getUserByEmail($email);
+
+	if(!$user->isActive()){
+		addSessionAlert("This account is not active yet.  Please check your email for an activation link.");
+		header("Location: login.php");
+		exit;	
+	}
 
 	//Check for email
 	if(trim($email) == ""){

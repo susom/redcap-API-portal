@@ -33,6 +33,9 @@
                 <span class="font-bold">My Home</span>
               </a>
             </li>
+            <?php 
+            if(!isset($hidenavs)){
+            ?>
             <li >
               <a href="#" class="auto">
                 <span class="pull-right text-muted">
@@ -136,9 +139,10 @@
                 </li>
               </ul>
             </li>
+            <?php
+            }
+            ?>
           </ul>
-
-    
           <div class="line dk hidden-nav-xs"></div>
         </nav>
         <!-- / nav -->

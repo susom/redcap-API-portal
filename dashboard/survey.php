@@ -10,11 +10,26 @@ if(!isUserLoggedIn()) {
   //if they are logged in and active
   //find survey completion and go there?
   // GET SURVEY LINKS
-  include("../models/surveys.php");
+  include("../models/inc/surveys.php");
 }
 
-$surveyurl  = $_GET["url"];
-$iframe_src = urldecode(str_replace("local","loc",$surveyurl));
+$surveyurl      = $_GET["url"];
+$surveyurl      = urldecode($surveyurl);
+$iframe_src     = str_replace("local","loc",$surveyurl);
+
+$active_surveyname      = null;
+$active_surveytotal     = null;
+$active_surveycomplete  = null;
+$active_surveypercent   = null;
+
+foreach($surveys as $survey){
+  if($survey[3] == $surveyurl){
+    $active_surveyname     = $survey[0];
+    $active_surveytotal    = $survey[4];
+    $active_surveycomplete = $survey[5];
+    $active_surveypercent  = $survey[6]*100 + 1;
+  }
+}
 
 $hidenavs       = true;
 $pg_title       = "Surveys : $websiteName";
@@ -37,7 +52,7 @@ include("inc/gl_head.php");
               <section class="vbox">
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
-                    
+                    <h2 class="surveyHeader"><?php echo $active_surveyname ?></h2>
                   </section>
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
@@ -48,7 +63,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="submits">
                       <div class='progress progress-sm progress-striped  active'>
-                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $surveycomplete?>%' style='width: <?php echo $surveycomplete?>%'></div>
+                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $surveypercent?>%' style='width: <?php echo $surveypercent?>%'></div>
                       </div>
                       <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
                     </div>

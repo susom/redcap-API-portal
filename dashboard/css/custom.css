@@ -26,6 +26,7 @@ h2.weather, .fullDay { display:none !important; }
 	background:#fff ; 
 	border-radius:10px;  
 }
+.surveyHeader { text-align:center;  }
 .survey .submits { 
 	clear:both;  
 	padding:20px; 
@@ -68,6 +69,11 @@ h2.weather, .fullDay { display:none !important; }
 .surveys .banana		span:before 	{background-position-y:-513px 		!important;}
 .surveys .longan		span:before 	{background-position-y:-598.5px 	!important;}
 .surveys .pineappple	span:before {background-position-y:-684px 		!important;}
+
+.surveys .active span:before {
+	background-position-x:0% !important; 
+	opacity:.4; 
+}
 
 .surveys .completed span:before { 
 	background-position-x:0% !important; 

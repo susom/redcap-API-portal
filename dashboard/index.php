@@ -10,7 +10,7 @@ if(!isUserLoggedIn()) {
   //if they are logged in and active
   //find survey completion and go there?
   // GET SURVEY LINKS
-  include("../models/surveys.php");
+  include("../models/inc/surveys.php");
 }
 
 $pg_title 		= "Dashboard : $websiteName";

@@ -140,21 +140,25 @@
               </ul>
             </li>
             <?php
-            }
+            }else{
             ?>
             <?php
-            $fruits = array("strawberry","grapes","apple","banana","cherry","orange");
-            foreach($surveys as $idx => $survey){
-              $surveylink     = "survey.php?url=".urlencode($survey[3]);
-              $surveyname     = $survey[0];
-              $surveycomplete = $survey[4] +1;
+              $fruits = array("strawberry","grapes","apple","banana","cherry","orange");
+              foreach($surveys as $idx => $survey){
+                $activesurvey   = ($surveyurl == $survey[3] ? "active" : "");
+                $surveylink     = "survey.php?url=".urlencode($survey[3]);
+                $surveyname     = $survey[0];
+                $surveytotal    = $survey[4];
+                $surveycomplete = $survey[5];
+                $surveypercent  = $survey[6]*100 + 1;
 
-              $completeclass  = ($surveycomplete > 1 ? "completed":"");
-              print_r("<li class='surveys'>
-                  <a href='$surveylink' class='".$fruits[$idx]." $completeclass' title='$surveyname $surveycomplete'>                                                        
-                    <span >$surveyname</span>
-                  </a>
-                </li>\n");
+                $completeclass  = ($surveycomplete > 100 ? "completed":"");
+                print_r("<li class='surveys'>
+                    <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname $surveypercent'>                                                        
+                      <span >$surveyname</span>
+                    </a>
+                  </li>\n");
+              }
             }
             ?>
           </ul>

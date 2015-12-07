@@ -561,4 +561,23 @@ function getAllCompletionStatus($id,$instruments,$event=null) {
 	
 	return $result;
 }
+
+function getInstruments(){
+	$extra_params = array(
+		'content' 	=> 'instrument',
+	);
+	$result = RC::callApi($extra_params);	
+	
+	return $result;
+}
+
+function getMetaData( $instruments = null ){
+	$extra_params = array(
+		'content' 	=> 'metadata',
+		'forms'		=> ($instruments?: null)
+	);
+	$result = RC::callApi($extra_params);	
+	
+	return $result;
+}
 ?>

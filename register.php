@@ -70,7 +70,8 @@ if(!empty($_POST['submit_new_user'])){
 
 		//Checking this flag tells us whether there were any errors such as possible data duplication occured
 		if($auth->emailExists()){
-			$olduser = new RedcapPortalUser($auth->username_matches[4]["id"]);
+			$tempu 		= getUserByEmail($email);
+			$olduser 	= new RedcapPortalUser($tempu->user_id);
 			if($olduser->isActive()){
 				//CURRENT ACCOUNT + ACTIVE (LINK ALREADY CLICKED)
 				$errors[] = lang("ACCOUNT_EMAIL_IN_USE_ACTIVE",array($email));
@@ -80,7 +81,7 @@ if(!empty($_POST['submit_new_user'])){
 					//WAS FORMERLY INELIGIBLE NOW ELIGIBLE, SEND ACTIVATION LINK
 					$errors[] = lang("ACCOUNT_NEW_ACTIVATION_SENT",array($email));
 	
-					// getUserByEmail($email)
+					
 					//SEND NEW ACTIVATION LINK
 					$olduser->updateUser(array(
 						getRF("zip") 	=> $zip,

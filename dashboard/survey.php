@@ -47,7 +47,10 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="submits">
-                      <!-- <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button> -->
+                      <div class='progress progress-sm progress-striped  active'>
+                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $surveycomplete?>%' style='width: <?php echo $surveycomplete?>%'></div>
+                      </div>
+                      <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
                     </div>
                   </div>
                 </section>

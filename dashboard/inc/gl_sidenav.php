@@ -142,6 +142,21 @@
             <?php
             }
             ?>
+            <?php
+            $fruits = array("strawberry","grapes","apple","banana","cherry","orange");
+            foreach($surveys as $idx => $survey){
+              $surveylink     = "survey.php?url=".urlencode($survey[3]);
+              $surveyname     = $survey[0];
+              $surveycomplete = $survey[4] +1;
+
+              $completeclass  = ($surveycomplete > 1 ? "completed":"");
+              print_r("<li class='surveys'>
+                  <a href='$surveylink' class='".$fruits[$idx]." $completeclass' title='$surveyname $surveycomplete'>                                                        
+                    <span >$surveyname</span>
+                  </a>
+                </li>\n");
+            }
+            ?>
           </ul>
           <div class="line dk hidden-nav-xs"></div>
         </nav>

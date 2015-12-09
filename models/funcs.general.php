@@ -562,6 +562,8 @@ function getAllCompletionStatus($id,$instruments,$event=null) {
 	return $result;
 }
 
+
+// SURVEY METADATA STUFF
 function getInstruments(){
 	$extra_params = array(
 		'content' 	=> 'instrument',
@@ -578,6 +580,18 @@ function getMetaData( $instruments = null ){
 	);
 	$result = RC::callApi($extra_params);	
 	
+	return $result;
+}
+
+function getReturnCode($record_id, $instrument, $event=null){
+	$extra_params = array(
+		'content' 		=> 'surveyReturnCode',
+		'record'		=> $record_id,
+		'instrument'	=> $instrument,
+		'event' 		=> $event
+	);
+	$result = RC::callApi($extra_params,REDCAP_API_URL,false);	
+
 	return $result;
 }
 ?>

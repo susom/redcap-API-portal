@@ -13,21 +13,34 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
 }
 
-$surveyurl      = $_GET["url"];
-$surveyurl      = urldecode($surveyurl);
-$iframe_src     = str_replace("local","loc",$surveyurl);
+//IF NO URL PASSED IN THEN REDIRECT BACK
+if(!isset($_GET["url"])){
+  $destination = $websiteUrl."login.php";
+  header("Location: " . $destination);
+  exit; 
+} 
+
+$surveyurl              = $_GET["url"];
+$iframe_src             = urldecode($surveyurl);
 
 $active_surveyname      = null;
 $active_surveytotal     = null;
 $active_surveycomplete  = null;
 $active_surveypercent   = null;
+$active_surveyevent     = null;
+$active_returncode      = null; 
 
 foreach($surveys as $survey){
-  if($survey[3] == $surveyurl){
-    $active_surveyname     = $survey[0];
-    $active_surveytotal    = $survey[4];
-    $active_surveycomplete = $survey[5];
-    $active_surveypercent  = $survey[6]*100 + 1;
+  if($survey["survey_link"] == $iframe_src){
+    $active_surveyname     = $survey["instrument_label"];
+    $active_surveytotal    = $survey["total_questions"];
+    $active_surveycomplete = $survey["completed_fields"];
+    $active_surveypercent  = 0;
+
+    $active_surveyevent    = $survey["instrument_arm"];
+    $active_returncode     = $survey["return_code"];
+    $active_metadata       = $survey["meta_data"];
+    break;
   }
 }
 
@@ -45,7 +58,6 @@ include("inc/gl_head.php");
         <?php 
           include("inc/gl_sidenav.php"); 
         ?>
-
         <section id="content">
           <section class="hbox stretch">
             <section>
@@ -57,21 +69,19 @@ include("inc/gl_head.php");
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
-                      <iframe id="surveyFrame" frameborder="0" width="100%" height="1000" scrolling="auto" name="eligibilityScreener" 
-                    src="<?php echo $iframe_src; ?>"></iframe>
+                      <iframe id="surveyFrame" frameborder="0" width="100%" scrolling="auto"></iframe>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="submits">
-                      <div class='progress progress-sm progress-striped  active'>
-                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $surveypercent?>%' style='width: <?php echo $surveypercent?>%'></div>
+                      <div class='progress progress-striped  active'>
+                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
                       </div>
-                      <button class="btn btn-warning">Save & Exit</button> <button class="btn btn-primary">Submit</button>
+                      <button class="btn btn-warning " role="savereturnlater">Save & Exit</button> <button class="btn btn-primary" role="saverecord">Submit</button>
                     </div>
                   </div>
                 </section>
               </section>
             </section>
-            
             <?php
               include("inc/gl_slideout.php");
             ?>
@@ -85,10 +95,67 @@ include("inc/gl_head.php");
 include("inc/gl_foot.php");
 ?>
 <script>
-var ifr     = document.getElementById( "surveyFrame" );
-var ifrDoc  = ifr.contentDocument || ifr.contentWindow.document;
+function redirectReturn(surveyUrl,returnCode){
+  var ipt = $('<input>').attr('name','__code').attr('type','hidden').val(returnCode);
+  var frm = $('<form>').attr('action',surveyUrl).attr('method','POST').append(ipt);
+  $('#surveyFrame').contents().find('body').append(frm);
+  frm.submit();
+  return;
+}
 
-var theForm = ifrDoc.getElementById( "form" );
+function updateProgressBar(ref, perc){
+  ref.attr("data-original-title",perc).css("width",perc);
+}
 
-console.log(theform);
+<?php
+  //ALLOWED CROSS ORIGIN DOMAINS
+  echo "var allowed_child_origin = 'http://redcap.irvins.loc';\n";
+
+  //IF THERE IS A RETURN CODE
+  if($active_returncode){
+    echo "redirectReturn('$iframe_src','$active_returncode')\n";
+  }
+
+  //PASS FORMS METADATA 
+  echo "var instrument_metadata = " . json_encode($active_metadata) . ";\n";
+  echo "var unbranched_count    = $active_surveytotal;\n";
+?>
+
+//THIS ALLOWS CROSS SITE COMMUNICATION BETWEEN SITES WE BOTH OWN
+var frame = document.getElementById("surveyFrame").contentWindow;
+setTimeout(function(){
+  //RACE CONDITION ~ 400ms ??!! GOTTA LOAD THE CHILD ALL THE WAY BEFORE DOING STUFF TO IT
+  
+  //ADD LISTENERS TO SAVE/RETURN BUTTONS
+  $(".submits button").click(function(){
+    var command = "submit-btn-" + $(this).attr("role");
+    frame.postMessage({"action" : command}, allowed_child_origin);
+    return false; 
+  });
+
+  //PASS SOME SELF INFO TO THE CHILD FRAME
+  frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
+},400);
+
+//SET UP EVENT LISTENER TO LISTEN TO MESSAGES FROM CHILD
+window.addEventListener('message', function(event) {
+    // IMPORTANT: Check the origin of the data!
+    //~ converts -1 to 0, which saves you having to do "!= -1" on the result of the indexOf
+    if (~event.origin.indexOf(allowed_child_origin)) {
+        // The data has been sent from your site
+        // The data sent with postMessage is stored in event.data
+
+        var payload = event.data;
+        if(payload.hasOwnProperty("percent_complete")){
+          //UPDATE THE PROGRESS BAR
+          var pbar = $(".progress-bar");
+          updateProgressBar(pbar, payload.percent_complete);
+        }
+        return;
+    } else {
+        // The data hasn't been sent from your site!
+        // Be careful! Do not use it.
+        return;
+    }
+});
 </script>

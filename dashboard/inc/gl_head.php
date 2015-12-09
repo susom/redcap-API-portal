@@ -1,18 +1,4 @@
 <?php
-/*
-RedcapPortalUser Object
-(
-    [user_id] => 2  //RECORD ID ALSO
-    [username] => buspo@giants.com
-    [firstname] => buster
-    [lastname] => posey
-    [zip] => 94022
-    [city] => los altos
-    [state] => ca
-    [age] => 24
-)
-*/ 
-
 $firstname  = $loggedInUser->firstname;
 $lastname   = $loggedInUser->lastname;
 $city       = $loggedInUser->city;

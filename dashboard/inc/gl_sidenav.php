@@ -49,10 +49,10 @@
               <ul class="nav dk">
                 <?php
                 foreach($surveys as $survey){
-                  $surveylink = "survey.php?url=".urlencode($survey[3]);
-                  $surveyname = $survey[0];
+                  $surveylink = "survey.php?url=".urlencode($survey["survey_link"]);
+                  $surveyname = $survey["short_name"];
                   print_r("<li >
-                      <a href='$surveylink' class='auto'>                                                        
+                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                        
                         <i class='i i-dot'></i>
                         <span>$surveyname</span>
                       </a>
@@ -145,16 +145,15 @@
             <?php
               $fruits = array("strawberry","grapes","apple","banana","cherry","orange");
               foreach($surveys as $idx => $survey){
-                $activesurvey   = ($surveyurl == $survey[3] ? "active" : "");
-                $surveylink     = "survey.php?url=".urlencode($survey[3]);
-                $surveyname     = $survey[0];
-                $surveytotal    = $survey[4];
-                $surveycomplete = $survey[5];
-                $surveypercent  = $survey[6]*100 + 1;
-
-                $completeclass  = ($surveycomplete > 100 ? "completed":"");
+                $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");
+                $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
+                $surveyname     = $survey["instrument_label"];
+                $surveytotal    = $survey["total_questions"];
+                $surveycomplete = $survey["completed_fields"];
+                $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+                
                 print_r("<li class='surveys'>
-                    <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname $surveypercent'>                                                        
+                    <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname'>                                                        
                       <span >$surveyname</span>
                     </a>
                   </li>\n");

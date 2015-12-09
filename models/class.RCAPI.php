@@ -93,6 +93,10 @@ class RC {
 				return json_encode(array("error" => "404 on $url"));
 			}
 
+			// echo  "<pre>";
+			// print_r($response);
+			// exit;
+			
 			return $response;
 
 		} elseif (ini_get('allow_url_fopen')){ // Try using file_get_contents if allow_url_open is enabled

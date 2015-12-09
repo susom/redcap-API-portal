@@ -24,9 +24,7 @@
 
     <div class="form-group">
       <label for="zip" class="control-label col-sm-3">Your Location:</label>
-      <div class="col-sm-2"> 
-        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
-      </div>
+      
 
       <div class="col-sm-4"> 
         <input type="text" class="form-control city" name="city" id="city" placeholder="City">
@@ -87,6 +85,9 @@
         </select>
       </div>
       
+      <div class="col-sm-2"> 
+        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
+      </div>
     </div>
 
     <aside class="eligibility">

@@ -107,7 +107,7 @@ function updateProgressBar(ref, perc){
 
 <?php
   //ALLOWED CROSS ORIGIN DOMAINS
-  echo "var allowed_child_origin = 'http://redcap.irvins.loc';\n";
+  echo "var allowed_child_origin = '$websiteAllowedChildOrigin';\n";
 
   //IF THERE IS A RETURN CODE
   if($active_returncode){

@@ -1,7 +1,6 @@
 <?php
 // HARDCODING SOME STUFF, MAYBE SMARTER WAY TO DO THIS LATER
 $fruits 		= array("strawberry","grapes","apple","banana","cherry","orange");
-$blacklist 		= array("users", "summaries"); //WE DONT WANT INFO ABOUT THIS SURVEY - ITS JUST A DATA STORE
 $surveys_arms 	= array();
 $survey_arms["sociodemographic_questions"]  		= array("enrollment_arm_1"	, "Socio-Demographic"    	);
 $survey_arms["health_behavior_questions"]  			= array("enrollment_arm_1"	, "Health Behavior"    		);
@@ -10,7 +9,7 @@ $survey_arms["wellness_questions"]  				= array("survey_arm_2"		, "Wellness Ques
 
 $surveys = getInstruments();
 foreach($surveys as $index => $instrument_event){
-	if(in_array($instrument_event["instrument_name"],$blacklist)){
+	if(!array_key_exists($instrument_event["instrument_name"], $survey_arms)){
 		unset($surveys[$index]);
 		continue;
 	}

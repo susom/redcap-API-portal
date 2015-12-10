@@ -62,7 +62,7 @@ include("inc/gl_head.php");
               <section class="vbox">
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
-                    <h2 class="surveyHeader"><?php echo $active_surveyname ?></h2>
+                    <h2 class="surveyHeader"><?php /* $active_surveyname */ ?></h2>
                   </section>
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>

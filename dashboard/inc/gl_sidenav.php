@@ -143,7 +143,6 @@
             }else{
             ?>
             <?php
-              $fruits = array("strawberry","grapes","apple","banana","cherry","orange");
               foreach($surveys as $idx => $survey){
                 $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");
                 $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
@@ -151,7 +150,7 @@
                 $surveytotal    = $survey["total_questions"];
                 $surveycomplete = $survey["completed_fields"];
                 $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
-                
+
                 print_r("<li class='surveys'>
                     <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname'>                                                        
                       <span >$surveyname</span>

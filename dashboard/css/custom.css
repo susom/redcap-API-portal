@@ -47,6 +47,15 @@ h2.weather, .fullDay { display:none !important; }
 	text-align:center; 
 }
 
+
+/*THE FRUITS*/
+.dash_fruits {
+  margin:0; padding:0; 
+}
+.dash_fruits .surveys { 
+  margin-right:15px; 
+}
+
 .surveys span { 
 	display:block;  
 	width:67px; height:88px; 
@@ -54,7 +63,6 @@ h2.weather, .fullDay { display:none !important; }
 	text-indent:-5000px; 
 	margin:0 auto; 
 } 
-
 .surveys span:before{
 	content:"";
 	opacity:.5;
@@ -64,16 +72,16 @@ h2.weather, .fullDay { display:none !important; }
 	transition: .5s opacity;
 }
 
-.surveys .grapes		span:before 	{background-position-y:-85.5px 		!important;}
-.surveys .apple			span:before 		{background-position-y:-171px		!important;}
-.surveys .orange		span:before 	{background-position-y:-256.5px 	!important;}
-.surveys .cherry		span:before 	{background-position-y:-342px 		!important;}
-.surveys .blueberry 	span:before 	{background-position-y:-427.5px 	!important;}
-.surveys .banana		span:before 	{background-position-y:-513px 		!important;}
-.surveys .longan		span:before 	{background-position-y:-598.5px 	!important;}
-.surveys .pineappple	span:before {background-position-y:-684px 		!important;}
+.surveys .grapes		  span:before {background-position-y:-85.5px 	!important;}
+.surveys .apple			  span:before {background-position-y:-171px		!important;}
+.surveys .orange		  span:before {background-position-y:-256.5px !important;}
+.surveys .cherry		  span:before {background-position-y:-342px 	!important;}
+.surveys .blueberry   span:before {background-position-y:-427.5px !important;}
+.surveys .banana		  span:before {background-position-y:-513px 	!important;}
+.surveys .longan		  span:before {background-position-y:-598.5px !important;}
+.surveys .pineappple  span:before {background-position-y:-684px 	!important;}
 
-.surveys .active span:before {
+.surveys .active span:before , .surveys a:hover span:before{
 	background-position-x:0% !important; 
 	opacity:.4; 
 }

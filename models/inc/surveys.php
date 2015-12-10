@@ -1,8 +1,8 @@
 <?php
 // HARDCODING SOME STUFF, MAYBE SMARTER WAY TO DO THIS LATER
-$blacklist = array("users"); //WE DONT WANT INFO ABOUT THIS SURVEY - ITS JUST A DATA STORE
-
-$surveys_arms = array();
+$fruits 		= array("strawberry","grapes","apple","banana","cherry","orange");
+$blacklist 		= array("users"); //WE DONT WANT INFO ABOUT THIS SURVEY - ITS JUST A DATA STORE
+$surveys_arms 	= array();
 $survey_arms["sociodemographic_questions"]  		= array("enrollment_arm_1"	, "Socio-Demographic"    	);
 $survey_arms["health_behavior_questions"]  			= array("enrollment_arm_1"	, "Health Behavior"    		);
 $survey_arms["social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);

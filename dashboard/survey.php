@@ -6,19 +6,17 @@ if(!isUserLoggedIn()) {
   $destination = $websiteUrl."login.php";
   header("Location: " . $destination);
   exit; 
+}elseif(!isset($_GET["url"])){
+  //IF NO URL PASSED IN THEN REDIRECT BACK
+  $destination = $websiteUrl."login.php";
+  header("Location: " . $destination);
+  exit; 
 }else{
   //if they are logged in and active
   //find survey completion and go there?
   // GET SURVEY LINKS
   include("../models/inc/surveys.php");
 }
-
-//IF NO URL PASSED IN THEN REDIRECT BACK
-if(!isset($_GET["url"])){
-  $destination = $websiteUrl."login.php";
-  header("Location: " . $destination);
-  exit; 
-} 
 
 $surveyurl              = $_GET["url"];
 $iframe_src             = urldecode($surveyurl);

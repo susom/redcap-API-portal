@@ -33,9 +33,28 @@ include("inc/gl_head.php");
               <section class="vbox">
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                       <h3 class="m-b-xs text-black">Dashboard</h3>
                       <small>Welcome back, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
+                    </div>
+                    <div class="col-sm-8">
+                      <?php
+                      echo "<ul class='dash_fruits'>\n";
+                      foreach($surveys as $idx => $survey){
+                        $surveyname     = $survey["instrument_label"];
+                        $surveytotal    = $survey["total_questions"];
+                        $surveycomplete = $survey["completed_fields"];
+                        $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+
+                        $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
+                        print_r("<li class='surveys'>
+                            <a href='$surveylink' class='".$fruits[$idx]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
+                              <span>$surveyname</span>
+                            </a>
+                          </li>\n");
+                      }
+                      echo "<ul>\n";
+                      ?>
                     </div>
                   </section>
 

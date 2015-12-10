@@ -74,7 +74,7 @@ include("inc/gl_head.php");
                       <div class='progress progress-striped  active'>
                         <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
                       </div>
-                      <button class="btn btn-warning " role="savereturnlater">Save & Exit</button> <button class="btn btn-primary" role="saverecord">Submit</button>
+                      <button class="btn btn-primary" role="saverecord">Submit</button>
                     </div>
                   </div>
                 </section>

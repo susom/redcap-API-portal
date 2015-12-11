@@ -8,10 +8,13 @@ if(isUserLoggedIn() && isUserActive()) {
 	exit; 
 }
 
-if( !empty($_POST) && isset($_POST['consented']) ){
-	//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
-	$loggedInUser->setActive();
+if(!isUserLoggedIn()) { 
+	$destination = $websiteUrl . "login.php";
+	header("Location: " . $destination);
+	exit; 
+}
 
+if( !empty($_POST) && isset($_POST['consented']) ){
 	//REDIRECT TO SECURITY QUESTIONS
 	header("Location: account_setup.php");
 	exit;

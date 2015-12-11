@@ -50,7 +50,7 @@ if( !empty($_GET["confirm"]) ){
 	$email 	= sanitize($_POST["forgotemail"]);
 	$user 	= getUserByEmail($email);
 
-	if(!$user->isActive()){
+	if(!empty($user) && !$user->isActive()){
 		addSessionAlert("This account is not active yet.  Please check your email for an activation link.");
 		header("Location: login.php");
 		exit;	

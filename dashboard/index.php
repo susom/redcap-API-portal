@@ -6,11 +6,29 @@ if(!isUserLoggedIn()) {
   $destination = $websiteUrl . "login.php";
   header("Location: " . $destination);
   exit; 
+}elseif(!isUserActive()) { 
+  $destination = $websiteUrl . "consent.php";
+  header("Location: " . $destination);
+  exit; 
 }else{
   //if they are logged in and active
   //find survey completion and go there?
   // GET SURVEY LINKS
   include("../models/inc/surveys.php");
+}
+
+if(isset($_GET["survey_complete"])){
+  //IF NO URL PASSED IN THEN REDIRECT BACK
+  $surveyid = $_GET["survey_complete"];
+  foreach($surveys as $index => $instrument_event){
+    if($instrument_event["instrument_name"] != $surveyid){
+      continue;
+    }
+
+    if($instrument_event["completed_fields"] >= $instrument_event["total_questions"]){
+      addSessionMessage( "You've completed the '" . $instrument_event["instrument_label"] . "' Survey.<br> You've been rewarded a : <span class='fruit " . $fruits[$index] . "'></span>  Get the whole fruit basket!" , "success");
+    }
+  }
 }
 
 $pg_title 		= "Dashboard : $websiteName";

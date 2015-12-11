@@ -1,12 +1,12 @@
 <?php 
 require_once("models/config.php");
 
-//REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
-// if(isUserLoggedIn()) { 
-// 	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");
-// 	header("Location: " . $destination);
-// 	exit; 
-// }
+//REDIRECT USERS THAT ARE NOT ALREADY LOGGED IN
+if(!isUserLoggedIn()) { 
+	$destination = $websiteUrl . "login.php";
+	header("Location: " . $destination);
+	exit; 
+}
 
 //--------------------------------------------------------------------
 // PASSWORD RESET QUESTIONS AND ANSWERS
@@ -63,10 +63,13 @@ if( isset($_POST['account_update']) ) {
 	}
 
 	if( $valid && $all_valid ) {
+		//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
+		$loggedInUser->setActive();
+
 		//REDIRECT TO THE DASHBOARD
 		include("models/inc/surveys.php");
 
-		header("Location: dashboard/survey.php?url=". urlencode($surveys[0][3]) ); //survey link of first survey
+		header("Location: dashboard/survey.php?url=". urlencode($surveys[0]["survey_link"]) ); //survey link of first survey
 		exit;
 	}
 } 

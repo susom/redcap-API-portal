@@ -44,7 +44,7 @@ foreach($surveys as $index => $instrument_event){
 	if(isset($user_answers[0])){
 		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
 		foreach($actual_formnames as $idx => $inputgroup){
-			if(!empty($user_answers[0][$inputgroup["fieldname"]])){
+			if(isset($user_answers[0][$inputgroup["fieldname"]]) && $user_answers[0][$inputgroup["fieldname"]] !== "") {
 				$actual_formnames[$idx]["user_answer"] = $user_answers[0][$inputgroup["fieldname"]];
 				$user_complete++;
 

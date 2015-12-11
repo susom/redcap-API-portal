@@ -30,6 +30,7 @@ $active_returncode      = null;
 
 foreach($surveys as $survey){
   if($survey["survey_link"] == $iframe_src){
+    $active_surveyid       = $survey["instrument_name"];
     $active_surveyname     = $survey["instrument_label"];
     $active_surveytotal    = $survey["total_questions"];
     $active_surveycomplete = $survey["completed_fields"];
@@ -128,6 +129,8 @@ setTimeout(function(){
   $(".submits button").click(function(){
     var command = "submit-btn-" + $(this).attr("role");
     frame.postMessage({"action" : command}, allowed_child_origin);
+
+    location.href="index.php?survey_complete=" + "<?php echo $active_surveyid?>";
     return false; 
   });
 

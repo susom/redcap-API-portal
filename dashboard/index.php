@@ -145,14 +145,21 @@ $(document).ready(function () {
 
     var data = google.visualization.arrayToDataTable([
       ['Task', 'Minutes per Day'],
+      
       ['Walking',     25],
       ['Sitting',     75],
+      
     ]);
 
+    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var options = {
       is3d : 'true',
       pieStartAngle :45,
-      backgroundColor : '#E0E6F0'
+      backgroundColor : '#E0E6F0',
+      colors : ['#F8B300', '#297B9F'],
+      chartArea:{left:20,top:0,width:'100%',height:'100%'}
+
+
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));

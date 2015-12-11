@@ -30,16 +30,32 @@ foreach($surveys as $index => $instrument_event){
 						  return empty($item["branching_logic"]);
 						});
 	$actual_formnames 	= array_map(function($item){
-							return array("fieldname" => $item["field_name"], "fieldtype" => $item["field_type"], "branching_logic" => $item["branching_logic"]);
+							return array("fieldname" => $item["field_name"], "fieldtype" => $item["field_type"], "branching_logic" => $item["branching_logic"], "user_answer" => null);
 						},$actual_questions);
-
-	$surveys[$index]["meta_data"] 			= $actual_formnames;
-	$surveys[$index]["total_questions"] 	= count($no_branches);
+	$unbranched_total 						= count($no_branches);
+	$surveys[$index]["total_questions"] 	= $unbranched_total;
+	$user_complete 							= 0;
 
 	//GET # OF COMPLETED FIELDS OF SURVEY
-	$status           						= getAllCompletionStatus($loggedInUser->id, array($instrument_id) ); //returns array
-	$fields_complete  						= (!empty($status[0][$instrument_id."_complete"]) ? $status[0][$instrument_id."_complete"] : 0);
-	$surveys[$index]["completed_fields"] 	= $fields_complete; 
+	$just_formnames 	= array_map(function($item){
+							return $item["field_name"];
+						},$actual_questions);
+	$user_answers 		= getUserAnswers($loggedInUser->id,$just_formnames);
+	if(isset($user_answers[0])){
+		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
+		foreach($actual_formnames as $idx => $inputgroup){
+			if(!empty($user_answers[0][$inputgroup["fieldname"]])){
+				$actual_formnames[$idx]["user_answer"] = $user_answers[0][$inputgroup["fieldname"]];
+				$user_complete++;
+
+				if($actual_formnames[$idx]["branching_logic"] !== ""){
+					$unbranched_total++;
+				}
+			}
+		}
+	}
+	$surveys[$index]["meta_data"] 			= $actual_formnames;
+	$surveys[$index]["completed_fields"] 	= $user_complete;
 }
 
 // echo "<pre>";

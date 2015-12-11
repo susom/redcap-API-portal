@@ -594,4 +594,16 @@ function getReturnCode($record_id, $instrument, $event=null){
 
 	return $result;
 }
+
+function getUserAnswers($record_id,$fields = null){
+	$extra_params = array(
+	  'content'   	=> 'record',
+	  'records' 	=> array($record_id),
+	  'type'      	=> "flat",
+	  'fields'    	=> $fields
+	);
+	$result = RC::callApi($extra_params); 
+	  
+	return $result;
+}
 ?>

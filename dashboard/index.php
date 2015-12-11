@@ -3,7 +3,7 @@ require_once("../models/config.php");
 
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
-  $destination = "login.php";
+  $destination = $websiteUrl . "login.php";
   header("Location: " . $destination);
   exit; 
 }else{
@@ -102,69 +102,18 @@ include("inc/gl_head.php");
                     <div class="col-md-6 dker">
                       <section>
                         <header class="font-bold padder-v">
-                          <div class="pull-right">
-                            <div class="btn-group">
-                              <button data-toggle="dropdown" class="btn btn-sm btn-rounded btn-default dropdown-toggle">
-                                <span class="dropdown-label">Week</span> 
-                                <span class="caret"></span>
-                              </button>
-                              <ul class="dropdown-menu dropdown-select">
-                                  <li><a href="#"><input type="radio" name="b">Month</a></li>
-                                  <li><a href="#"><input type="radio" name="b">Week</a></li>
-                                  <li><a href="#"><input type="radio" name="b">Day</a></li>
-                              </ul>
-                            </div>
-                            <a href="#" class="btn btn-default btn-icon btn-rounded btn-sm">Go</a>
+                          <div class="btn-group pull-right">
+                            
                           </div>
-                          Statistics
+                          You Spent: 
                         </header>
-                        <div class="panel-body">
-                          <div id="flot-sp1ine" style="height:210px"></div>
-                        </div>
-                        <div class="row text-center no-gutter">
-                          <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">5,860</span>
-                            <small class="text-muted m-b block">Orders</small>
-                          </div>
-                          <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">10,450</span>
-                            <small class="text-muted m-b block">Sellings</small>
-                          </div>
-                          <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">21,230</span>
-                            <small class="text-muted m-b block">Items</small>
-                          </div>
-                          <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">7,230</span>
-                            <small class="text-muted m-b block">Customers</small>                        
-                          </div>
+                        <div class="panel-body flot-legend">
+                          <div id="piechart" style="height:240px"></div>
                         </div>
                       </section>
                     </div>
                     <div class="col-md-6">
-                      <section>
-                        <header class="font-bold padder-v">
-                          <div class="btn-group pull-right">
-                            <button data-toggle="dropdown" class="btn btn-sm btn-rounded btn-default dropdown-toggle">
-                              <span class="dropdown-label">Last 24 Hours</span> 
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-select">
-                                <li><a href="#"><input type="radio" name="a">Today</a></li>
-                                <li><a href="#"><input type="radio" name="a">Yesterday</a></li>
-                                <li><a href="#"><input type="radio" name="a">Last 24 Hours</a></li>
-                                <li><a href="#"><input type="radio" name="a">Last 7 Days</a></li>
-                                <li><a href="#"><input type="radio" name="a">Last 30 days</a></li>
-                                <li><a href="#"><input type="radio" name="a">Last Month</a></li>
-                                <li><a href="#"><input type="radio" name="a">All Time</a></li>
-                            </ul>
-                          </div>
-                          Analysis
-                        </header>
-                        <div class="panel-body flot-legend">
-                          <div id="flot-pie-donut"  style="height:240px"></div>
-                        </div>
-                      </section>
+                      
                     </div>
                   </div>
                 </section>
@@ -187,4 +136,27 @@ include("inc/gl_foot.php");
 $(document).ready(function () {
   $(".weather").weatherFeed({relativeTimeZone:true});
 });
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Minutes per Day'],
+      ['Walking',     25],
+      ['Sitting',     75],
+    ]);
+
+    var options = {
+      is3d : 'true',
+      pieStartAngle :45,
+      backgroundColor : '#E0E6F0'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
 </script>

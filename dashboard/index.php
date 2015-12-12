@@ -134,17 +134,16 @@ include("inc/gl_head.php");
                     <div class="col-md-6">
                         <code>
                         {health_behavior_questions, current_arm = 0 }
-                        $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
+                        $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
   <?php
     $current_arm  = 0;
-    $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
+    $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
     
     foreach($surveys as $index => $instrument_event){
-      if($instrument_event["instrument_name"] !== "health_behavior_questions"){
+      if($instrument_event["instrument_name"] !== "your_health_behaviors"){
         continue;
       }
 
-      $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
       $temp         = getUserAnswers(null,$graph_fields);
       $all_answers  = $temp[$current_arm];
       $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {

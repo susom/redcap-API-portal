@@ -2,9 +2,9 @@
 // HARDCODING SOME STUFF, MAYBE SMARTER WAY TO DO THIS LATER
 $fruits 		= array("strawberry","grapes","apple","banana","cherry","orange");
 $surveys_arms 	= array();
-$survey_arms["sociodemographic_questions"]  		= array("enrollment_arm_1"	, "Socio-Demographic"    	);
-$survey_arms["health_behavior_questions"]  			= array("enrollment_arm_1"	, "Health Behavior"    		);
-$survey_arms["social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
+$survey_arms["about_you"]  		= array("enrollment_arm_1"	, "About You"    	);
+$survey_arms["your_health_behaviors"]  			= array("enrollment_arm_1"	, "Health Behaviors"    		);
+$survey_arms["your_social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
 $survey_arms["wellness_questions"]  				= array("survey_arm_2"		, "Wellness Questions"    	);
 
 $current_arm 	= 0; 

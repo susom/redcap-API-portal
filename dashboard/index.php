@@ -156,7 +156,7 @@ include("inc/gl_head.php");
     $TIME_WALKING_IN_MINUTES = 0;
     $TIME_SITTING_IN_MINUTES = 0;
 
-    if(!empty($user_answers)){
+    if(isset($user_answers) && !empty($user_answers)){
       foreach($user_answers as $index => $answer){
         $answer_value = intval($answer["user_answer"]);
         if(strpos($answer["fieldname"],"hours") > -1){

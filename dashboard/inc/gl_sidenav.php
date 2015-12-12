@@ -48,12 +48,16 @@
               </a>
               <ul class="nav dk">
                 <?php
-                foreach($surveys as $survey){
+                foreach($surveys as $index => $survey){
                   $surveylink = "survey.php?url=".urlencode($survey["survey_link"]);
                   $surveyname = $survey["short_name"];
+                  $surveytotal    = $survey["total_questions"];
+                  $surveycomplete = $survey["completed_fields"];
+                  $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+
                   print_r("<li >
                       <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                        
-                        <i class='i i-dot'></i>
+                        <span class='fruit $completeclass ".$fruits[$index]."'></span>
                         <span>$surveyname</span>
                       </a>
                     </li>\n");

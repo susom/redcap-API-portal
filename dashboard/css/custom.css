@@ -110,6 +110,38 @@ h2.weather, .fullDay { display:none !important; }
   background-position-x:0% !important; 
   transition: .5s opacity;
 }
+
+.nav .fruit {
+  display:inline-block; 
+  width:34px; height:44px; 
+  vertical-align: middle;
+}
+
+.nav .fruit:before{
+  position:absolute; 
+  content:"";
+  left:10px; 
+  width:34px; height:44px; 
+  background:url(../images/sprites_fruit.png) 100% 0 no-repeat;
+  background-size:67px 390px;
+}
+
+.nav .fruit.grapes:before    {background-position-y:-44px  !important;}
+.nav .fruit.apple:before     {background-position-y:-88px  !important;}
+.nav .fruit.orange:before    {background-position-y:-132px !important;}
+.nav .fruit.cherry:before    {background-position-y:-176px !important;}
+.nav .fruit.blueberry:before   {background-position-y:-220px !important;}
+.nav .fruit.banana:before    {background-position-y:-264px !important;}
+.nav .fruit.longan:before    {background-position-y:-308px !important;}
+.nav .fruit.pineappple:before  {background-position-y:-352px !important;}
+.nav .completed.fruit:before { 
+  background-position-x:0% !important; 
+  opacity:1; 
+}
+
+
+
+
 /*SESSION ALERT*/
 .alert-info { 
   background:#f0f8ff;

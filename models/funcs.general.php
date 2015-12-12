@@ -595,10 +595,10 @@ function getReturnCode($record_id, $instrument, $event=null){
 	return $result;
 }
 
-function getUserAnswers($record_id,$fields = null){
+function getUserAnswers($record_id=null,$fields = null){
 	$extra_params = array(
 	  'content'   	=> 'record',
-	  'records' 	=> array($record_id),
+	  'records' 	=> (is_null($record_id) ? null:  array($record_id) ),
 	  'type'      	=> "flat",
 	  'fields'    	=> $fields
 	);

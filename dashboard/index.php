@@ -58,7 +58,8 @@ include("inc/gl_head.php");
                     <div class="col-sm-8">
                       <?php
                       echo "<ul class='dash_fruits'>\n";
-                      foreach($surveys as $idx => $survey){
+                      foreach($surveys as $index => $survey){
+                        $surveylink     = "survey.php?url=". urlencode($survey["survey_link"]);
                         $surveyname     = $survey["instrument_label"];
                         $surveytotal    = $survey["total_questions"];
                         $surveycomplete = $survey["completed_fields"];
@@ -66,7 +67,7 @@ include("inc/gl_head.php");
 
                         $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
                         print_r("<li class='surveys'>
-                            <a href='$surveylink' class='".$fruits[$idx]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
+                            <a href='$surveylink' class='".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>\n");
@@ -131,7 +132,48 @@ include("inc/gl_head.php");
                       </section>
                     </div>
                     <div class="col-md-6">
-                      
+                        <code>
+                        {health_behavior_questions, current_arm = 0 }
+                        $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
+  <?php
+    $current_arm  = 0;
+    $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
+    
+    foreach($surveys as $index => $instrument_event){
+      if($instrument_event["instrument_name"] !== "health_behavior_questions"){
+        continue;
+      }
+
+      $graph_fields = array("time_walking_hours", "time_walking_minutes", "sitting_time_hours", "sitting_time_minutes");
+      $temp         = getUserAnswers(null,$graph_fields);
+      $all_answers  = $temp[$current_arm];
+      $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
+        return in_array($item["fieldname"],$graph_fields);
+      });
+    }
+
+    //FOR THE PIE CHART
+    $TIME_WALKING_IN_MINUTES = 0;
+    $TIME_SITTING_IN_MINUTES = 0;
+
+    if(!empty($user_answers)){
+      foreach($user_answers as $index => $answer){
+        $answer_value = intval($answer["user_answer"]);
+        if(strpos($answer["fieldname"],"hours") > -1){
+          $answer_value = $answer_value*60;
+        }
+
+        if(strpos($answer["fieldname"],"walking") > -1){
+
+          $TIME_WALKING_IN_MINUTES += $answer_value;
+        }else{
+
+          $TIME_SITTING_IN_MINUTES += $answer_value;
+        }
+      }
+    }
+  ?>
+                        </code>
                     </div>
                   </div>
                 </section>
@@ -164,8 +206,8 @@ $(document).ready(function () {
     var data = google.visualization.arrayToDataTable([
       ['Task', 'Minutes per Day'],
       
-      ['Walking',     25],
-      ['Sitting',     75],
+      ['Walking',     <?php echo $TIME_WALKING_IN_MINUTES ?>],
+      ['Sitting',     <?php echo $TIME_SITTING_IN_MINUTES ?>],
       
     ]);
 
@@ -175,7 +217,7 @@ $(document).ready(function () {
       pieStartAngle :45,
       backgroundColor : '#E0E6F0',
       colors : ['#F8B300', '#297B9F'],
-      chartArea:{left:20,top:0,width:'100%',height:'100%'}
+      chartArea:{left:20,top:10,width:'90%',height:'90%'}
 
 
     };

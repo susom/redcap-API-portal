@@ -7,7 +7,8 @@ $survey_arms["health_behavior_questions"]  			= array("enrollment_arm_1"	, "Heal
 $survey_arms["social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
 $survey_arms["wellness_questions"]  				= array("survey_arm_2"		, "Wellness Questions"    	);
 
-$surveys = getInstruments();
+$current_arm 	= 0; 
+$surveys 		= getInstruments();
 foreach($surveys as $index => $instrument_event){
 	if(!array_key_exists($instrument_event["instrument_name"], $survey_arms)){
 		unset($surveys[$index]);
@@ -15,6 +16,9 @@ foreach($surveys as $index => $instrument_event){
 	}
 
 	$instrument_id 							= $instrument_event["instrument_name"];
+	if(isset($instrument_arm) && $instrument_arm != $survey_arms[$instrument_id][0]){
+		$current_arm++;
+	}
 	$instrument_arm 						= $survey_arms[$instrument_id][0];
 	$surveys[$index]["short_name"] 			= $survey_arms[$instrument_id][1];
 	$surveys[$index]["instrument_arm"] 		= $instrument_arm;
@@ -40,12 +44,13 @@ foreach($surveys as $index => $instrument_event){
 	$just_formnames 	= array_map(function($item){
 							return $item["field_name"];
 						},$actual_questions);
+
 	$user_answers 		= getUserAnswers($loggedInUser->id,$just_formnames);
-	if(isset($user_answers[0])){
+	if(isset($user_answers[$current_arm])){
 		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
 		foreach($actual_formnames as $idx => $inputgroup){
-			if(isset($user_answers[0][$inputgroup["fieldname"]]) && $user_answers[0][$inputgroup["fieldname"]] !== "") {
-				$actual_formnames[$idx]["user_answer"] = $user_answers[0][$inputgroup["fieldname"]];
+			if(isset($user_answers[$current_arm][$inputgroup["fieldname"]]) && $user_answers[$current_arm][$inputgroup["fieldname"]] !== "") {
+				$actual_formnames[$idx]["user_answer"] = $user_answers[$current_arm][$inputgroup["fieldname"]];
 				$user_complete++;
 
 				if($actual_formnames[$idx]["branching_logic"] !== ""){

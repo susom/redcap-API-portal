@@ -31,6 +31,54 @@ if(isset($_GET["survey_complete"])){
   }
 }
 
+//FOR THE PIE CHART
+$graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
+foreach($surveys as $index => $instrument_event){
+  if($instrument_event["instrument_name"] !== "your_health_behaviors"){
+    continue;
+  }
+  $all_answers  = getUserAnswers(null,$graph_fields);
+  $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
+    return in_array($item["fieldname"],$graph_fields);
+  });
+}
+
+// AGGREGATE OF ALL PARTICIPANTS
+$ALL_TIME_WALKING_IN_MINUTES = 0;
+$ALL_TIME_SITTING_IN_MINUTES = 0;
+foreach($all_answers as $answers){
+  foreach($answers as $fieldname => $answer){
+    $answer_value = intval($answer);
+    if(strpos($fieldname,"hours") > -1){
+      $answer_value = $answer_value*60;
+    }
+
+    if(strpos($fieldname,"walking") > -1){
+      $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
+    }else{
+      $ALL_TIME_SITTING_IN_MINUTES += $answer_value;
+    }
+  }
+}
+
+//CURRENT USERS VALUES
+$USER_TIME_WALKING_IN_MINUTES = 0;
+$USER_TIME_SITTING_IN_MINUTES = 0;
+if(isset($user_answers) && !empty($user_answers)){
+  foreach($user_answers as $index => $answer){
+    $answer_value = intval($answer["user_answer"]);
+    if(strpos($answer["fieldname"],"hours") > -1){
+      $answer_value = $answer_value*60;
+    }
+
+    if(strpos($answer["fieldname"],"walking") > -1){
+      $USER_TIME_WALKING_IN_MINUTES += $answer_value;
+    }else{
+      $USER_TIME_SITTING_IN_MINUTES += $answer_value;
+    }
+  }
+}
+
 $pg_title 		= "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
@@ -66,8 +114,8 @@ include("inc/gl_head.php");
                         $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
 
                         $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
-                        print_r("<li class='surveys'>
-                            <a href='$surveylink' class='".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
+                        print_r("<li class='nav'>
+                            <a href='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>\n");
@@ -122,63 +170,44 @@ include("inc/gl_head.php");
                       <section>
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">
-                            
                           </div>
                           You Spent: 
                         </header>
-                        <div class="panel-body flot-legend">
-                          <div id="piechart" style="height:240px"></div>
+                        <div class="panel-body flot-legend" style="min-height:270px">
+                          <?php
+                          $user_completed = count(array_filter($user_answers, function($item){
+                            return !empty($item["user_answer"]);
+                          }));
+
+                          if(!$user_completed){
+                            echo  "Please complete the Surveys!";
+                          }else{
+                          ?>
+                            <div id="piechart" style="height:240px"></div>
+                          <?php
+                          }
+                          ?>
                         </div>
                       </section>
+
                     </div>
-                    <div class="col-md-6">
-                        <code>
-                        {health_behavior_questions, current_arm = 0 }
-                        $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
-
-
-  <?php
-    $current_arm  = 0;
-    $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
-    
-    foreach($surveys as $index => $instrument_event){
-      if($instrument_event["instrument_name"] !== "your_health_behaviors"){
-        continue;
-      }
-
-      $temp         = getUserAnswers(null,$graph_fields);
-      $all_answers  = $temp[$current_arm];
-      $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
-        return in_array($item["fieldname"],$graph_fields);
-      });
-    }
-
-    //FOR THE PIE CHART
-    $TIME_WALKING_IN_MINUTES = 0;
-    $TIME_SITTING_IN_MINUTES = 0;
-
-    if(isset($user_answers) && !empty($user_answers)){
-      foreach($user_answers as $index => $answer){
-        $answer_value = intval($answer["user_answer"]);
-        if(strpos($answer["fieldname"],"hours") > -1){
-          $answer_value = $answer_value*60;
-        }
-
-        if(strpos($answer["fieldname"],"walking") > -1){
-          $TIME_WALKING_IN_MINUTES += $answer_value;
-        }else{
-          $TIME_SITTING_IN_MINUTES += $answer_value;
-        }
-      }
-    }
-  ?>
-                        </code>
+                    <div class="col-md-6 dker">
+                      <section>
+                        <header class="font-bold padder-v">
+                          <div class="btn-group pull-right">
+                          </div>
+                          Average of All Participants Spent: 
+                        </header>
+                        <div class="panel-body flot-legend">
+                          <div id="piechart_all" style="height:240px"></div>
+                        </div>
+                      </section>
                     </div>
                   </div>
                 </section>
               </section>
             </section>
-            
+
             <?php
             	include("inc/gl_slideout.php");
             ?>
@@ -200,12 +229,13 @@ $(document).ready(function () {
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawWalkingSittingChart);
+  google.setOnLoadCallback(drawAllWalkingSittingChart);
   function drawWalkingSittingChart() {
     //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var data = google.visualization.arrayToDataTable([
       ['Task',   'Minutes per Day'],
-      ['Walking', <?php echo $TIME_WALKING_IN_MINUTES ?>],
-      ['Sitting', <?php echo $TIME_SITTING_IN_MINUTES ?>],
+      ['Walking', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>],
+      ['Sitting', <?php echo $USER_TIME_SITTING_IN_MINUTES ?>],
     ]);
 
     var options = {
@@ -221,4 +251,24 @@ $(document).ready(function () {
     chart.draw(data, options);
   }
 
+  function drawAllWalkingSittingChart() {
+    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
+    var data = google.visualization.arrayToDataTable([
+      ['Task',   'Minutes per Day'],
+      ['Walking', <?php echo $ALL_TIME_WALKING_IN_MINUTES ?>],
+      ['Sitting', <?php echo $ALL_TIME_SITTING_IN_MINUTES ?>],
+    ]);
+
+    var options = {
+      is3d : 'true',
+      pieStartAngle :45,
+      backgroundColor : '#E0E6F0',
+      colors : ['#F8B300', '#297B9F'],
+      chartArea:{left:20,top:10,width:'90%',height:'90%'}
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_all'));
+
+    chart.draw(data, options);
+  }
 </script>

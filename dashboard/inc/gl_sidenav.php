@@ -56,9 +56,9 @@
                   $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
 
                   print_r("<li >
-                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                        
+                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'> 
+                        <span>$surveyname</span>                                                       
                         <span class='fruit $completeclass ".$fruits[$index]."'></span>
-                        <span>$surveyname</span>
                       </a>
                     </li>\n");
                 }

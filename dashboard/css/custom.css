@@ -37,7 +37,7 @@ h2.weather, .fullDay { display:none !important; }
 }
 .survey .submits .btn { margin:0 8px; border-radius:3px; box-shadow:1px 1px 3px #999;  }
 .survey .submits .progress { 
-	width:60%; 
+	width:30%; 
 	background-color:#ccc; 
 	margin: 0 auto 20px; 
 }
@@ -52,9 +52,12 @@ h2.weather, .fullDay { display:none !important; }
 .dash_fruits {
   margin:0; padding:0; 
 }
-.dash_fruits .surveys { 
-  margin-right:15px; 
+.dash_fruits .fruit { 
+  margin-top:20px;
+  margin-right:20px; 
+  text-indent:-5000px;
 }
+
 
 .surveys span { 
 	display:block;  
@@ -72,16 +75,17 @@ h2.weather, .fullDay { display:none !important; }
 	transition: .5s opacity;
 }
 
-.alert .grapes:before     ,.surveys .grapes		  span:before {background-position-y:-85.5px 	!important;}
-.alert .apple:before      ,.surveys .apple			  span:before {background-position-y:-171px		!important;}
-.alert .orange:before     ,.surveys .orange		  span:before {background-position-y:-256.5px !important;}
-.alert .cherry:before     ,.surveys .cherry		  span:before {background-position-y:-342px 	!important;}
-.alert .blueberry:before  ,.surveys .blueberry   span:before {background-position-y:-427.5px !important;}
-.alert .banana:before     ,.surveys .banana		  span:before {background-position-y:-513px 	!important;}
-.alert .longan:before     ,.surveys .longan		  span:before {background-position-y:-598.5px !important;}
-.alert .pineappple:before ,.surveys .pineappple  span:before {background-position-y:-684px 	!important;}
+.alert .grapes:before     ,.surveys .grapes		  span:before {background-position:100% -85.5px 	!important;}
+.alert .apple:before      ,.surveys .apple			span:before {background-position:100% -171px		!important;}
+.alert .orange:before     ,.surveys .orange		  span:before {background-position:100% -256.5px !important;}
+.alert .cherry:before     ,.surveys .cherry		  span:before {background-position:100% -342px 	!important;}
+.alert .blueberry:before  ,.surveys .blueberry  span:before {background-position:100% -427.5px !important;}
+.alert .banana:before     ,.surveys .banana		  span:before {background-position:100% -513px 	!important;}
+.alert .longan:before     ,.surveys .longan		  span:before {background-position:100% -598.5px !important;}
+.alert .pineappple:before ,.surveys .pineappple span:before {background-position:100% -684px 	!important;}
 
-.surveys .active span:before , .surveys a:hover span:before{
+/*.surveys .active span:before , */
+.surveys a:hover span:before{
 	background-position-x:0% !important; 
 	opacity:.4; 
 }
@@ -115,6 +119,7 @@ h2.weather, .fullDay { display:none !important; }
   display:inline-block; 
   width:34px; height:44px; 
   vertical-align: middle;
+  position: relative;
 }
 
 .nav .fruit:before{
@@ -126,14 +131,15 @@ h2.weather, .fullDay { display:none !important; }
   background-size:67px 390px;
 }
 
-.nav .fruit.grapes:before    {background-position-y:-44px  !important;}
-.nav .fruit.apple:before     {background-position-y:-88px  !important;}
-.nav .fruit.orange:before    {background-position-y:-132px !important;}
-.nav .fruit.cherry:before    {background-position-y:-176px !important;}
-.nav .fruit.blueberry:before   {background-position-y:-220px !important;}
-.nav .fruit.banana:before    {background-position-y:-264px !important;}
-.nav .fruit.longan:before    {background-position-y:-308px !important;}
-.nav .fruit.pineappple:before  {background-position-y:-352px !important;}
+.nav .fruit.grapes:before    {background-position:100% -44px  !important;}
+.nav .fruit.apple:before     {background-position:100% -88px  !important;}
+.nav .fruit.orange:before    {background-position:100% -132px !important;}
+.nav .fruit.cherry:before    {background-position:100% -176px !important;}
+.nav .fruit.blueberry:before {background-position:100% -220px !important;}
+.nav .fruit.banana:before    {background-position:100% -264px !important;}
+.nav .fruit.longan:before    {background-position:100% -308px !important;}
+.nav .fruit.pineappple:before{background-position:100% -352px !important;}
+
 .nav .completed.fruit:before { 
   background-position-x:0% !important; 
   opacity:1; 

@@ -63,6 +63,7 @@ foreach($surveys as $index => $instrument_event){
 	$surveys[$index]["completed_fields"] 	= $user_complete;
 }
 
+$surveys = array_values($surveys);
 // echo "<pre>";
 // print_r($surveys);
 // exit;

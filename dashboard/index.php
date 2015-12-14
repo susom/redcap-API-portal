@@ -135,6 +135,8 @@ include("inc/gl_head.php");
                         <code>
                         {health_behavior_questions, current_arm = 0 }
                         $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
+
+
   <?php
     $current_arm  = 0;
     $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
@@ -163,10 +165,8 @@ include("inc/gl_head.php");
         }
 
         if(strpos($answer["fieldname"],"walking") > -1){
-
           $TIME_WALKING_IN_MINUTES += $answer_value;
         }else{
-
           $TIME_SITTING_IN_MINUTES += $answer_value;
         }
       }
@@ -199,30 +199,26 @@ $(document).ready(function () {
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
-  function drawChart() {
-
+  google.setOnLoadCallback(drawWalkingSittingChart);
+  function drawWalkingSittingChart() {
+    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var data = google.visualization.arrayToDataTable([
-      ['Task', 'Minutes per Day'],
-      
-      ['Walking',     <?php echo $TIME_WALKING_IN_MINUTES ?>],
-      ['Sitting',     <?php echo $TIME_SITTING_IN_MINUTES ?>],
-      
+      ['Task',   'Minutes per Day'],
+      ['Walking', <?php echo $TIME_WALKING_IN_MINUTES ?>],
+      ['Sitting', <?php echo $TIME_SITTING_IN_MINUTES ?>],
     ]);
 
-    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var options = {
       is3d : 'true',
       pieStartAngle :45,
       backgroundColor : '#E0E6F0',
       colors : ['#F8B300', '#297B9F'],
       chartArea:{left:20,top:10,width:'90%',height:'90%'}
-
-
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
     chart.draw(data, options);
   }
+
 </script>

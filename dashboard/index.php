@@ -31,6 +31,17 @@ if(isset($_GET["survey_complete"])){
   }
 }
 
+if(isset($_GET["survey_pause"])){
+  //IF NO URL PASSED IN THEN REDIRECT BACK
+  $surveyid = $_GET["survey_pause"];
+  foreach($surveys as $index => $instrument_event){
+    if($instrument_event["instrument_name"] != $surveyid){
+      continue;
+    }
+    addSessionMessage( "Come back later to complete the '" . $instrument_event["instrument_label"] . "' Survey.<br> And collect your reward : <span class='fruit " . $fruits[$index] . "'></span>  Get the whole fruit basket!" , "notice");
+  }
+}
+
 //FOR THE PIE CHART
 $graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
 foreach($surveys as $index => $instrument_event){
@@ -79,7 +90,8 @@ if(isset($user_answers) && !empty($user_answers)){
   }
 }
 
-$pg_title 		= "Dashboard : $websiteName";
+$shownavsmore   = true;
+$pg_title 		  = "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
 ?>
@@ -162,7 +174,10 @@ include("inc/gl_head.php");
                     </div>
                     
                     <div class="col-sm-6">
-                      <div class="weather"><?php echo $location ?></div>
+                      <a href="http://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
+                      <div id="awcc1450204337398" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1450204337398"></div>
+                      <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+                      <!-- <div class="weather"><?php echo $location ?></div> -->
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">
@@ -222,7 +237,7 @@ include("inc/gl_foot.php");
 ?>
 <script type="text/javascript">
 $(document).ready(function () {
-  $(".weather").weatherFeed({relativeTimeZone:true});
+  // $(".weather").weatherFeed({relativeTimeZone:true});
 });
 </script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

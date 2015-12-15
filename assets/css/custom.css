@@ -121,11 +121,12 @@ a:hover { text-decoration:underline; }
 /*CONSENT FORM*/
 .WordSection1 { margin:20px;     
   overflow-y: scroll;
-  height:50vh;; 
+  height:50vh;
   border:1px solid #efefef; 
   border-radius:5px; 
+  color:#000 !important;
 }
-
+.WordSection1 span { color:#000 !important;}
 .WordSection1 h1 { text-align:center; }
 .consent .submits { 
   text-align:center; 

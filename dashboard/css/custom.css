@@ -125,7 +125,7 @@ h2.weather, .fullDay { display:none !important; }
 .nav .fruit:before{
   position:absolute; 
   content:"";
-  left:10px; 
+  left:0px; 
   width:34px; height:44px; 
   background:url(../images/sprites_fruit.png) 100% 0 no-repeat;
   background-size:67px 390px;

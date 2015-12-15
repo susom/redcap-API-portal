@@ -36,6 +36,7 @@ foreach($surveys as $survey){
     $active_surveycomplete = $survey["completed_fields"];
     $active_surveypercent  = 0;
 
+    // echo $active_surveycomplete ."/".$active_surveytotal;
     $active_surveyevent    = $survey["instrument_arm"];
     $active_returncode     = $survey["return_code"];
     $active_metadata       = $survey["meta_data"];
@@ -43,7 +44,7 @@ foreach($surveys as $survey){
   }
 }
 
-$hidenavs       = true;
+$shownavsmore   = false;
 $pg_title       = "Surveys : $websiteName";
 $body_classes   = "dashboard survey";
 include("inc/gl_head.php");
@@ -75,7 +76,7 @@ include("inc/gl_head.php");
                       <div class='progress progress-striped  active'>
                         <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
                       </div>
-                      <button class="btn btn-primary" role="saverecord">Submit</button>
+                      <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
                     </div>
                   </div>
                 </section>
@@ -130,11 +131,22 @@ setTimeout(function(){
     var command = "submit-btn-" + $(this).attr("role");
     frame.postMessage({"action" : command}, allowed_child_origin);
 
-    location.href="index.php?survey_complete=" + "<?php echo $active_surveyid?>";
+    if(command == "submit-btn-saverecord"){
+      setTimeout(function(){
+        //JESUS CHRIST, THIS THING HAS SAME LATENCY AS INITIAL PAGE LOAD
+        //KEEP PASSING UPDATED metadata BACK AND FORTH TO CHILD (MAY NOT BE ACCURATE, BUT CLOSE ENOUGH AND WILL RESYNC WHEN PARENT PAGE FINALLY RELOADS)
+        frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
+      },400);
+    }else{
+      console.log("save and return later not necesarily finished");
+      // ui fade out main screen
+    }
+
+    // 
     return false; 
   });
 
-  //PASS SOME SELF INFO TO THE CHILD FRAME
+  //PASS SOME SELF INFO TO THE CHILD FRAME ON PAGE LOAD
   frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
 },400);
 
@@ -147,10 +159,27 @@ window.addEventListener('message', function(event) {
         // The data sent with postMessage is stored in event.data
 
         var payload = event.data;
+
         if(payload.hasOwnProperty("percent_complete")){
           //UPDATE THE PROGRESS BAR
           var pbar = $(".progress-bar");
           updateProgressBar(pbar, payload.percent_complete);
+
+          //UPDATE THIS TO PASS BACK TO CHILD ON MULTI SECTION SURVEYS
+          instrument_metadata = payload.metadata;
+        }
+
+        if(payload.hasOwnProperty("child_message")){
+          $(".submits").fadeOut("fast");
+
+          if(payload.child_message == "survey_complete"){
+            //RELOAD SURVEY TO (NEXT/HOME?)
+            setTimeout(function(){
+              location.href="index.php?survey_complete=" + "<?php echo $active_surveyid?>";
+            },1000);
+          }else if(payload.child_message == "survey_pause"){
+            location.href="index.php?survey_pause=" + "<?php echo $active_surveyid?>";
+          }
         }
         return;
     } else {

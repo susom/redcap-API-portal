@@ -25,18 +25,21 @@
 
         <!-- nav -->                 
         <nav class="nav-primary hidden-xs ">
-          <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
+          <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"></div>
           <ul class="nav nav-main" data-ride="collapse">
+            <?php 
+            if($shownavsmore){
+            ?>
             <li  class="active">
               <a href="index.php" class="auto">
                 <i class="i i-statistics icon"></i>
                 <span class="font-bold">My Home</span>
               </a>
             </li>
-            <?php 
-            if(!isset($hidenavs)){
+            <?php
+            }
             ?>
-            <li >
+            <li class="active" >
               <a href="#" class="auto">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
@@ -56,15 +59,18 @@
                   $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
 
                   print_r("<li >
-                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'> 
-                        <span>$surveyname</span>                                                       
+                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                   
                         <span class='fruit $completeclass ".$fruits[$index]."'></span>
+                        <span>$surveyname</span>     
                       </a>
                     </li>\n");
                 }
                 ?>
               </ul>
             </li>
+            <?php 
+            if($shownavsmore){
+            ?>
             <li >
               <a href="#" class="auto disabled">
                 <span class="pull-right text-muted">
@@ -144,23 +150,20 @@
               </ul>
             </li>
             <?php
-            }else{
-            ?>
-            <?php
-              foreach($surveys as $idx => $survey){
-                $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");
-                $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
-                $surveyname     = $survey["instrument_label"];
-                $surveytotal    = $survey["total_questions"];
-                $surveycomplete = $survey["completed_fields"];
-                $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+              // foreach($surveys as $idx => $survey){
+              //   $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");
+              //   $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
+              //   $surveyname     = $survey["instrument_label"];
+              //   $surveytotal    = $survey["total_questions"];
+              //   $surveycomplete = $survey["completed_fields"];
+              //   $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
 
-                print_r("<li class='surveys'>
-                    <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname'>                                                        
-                      <span >$surveyname</span>
-                    </a>
-                  </li>\n");
-              }
+              //   print_r("<li class='surveys'>
+              //       <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname'>                                                        
+              //         <span >$surveyname</span>
+              //       </a>
+              //     </li>\n");
+              // }
             }
             ?>
           </ul>

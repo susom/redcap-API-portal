@@ -183,10 +183,12 @@ include("inc/gl_head.php");
                     </div>
                     
                     <div class="col-sm-6">
-                      <a href="http://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
-                      <div id="awcc1450204337398" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1450204337398"></div>
-                      <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
-                      <!-- <div class="weather"><?php echo $location ?></div> -->
+                    <?php
+                      // <a href="https://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
+                      // <div id="awcc1450204337398" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1450204337398"></div>
+                      // <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+                    ?>
+                      <div class="weather"><?php echo $location ?></div>
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">
@@ -246,7 +248,7 @@ include("inc/gl_foot.php");
 ?>
 <script type="text/javascript">
 $(document).ready(function () {
-  // $(".weather").weatherFeed({relativeTimeZone:true});
+  $(".weather").weatherFeed({relativeTimeZone:true});
 });
 </script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

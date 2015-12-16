@@ -71,12 +71,12 @@ foreach($surveys as $index => $instrument_event){
 	$surveys[$index]["meta_data"] 			= $actual_formnames;
 	$surveys[$index]["completed_fields"] 	= $user_complete;
 
-	if (is_null($user_current_survey_index) && $user_complete < $unbranched_total){
+	if (is_null($user_current_survey_index) && $user_complete < $surveys[$index]["total_questions"]){
 		$user_current_survey_index = $index;
 	}
 }
 
-// echo "<pre>";
+// echo "$user_current_survey_index<pre>";
 // print_r($surveys);
 // exit;
 

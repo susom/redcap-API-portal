@@ -29,7 +29,7 @@ if(isset($_GET["survey_complete"])){
       $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $instrument_event["instrument_label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
       if(isset($surveys[$index+1])){
         $nextlink     = "survey.php?url=". urlencode($surveys[$index+1]["survey_link"]);
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$index+1]["instrument_label"]."' survey next!</a>";
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$index+1]["instrument_label"]."' survey now!</a>";
       }else{
         $success_msg .= "Congratulations, you got the whole fruit basket! <br/>See how your data compares to others in your area.";
       }

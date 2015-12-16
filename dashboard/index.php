@@ -290,8 +290,8 @@ $(document).ready(function () {
           backgroundColor : '#E0E6F0',
           colors : ['#297B9F','#F8B300'],
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            title: 'Time Walking vs Sitting',
+            subtitle: 'You VS All Participants',
           }
         };
 

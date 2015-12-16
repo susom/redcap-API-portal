@@ -52,14 +52,15 @@
               <ul class="nav dk">
                 <?php
                 foreach($surveys as $index => $survey){
-                  $surveylink = "survey.php?url=".urlencode($survey["survey_link"]);
-                  $surveyname = $survey["short_name"];
+                  $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
+                  $surveyname     = $survey["short_name"];
                   $surveytotal    = $survey["total_questions"];
                   $surveycomplete = $survey["completed_fields"];
                   $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
 
+                  $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
                   print_r("<li >
-                      <a href='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                   
+                      <a $hreflink='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                   
                         <span class='fruit $completeclass ".$fruits[$index]."'></span>
                         <span>$surveyname</span>     
                       </a>

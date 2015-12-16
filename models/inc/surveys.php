@@ -2,19 +2,28 @@
 // HARDCODING SOME STUFF, MAYBE SMARTER WAY TO DO THIS LATER
 $fruits 		= array("strawberry","grapes","apple","banana","cherry","orange");
 $surveys_arms 	= array();
-$survey_arms["about_you"]  		= array("enrollment_arm_1"	, "About You"    	);
-$survey_arms["your_health_behaviors"]  			= array("enrollment_arm_1"	, "Health Behaviors"    		);
+$survey_arms["about_you"]  									= array("enrollment_arm_1"	, "About You"    	);
+$survey_arms["your_health_behaviors"]  						= array("enrollment_arm_1"	, "Health Behaviors"    		);
 $survey_arms["your_social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
-$survey_arms["wellness_questions"]  				= array("survey_arm_2"		, "Wellness Questions"    	);
+$survey_arms["wellness_questions"]  						= array("survey_arm_2"		, "Wellness Questions"    	);
 
-$current_arm 	= 0; 
-$surveys 		= getInstruments();
+$user_current_survey_index 	= null;
+$current_arm 				= 0; 
+$surveys 					= getInstruments();
+
+//FIRST REMOVE NON PUBLIC "SURVEYS"
 foreach($surveys as $index => $instrument_event){
 	if(!array_key_exists($instrument_event["instrument_name"], $survey_arms)){
 		unset($surveys[$index]);
 		continue;
 	}
+}
 
+//THEN REINDEX SURVEYS TO [0] INDEX
+$surveys = array_values($surveys);
+
+//NOW FILL OUT THE METADATA
+foreach($surveys as $index => $instrument_event){
 	$instrument_id 							= $instrument_event["instrument_name"];
 	if(isset($instrument_arm) && $instrument_arm != $survey_arms[$instrument_id][0]){
 		$current_arm++;
@@ -61,9 +70,13 @@ foreach($surveys as $index => $instrument_event){
 	}
 	$surveys[$index]["meta_data"] 			= $actual_formnames;
 	$surveys[$index]["completed_fields"] 	= $user_complete;
+
+	if (is_null($user_current_survey_index) && $user_complete < $unbranched_total){
+		$user_current_survey_index = $index;
+	}
 }
 
-$surveys = array_values($surveys);
 // echo "<pre>";
 // print_r($surveys);
 // exit;
+

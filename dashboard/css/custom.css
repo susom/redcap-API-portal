@@ -20,6 +20,9 @@ h2.weather, .fullDay { display:none !important; }
 .corefour .disabled { background:#e3e3e3; }
 .corefour .disabled a {cursor:default; }
 
+.dker.charttoo { background:#fff; }
+
+
 /*SURVEY FRAMES*/
 .survey .m-b-md {
   margin-bottom:10px; 
@@ -113,6 +116,22 @@ h2.weather, .fullDay { display:none !important; }
   background:url(../images/sprites_fruit.png) 100% 0 no-repeat;
   background-position-x:0% !important; 
   transition: .5s opacity;
+}
+.alert .takenext { 
+  display:block; 
+  margin:12px 0 ;
+  text-decoration:underline; 
+  font-size:14px;
+  line-height:14px;
+}
+.alert .surveyname { 
+  display:block; 
+  font-size:15px; 
+  margin:5px 0;
+}
+
+.bg-black .nav li > a[rel*='survey']{
+  color:#8287a9 !important;
 }
 
 .nav .fruit {

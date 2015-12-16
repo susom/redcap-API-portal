@@ -26,7 +26,15 @@ if(isset($_GET["survey_complete"])){
     }
 
     if($instrument_event["completed_fields"] >= $instrument_event["total_questions"]){
-      addSessionMessage( "You've completed the '" . $instrument_event["instrument_label"] . "' Survey.<br> You've been rewarded a : <span class='fruit " . $fruits[$index] . "'></span>  Get the whole fruit basket!" , "success");
+      $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $instrument_event["instrument_label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
+      if(isset($surveys[$index+1])){
+        $nextlink     = "survey.php?url=". urlencode($surveys[$index+1]["survey_link"]);
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$index+1]["instrument_label"]."' survey next!</a>";
+      }else{
+        $success_msg .= "Congratulations, you got the whole fruit basket! <br/>See how your data compares to others in your area.";
+      }
+      
+      addSessionMessage( $success_msg , "success");
     }
   }
 }
@@ -71,6 +79,7 @@ foreach($all_answers as $answers){
     }
   }
 }
+
 
 //CURRENT USERS VALUES
 $USER_TIME_WALKING_IN_MINUTES = 0;
@@ -127,7 +136,7 @@ include("inc/gl_head.php");
 
                         $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
                         print_r("<li class='nav'>
-                            <a href='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
+                            <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>\n");
@@ -181,7 +190,7 @@ include("inc/gl_head.php");
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">
-                    <div class="col-md-6 dker">
+                    <div class="col-md-6 dker chartone">
                       <section>
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">
@@ -206,7 +215,7 @@ include("inc/gl_head.php");
                       </section>
 
                     </div>
-                    <div class="col-md-6 dker">
+                    <div class="col-md-6 dker charttoo">
                       <section>
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">
@@ -214,7 +223,7 @@ include("inc/gl_head.php");
                           Average of All Participants Spent: 
                         </header>
                         <div class="panel-body flot-legend">
-                          <div id="piechart_all" style="height:240px"></div>
+                          <div id="colchart_all" style="height:240px"></div>
                         </div>
                       </section>
                     </div>
@@ -242,9 +251,11 @@ $(document).ready(function () {
 </script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-  google.load("visualization", "1", {packages:["corechart"]});
+  // LOAD CHART PACKAGES FROM GOOGLE
+  google.load("visualization", "1", {packages:["corechart", "bar"]});
+
+  //SINGLE USER BAR CHART
   google.setOnLoadCallback(drawWalkingSittingChart);
-  google.setOnLoadCallback(drawAllWalkingSittingChart);
   function drawWalkingSittingChart() {
     //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var data = google.visualization.arrayToDataTable([
@@ -266,24 +277,26 @@ $(document).ready(function () {
     chart.draw(data, options);
   }
 
-  function drawAllWalkingSittingChart() {
-    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
-    var data = google.visualization.arrayToDataTable([
-      ['Task',   'Minutes per Day'],
-      ['Walking', <?php echo $ALL_TIME_WALKING_IN_MINUTES ?>],
-      ['Sitting', <?php echo $ALL_TIME_SITTING_IN_MINUTES ?>],
-    ]);
+  //VERTICAL COLUMN CHART COMPARE USER TO ALL OTHERS
+  google.setOnLoadCallback(drawUserVsAllChart);
+  function drawUserVsAllChart() {
+      var data = google.visualization.arrayToDataTable([
+          ['', 'Sitting','Walking'],
+          ['You', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>, <?php echo $USER_TIME_SITTING_IN_MINUTES ?>],
+          ['All', <?php echo $ALL_TIME_WALKING_IN_MINUTES/count($all_answers) ?>, <?php echo $ALL_TIME_SITTING_IN_MINUTES/count($all_answers) ?>],
+        ]);
 
-    var options = {
-      is3d : 'true',
-      pieStartAngle :45,
-      backgroundColor : '#E0E6F0',
-      colors : ['#F8B300', '#297B9F'],
-      chartArea:{left:20,top:10,width:'90%',height:'90%'}
-    };
+        var options = {
+          backgroundColor : '#E0E6F0',
+          colors : ['#297B9F','#F8B300'],
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_all'));
+        var chart = new google.charts.Bar(document.getElementById('colchart_all'));
 
-    chart.draw(data, options);
-  }
+        chart.draw(data, options);
+    }
 </script>

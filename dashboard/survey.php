@@ -138,8 +138,10 @@ setTimeout(function(){
         frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
       },400);
     }else{
-      console.log("save and return later not necesarily finished");
       // ui fade out main screen
+      $('#surveyFrame').css("opacity","0");
+      $(".submits").fadeOut("fast");
+      location.href="index.php?survey_pause=" + "<?php echo $active_surveyid?>"; 
     }
 
     // 
@@ -177,8 +179,6 @@ window.addEventListener('message', function(event) {
             setTimeout(function(){
               location.href="index.php?survey_complete=" + "<?php echo $active_surveyid?>";
             },1000);
-          }else if(payload.child_message == "survey_pause"){
-            location.href="index.php?survey_pause=" + "<?php echo $active_surveyid?>";
           }
         }
         return;

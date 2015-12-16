@@ -115,7 +115,17 @@ if(!empty($_POST['submit_new_user'])){
 			}else{
 				//ADD THEIR EMAIL , NAME TO CONTACT DB
 				$auth->createNewUser($password, FALSE);
-				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE"), "notice" );
+
+				$reason 	= "";
+				if(!in_array($zip,$eligible_zips) && !array_key_exists($city, $city_zips)){
+					$reason = lang("ACCOUNT_NOT_IN_GEO");
+				}elseif(!$nextyear){
+					$reason = lang("ACCOUNT_TOO_NEW_GEO");
+				}elseif(!$oldenough || $actualage < 18){
+					$reason = lang("ACCOUNT_TOO_YOUNG");
+				}
+
+				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array($reason)), "notice" );
 			}
 
 			//CLEAN UP

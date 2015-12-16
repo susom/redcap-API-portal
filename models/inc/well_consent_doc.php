@@ -54,7 +54,7 @@ p.MsoNormal, li.MsoNormal, div.MsoNormal
 	margin:0in;
 	margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	font-family:"Times New Roman";
 	mso-fareast-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";}
@@ -101,7 +101,7 @@ p.MsoHeader, li.MsoHeader, div.MsoHeader
 	margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
 	tab-stops:center 3.0in right 6.0in;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	font-family:"Times New Roman";
 	mso-fareast-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";}
@@ -111,7 +111,7 @@ p.MsoFooter, li.MsoFooter, div.MsoFooter
 	margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
 	tab-stops:center 3.0in right 6.0in;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	font-family:"Times New Roman";
 	mso-fareast-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";}
@@ -123,7 +123,7 @@ p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
 	margin-bottom:6.0pt;
 	margin-left:.25in;
 	mso-pagination:widow-orphan;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	font-family:"Times New Roman";
 	mso-fareast-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";}
@@ -146,7 +146,7 @@ p
 	mso-margin-bottom-alt:auto;
 	margin-left:0in;
 	mso-pagination:widow-orphan;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	font-family:"Times New Roman";
 	mso-fareast-font-family:"Times New Roman";
 	mso-bidi-font-family:"Times New Roman";}
@@ -165,15 +165,15 @@ span.HeaderChar
 	mso-style-unhide:no;
 	mso-style-locked:yes;
 	mso-style-link:Header;
-	mso-ansi-font-size:12.0pt;
-	mso-bidi-font-size:12.0pt;}
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;}
 span.BodyTextIndentChar
 	{mso-style-name:"Body Text Indent Char";
 	mso-style-unhide:no;
 	mso-style-locked:yes;
 	mso-style-link:"Body Text Indent";
-	mso-ansi-font-size:12.0pt;
-	mso-bidi-font-size:12.0pt;}
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;}
 p.Normal1, li.Normal1, div.Normal1
 	{mso-style-name:Normal1;
 	mso-style-unhide:no;
@@ -181,7 +181,7 @@ p.Normal1, li.Normal1, div.Normal1
 	margin:0in;
 	margin-bottom:.0001pt;
 	mso-pagination:widow-orphan;
-	font-size:12.0pt;
+	font-size:14.0pt;
 	mso-bidi-font-size:10.0pt;
 	font-family:Cambria;
 	mso-fareast-font-family:Cambria;

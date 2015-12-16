@@ -154,7 +154,8 @@ class RedcapPortalUser
       $this->log_entry[] = "Activating user";
       // Update
       return self::updateUser(array(
-         getRF('active') => 1
+         getRF('active')      => 1,
+         getRF('consent_ts')  => date('Y-m-d H:i:s'),
       ));
    }
       

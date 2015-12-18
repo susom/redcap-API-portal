@@ -118,11 +118,12 @@ h2.weather, .fullDay { display:none !important; }
   transition: .5s opacity;
 }
 .alert .takenext { 
-  display:block; 
-  margin:12px 0 ;
-  text-decoration:underline; 
+  display:table-cell; 
+  margin:12px auto 0;
   font-size:14px;
   line-height:14px;
+  padding:10px 0 3px;
+  border-bottom:1px solid #3c4144; 
 }
 .alert .surveyname { 
   display:block; 
@@ -203,8 +204,16 @@ h2.weather, .fullDay { display:none !important; }
   text-decoration:none; 
 }
 .alert ul {     
-  margin: 20px 40px 40px; padding:0; 
+  margin: 20px 40px 40px; padding:0 0 20px; 
 }
+
+.alert.multi-message ul {
+  list-style:disc;
+}
+.alert.multi-message li {     
+  display:block; 
+}
+
 .alert.text-center ul {
   list-style:none; 
   margin: 30px 40px 50px;

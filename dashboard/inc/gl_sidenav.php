@@ -56,7 +56,7 @@
                   $surveyname     = $survey["short_name"];
                   $surveytotal    = $survey["total_questions"];
                   $surveycomplete = $survey["completed_fields"];
-                  $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+                  $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
 
                   $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
                   print_r("<li >

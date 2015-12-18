@@ -40,7 +40,6 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 			unset($_SESSION[SESSION_NAME]['login_attempts']);
 			setSessionUser($loggedInUser);
 
-
 			//CHECK IF USER AGREED TO CONSENT YET
 			if(!$loggedInUser->active){
 				$destination 	= "consent.php";

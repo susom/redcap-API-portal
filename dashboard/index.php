@@ -25,7 +25,7 @@ if(isset($_GET["survey_complete"])){
       continue;
     }
 
-    if($instrument_event["completed_fields"] >= $instrument_event["total_questions"]){
+    if($instrument_event["completed_fields"] >= round(intval($instrument_event["total_questions"])*.85) ){
       $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $instrument_event["instrument_label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
       if(isset($surveys[$index+1])){
         $nextlink     = "survey.php?url=". urlencode($surveys[$index+1]["survey_link"]);
@@ -132,7 +132,7 @@ include("inc/gl_head.php");
                         $surveyname     = $survey["instrument_label"];
                         $surveytotal    = $survey["total_questions"];
                         $surveycomplete = $survey["completed_fields"];
-                        $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
+                        $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
 
                         $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
                         print_r("<li class='nav'>

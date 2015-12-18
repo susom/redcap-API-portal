@@ -93,7 +93,10 @@ class RedcapAuth {
 
       foreach ($result as $idx => $record){
          $id = $record[REDCAP_FIRST_FIELD];
-         if (is_numeric($id)  && $id >= $new_id)                        $new_id                 = $id+1;
+         if (is_numeric($id)  && $id >= $new_id)                        $new_id                 = $id+1; //GUESS THE NEXT AUTOINCREME
+         
+         if (!$record[getRF('username')] || !$record[getRF('email')])   continue;
+         
          if ($this->username  == sanitize($record[getRF('username')]))  $username_matches[$id]  = $record;
          if ($this->email     == sanitize($record[getRF('email')]))     $email_matches[$id]     = $record;
       }

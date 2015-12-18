@@ -55,6 +55,7 @@ foreach($surveys as $index => $instrument_event){
 						},$actual_questions);
 
 	$user_answers 		= getUserAnswers($loggedInUser->id,$just_formnames);
+
 	if(isset($user_answers[$current_arm])){
 		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
 		foreach($actual_formnames as $idx => $inputgroup){
@@ -71,12 +72,13 @@ foreach($surveys as $index => $instrument_event){
 	$surveys[$index]["meta_data"] 			= $actual_formnames;
 	$surveys[$index]["completed_fields"] 	= $user_complete;
 
-	if (is_null($user_current_survey_index) && $user_complete < $surveys[$index]["total_questions"]){
+	if (is_null($user_current_survey_index) && $user_complete < round(intval($surveys[$index]["total_questions"])*.85) ) {
 		$user_current_survey_index = $index;
 	}
 }
 
-// echo "$user_current_survey_index<pre>";
+// echo $user_current_survey_index;
+// echo "<pre>";
 // print_r($surveys);
 // exit;
 

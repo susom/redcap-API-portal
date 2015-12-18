@@ -153,7 +153,7 @@ function makeMessageBox($messages, $type) {
 		'success' 	=> 'btn-success'
 	);
 
-	$pluralclass = (count($messages) < 2 ? "text-center" : "single-message");
+	$pluralclass = (count($messages) < 2 ? "text-center" : "multi-message");
 	$html = '<div class="alert ' . $typeClass[$type] . ' ' . $pluralclass . ' mb-30">
 				<button class="btn '.$btnClass[$type].' data-dismiss="alert">OK</button>
 				<ul>

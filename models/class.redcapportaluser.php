@@ -299,13 +299,16 @@ class RedcapPortalUser
       //print "DEBUG: PARAMS: <pre>".print_r($params,true)."</pre>";
       //print "DEBUG: LOAD USER: <pre>".print_r($result,true)."</pre>";
       
-      if (count($result) != 1) {
-         $this->errors[] = "Unable to load specified user (" . $this->user_id . ")";
-         return false;
-      }
+      // THIS MESSES THINGS UP FOR multi ARM deals
+      // if (count($result) != 1) {
+      //    $this->errors[] = "Unable to load specified user (" . $this->user_id . ")";
+      //    return false;
+      // }
       
       // Load results into this object
-      $user = current($result);
+      // $user = current($result);
+      $user = $result[0];
+      
       //logIt("Loaded User: " . json_encode($user), "DEBUG");
       
       foreach ($redcap_field_map as $k => $v) {

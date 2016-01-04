@@ -45,7 +45,6 @@
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
                 </span>
-                <b class="badge bg-danger pull-right">4</b>
                 <i class="i i-stack icon"></i>
                 <span class="font-bold">My Surveys</span>
               </a>
@@ -59,7 +58,7 @@
                   $surveycomplete = $survey["completed_fields"];
                   $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
                   $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
-                  $new            = (is_null($new) && $index == $user_current_survey_index ? "<b class='badge bg-danger pull-right'>new</b>" : null);
+                  $new            = (is_null($new) && $index == $user_current_survey_index && $completeclass == "" ? "<b class='badge bg-danger pull-right'>new!</b>" : null);
                   print_r("<li >
                       <a $hreflink='$surveylink' class='auto' title='".$survey["instrument_label"]."'>
                         $new                                                   

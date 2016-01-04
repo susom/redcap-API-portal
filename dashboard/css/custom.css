@@ -44,11 +44,13 @@ h2.weather, .fullDay { display:none !important; }
 	background-color:#ccc; 
 	margin: 0 auto 20px; 
 }
-
 .survey .nav-primary .surveys a {
 	display:block;
 	text-align:center; 
 }
+
+.btn-back { display:none } 
+
 
 
 /*THE FRUITS*/
@@ -234,4 +236,8 @@ h2.weather, .fullDay { display:none !important; }
 	cursor:default; 
 }
 
+.nav-primary ul.nav > li > a > .badge {
+  position:absolute; 
+  right:10px; top:10px;
+}
 

@@ -76,7 +76,7 @@ include("inc/gl_head.php");
                       <div class='progress progress-striped  active'>
                         <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
                       </div>
-                      <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
+                      <button class="btn btn-info btn-back" role="saveprevpage">Back</button> <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
                     </div>
                   </div>
                 </section>
@@ -125,13 +125,13 @@ function updateProgressBar(ref, perc){
 var frame = document.getElementById("surveyFrame").contentWindow;
 setTimeout(function(){
   //RACE CONDITION ~ 400ms ??!! GOTTA LOAD THE CHILD ALL THE WAY BEFORE DOING STUFF TO IT
-  
+
   //ADD LISTENERS TO SAVE/RETURN BUTTONS
   $(".submits button").click(function(){
     var command = "submit-btn-" + $(this).attr("role");
     frame.postMessage({"action" : command}, allowed_child_origin);
 
-    if(command == "submit-btn-saverecord"){
+    if(command == "submit-btn-saverecord" || command == "submit-btn-saveprevpage"){
       setTimeout(function(){
         //JESUS CHRIST, THIS THING HAS SAME LATENCY AS INITIAL PAGE LOAD
         //KEEP PASSING UPDATED metadata BACK AND FORTH TO CHILD (MAY NOT BE ACCURATE, BUT CLOSE ENOUGH AND WILL RESYNC WHEN PARENT PAGE FINALLY RELOADS)
@@ -151,6 +151,14 @@ setTimeout(function(){
   //PASS SOME SELF INFO TO THE CHILD FRAME ON PAGE LOAD
   frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
 },400);
+
+$(document).ready(function(){
+  $("button[role='saverecord']").click(function(){
+    setTimeout(function(){
+      $("button.btn-back").fadeIn("fast");
+    },1000);
+  });
+});
 
 //SET UP EVENT LISTENER TO LISTEN TO MESSAGES FROM CHILD
 window.addEventListener('message', function(event) {

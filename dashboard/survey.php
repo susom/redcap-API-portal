@@ -152,7 +152,20 @@ setTimeout(function(){
   frame.postMessage({"metadata" : instrument_metadata, "unbranched_count" : unbranched_count}, allowed_child_origin);
 },400);
 
+//POP OUT THE IFRAME IF WINDOW TOO SMALL
+function checksize(){
+  var framewidth = $(".surveyFrame").width();
+  if(framewidth < 800){
+    window.top.location = '<?php echo $iframe_src?>';
+  }
+  return;
+}
+
 $(document).ready(function(){
+  //CHECK WINDOW SIZE INITIAL AND ON RESIZE
+  checksize();
+  $(window).resize(checksize);
+
   $("button[role='saverecord']").click(function(){
     setTimeout(function(){
       $("button.btn-back").fadeIn("fast");

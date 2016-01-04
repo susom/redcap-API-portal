@@ -156,7 +156,7 @@ setTimeout(function(){
 function checksize(){
   var framewidth = $(".surveyFrame").width();
   if(framewidth < 800){
-    window.top.location = '<?php echo $iframe_src?>';
+    // window.top.location = '<?php echo $iframe_src?>';
   }
   return;
 }

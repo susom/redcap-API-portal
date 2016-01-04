@@ -125,7 +125,7 @@
               </ul> -->
             </li>
             
-            <li >
+            <!-- <li >
               <a href="#" class="auto">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
@@ -149,7 +149,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
             <?php
               // foreach($surveys as $idx => $survey){
               //   $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");

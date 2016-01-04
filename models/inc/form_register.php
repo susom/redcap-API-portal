@@ -234,14 +234,10 @@
           equalTo: "#username"
         },
         city:{
-          required: function(){
-            return !$("#zip").val();
-          }
+          required: true
         },
         zip: {
-          required: function(){
-            return !$("#city").val();
-          }
+          required: true
         },
         nextyear: {
           required: function(){

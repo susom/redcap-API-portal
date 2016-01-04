@@ -249,6 +249,13 @@ include("inc/gl_foot.php");
 <script type="text/javascript">
 $(document).ready(function () {
   $(".weather").weatherFeed({relativeTimeZone:true});
+
+  $(".btn-success").click(function(){
+    if($(".takenext").length > 0){
+      location.href= $(".takenext").prop("href");
+      return;
+    }
+  });
 });
 </script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

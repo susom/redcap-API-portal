@@ -144,7 +144,7 @@ function makeMessageBox($messages, $type) {
 	$typeClass = array(
 		'alert' 	=> 'alert-danger',
 		'notice' 	=> 'alert-info',
-		'success' 	=> 'alert-success'
+		'success' 	=> 'alert-success',
 	);
 
 	$btnClass = array(

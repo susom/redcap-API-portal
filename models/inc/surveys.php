@@ -77,6 +77,10 @@ foreach($surveys as $index => $instrument_event){
 	}
 }
 
+if(is_null($user_current_survey_index)){
+	$user_current_survey_index = count($surveys) -1;
+}
+
 // echo $user_current_survey_index;
 // echo "<pre>";
 // print_r($surveys);

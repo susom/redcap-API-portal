@@ -51,16 +51,18 @@
               </a>
               <ul class="nav dk">
                 <?php
+                $new = null;
                 foreach($surveys as $index => $survey){
                   $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
                   $surveyname     = $survey["short_name"];
                   $surveytotal    = $survey["total_questions"];
                   $surveycomplete = $survey["completed_fields"];
                   $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
-
                   $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
+                  $new            = (is_null($new) && $index == $user_current_survey_index ? "<b class='badge bg-danger pull-right'>new</b>" : null);
                   print_r("<li >
-                      <a $hreflink='$surveylink' class='auto' title='".$survey["instrument_label"]."'>                                                   
+                      <a $hreflink='$surveylink' class='auto' title='".$survey["instrument_label"]."'>
+                        $new                                                   
                         <span class='fruit $completeclass ".$fruits[$index]."'></span>
                         <span>$surveyname</span>     
                       </a>

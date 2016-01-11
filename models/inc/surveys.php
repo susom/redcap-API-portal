@@ -7,6 +7,7 @@ $survey_arms["your_health_behaviors"]  						= array("enrollment_arm_1"	, "Healt
 $survey_arms["your_social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
 $survey_arms["wellness_questions"]  						= array("survey_arm_2"		, "Wellness Questions"    	);
 
+$core_surveys_complete 		= true;
 $user_current_survey_index 	= null;
 $current_arm 				= 0; 
 $surveys 					= getInstruments();
@@ -36,6 +37,7 @@ foreach($surveys as $index => $instrument_event){
 
 	//GET TOTAL QUESTIONS PER SURVEY
 	$metadata 			= getMetaData(array($instrument_id )); 
+// print_rr($metadata,1);
 	$actual_questions 	= array_filter($metadata, function($item){
 						  return $item["field_type"] != "descriptive";
 						});
@@ -43,7 +45,7 @@ foreach($surveys as $index => $instrument_event){
 						  return empty($item["branching_logic"]);
 						});
 	$actual_formnames 	= array_map(function($item){
-							return array("fieldname" => $item["field_name"], "fieldtype" => $item["field_type"], "branching_logic" => $item["branching_logic"], "user_answer" => null);
+							return array("fieldname" => $item["field_name"], "fieldtype" => $item["field_type"], "branching_logic" => $item["branching_logic"], "fieldlabel" => $item["field_label"], "select_choices" => $item["select_choices_or_calculations"], "user_answer" => null);
 						},$actual_questions);
 	$unbranched_total 						= count($no_branches);
 	$surveys[$index]["total_questions"] 	= $unbranched_total;
@@ -53,11 +55,17 @@ foreach($surveys as $index => $instrument_event){
 	$just_formnames 	= array_map(function($item){
 							return $item["field_name"];
 						},$actual_questions);
-
+	array_push($just_formnames, $instrument_id."_complete");
 	$user_answers 		= getUserAnswers($loggedInUser->id,$just_formnames);
 
-	if(isset($user_answers[$current_arm])){
+	if(isset($user_answers[0])){
+		$user_actually_completed = (!isset($user_answers[$current_arm]) ? $user_answers[0][$instrument_id . "_timestamp"] : $user_answers[$current_arm][$instrument_id . "_timestamp"]); //= "[not completed]"
+
 		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
+		$surveys[$index]["survey_complete"] = ($user_actually_completed == "[not completed]" || $user_actually_completed == "" ? 0 : 1);
+		if(!$surveys[$index]["survey_complete"]){
+			$core_surveys_complete = false;
+		}
 		foreach($actual_formnames as $idx => $inputgroup){
 			if(isset($user_answers[$current_arm][$inputgroup["fieldname"]]) && $user_answers[$current_arm][$inputgroup["fieldname"]] !== "") {
 				$actual_formnames[$idx]["user_answer"] = $user_answers[$current_arm][$inputgroup["fieldname"]];
@@ -69,10 +77,11 @@ foreach($surveys as $index => $instrument_event){
 			}
 		}
 	}
+
 	$surveys[$index]["meta_data"] 			= $actual_formnames;
 	$surveys[$index]["completed_fields"] 	= $user_complete;
 
-	if (is_null($user_current_survey_index) && $user_complete < round(intval($surveys[$index]["total_questions"])*.85) ) {
+	if (is_null($user_current_survey_index) && !$surveys[$index]["survey_complete"] ) {
 		$user_current_survey_index = $index;
 	}
 }

@@ -14,6 +14,79 @@ h2.weather, .fullDay { display:none !important; }
 .today p:first-child {display:block; margin:0; }
 .today img { display:inline-block; float:left; margin:0 20px 0 0; }
 
+/*SIMPLE WEATHER WIDGET*/
+#weather { width: auto; }
+#weather ul {
+  margin: 0 0 10px 0; padding: 5px;
+  box-shadow:1px 1px 1px 1px #ccc; 
+  border-radius:3px;
+  min-height:150px; 
+  text-align: center;
+}
+
+.d {
+  /*CLEAR DAYTIME*/
+  background: linear-gradient(to bottom,#6cb2fc 0,#d6e9fe 52%,#7fceff 100%,#d6e9fe 100%,#d6e9fe 100%,#629ce9 100%);
+}
+.dc {
+  /*CLOUDY/RAINY DAYTIME AFTERNOON*/
+  background: linear-gradient(to bottom,#7789b2 0,#edf3fc 40%,#b3bddb 100%);
+}
+.dac {
+  /*CLOUDY/RAINY AFTERNOON*/
+  background: linear-gradient(to bottom,#d0dae8 0,#eff6ff 40%,#9fc2fc 100%);
+}
+.n {
+  /*CLEAR NIGHT*/
+  background: linear-gradient(to bottom,#141414 0,#2c3863 40%,#1d274f 100%);
+}
+.nc {
+  /*CLOUDY/RAINY NIGHT*/
+  background: linear-gradient(to bottom,#141414 0,#4f4f54 40%,#26292d 100%);  
+}
+
+#weather li {
+  vertical-align: middle;
+  display: inline-block;
+  color:#000; 
+}
+
+#weather .locale {
+  font-size:18px;
+  font-weight:700;  
+}
+
+#weather .weatherimg { 
+  margin:0 10px;
+  width:190px; 
+  height:130px;  
+  background-repeat:no-repeat; 
+}
+#weather .temps {
+  font-size:42px; 
+  font-weight:400;
+  line-height:100%;  
+  margin-bottom:8px;
+}
+#weather .conditions {
+  font-size:14px;
+  font-weight:bold;  
+}
+#weather .wind {
+  font-weight:normal; 
+  margin-bottom:8px; 
+}
+#weather .hilo {
+  font-size:12px; 
+  font-weight:normal; 
+}
+#weather b {
+  display:block; 
+  font-weight:normal; 
+}
+
+
+
 /*DASHBOARD*/
 .corefour .block { text-align:center; min-height:40px; }
 .corefour .disabled span { color:#c3c3c3; }
@@ -32,7 +105,7 @@ h2.weather, .fullDay { display:none !important; }
 	background:#fff ; 
 	border-radius:10px;  
 }
-.surveyHeader { text-align:center;  }
+
 .survey .submits { 
 	clear:both;  
 	padding:20px; 
@@ -103,6 +176,29 @@ h2.weather, .fullDay { display:none !important; }
   height:70vh;
 }
 
+.surveyHeader {  margin:0 40px 20px; padding:15px 0;  border-bottom:1px solid #888;  }
+.surveyanswers {
+  padding:0; 
+  margin-bottom:40px;
+}
+.surveyanswers li {
+  display:block; 
+  font-size:120%;
+  margin:0 40px 10px;
+  padding-bottom:10px;
+  border-bottom:1px solid #efefef
+}
+.surveyanswers li:last-child { border-bottom:0; }
+.surveyanswers li b { 
+  display:inline-block; 
+  margin-right:10px; 
+}
+.surveyanswers li span { white-space:nowrap;}
+
+
+
+
+
 .alert span.fruit {
   display:block;  
   width:67px; height:88px; 
@@ -124,8 +220,7 @@ h2.weather, .fullDay { display:none !important; }
   margin:12px auto 0;
   font-size:14px;
   line-height:14px;
-  padding:10px 0 3px;
-  border-bottom:1px solid #3c4144; 
+  padding:10px 0 0;
 }
 .alert .surveyname { 
   display:block; 
@@ -241,3 +336,6 @@ h2.weather, .fullDay { display:none !important; }
   right:10px; top:10px;
 }
 
+.portlet-item { padding:0 0 10px;  min-height:150px; letter-spacing:-.4px;}
+.portlet-item .list-group-item { padding:5px 10px 0; border:none; font-size:12px;  }
+.portlet-item .panel-heading { padding:5px 10px; }

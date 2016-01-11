@@ -33,13 +33,21 @@ foreach($surveys as $survey){
     $active_surveyid       = $survey["instrument_name"];
     $active_surveyname     = $survey["instrument_label"];
     $active_surveytotal    = $survey["total_questions"];
-    $active_surveycomplete = $survey["completed_fields"];
+    $active_completed      = $survey["completed_fields"];
+    $active_surveycomplete = $survey["survey_complete"];
     $active_surveypercent  = 0;
 
     // echo $active_surveycomplete ."/".$active_surveytotal;
     $active_surveyevent    = $survey["instrument_arm"];
     $active_returncode     = $survey["return_code"];
     $active_metadata       = $survey["meta_data"];
+
+    if($active_surveycomplete){
+      //SHOW HTML DATA INSTEAD
+      $active_returncode = null;
+    }
+
+    //GET THE RAW  HTML DATA
     break;
   }
 }
@@ -64,19 +72,62 @@ include("inc/gl_head.php");
               <section class="vbox">
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
-                    <h2 class="surveyHeader"><?php /* $active_surveyname */ ?></h2>
+                    <h2></h2>
                   </section>
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
-                      <iframe id="surveyFrame" frameborder="0" width="100%" scrolling="auto"></iframe>
+                      <?php
+                      if(!$active_surveycomplete){
+                        ?>
+                        <iframe id="surveyFrame" frameborder="0" width="100%" scrolling="auto"></iframe>
+                        <?php
+                      }else{
+                        echo "<h2 class='surveyHeader'>$active_surveyname : Your Answers</h2>";
+                        // print_rr($active_metadata);
+                        echo "<ul class='surveyanswers'>";
+                        foreach($active_metadata as $field){
+                          $show = true; 
+                          
+                          if($field["user_answer"] == ""){
+                            $show = false; 
+                          }
+
+                          if($show){
+                            $user_answer = $field["user_answer"]; 
+                            if($field["fieldtype"] == "checkbox" || $field["fieldtype"] == "radio" || $field["fieldtype"] == "dropdown"){
+                              //GET PRE BAKED ANSWER FROM USER CHOICE #
+                              $answer_choices = explode(" | ",$field["select_choices"]);
+                              $select_choices = array();
+
+                              foreach($answer_choices as $qa){
+                                $temp = explode(", " , $qa);
+                                $select_choices[$temp[0]] = $temp[1];
+                              }
+                              $user_answer = $select_choices[$field["user_answer"]];
+                            }
+
+                            echo "<li>";
+                            echo "<b>".$field["fieldlabel"]. " : </b> <span>$user_answer</span>";
+                            echo "</li>";
+                          }
+                        }
+                        echo "</ul>";
+                      }
+                      ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="submits">
-                      <div class='progress progress-striped  active'>
-                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
-                      </div>
-                      <button class="btn btn-info btn-back" role="saveprevpage">Back</button> <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
+                      <?php
+                        if(!$active_surveycomplete){
+                        ?>
+                        <div class='progress progress-striped  active'>
+                          <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
+                        </div>
+                        <button class="btn btn-info btn-back" role="saveprevpage">Back</button> <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
+                        <?php    
+                        }
+                      ?>
                     </div>
                   </div>
                 </section>

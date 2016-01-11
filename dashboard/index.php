@@ -25,7 +25,7 @@ if(isset($_GET["survey_complete"])){
       continue;
     }
 
-    if($instrument_event["completed_fields"] >= round(intval($instrument_event["total_questions"])*.85) ){
+    if($instrument_event["survey_complete"]){
       $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $instrument_event["instrument_label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
       if(isset($surveys[$index+1])){
         $nextlink     = "survey.php?url=". urlencode($surveys[$index+1]["survey_link"]);
@@ -126,15 +126,23 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-8">
                       <?php
+                      $reminders = ($core_surveys_complete ? "<li class='list-group-item'>All Done!</li>\n" : "");
                       echo "<ul class='dash_fruits'>\n";
                       foreach($surveys as $index => $survey){
                         $surveylink     = "survey.php?url=". urlencode($survey["survey_link"]);
                         $surveyname     = $survey["instrument_label"];
                         $surveytotal    = $survey["total_questions"];
-                        $surveycomplete = $survey["completed_fields"];
-                        $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
+                        $usercompleted  = $survey["completed_fields"];
+                        $surveycomplete = $survey["survey_complete"];
+                        $completeclass  = ($surveycomplete ? "completed":"");
 
-                        $percent_complete = round(($surveycomplete/$surveytotal)*100,2);
+                        if(!$surveycomplete){
+                          $reminders .= "<li class='list-group-item'>
+                                Please complete <a href='$surveylink'>$surveyname</a> survey
+                            </li>\n";
+                        }
+
+                        $percent_complete = round(($usercompleted/$surveytotal)*100,2);
                         print_r("<li class='nav'>
                             <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
                               <span>$surveyname</span>
@@ -147,39 +155,32 @@ include("inc/gl_head.php");
                   </section>
 
                   <div class="row">
-                    <div class="col-sm-6">
-                      <div class="panel b-a corefour">
-                        <div class="row m-n">
-                          <div class="col-md-6 b-b b-r">
-                            <a href="#" class="block padder-v hover">
-                              <span class="clear">
-                                <span class="h3 block m-t-xs text-danger">Core</span>
-                              </span>
-                            </a>
-                          </div>
-                          <div class="col-md-6 b-b disabled">
-                            <a href="#" class="block padder-v hover ">
-                              <span class="clear">
-                                <span class="h3 block m-t-xs text-success">Tobacco Use</span>
-                              </span>
-                            </a>
-                          </div>
-                          <div class="col-md-6 b-b b-r disabled">
-                            <a href="#" class="block padder-v hover ">
-                              <span class="clear">
-                                <span class="h3 block m-t-xs text-info">Diet</span>
-                              </span>
-                            </a>
-                          </div>
-                          <div class="col-md-6 b-b disabled">
-                            <a href="#" class="block padder-v hover">
-                              <span class="clear">
-                                <span class="h3 block m-t-xs text-primary">Physical Activity</span>
-                              </span>
-                            </a>
-                          </div>
+                    <div class="col-sm-3">
+                        <div class="panel panel-info portlet-item">
+                          <header class="panel-heading">
+                            <i class="fa fa-list-ul"></i> Reminders
+                          </header>
+                          <ul class="list-group alt">
+                            <?php
+                              echo $reminders;
+                            ?>
+                          </ul>
                         </div>
-                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="panel panel-success portlet-item">
+                          <header class="panel-heading">
+                            <i class="glyphicon glyphicon-star-empty"></i> News
+                          </header>
+                          <ul class="list-group alt">
+                            <li class="list-group-item">
+                                Please take <a href="#">"Physical Activity"</a> survey
+                            </li>
+                            <li class="list-group-item">
+                                Please take <a href="#">"Diet"</a> survey
+                            </li>
+                          </ul>
+                        </div>
                     </div>
                     
                     <div class="col-sm-6">
@@ -187,8 +188,95 @@ include("inc/gl_head.php");
                       // <a href="https://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
                       // <div id="awcc1450204337398" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1450204337398"></div>
                       // <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+                    
+                      // http://api.accuweather.com/locations/v1/cities/US/search.json?q=Palo+Alto,CA&apikey={your key}&alias=always
                     ?>
-                      <div class="weather"><?php echo $location ?></div>
+                      <div id="weather"></div>
+                      <script>
+                        // Docs at http://simpleweatherjs.com
+                        $(document).ready(function() {
+var weathercodes = [];
+weathercodes[0] = "c";  //tornado
+weathercodes[1] = "c";  //tropical storm
+weathercodes[2] = "c";  //hurricane
+weathercodes[3] = "c";  //severe thunderstorms
+weathercodes[4] = "c";  //thunderstorms
+weathercodes[5] = "c";  //mixed rain and snow
+weathercodes[6] = "c";  //mixed rain and sleet
+weathercodes[7] = "c";  //mixed snow and sleet
+weathercodes[8] = "c";  //freezing drizzle
+weathercodes[9] = "c";  //drizzle
+weathercodes[10] = "c"; //freezing rain
+weathercodes[11] = "c"; //showers
+weathercodes[12] = "c"; //showers
+weathercodes[13] = "c"; //snow flurries
+weathercodes[14] = "c"; //light snow showers
+weathercodes[15] = "c"; //blowing snow
+weathercodes[16] = "c"; //snow
+weathercodes[17] = "c"; //hail
+weathercodes[18] = "c"; //sleet
+weathercodes[19] = "c"; //dust
+weathercodes[20] = "c"; //foggy
+weathercodes[21] = "c"; //haze
+weathercodes[22] = "c"; //smoky
+weathercodes[23] = "c"; //blustery
+weathercodes[24] = "c"; //windy
+weathercodes[25] = "c"; //cold
+weathercodes[26] = "c"; //cloudy
+weathercodes[27] = "c"; //mostly cloudy (night)
+weathercodes[28] = "c"; //mostly cloudy (day)
+weathercodes[29] = "";  //partly cloudy (night)
+weathercodes[30] = "";  //partly cloudy (day)
+weathercodes[31] = "";  //clear (night)
+weathercodes[32] = "";  //sunny
+weathercodes[33] = "";  //fair (night)
+weathercodes[34] = "";  //fair (day)
+weathercodes[35] = "";  //mixed rain and hail
+weathercodes[36] = "";  //hot
+weathercodes[37] = "c"; //isolated thunderstorms
+weathercodes[38] = "c"; //scattered thunderstorms
+weathercodes[39] = "c"; //scattered thunderstorms
+weathercodes[40] = "c"; //scattered showers
+weathercodes[41] = "c"; //heavy snow
+weathercodes[42] = "c"; //scattered snow showers
+weathercodes[43] = "c"; //heavy snow
+weathercodes[44] = "c"; //partly cloudy
+weathercodes[45] = "c"; //thundershowers
+weathercodes[46] = "c"; //snow showers
+weathercodes[47] = "c"; //isolated thundershowers
+                          $.simpleWeather({
+                            location: '<?php echo $location ?>',
+                            unit: 'F',
+                            success: function(weather) {
+                              var imgurl    = weather.image;
+                              var temp      = imgurl.split("/");
+                              temp          = temp.pop();
+                              temp          = temp.replace(weather.code, "");
+                              daynight      = temp.substring(0, temp.indexOf("."));
+                              
+                              var backdrop  = daynight + weathercodes[weather.todayCode];
+
+                              html = '<ul class="'+ backdrop +'">';
+                              html += '<li class="locale">'+weather.city+', '+weather.region;
+                              html += '<b class="temps">'+weather.temp+'&deg;</b>';
+                              html += '<b class="hilo">lo : '+weather.low+'&deg; &nbsp; hi : '+weather.high+'&deg;</b>';
+                              html += '<b class="conditions">' + weather.currently + '</b>';
+                              html += '</li>';
+                              html += '<li class="weatherimg" style="background-image:url('+weather.image+')"></li>';
+                              html += '<li>';
+                              html += '<b class="wind"> wind: '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</b>';
+                              html += '<b>Sunrise : ' + weather.sunrise + '</b>';
+                              html += '<b>Sunset  : ' + weather.sunset + '</b></li>';
+                              html += '</ul>';
+                              $("#weather").html(html);
+                            },
+                            error: function(error) {
+                              $("#weather").html('<p>'+error+'</p>');
+                            }
+                          });
+                        });
+                      </script>
+                      <!-- <div class="weather"><?php echo $location ?></div> -->
                     </div>
                   </div>           
                   <div class="row bg-light dk m-b">
@@ -222,7 +310,7 @@ include("inc/gl_head.php");
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">
                           </div>
-                          Average of All Participants Spent: 
+                          You Vs All Participents: 
                         </header>
                         <div class="panel-body flot-legend">
                           <div id="colchart_all" style="height:240px"></div>
@@ -269,15 +357,15 @@ $(document).ready(function () {
     //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
     var data = google.visualization.arrayToDataTable([
       ['Task',   'Minutes per Day'],
-      ['Walking', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>],
       ['Sitting', <?php echo $USER_TIME_SITTING_IN_MINUTES ?>],
+      ['Walking', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>],
     ]);
 
     var options = {
-      is3d : 'true',
-      pieStartAngle :45,
+      is3d : true,
+      pieStartAngle :-180,
       backgroundColor : '#E0E6F0',
-      colors : ['#F8B300', '#297B9F'],
+      colors : ['#297B9F','#F8B300'],
       chartArea:{left:20,top:10,width:'90%',height:'90%'}
     };
 
@@ -297,11 +385,17 @@ $(document).ready(function () {
 
         var options = {
           backgroundColor : '#E0E6F0',
-          colors : ['#297B9F','#F8B300'],
+          colors          : ['#297B9F','#F8B300'],
           chart: {
-            title: 'Time Walking vs Sitting',
-            subtitle: 'You VS All Participants',
-          }
+            // title: 'You VS All Participants',  
+            // titleTextStyle: {color: '#FF0000'}  
+          },
+          vAxis:
+            {
+              title:'Losses',
+              textStyle: {color: 'red'} // Axis 1
+            }
+         
         };
 
         var chart = new google.charts.Bar(document.getElementById('colchart_all'));

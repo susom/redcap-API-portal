@@ -1,4 +1,3 @@
-  <script src="js/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="js/bootstrap.js"></script>
   <!-- App -->
@@ -19,6 +18,7 @@
   <script src="js/app.plugin.js"></script>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="js/jquery.simpleWeather.min.js"></script>
   <script src="js/weather.js"></script>
 </body>
 </html>

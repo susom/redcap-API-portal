@@ -28,14 +28,21 @@
           <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"></div>
           <ul class="nav nav-main" data-ride="collapse">
             <?php 
-            if($shownavsmore){
+            if($shownavsmore || 1){
             ?>
-            <li  class="active">
+            <li>
               <a href="index.php" class="auto">
                 <i class="i i-statistics icon"></i>
                 <span class="font-bold">My Home</span>
               </a>
             </li>
+            <script>
+            //overide the default behavior of making it active
+            $("a[href='index.php']").click(function(){
+              location.href="index.php";
+              return false;
+            });
+            </script>
             <?php
             }
             ?>
@@ -55,8 +62,10 @@
                   $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
                   $surveyname     = $survey["short_name"];
                   $surveytotal    = $survey["total_questions"];
-                  $surveycomplete = $survey["completed_fields"];
-                  $completeclass  = ($surveycomplete >= round($surveytotal*.85) ? "completed":"");
+                  $usercompleted  = $survey["completed_fields"];
+                  $surveycomplete = $survey["survey_complete"];
+
+                  $completeclass  = ($surveycomplete ? "completed":"");
                   $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
                   $new            = (is_null($new) && $index == $user_current_survey_index && $completeclass == "" ? "<b class='badge bg-danger pull-right'>new!</b>" : null);
                   print_r("<li >
@@ -64,6 +73,26 @@
                         $new                                                   
                         <span class='fruit $completeclass ".$fruits[$index]."'></span>
                         <span>$surveyname</span>     
+                      </a>
+                    </li>\n");
+                }
+
+                //SHOW NON CORE SURVEYS ONCE THE CORE ARE COMPLETE
+                if($core_surveys_complete){
+                  // fake a couple
+                  print_r("<li >
+                      <a href='#' class='auto' title=''>
+                        <b class='badge bg-danger pull-right'>new!</b>                                                  
+                        <span class='fruit ".$fruits[4]."'></span>
+                        <span>Physical Activity</span>     
+                      </a>
+                    </li>\n");
+
+                  print_r("<li >
+                      <a href='#' class='auto' title=''>
+                        <b class='badge bg-danger pull-right'>new!</b>                                                  
+                        <span class='fruit ".$fruits[5]."'></span>
+                        <span>Diet</span>     
                       </a>
                     </li>\n");
                 }
@@ -152,20 +181,7 @@
               </ul>
             </li> -->
             <?php
-              // foreach($surveys as $idx => $survey){
-              //   $activesurvey   = ($iframe_src == $survey["survey_link"] ? "active" : "");
-              //   $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
-              //   $surveyname     = $survey["instrument_label"];
-              //   $surveytotal    = $survey["total_questions"];
-              //   $surveycomplete = $survey["completed_fields"];
-              //   $completeclass  = ($surveycomplete >= $surveytotal ? "completed":"");
-
-              //   print_r("<li class='surveys'>
-              //       <a href='$surveylink' class='".$fruits[$idx]." $completeclass $activesurvey' title='$surveyname'>                                                        
-              //         <span >$surveyname</span>
-              //       </a>
-              //     </li>\n");
-              // }
+             
             }
             ?>
           </ul>

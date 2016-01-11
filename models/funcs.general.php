@@ -600,10 +600,20 @@ function getUserAnswers($record_id=null,$fields = null){
 	  'content'   	=> 'record',
 	  'records' 	=> (is_null($record_id) ? null:  array($record_id) ),
 	  'type'      	=> "flat",
-	  'fields'    	=> $fields
+	  'fields'    	=> $fields,
+	  'exportSurveyFields' => true
 	);
 	$result = RC::callApi($extra_params); 
 	  
 	return $result;
+}
+
+function print_rr($d,$exit=false){
+	echo "<pre>";
+	print_r($d);
+
+	if($exit){
+		exit;
+	}
 }
 ?>

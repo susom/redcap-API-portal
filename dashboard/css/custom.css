@@ -100,10 +100,22 @@ h2.weather, .fullDay { display:none !important; }
 .survey .m-b-md {
   margin-bottom:10px; 
 }
+#surveyFrame {
+}
 .surveyFrame { 
 	padding:10px 0; 
 	background:#fff ; 
-	border-radius:10px;  
+	border-radius:10px;   
+  position:relative; 
+  height: 70vh;
+  overflow:hidden;
+}
+.surveyFrame iframe {
+  position:absolute;
+  top:0; 
+  left:0; 
+  width:100%; 
+  height:100%; 
 }
 
 .survey .submits { 
@@ -172,9 +184,7 @@ h2.weather, .fullDay { display:none !important; }
 	background-position-x:0% !important; 
 	opacity:1; 
 }
-#surveyFrame {
-  height:70vh;
-}
+
 
 .surveyHeader {  margin:0 40px 20px; padding:15px 0;  border-bottom:1px solid #888;  }
 .surveyanswers {

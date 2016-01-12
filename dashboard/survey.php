@@ -117,6 +117,8 @@ include("inc/gl_head.php");
                       ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
+                    
+
                     <div class="submits">
                       <?php
                         if(!$active_surveycomplete){

@@ -5,7 +5,7 @@ $surveys_arms 	= array();
 $survey_arms["about_you"]  									= array("enrollment_arm_1"	, "About You"    	);
 $survey_arms["your_health_behaviors"]  						= array("enrollment_arm_1"	, "Health Behaviors"    		);
 $survey_arms["your_social_and_neighborhood_environment"]	= array("enrollment_arm_1"	, "Social & Neighborhood" 	);
-$survey_arms["wellness_questions"]  						= array("survey_arm_2"		, "Wellness Questions"    	);
+$survey_arms["wellness_questions"]  						= array("enrollment_arm_1"		, "Wellness Questions"    	);
 
 $core_surveys_complete 		= true;
 $user_current_survey_index 	= null;

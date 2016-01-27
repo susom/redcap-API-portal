@@ -126,7 +126,7 @@ class RedcapAuth {
          REDCAP_FIRST_FIELD   => $this->next_user_id,
          getRF('username')    => $this->username,
          getRF('password')    => $password_salt_hash,
-         getRF('firstname')   => $this->firstname,
+         getRF('firstname')   => ucfirst($this->firstname),
          getRF('lastname')    => $this->lastname,
          getRF('zip')         => $this->zip,
          getRF('city')        => $this->city,

@@ -92,7 +92,7 @@ include("models/inc/gl_header.php");
 				<div class="form-group">
 					<span class="control-label col-sm-3"></span>
 					<div class="col-sm-8">
-					<p>Should you ever need to recover a lost or forgotten password, you must provide the answers to a set of security questions.</p>
+					<p>So that we can help you recover a lost or forgotten password, please provide answers to the following security questions.</p>
 					</div>
 				</div>
 				<?php 

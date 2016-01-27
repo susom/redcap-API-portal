@@ -42,13 +42,6 @@ if(!empty($_POST['submit_new_user'])){
 	$actualage 	= ((!in_array($zip,$eligible_zips) && !array_key_exists($city, $city_zips)) ? null : date("Y") - $birthyear);
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
-
-	// Verify reCaptcha
-	// $reCaptcha = verifyReCaptcha();
-	// if ($reCaptcha['success'] != true) {
-	// 	$errors[] = "Invalid reCaptcha response - please try again.";
-	// }
-
 	if(is_null($fname) || is_null($lname)){
 		$errors[] = lang("ACCOUNT_SPECIFY_F_L_NAME");
 	}
@@ -96,7 +89,7 @@ if(!empty($_POST['submit_new_user'])){
 					unset($fname, $lname, $email, $zip, $city);
 				}else{
 					//WAS FORMERLY AND STILL IS INELIGIBLE
-					$errors[] = lang("ACCOUNT_NOT_YET_ELIGIBLE",array($email));
+					addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array("")), "notice" );
 				}
 			}
 		}else{
@@ -125,7 +118,7 @@ if(!empty($_POST['submit_new_user'])){
 					$reason = lang("ACCOUNT_TOO_YOUNG");
 				}
 
-				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array($reason)), "notice" );
+				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array("")), "notice" );
 			}
 
 			//CLEAN UP

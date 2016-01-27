@@ -13,7 +13,7 @@
   </div>
 
   <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
-    <li class="hidden-xs">
+    <!-- <li class="hidden-xs">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         <i class="i i-chat3"></i>
         <span class="badge badge-sm up bg-danger count" style="display: inline-block;">3</span>
@@ -46,7 +46,7 @@
           </div>
         </section>
       </section>
-    </li>
+    </li> -->
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <span class="thumb-sm avatar pull-left">
@@ -55,10 +55,10 @@
         <?php echo $firstname . " " . $lastname; ?> <b class="caret"></b>
       </a>
       <ul class="dropdown-menu animated fadeInRight">            
-        <li>
+        <!-- <li>
           <span class="arrow top"></span>
           <a href="#">Account Settings</a>
-        </li>
+        </li> -->
         <li class="divider"></li>
         <li>
           <a href="<?php echo $websiteUrl ?>index.php?logout=1">Logout</a>

@@ -36,7 +36,7 @@
 		"ACCOUNT_PASSWORD_INVALID"				=> "Current password doesn't match the one we have one record",	
 		"ACCOUNT_EMAIL_TAKEN"					=> "This email address is already taken by another user",
 		"ACCOUNT_DETAILS_UPDATED"				=> "Account details updated",
-		"ACTIVATION_MESSAGE"					=> "You will need first activate your account before you can login, follow the below link to activate your account. \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
+		"ACTIVATION_MESSAGE"					=> "You will need to first activate your account before you can login.  Follow the link below to activate your account. \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
 		"ACCOUNT_REGISTRATION_COMPLETE_TYPE1"	=> "You have successfully registered. You can now login <a href=\"login.php\">here</a>.",
 		"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "Thank you for registering.  Please fill out this short eligibility survey.",
 		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "Thank you for you interest in WELL!  You are not eligible to participate at this time. %m1% We will contact you about WELL related studies and information as we expand.",

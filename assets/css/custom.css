@@ -122,10 +122,10 @@ a:hover { text-decoration:underline; }
 .WordSection1 { margin:20px;     
   overflow-y: scroll;
   height:50vh;
-  border:1px solid #efefef; 
+  border:1px solid #ddd; 
   border-radius:5px; 
   color:#000 !important;
-  
+  padding: 30px;
 }
 .WordSection1 span { color:#000 !important;}
 .WordSection1 h1 { text-align:center; }
@@ -138,6 +138,23 @@ a:hover { text-decoration:underline; }
   color:#fff; 
   display:inline-block; 
   margin:0 10px;
+}
+
+.consent_disclaim { 
+	font-size:12pt;
+	background:#F0F8FF;
+	margin:20px; 
+	padding:10px 20px;
+	border-radius:8px; 
+	
+} 
+#main-content .consent_disclaim ul{
+	display:inline-block; 
+	margin:0; padding:0 30px; 
+	
+}
+#main-content .consent_disclaim ul li{
+	color:#31708f; font-weight:bold;
 }
 
 

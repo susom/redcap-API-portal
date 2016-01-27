@@ -3,7 +3,7 @@
 
 <style>
 <!--
- /* Font Definitions */
+ / Font Definitions /
 @font-face
 	{font-family:Arial;
 	panose-1:2 11 6 4 2 2 2 2 2 4;
@@ -46,7 +46,7 @@
 	mso-generic-font-family:auto;
 	mso-font-pitch:variable;
 	mso-font-signature:3 0 0 0 1 0;}
- /* Style Definitions */
+ / Style Definitions /
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{mso-style-unhide:no;
 	mso-style-qformat:yes;
@@ -193,7 +193,7 @@ p.Normal1, li.Normal1, div.Normal1
 	font-size:10.0pt;
 	mso-ansi-font-size:10.0pt;
 	mso-bidi-font-size:10.0pt;}
- /* Page Definitions */
+ / Page Definitions /
 @page
 	{mso-footnote-separator:url(":well_online_consent_150911_160831_files:header.htm") fs;
 	mso-footnote-continuation-separator:url(":well_online_consent_150911_160831_files:header.htm") fcs;
@@ -213,7 +213,7 @@ p.Normal1, li.Normal1, div.Normal1
 	mso-paper-source:0;}
 div.WordSection1
 	{page:WordSection1;}
- /* List Definitions */
+ / List Definitions /
 @list l0
 	{mso-list-id:242419839;
 	mso-list-type:hybrid;
@@ -653,7 +653,7 @@ ul
 </style>
 <!--[if gte mso 10]>
 <style>
- /* Style Definitions */
+ / Style Definitions /
 table.MsoNormalTable
 	{mso-style-name:"Table Normal";
 	mso-tstyle-rowband-size:0;
@@ -730,7 +730,7 @@ study, you should notify John Ioannidis at 650-725-5465.<o:p></o:p></span></p>
 mso-bidi-font-family:Tahoma'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal style='margin-right:-.1in'><span style='font-family:Tahoma;
-mso-bidi-font-family:Tahoma'>#The Living Well Registry has been created by the
+mso-bidi-font-family:Tahoma'>The Living Well Registry has been created by the
 Stanford Prevention Research Center in the Stanford University School of
 Medicine. It will initially target 10, 000 people living in Santa Clara County,
 with a longer-term goal of including participants from all over the world. The
@@ -802,7 +802,7 @@ Tahoma;mso-bidi-font-family:Tahoma'>VOLUNTARY PARTICIPATION <o:p></o:p></span></
 
 </div>
 
-<p><span style='font-family:Tahoma;mso-bidi-font-family:Tahoma'>*Your
+<p><span style='font-family:Tahoma;mso-bidi-font-family:Tahoma'>Your
 participation is entirely voluntary. Your decision not to participate will not
 have any negative effect on you or your medical care. You can decide to
 participate now, but withdraw your consent later and stop being in the study
@@ -817,9 +817,7 @@ mso-border-alt:solid windowtext .5pt;padding:1.0pt 4.0pt 1.0pt 5.0pt'>
 <p style='margin:0in;margin-bottom:.0001pt;mso-pagination:widow-orphan lines-together;
 page-break-after:avoid;border:none;mso-border-alt:solid windowtext .5pt;
 padding:0in;mso-padding-alt:1.0pt 4.0pt 1.0pt 5.0pt'><b><span style='font-family:
-Tahoma;mso-bidi-font-family:Tahoma'>POTENTIAL BENEFITS<span style='border:solid windowtext 1.0pt;
-mso-border-alt:solid windowtext .5pt;padding:0in'><span
-style="mso-spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><o:p></o:p></span></span></b></p>
+Tahoma;mso-bidi-font-family:Tahoma'>POTENTIAL BENEFITS</span></b></p>
 
 </div>
 
@@ -830,7 +828,7 @@ mso-bidi-font-family:Tahoma'><o:p>&nbsp;</o:p></span></b></p>
 <p style='margin:0in;margin-bottom:.0001pt;mso-pagination:widow-orphan lines-together;
 page-break-after:avoid'><span style='font-family:Tahoma;mso-bidi-font-family:
 Tahoma;mso-bidi-font-weight:bold'>The goal of the Living Well Research Program
-is to learn how to promote living well. *We cannot and do not guarantee or
+is to learn how to promote living well. We cannot and do not guarantee or
 promise you will receive any benefits from this study. All participants will
 receive information about living well and updates about the research study. By
 participating, you also will contribute to the health and wellbeing of your
@@ -894,24 +892,17 @@ font-family:Tahoma;mso-bidi-font-family:Arial'><o:p>&nbsp;</o:p></span></p>
 <p class=MsoNormal style='margin-right:-.1in'><u><span style='font-family:Tahoma;
 mso-bidi-font-family:Tahoma'>Costs<o:p></o:p></span></u></p>
 
-<p class=MsoNormal style='margin-right:-.1in'><u><span style='font-size:8.0pt;
-font-family:Tahoma;mso-bidi-font-family:Tahoma'><o:p><span style='text-decoration:
- none'>&nbsp;</span></o:p></span></u></p>
 
 <p class=MsoNormal style='margin-right:-.1in'><span style='font-family:Tahoma;
-mso-bidi-font-family:Tahoma'>*There is no cost to you for participating in this
+mso-bidi-font-family:Tahoma'>There is no cost to you for participating in this
 study, other than the time it takes you to complete the surveys. <o:p></o:p></span></p>
-
-<p class=MsoNormal style='margin-right:-.1in'><u><span style='font-size:8.0pt;
-font-family:Tahoma;mso-bidi-font-family:Arial'><o:p><span style='text-decoration:
- none'>&nbsp;</span></o:p></span></u></p>
 
 <div style='mso-element:para-border-div;border:solid windowtext 1.0pt;
 mso-border-alt:solid windowtext .5pt;padding:1.0pt 4.0pt 1.0pt 2.0pt'>
 
 <p style='margin:0in;margin-bottom:.0001pt;border:none;mso-border-alt:solid windowtext .5pt;
 padding:0in;mso-padding-alt:1.0pt 4.0pt 1.0pt 2.0pt'><b><span style='font-family:
-Arial;mso-bidi-font-family:Arial'>PARTICIPANTÕS RIGHTS</span></b><span
+Arial;mso-bidi-font-family:Arial'>PARTICIPANT'S RIGHTS</span></b><span
 style='font-family:Arial;mso-bidi-font-family:Arial;mso-bidi-font-style:italic'>
 </span><span style='font-family:Arial;mso-bidi-font-family:Arial'><o:p></o:p></span></p>
 
@@ -922,7 +913,7 @@ font-family:Arial;mso-bidi-font-family:Arial'><o:p>&nbsp;</o:p></span></p>
 
 <p style='margin-top:0in;margin-right:9.0pt;margin-bottom:0in;margin-left:0in;
 margin-bottom:.0001pt'><span style='font-family:Tahoma;mso-bidi-font-family:
-Arial;mso-bidi-font-weight:bold'>*</span><span style='font-family:Tahoma;
+Arial;mso-bidi-font-weight:bold'></span><span style='font-family:Tahoma;
 mso-bidi-font-family:Tahoma'> If you have read this form and have decided to
 participate in this project, please understand your participation is voluntary
 and you have the right to withdraw your consent or discontinue participation at
@@ -954,7 +945,7 @@ font-family:Arial;mso-bidi-font-family:Arial'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal style='margin-top:3.0pt;margin-right:9.0pt;margin-bottom:
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-family:Tahoma;
-mso-bidi-font-family:Tahoma'>*Questions, Concerns, or Complaints: If you have
+mso-bidi-font-family:Tahoma'>Questions, Concerns, or Complaints: If you have
 any questions, concerns or complaints about this<b> </b><span style='mso-bidi-font-weight:
 bold'>research study</span>, its procedures, risks and benefits, you should ask
 the Protocol Director, John Ioannidis. You may contact him now or later at
@@ -966,7 +957,7 @@ mso-bidi-font-family:Tahoma'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal style='margin-top:3.0pt;margin-right:9.0pt;margin-bottom:
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-family:Tahoma;
-mso-bidi-font-family:Tahoma'>*Independent Contact: If you are not satisfied
+mso-bidi-font-family:Tahoma'>Independent Contact: If you are not satisfied
 with how this study is being conducted, or if you have any concerns,
 complaints, or general questions about the research or your rights as a
 participant, please contact the Stanford Institutional Review Board (IRB) to
@@ -989,7 +980,7 @@ Tahoma'><o:p>&nbsp;</o:p></span></p>
 <p class=MsoNormal><span style='font-size:14.0pt;font-family:Tahoma;mso-bidi-font-family:
 Tahoma'>Because information about you and your health is personal and private,
 it generally cannot be used in this research study without your authorization. Clicking
-on the button that says ÒI agree to participate in this studyÓ will provide
+on the button that says 'I agree to participate in this study' will provide
 that authorization. The information provided here is intended to inform you
 about how your health information will be used or disclosed in the study. Your
 information will only be used in accordance with this authorization and the
@@ -1238,9 +1229,8 @@ style='font-size:11.0pt'><o:p></o:p></span></i></p>
 <p class=MsoNormal><span style='font-size:11.0pt'><o:p>&nbsp;</o:p></span></p>
 
 <p class=MsoNormal><span style='font-family:Tahoma'>If you wish to be in this
-study, please click the button that says ÒI agree to participate.Ó<span
-style="mso-spacerun:yes">&nbsp; </span>You will then be directed<span
-style="mso-spacerun:yes">&nbsp; </span>to complete the WELL survey.<o:p></o:p></span></p>
+study, please click the button that says 'I agree to participate.'<span
+style="mso-spacerun:yes">&nbsp; </span>You will then be directed to complete the WELL survey.<o:p></o:p></span></p>
 
 </div>
 <form method="POST" class="submits">

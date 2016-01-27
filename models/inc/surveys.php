@@ -37,7 +37,7 @@ foreach($surveys as $index => $instrument_event){
 
 	//GET TOTAL QUESTIONS PER SURVEY
 	$metadata 			= getMetaData(array($instrument_id )); 
-// print_rr($metadata,1);
+// print_rr($metadata);
 	$actual_questions 	= array_filter($metadata, function($item){
 						  return $item["field_type"] != "descriptive";
 						});
@@ -45,7 +45,13 @@ foreach($surveys as $index => $instrument_event){
 						  return empty($item["branching_logic"]);
 						});
 	$actual_formnames 	= array_map(function($item){
-							return array("fieldname" => $item["field_name"], "fieldtype" => $item["field_type"], "branching_logic" => $item["branching_logic"], "fieldlabel" => $item["field_label"], "select_choices" => $item["select_choices_or_calculations"], "user_answer" => null);
+							return array(	"field_name" 						=> $item["field_name"], 
+											"field_type" 						=> $item["field_type"], 
+											"branching_logic" 					=> $item["branching_logic"], 
+											"field_label" 						=> $item["field_label"], 
+											"select_choices_or_calculations" 	=> $item["select_choices_or_calculations"],
+											"user_answer" 		=> null
+										);
 						},$actual_questions);
 	$unbranched_total 						= count($no_branches);
 	$surveys[$index]["total_questions"] 	= $unbranched_total;
@@ -67,8 +73,8 @@ foreach($surveys as $index => $instrument_event){
 			$core_surveys_complete = false;
 		}
 		foreach($actual_formnames as $idx => $inputgroup){
-			if(isset($user_answers[$current_arm][$inputgroup["fieldname"]]) && $user_answers[$current_arm][$inputgroup["fieldname"]] !== "") {
-				$actual_formnames[$idx]["user_answer"] = $user_answers[$current_arm][$inputgroup["fieldname"]];
+			if(isset($user_answers[$current_arm][$inputgroup["field_name"]]) && $user_answers[$current_arm][$inputgroup["field_name"]] !== "") {
+				$actual_formnames[$idx]["user_answer"] = $user_answers[$current_arm][$inputgroup["field_name"]];
 				$user_complete++;
 
 				if($actual_formnames[$idx]["branching_logic"] !== ""){
@@ -77,7 +83,7 @@ foreach($surveys as $index => $instrument_event){
 			}
 		}
 	}
-
+	$surveys[$index]["raw"]					= $metadata;
 	$surveys[$index]["meta_data"] 			= $actual_formnames;
 	$surveys[$index]["completed_fields"] 	= $user_complete;
 

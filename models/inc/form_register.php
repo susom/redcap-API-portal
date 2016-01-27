@@ -87,6 +87,7 @@
       
       <div class="col-sm-2"> 
         <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
+        <select id="zipset"></select>
       </div>
     </div>
 
@@ -134,7 +135,7 @@
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-        <em>By clicking the Submit.  I agree to be contacted about WELL related studies and information.</em>
+        <em>By clicking the Submit button I agree to be contacted about WELL related studies and information.</em>
       </div>
     </div>
     <div class="form-group">
@@ -153,7 +154,22 @@
       </div>
     </div>
   </form>
-
+  <style>
+  #zipset  { display:none; 
+    border:1px solid #ddd;
+    height:34px; 
+    width:100%; 
+  }
+  #zip{
+    opacity:1;
+    transition: .5s opacity;
+  }
+  #zip.goaway {
+    opacity:0;
+    position:absolute; 
+    z-index:-1;
+  }
+  </style>
   <script>
     var eligible_map    = <?php echo $eligible_map ?>;
     var eligible_zips   = [<?php echo implode(",",$eligible_zips) ?>];
@@ -180,28 +196,20 @@
             $("#zip").val(eligible_map[locationcheck][0]);
           }else{
             var possible_zips = eligible_map[locationcheck];
-            var lengthcheck   = eligible_map[locationcheck][0].toString().length;
-            var common_nums   = [];
-            for(var i = 0; i < lengthcheck; i++){
-              for(var n in possible_zips){
-                var a_zip       = possible_zips[n].toString();
-                if(n == 0){
-                  common_nums[i]  = a_zip[i];
-                }else{
-                  if(common_nums[i] !== a_zip[i]){
-                    common_nums.pop();
-                    break;
-                    break;
-                  }
-                }
-              }
-            }
-            var haszip = $("#zip").val();
-            if(eligible_map[locationcheck].indexOf(parseInt(haszip)) < 0){
-              $("#zip").val(common_nums.join("")).focus();
-            }
-          }
 
+            // console.log(possible_zips);
+            $("#zip").val(possible_zips[0].toString()).addClass("goaway");
+            $("#zipset").empty();
+
+            for(var n in possible_zips){
+              var a_zip       = possible_zips[n].toString();
+              var a_option    = $("<option/>").val(a_zip);
+              a_option.text(a_zip);
+              $("#zipset").append(a_option);
+            }
+            
+            $("#zipset").fadeIn();
+          }
           showeligible = true;
         }
       }
@@ -211,6 +219,11 @@
       }else{
         $(".eligibility").slideUp("fast");
       }
+    });
+
+    $("#zipset").on("change",function(){
+      $(this).hide();
+      $("#zip").val($(this).val()).removeClass("goaway");
     });
 
     $("input[name='nextyear']").click(function(){

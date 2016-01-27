@@ -608,6 +608,19 @@ function getUserAnswers($record_id=null,$fields = null){
 	return $result;
 }
 
+function getAnswerOptions($choices){
+  //GET PRE BAKED ANSWER FROM USER CHOICE #
+  $answer_choices = explode(" | ",$choices);
+  $select_choices = array();
+
+  foreach($answer_choices as $qa){
+    $temp = explode("," , $qa);
+    $select_choices[trim($temp[0])] = trim($temp[1]);
+  }
+
+  return $select_choices;
+}
+
 function print_rr($d,$exit=false){
 	echo "<pre>";
 	print_r($d);

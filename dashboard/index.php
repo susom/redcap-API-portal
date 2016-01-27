@@ -58,7 +58,7 @@ foreach($surveys as $index => $instrument_event){
   }
   $all_answers  = getUserAnswers(null,$graph_fields);
   $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
-    return in_array($item["fieldname"],$graph_fields);
+    return in_array($item["field_name"],$graph_fields);
   });
 }
 
@@ -87,11 +87,11 @@ $USER_TIME_SITTING_IN_MINUTES = 0;
 if(isset($user_answers) && !empty($user_answers)){
   foreach($user_answers as $index => $answer){
     $answer_value = intval($answer["user_answer"]);
-    if(strpos($answer["fieldname"],"hours") > -1){
+    if(strpos($answer["field_name"],"hours") > -1){
       $answer_value = $answer_value*60;
     }
 
-    if(strpos($answer["fieldname"],"walking") > -1){
+    if(strpos($answer["field_name"],"walking") > -1){
       $USER_TIME_WALKING_IN_MINUTES += $answer_value;
     }else{
       $USER_TIME_SITTING_IN_MINUTES += $answer_value;
@@ -155,31 +155,9 @@ include("inc/gl_head.php");
                   </section>
 
                   <div class="row">
-                    <div class="col-sm-3">
-                        <div class="panel panel-info portlet-item">
-                          <header class="panel-heading">
-                            <i class="fa fa-list-ul"></i> Reminders
-                          </header>
-                          <ul class="list-group alt">
-                            <?php
-                              echo $reminders;
-                            ?>
-                          </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="panel panel-success portlet-item">
-                          <header class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> News
-                          </header>
-                          <ul class="list-group alt">
-                            <li class="list-group-item">
-                                Please take <a href="#">"Physical Activity"</a> survey
-                            </li>
-                            <li class="list-group-item">
-                                Please take <a href="#">"Diet"</a> survey
-                            </li>
-                          </ul>
+                    <div class="col-sm-6">
+                        <div id="coming_soon">
+                          coming soon...
                         </div>
                     </div>
                     
@@ -279,8 +257,36 @@ weathercodes[47] = "c"; //isolated thundershowers
                       <!-- <div class="weather"><?php echo $location ?></div> -->
                     </div>
                   </div>           
-                  <div class="row bg-light dk m-b">
-                    <div class="col-md-6 dker chartone">
+                  <div class="row dk m-b">
+                    <div class="col-sm-6">
+                        <div class="panel panel-info portlet-item">
+                          <header class="panel-heading">
+                            <i class="fa fa-list-ul"></i> Reminders
+                          </header>
+                          <ul class="list-group alt">
+                            <?php
+                              echo $reminders;
+                            ?>
+                          </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-success portlet-item">
+                          <header class="panel-heading">
+                            <i class="glyphicon glyphicon-star-empty"></i> News
+                          </header>
+                          <ul class="list-group alt">
+                            <li class="list-group-item">
+                                Please take <a href="#">"Physical Activity"</a> survey
+                            </li>
+                            <li class="list-group-item">
+                                Please take <a href="#">"Diet"</a> survey
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 bg-light dker chartone">
                       <section>
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">

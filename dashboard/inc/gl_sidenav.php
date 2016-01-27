@@ -103,7 +103,7 @@
             if($shownavsmore){
             ?>
             <li >
-              <a href="#" class="auto disabled">
+              <!-- <a href="#" class="auto disabled">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
@@ -111,7 +111,7 @@
                 <i class="i i-lab icon">
                 </i>
                 <span class="font-bold">My Progress</span>
-              </a>
+              </a> -->
               <!-- <ul class="nav dk">
                 <li >
                   <a href="buttons.html" class="auto">                                                        

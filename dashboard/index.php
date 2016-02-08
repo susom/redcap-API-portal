@@ -51,13 +51,13 @@ if(isset($_GET["survey_pause"])){
 }
 
 //FOR THE PIE CHART
-$graph_fields = array("walking_time_hours", "walking_time_minutes", "sitting_time_hours", "sitting_time_minutes");
+$graph_fields = array("core_walking_hr", "core_walking_min", "core_sitting_hr", "core_sitting_min");
 foreach($surveys as $index => $instrument_event){
   if($instrument_event["instrument_name"] !== "your_health_behaviors"){
     continue;
   }
   $all_answers  = getUserAnswers(null,$graph_fields);
-  $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
+  $user_answers = array_filter($instrument_event["completed_fields"],function($item) use ($graph_fields) {
     return in_array($item["field_name"],$graph_fields);
   });
 }
@@ -68,7 +68,7 @@ $ALL_TIME_SITTING_IN_MINUTES = 0;
 foreach($all_answers as $answers){
   foreach($answers as $fieldname => $answer){
     $answer_value = intval($answer);
-    if(strpos($fieldname,"hours") > -1){
+    if(strpos($fieldname,"hr") > -1){
       $answer_value = $answer_value*60;
     }
 
@@ -87,7 +87,7 @@ $USER_TIME_SITTING_IN_MINUTES = 0;
 if(isset($user_answers) && !empty($user_answers)){
   foreach($user_answers as $index => $answer){
     $answer_value = intval($answer["user_answer"]);
-    if(strpos($answer["field_name"],"hours") > -1){
+    if(strpos($answer["field_name"],"hr") > -1){
       $answer_value = $answer_value*60;
     }
 
@@ -132,7 +132,7 @@ include("inc/gl_head.php");
                         $surveylink     = "survey.php?url=". urlencode($survey["survey_link"]);
                         $surveyname     = $survey["instrument_label"];
                         $surveytotal    = $survey["total_questions"];
-                        $usercompleted  = $survey["completed_fields"];
+                        $usercompleted  = count($survey["completed_fields"]);
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 
@@ -316,7 +316,7 @@ weathercodes[47] = "c"; //isolated thundershowers
                         <header class="font-bold padder-v">
                           <div class="btn-group pull-right">
                           </div>
-                          You Vs All Participents: 
+                          You vs All Participants: 
                         </header>
                         <div class="panel-body flot-legend">
                           <div id="colchart_all" style="height:240px"></div>

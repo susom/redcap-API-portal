@@ -57,7 +57,7 @@ foreach($surveys as $index => $instrument_event){
     continue;
   }
   $all_answers  = getUserAnswers(null,$graph_fields);
-  $user_answers = array_filter($instrument_event["completed_fields"],function($item) use ($graph_fields) {
+  $user_answers = array_filter($instrument_event["meta_data"],function($item) use ($graph_fields) {
     return in_array($item["field_name"],$graph_fields);
   });
 }

@@ -8,9 +8,26 @@
             <!-- USER PROFILE PIC -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="thumb avatar pull-left m-r">                        
-                <img src="images/a0.png" class="dker" alt="...">
-                
               </span>
+              <style>
+                .thumb.avatar {
+                  border:1px solid #ccc;
+                  width:50px; height:50px; 
+                  <?php
+                  $conversion = 4.6;
+                  if(!$_SESSION["REDCAP_PORTAL"]["user"]->portal_pic){
+                    $smallsize  = "0 0";
+                  }else{
+                    $bigsize    = explode(" ",str_replace("px" ,"" , $_SESSION["REDCAP_PORTAL"]["user"]->portal_pic));
+                    $smallx     = round($bigsize[0]/$conversion);
+                    $smally     = round($bigsize[1]/$conversion);
+                    $smallsize  = $smallx."px ".$smally."px";
+                  }
+                  ?>
+                  background:#fff url(images/profile_icons.png) <?php echo $smallsize?> no-repeat;
+                  background-size:500%;
+                }
+              </style>
               <span class="hidden-nav-xs clear">
                 <span class="block m-t-xs">
                   <strong class="font-bold text-lt"><?php echo $firstname . " " . $lastname; ?></strong> 
@@ -46,7 +63,7 @@
             <?php
             }
             ?>
-            <li class="active" >
+            <li <?php echo $survey_active ?>>
               <a href="#" class="auto">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
@@ -130,8 +147,8 @@
                 </li>
               </ul> -->
             </li>
-            <li >
-              <a href="#" class="auto disabled">
+            <li <?php echo $profile_active ?>>
+              <a href="profile.php" class="nav dk">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>

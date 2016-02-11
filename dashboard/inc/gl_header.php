@@ -50,9 +50,27 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <span class="thumb-sm avatar pull-left">
-          <img src="images/a0.png" alt="...">
         </span>
         <?php echo $firstname . " " . $lastname; ?> <b class="caret"></b>
+        <style>
+          .thumb-sm.avatar {
+            border:1px solid #ccc;
+            width:40px; height:40px; 
+            <?php
+            $conversion = 6;
+            if(!$_SESSION["REDCAP_PORTAL"]["user"]->portal_pic){
+              $smallsize  = "0 0";
+            }else{
+              $bigsize    = explode(" ",str_replace("px" ,"" , $_SESSION["REDCAP_PORTAL"]["user"]->portal_pic));
+              $smallx     = round($bigsize[0]/$conversion);
+              $smally     = round($bigsize[1]/$conversion);
+              $smallsize  = $smallx."px ".$smally."px";
+            }
+            ?>
+            background: url(images/profile_icons.png) <?php echo $smallsize?> no-repeat;
+            background-size:500%;
+          }
+        </style>
       </a>
       <ul class="dropdown-menu animated fadeInRight">            
         <!-- <li>

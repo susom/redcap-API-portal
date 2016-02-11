@@ -149,7 +149,7 @@ include("inc/gl_head.php");
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
-                      <ul id="surveypagination" class="pagination pagination">
+                      <!-- <ul id="surveypagination" class="pagination pagination">
                         <li class="prev"><a href="#" data-panel="p"><i class="fa fa-chevron-left"></i></a></li>
                         <?php
                         $panels = array_filter($active_raw, function($field){
@@ -161,7 +161,7 @@ include("inc/gl_head.php");
                         }
                         ?>
                         <li class="next"><a href="#" data-panel="n"><i class="fa fa-chevron-right"></i></a></li>
-                      </ul>
+                      </ul> -->
                       <?php
                         $yourAnswers = (1 ? "" : " : Your Answers");
                         echo "<h2 class='surveyHeader'>$active_surveyname $yourAnswers</h2>";
@@ -404,7 +404,9 @@ include("inc/gl_head.php");
                         <div class='progress progress-striped  active'>
                           <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
                         </div>
-                        <button class="btn btn-info btn-back" role="saveprevpage">Back</button> <button class="btn btn-info" role="savereturnlater">Save and Exit</button> <button class="btn btn-primary" role="saverecord">Submit/Next</button>
+                        <!-- <button class="btn btn-info btn-back" role="saveprevpage">Back</button>  -->
+                        <a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a> 
+                        <button class="btn btn-primary" role="saverecord">Submit/Next</button>
                         <?php    
                         }
                       ?>

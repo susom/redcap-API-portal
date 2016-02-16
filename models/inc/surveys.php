@@ -62,7 +62,7 @@ foreach($surveys as $index => $instrument_event){
 		$user_actually_completed = (!isset($user_answers[$current_arm]) ? $user_answers[0][$instrument_id . "_timestamp"] : $user_answers[$current_arm][$instrument_id . "_timestamp"]); //= "[not completed]"
 
 		//IF THERE ARE USER ANSWERS THEN MATCH THEM 
-		$surveys[$index]["survey_complete"] = ( ($user_actually_completed == "[not completed]" || $user_actually_completed == "" ) && !isset($user_answers[0][$instrument_complete]) ? 0 : 1);
+		$surveys[$index]["survey_complete"] = ( ($user_actually_completed == "[not completed]" || $user_actually_completed == "" ) && empty($user_answers[0][$instrument_complete]) ? 0 : 1);
 		if(!$surveys[$index]["survey_complete"]){
 			$core_surveys_complete = false;
 		}
@@ -75,7 +75,6 @@ foreach($surveys as $index => $instrument_event){
 			}
 		}
 	}
-
 
 	$surveys[$index]["raw"]					= $metadata;
 	$surveys[$index]["completed_fields"] 	= $user_answers;

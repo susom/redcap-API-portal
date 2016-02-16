@@ -50,7 +50,9 @@ if(isset($_GET["survey_pause"])){
   }
 }
 
+
 //FOR THE PIE CHART
+$all_answers  = array();
 $graph_fields = array("core_walking_hr", "core_walking_min", "core_sitting_hr", "core_sitting_min");
 foreach($surveys as $index => $instrument_event){
   if($instrument_event["instrument_name"] !== "your_health_behaviors"){
@@ -59,7 +61,9 @@ foreach($surveys as $index => $instrument_event){
   $all_answers  = getUserAnswers(null,$graph_fields);
   $user_answers = array();
   foreach($graph_fields as $key){
-    $user_answers[$key] = $instrument_event["completed_fields"][$key];
+    if($instrument_event["survey_complete"]){
+      $user_answers[$key] = $instrument_event["completed_fields"][$key];
+    }
   }
 }
 

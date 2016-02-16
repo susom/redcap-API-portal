@@ -186,9 +186,9 @@ function getLabelAnswer($fieldmeta){
   return false; 
 }
 
-                        $yourAnswers = (!$surveycomplete ? "" : " : Your Answers");
+                        $yourAnswers = (!$active_surveycomplete ? "" : " : Your Answers");
                         echo "<h2 class='surveyHeader'>$active_surveyname $yourAnswers</h2>";
-                        if($surveycomplete){
+                        if($active_surveycomplete){
                           echo "<div class='survey_recap'>";
                           foreach($active_raw as $field){
                             if(!empty($field["section_header"])){

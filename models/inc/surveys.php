@@ -32,7 +32,8 @@ foreach($surveys as $index => $instrument_event){
 	$instrument_arm 						= $survey_arms[$instrument_id][0];
 	$surveys[$index]["short_name"] 			= $survey_arms[$instrument_id][1];
 	$surveys[$index]["instrument_arm"] 		= $instrument_arm;
-	$surveys[$index]["survey_link"] 		= getSurveyLink(3,$instrument_id,$instrument_arm);
+	$surveys[$index]["survey_link"] 		= getSurveyLink($loggedInUser->id,$instrument_id,$instrument_arm);
+
 
 	//GET TOTAL QUESTIONS PER SURVEY
 	$metadata 			= getMetaData(array($instrument_id )); 
@@ -52,6 +53,7 @@ foreach($surveys as $index => $instrument_event){
 	$just_formnames 	= array_map(function($item){
 							return $item["field_name"];
 						},$actual_questions);
+
 	$instrument_complete= $instrument_id."_complete";
 	array_push($just_formnames, $instrument_complete);
 	$user_answers 		= getUserAnswers($loggedInUser->id,$just_formnames);

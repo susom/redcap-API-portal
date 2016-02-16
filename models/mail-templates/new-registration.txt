@@ -1,17 +1,15 @@
 Dear #USERNAME#
 
-Thank you for enrolling in the LE&RN Registry! 
+Thank you for enrolling in the WELL Registry! 
 
-Your participation in this national patient registry paves the way for future clinical trials of experimental drugs and therapies designed to promote wellness
+The Living Well Research Program aims to improve understanding of living well and ways to increase wellbeing.
 
 #ACTIVATION-MESSAGE
 
 Please follow this link to log into the Registry in the future:
-http://well-portal.stanford.edu/
+http://wellforlife.stanford.edu
 
-We will be contacting you in another six months to ask you to update your records about any new developments in your medical condition that may have occurred.
-
-Please do not hesitate to contact the Well Registry at well-registry@stanford.edu  with any questions or concerns. Thank you for your esteemed participation!
+The choice to take part and continue taking part is yours.
 
 
 #INC-FOOTER#

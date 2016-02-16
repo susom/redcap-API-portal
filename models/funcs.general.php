@@ -144,22 +144,26 @@ function makeMessageBox($messages, $type) {
 	$typeClass = array(
 		'alert' 	=> 'alert-danger',
 		'notice' 	=> 'alert-info',
-		'success' 	=> 'alert-success'
+		'success' 	=> 'alert-success',
 	);
-	$html = '
-		<div class="alert ' . $typeClass[$type] . ' text-center mb-30">
-				<a href="#" class="close" data-dismiss="alert">
-					<div style="position: relative; width: -4; height:0">
-						&times;
-					</div>
-				</a>
+
+	$btnClass = array(
+		'alert' 	=> 'btn-warning',
+		'notice' 	=> 'btn-info',
+		'success' 	=> 'btn-success'
+	);
+
+	$pluralclass = (count($messages) < 2 ? "text-center" : "multi-message");
+	$html = '<div class="alert ' . $typeClass[$type] . ' ' . $pluralclass . ' mb-30">
+				<button class="btn '.$btnClass[$type].' data-dismiss="alert">OK</button>
+				<ul>
 			';
 	$lines = array();
 	foreach ($messages as $msg) {
-		$lines[] = "<p><strong>$msg</strong></p>";
+		$lines[] = "<li><strong>$msg</strong></li>";
 	}
-	$html .= implode("<hr>",$lines) . '
-		</div>';
+	$html .= implode("\n",$lines) . '
+		</ul></div>';
 	return $html;
 }
 
@@ -250,7 +254,7 @@ function redirectToProfile($message = Null) {
 // Logout current user and session.  If called via timeout, then redirect back after login
 function logout($message, $timeout = false) {
 	//logIt("Logout called: $message / ".(int)$timeout, "DEBUG");
-	global $loggedInUser;
+	global $loggedInUser,$websiteUrl;
 	if( isUserLoggedIn() ) {
 		$loggedInUser->log_entry[] = "Logged out";
 		$loggedInUser->updateUser();
@@ -261,8 +265,9 @@ function logout($message, $timeout = false) {
 	if ($timeout == true) setSessionRedirect($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
 	
 	// Goto Login page but redirect back to original page after authentication
-	header('Location: index.php');
-	die();
+	$destination = $websiteUrl."login.php";
+	header("Location: $destination");
+	exit;
 }
 
 //------------------------------------------------------------------
@@ -415,6 +420,7 @@ function sanitize($str) {
 
 // Regex to validate email address
 function isValidemail($email) {
+	// return preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", trim($email) );
 	return preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/",trim($email));
 }
 
@@ -527,5 +533,100 @@ function replaceDefaultHook($str) {
 
 	return (str_replace($default_hooks,$default_replace,$str));
 }
+
+function getSurveyLink($id,$instrument,$event=null) {
+	$params = array(
+		'content' 		=> 'surveyLink',		
+		'record' 		=> $id,
+		'instrument' 	=> $instrument,
+		'event' 		=> $event
+	);
+	$result = RC::callApi($params,REDCAP_API_URL,false);
+
+	return $result;
+}
+
+function getAllCompletionStatus($id,$instruments,$event=null) {
+	$complete_fieldnames = array();
+	foreach ($instruments as &$value) {
+		$complete_fieldnames[] = $value.'_complete';		
+	}
+
+	$extra_params = array(
+		'content' 	=> 'record',
+		'records' 	=> $id,
+		'fields'	=> $complete_fieldnames
+	);
+	$result = RC::callApi($extra_params, REDCAP_API_URL);	
 	
+	return $result;
+}
+
+
+// SURVEY METADATA STUFF
+function getInstruments(){
+	$extra_params = array(
+		'content' 	=> 'instrument',
+	);
+	$result = RC::callApi($extra_params);	
+	
+	return $result;
+}
+
+function getMetaData( $instruments = null ){
+	$extra_params = array(
+		'content' 	=> 'metadata',
+		'forms'		=> ($instruments?: null)
+	);
+	$result = RC::callApi($extra_params);	
+	
+	return $result;
+}
+
+function getReturnCode($record_id, $instrument, $event=null){
+	$extra_params = array(
+		'content' 		=> 'surveyReturnCode',
+		'record'		=> $record_id,
+		'instrument'	=> $instrument,
+		'event' 		=> $event
+	);
+	$result = RC::callApi($extra_params,REDCAP_API_URL,false);	
+
+	return $result;
+}
+
+function getUserAnswers($record_id=null,$fields = null){
+	$extra_params = array(
+	  'content'   	=> 'record',
+	  'records' 	=> (is_null($record_id) ? null:  array($record_id) ),
+	  'type'      	=> "flat",
+	  'fields'    	=> $fields,
+	  'exportSurveyFields' => true
+	);
+	$result = RC::callApi($extra_params); 
+	  
+	return $result;
+}
+
+function getAnswerOptions($choices){
+  //GET PRE BAKED ANSWER FROM USER CHOICE #
+  $answer_choices = explode(" | ",$choices);
+  $select_choices = array();
+
+  foreach($answer_choices as $qa){
+    $temp = explode("," , $qa);
+    $select_choices[trim($temp[0])] = trim($temp[1]);
+  }
+
+  return $select_choices;
+}
+
+function print_rr($d,$exit=false){
+	echo "<pre>";
+	print_r($d);
+
+	if($exit){
+		exit;
+	}
+}
 ?>

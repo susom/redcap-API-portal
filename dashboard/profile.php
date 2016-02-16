@@ -168,7 +168,6 @@ include("inc/gl_head.php");
   top:50%; left:50%;
   transform: translate(-50%,-50%); 
 }
-
 .editprofile {
   margin:15px 0 10px; 
 }

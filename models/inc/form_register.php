@@ -1,69 +1,268 @@
-<section>
-  <h2 class="headline">Register for this Study</h2>
-  <p>Let's get started!  To begin you'll need to register for this study.</p>          
   <form id="getstarted" action="register.php" class="form-horizontal" method="POST" role="form">
+    <h2>Register for this Study</h2>
     <div class="form-group">
-      <label for="email" class="control-label col-sm-2">Your Name:</label>
-      <div class="col-sm-5"> 
-        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name">
+      <label for="email" class="control-label col-sm-3">Your Name:</label>
+      <div class="col-sm-4"> 
+        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" value="<?php echo (isset($fname) ? $fname : "") ?>">
       </div>
-      <div class="col-sm-5"> 
-        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="username" class="control-label col-sm-2">Your Email:</label>
-      <div class="col-sm-10"> 
-        <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" <?=(!is_null($bad_login) ? "value='$bad_login'" : "")?> >
+      <div class="col-sm-4"> 
+        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" value="<?php echo (isset($lname) ? $lname : "") ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="control-label col-sm-2">New Password:</label>
-      <div class="col-sm-10"> 
-        <input type="password" class="form-control" name="password" id="password" >
+      <label for="username" class="control-label col-sm-3">Your Email:</label>
+      <div class="col-sm-8"> 
+        <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" value="<?php echo (isset($email) ? $email : "") ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="confirmpassword" class="control-label col-sm-2">Password Again:</label>
-      <div class="col-sm-10"> 
-        <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" >
+      <label for="usernametoo" class="control-label col-sm-3">Re-enter Email:</label>
+      <div class="col-sm-8"> 
+        <input type="email" class="form-control" name="usernametoo" id="usernametoo" placeholder="Email Address" >
       </div>
     </div>
 
     <div class="form-group">
-      <label for="zip" class="control-label col-sm-2">Your Zip Code:</label>
-      <div class="col-sm-10"> 
-        <input type="number" class="form-control" name="zip" id="zip" placeholder="Zip Code">
+      <label for="zip" class="control-label col-sm-3">Your Location:</label>
+      
+
+      <div class="col-sm-4"> 
+        <input type="text" class="form-control city" name="city" id="city" placeholder="City">
+      </div>
+      <div class="col-sm-2"> 
+        <select name="state" class="form-control state" id="state">
+          <option value="AL">AL</option>
+          <option value="AK">AK</option>
+          <option value="AZ">AZ</option>
+          <option value="AR">AR</option>
+          <option value="CA" selected>CA</option>
+          <option value="CO">CO</option>
+          <option value="CT">CT</option>
+          <option value="DE">DE</option>
+          <option value="DC">DC</option>
+          <option value="FL">FL</option>
+          <option value="GA">GA</option>
+          <option value="HI">HI</option>
+          <option value="ID">ID</option>
+          <option value="IL">IL</option>
+          <option value="IN">IN</option>
+          <option value="IA">IA</option>
+          <option value="KS">KS</option>
+          <option value="KY">KY</option>
+          <option value="LA">LA</option>
+          <option value="ME">ME</option>
+          <option value="MD">MD</option>
+          <option value="MA">MA</option>
+          <option value="MI">MI</option>
+          <option value="MN">MN</option>
+          <option value="MS">MS</option>
+          <option value="MO">MO</option>
+          <option value="MT">MT</option>
+          <option value="NE">NE</option>
+          <option value="NV">NV</option>
+          <option value="NH">NH</option>
+          <option value="NJ">NJ</option>
+          <option value="NM">NM</option>
+          <option value="NY">NY</option>
+          <option value="NC">NC</option>
+          <option value="ND">ND</option>
+          <option value="OH">OH</option>
+          <option value="OK">OK</option>
+          <option value="OR">OR</option>
+          <option value="PA">PA</option>
+          <option value="RI">RI</option>
+          <option value="SC">SC</option>
+          <option value="SD">SD</option>
+          <option value="TN">TN</option>
+          <option value="TX">TX</option>
+          <option value="UT">UT</option>
+          <option value="VT">VT</option>
+          <option value="VA">VA</option>
+          <option value="WA">WA</option>
+          <option value="WV">WV</option>
+          <option value="WI">WI</option>
+          <option value="WY">WY</option>
+        </select>
+      </div>
+      
+      <div class="col-sm-2"> 
+        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
+        <select id="zipset"></select>
       </div>
     </div>
 
+    <aside class="eligibility">
+      <fieldset class="eli_one">
+        <div class="form-group">
+          <label class="control-label col-sm-6">Do you plan to continue living in Santa Clara County for the next 12 months or longer?</label>
+          <div class="col-sm-2"> 
+            <label><input name="nextyear" type="radio" value="1"> Yes</label>
+          </div>
+
+          <div class="col-sm-2"> 
+            <label><input name="nextyear" type="radio" value="0"> No</label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="eli_two">
+        <div class="form-group">
+          <label class="control-label col-sm-6">Are you 18 years old or older?</label>
+          <div class="col-sm-2"> 
+            <label><input name="oldenough" type="radio" value="1"> Yes</label>
+          </div>
+          <div class="col-sm-2"> 
+            <label><input name="oldenough" type="radio" value="0"> No</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-6">What is your birth year?</label>
+          <div class="col-sm-4"> 
+            <select name="birthyear" class="form-control" id="birthyear">
+            <?php
+              $thisyear = date("Y");
+              for($i=0; $i < 100 ; $i++){
+                $cutoff = ($i == 18 ? "selected" : "");
+                echo "<option $cutoff>".($thisyear - $i)."</option>";
+              }
+            ?>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+    </aside>
+  
     <div class="form-group">
-      <span class="control-label col-sm-2"></span>
-      <div class="col-sm-10"> 
-        <label><input checked type="checkbox"> <em>Receive updates about this and future studies.  You can opt-out at anytime.</em></label>
+      <span class="control-label col-sm-3"></span>
+      <div class="col-sm-8"> 
+        <em>By clicking the Submit button I agree to be contacted about WELL related studies and information.</em>
       </div>
     </div>
-
     <div class="form-group">
-      <span class="control-label col-sm-2"></span>
-      <div class="col-sm-10"> 
-        <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div>
-        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Register for the Study</button>
+      <span class="control-label col-sm-3"></span>
+      <div class="col-sm-8"> 
+        <!-- <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div> -->
+        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Submit</button>
+        <input type="hidden" name="submit_new_user" value="true"/>
+        <input type="hidden" name="optin" value="true"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <span class="control-label col-sm-3"></span>
+      <div class="col-sm-8"> 
+      <a href="login.php" class="showlogin">Already Registered?</a>
       </div>
     </div>
   </form>
+  <style>
+  #zipset  { display:none; 
+    border:1px solid #ddd;
+    height:34px; 
+    width:100%; 
+  }
+  #zip{
+    opacity:1;
+    transition: .5s opacity;
+  }
+  #zip.goaway {
+    opacity:0;
+    position:absolute; 
+    z-index:-1;
+  }
+  </style>
   <script>
+    var eligible_map    = <?php echo $eligible_map ?>;
+    var eligible_zips   = [<?php echo implode(",",$eligible_zips) ?>];
+
+    var zip_to_city     = {};
+    for(var i in eligible_map){
+      for (var n in eligible_map[i]){
+        zip_to_city[eligible_map[i][n]] = i;
+      }
+    }
+
+    $("#zip,#city").blur(function(){
+      var locationcheck = $(this).val().toUpperCase();
+      var showeligible  = false;
+
+      if(locationcheck != ""){        
+        if( ($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1 ) ) {
+          $("#city").val(zip_to_city[parseInt(locationcheck)]);
+          showeligible = true;
+        }
+
+        if( $(this).hasClass("city") && eligible_map.hasOwnProperty(locationcheck) ) {
+          if( eligible_map[locationcheck].length == 1 ){
+            $("#zip").val(eligible_map[locationcheck][0]);
+          }else{
+            var possible_zips = eligible_map[locationcheck];
+
+            // console.log(possible_zips);
+            $("#zip").val(possible_zips[0].toString()).addClass("goaway");
+            $("#zipset").empty();
+
+            for(var n in possible_zips){
+              var a_zip       = possible_zips[n].toString();
+              var a_option    = $("<option/>").val(a_zip);
+              a_option.text(a_zip);
+              $("#zipset").append(a_option);
+            }
+            
+            $("#zipset").fadeIn();
+          }
+          showeligible = true;
+        }
+      }
+
+      if(showeligible){
+        $(".eligibility").slideDown("medium");
+      }else{
+        $(".eligibility").slideUp("fast");
+      }
+    });
+
+    $("#zipset").on("change",function(){
+      $(this).hide();
+      $("#zip").val($(this).val()).removeClass("goaway");
+    });
+
+    $("input[name='nextyear']").click(function(){
+      if($(this).val() == 1) {
+        $(".eli_two").slideDown("medium");
+      }
+    });
+
     $('#getstarted').validate({
       rules: {
+        firstname:{
+          required: true
+        },
+        lastname:{
+          required: true
+        },
         username: {
           <?php echo $username_validation ?>
         },
-        password: {
+        usernametoo: {
+          equalTo: "#username"
+        },
+        city:{
           required: true
         },
         zip: {
           required: true
+        },
+        nextyear: {
+          required: function(){
+            return $(".eligibility").is(':visible');
+          }
+        },
+        oldenough: {
+          required: function(){
+            return $(".eli_two").is(':visible');
+          }
         }
+
       },
       highlight: function(element) {
         $(element).closest('.form-group').addClass('has-error');
@@ -81,5 +280,18 @@
         }
       }
     });
+
+    $("#getstarted").submit(function(){
+      var formValues = {};
+      $.each($(this).serializeArray(), function(i, field) {
+          formValues[field.name] = field.value;
+      });
+
+      if(formValues.firstname == "" || formValues.lastname == "" || formValues.username == "" || $(this).find(".help-block").length){
+        return;
+      }
+
+      //ADD LOADING DOTS
+      $("button[name='submit_new_user']").append("<img width=50 height=14 src='assets/img/loading_dots.gif'/>")
+    });
   </script>
-</section>

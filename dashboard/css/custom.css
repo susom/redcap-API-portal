@@ -352,14 +352,13 @@ h2.weather,
     position : absolute;
     right : 0;
 }
+
 .survey_recap h4{ 
     margin-top:25px; 
     padding-bottom:5px; 
     margin-botom:25px;
     border-bottom:1px solid #ddd; 
 }
-
-
 
 
 

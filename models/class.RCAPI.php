@@ -6,7 +6,7 @@
 
 class RC {
 	// Make API Call
-	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL, $json_decode = true) {
+	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL,  $json_decode = true) {
 		$default_params = array(
 			'token' 	=> REDCAP_API_TOKEN,
 			'format' 	=> 'json',
@@ -46,7 +46,7 @@ class RC {
 			), $extra_params
 		);
 
-		$j = self::callApi($extra_params, $api_url);
+		$j = self::callApi($extra_params);
 		return $j;
 	}
 	
@@ -65,7 +65,7 @@ class RC {
 		if (function_exists('curl_init')) {
 			// Use cURL
 			$curlpost = curl_init();
-			curl_setopt($curlpost, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($curlpost, CURLOPT_SSL_VERIFYPEER, FALSE);  //THIS SHOULD BE TRUE TO DISALLOW MiM attack?
 			curl_setopt($curlpost, CURLOPT_VERBOSE, 0);
 			curl_setopt($curlpost, CURLOPT_FOLLOWLOCATION, true);
 			curl_setopt($curlpost, CURLOPT_AUTOREFERER, true);
@@ -83,6 +83,7 @@ class RC {
 			if ($content_type != 'application/x-www-form-urlencoded') {
 				curl_setopt($curlpost, CURLOPT_HTTPHEADER, array("Content-Type: $content_type", "Content-Length: " . strlen($param_string)));
 			}
+
 			$response 	= curl_exec($curlpost);
 			$info 		= curl_getinfo($curlpost);
 			curl_close($curlpost);
@@ -92,6 +93,10 @@ class RC {
 				return json_encode(array("error" => "404 on $url"));
 			}
 
+			// echo  "<pre>";
+			// print_r($response);
+			// exit;
+			
 			return $response;
 
 		} elseif (ini_get('allow_url_fopen')){ // Try using file_get_contents if allow_url_open is enabled

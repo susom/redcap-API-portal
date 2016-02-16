@@ -167,6 +167,7 @@ include("inc/gl_head.php");
                         <li class="next"><a href="#" data-panel="n"><i class="fa fa-chevron-right"></i></a></li>
                       </ul> -->
                       <?php
+
 function getLabelAnswer($fieldmeta){
   if(!empty($fieldmeta["user_answer"])){
     $user_answer = $fieldmeta["user_answer"];

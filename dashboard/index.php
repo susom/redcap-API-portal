@@ -57,7 +57,6 @@ foreach($surveys as $index => $instrument_event){
     continue;
   }
   $all_answers  = getUserAnswers(null,$graph_fields);
-
   $user_answers = array();
   foreach($graph_fields as $key){
     $user_answers[$key] = $instrument_event["completed_fields"][$key];

@@ -7,7 +7,6 @@
 <!--<![endif]-->
 <head>
 <title><?php echo $pg_title?></title>
-<!-- TemplateParam name="theme" type="text" value="lagunita" -->
 
 <!-- Meta -->
 <meta charset="utf-8" />
@@ -39,25 +38,25 @@
 <link rel="shortcut icon" href="assets/img/favicon.ico?v=2" />
 
 <!-- CSS -->
-<link rel="stylesheet" href="assets/lagunita/css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="assets/lagunita/css/base.min.css?v=0.1" type="text/css" />
-<link rel="stylesheet" href="assets/lagunita/css/custom.css?v=0.1" type="text/css"/>
+<link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/base.min.css?v=0.1" type="text/css" />
+<link rel="stylesheet" href="assets/css/custom.css?v=0.1" type="text/css"/>
 
 <!--[if lt IE 9]>
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 <!--[if IE 8]>
-  <link rel="stylesheet" type="text/css" href="assets/lagunita/css/ie/ie8.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/ie/ie8.css" />
 <![endif]-->
 <!--[if IE 7]>
-  <link rel="stylesheet" type="text/css" href="assets/lagunita/css/ie/ie7.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/ie/ie7.css" />
 <![endif]-->
 <!-- JS and jQuery -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
  -->
 <!--[if lt IE 9]>
-	<script src="assets/lagunita/js/respond.js"></script>
+	<script src="assets/js/respond.js"></script>
 <![endif]-->
 
 <!-- PLACING JSCRIPT IN HEAD OUT OF SIMPLICITY - http://stackoverflow.com/questions/10994335/javascript-head-body-or-jquery -->
@@ -69,13 +68,19 @@
 <!-- Local version for development here -->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/jquery.validate.min.js"></script>
-<!-- <script src="assets/lagunita/js/bootstrap.min.js"></script> -->
+<!-- <script src="assets/js/bootstrap.min.js"></script> -->
 
 <!-- custom JS -->
-<!-- <script src="assets/lagunita/js/custom.js"></script> -->
+<!-- <script src="assets/js/custom.js"></script> -->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700' rel='stylesheet' type='text/css'>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
+<body class="<?php echo $body_classes ?>">
+<?php
+  print getSessionMessages();
+?>
+<div id="su-wrap">
+<div id="su-content">

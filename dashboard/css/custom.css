@@ -1,0 +1,656 @@
+
+html {
+    background : #f8f8f8;
+}
+/*WEATHER WIDGET*/
+h2.weather,
+.fullDay {
+    display : none !important;
+}
+.weatherSummary {
+    margin : 0;
+    padding : 0;
+    border-radius : 5px;
+    box-shadow : 2px 2px 2px #ccc;
+}
+.today {
+    position : relative;
+    width : 90%;
+    min-height : 150px;
+    margin : 0 20px;
+    padding : 0;
+    text-shadow : 1px 1px #333;
+}
+.today p {
+    display : inline-block;
+    margin : 0 0 5px;
+    padding : 0;
+}
+.today p:nth-child(3) {
+    position : absolute;
+    top : 4px;
+    left : 75px;
+}
+.today p:nth-child(3):before {
+    content : '- ';
+}
+.today p:nth-child(4),
+.today p:nth-child(5),
+.today p:nth-child(6) {
+    float : left;
+    width : 50%;
+}
+.today p:first-child {
+    display : block;
+    margin : 0;
+}
+.today img {
+    display : inline-block;
+    float : left;
+    margin : 0 20px 0 0;
+}
+
+#coming_soon {
+    font-size : 28px;
+    line-height : 150px;
+    height : 150px;
+    text-align : center;
+    color : transparent;
+    border : 1px solid #ddd;
+    border-radius : 8px;
+    background-color : #565656;
+    -webkit-background-clip : text;
+       -moz-background-clip : text;
+            background-clip : text;
+    text-shadow : 0 2px 3px rgba(255,255,255,.5);
+}
+
+/*SIMPLE WEATHER WIDGET*/
+#weather {
+    width : auto;
+}
+#weather ul {
+    min-height : 150px;
+    margin : 0 0 10px 0;
+    padding : 5px;
+    text-align : center;
+    border-radius : 3px;
+    box-shadow : 1px 1px 1px 1px #ccc;
+}
+
+.d {
+    /*CLEAR DAYTIME*/
+    background : linear-gradient(to bottom,#6cb2fc 0,#d6e9fe 52%,#7fceff 100%,#d6e9fe 100%,#d6e9fe 100%,#629ce9 100%);
+}
+.dc {
+    /*CLOUDY/RAINY DAYTIME AFTERNOON*/
+    background : linear-gradient(to bottom,#7789b2 0,#edf3fc 40%,#b3bddb 100%);
+}
+.dac {
+    /*CLOUDY/RAINY AFTERNOON*/
+    background : linear-gradient(to bottom,#d0dae8 0,#eff6ff 40%,#9fc2fc 100%);
+}
+.n {
+    /*CLEAR NIGHT*/
+    background : linear-gradient(to bottom,#141414 0,#2c3863 40%,#1d274f 100%);
+}
+.nc {
+    /*CLOUDY/RAINY NIGHT*/
+    background : linear-gradient(to bottom,#141414 0,#4f4f54 40%,#26292d 100%);
+}
+
+#weather li {
+    display : inline-block;
+    vertical-align : middle;
+    color : #000;
+}
+
+#weather .locale {
+    font-size : 18px;
+    font-weight : 700;
+}
+
+#weather .weatherimg {
+    width : 190px;
+    height : 130px;
+    margin : 0 10px;
+    background-repeat : no-repeat;
+}
+#weather .temps {
+    font-size : 42px;
+    font-weight : 400;
+    line-height : 100%;
+    margin-bottom : 8px;
+}
+#weather .conditions {
+    font-size : 14px;
+    font-weight : bold;
+}
+#weather .wind {
+    font-weight : normal;
+    margin-bottom : 8px;
+}
+#weather .hilo {
+    font-size : 12px;
+    font-weight : normal;
+}
+#weather b {
+    font-weight : normal;
+    display : block;
+}
+
+
+
+/*DASHBOARD*/
+.corefour .block {
+    min-height : 40px;
+    text-align : center;
+}
+.corefour .disabled span {
+    color : #c3c3c3;
+}
+.corefour .disabled {
+    background : #e3e3e3;
+}
+.corefour .disabled a {
+    cursor : default;
+}
+
+.dker.charttoo {
+    background : #fff;
+}
+
+
+/*SURVEY FRAMES*/
+.survey .m-b-md {
+    margin-bottom : 10px;
+}
+
+.survey .submits {
+    clear : both;
+    padding : 20px;
+    text-align : Center;
+}
+.survey .submits .btn {
+    margin : 0 8px;
+    border-radius : 3px;
+    box-shadow : 1px 1px 3px #999;
+}
+.survey .submits .progress {
+    width : 30%;
+    margin : 0 auto 20px;
+    background-color : #ccc;
+}
+.survey .nav-primary .surveys a {
+    display : block;
+    text-align : center;
+}
+
+.btn-back {
+    display : none;
+}
+
+.surveyFrame {
+    position : relative;
+    overflow : hidden;
+    height : 80vh;
+    padding : 10px 0 0;
+    /*border-radius : 10px;*/
+    /*background    : #fff ;*/
+    /*overflow      : auto;*/
+}
+
+.customform {
+    position : relative;
+    overflow : hidden;
+    overflow-y : auto;
+    width : calc(100% + 10px);
+    min-height : 80vh;
+    margin : 0 0 0 0;
+    padding : 30px 0;
+    text-align : left;
+    color : #222;
+}
+.customform .required .q_label { 
+    color:#333;
+}
+.customform .required .q_label:after {
+    content:"*";
+}
+.customform .custom.or_divider {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    padding: 20px 0 0;
+}
+.customform .section {
+    position : absolute;
+    z-index : -1;
+    top : 0;
+    left : 10px;
+    display : block;
+    width : 100%;
+    margin : 0;
+    height:80vh;
+    padding : 0;
+    vertical-align : top;
+    opacity : 0;
+
+    transition : .8s opacity , .2s left ease-in-out;
+}
+.customform .section.active {
+    z-index : 1;
+    left : 0;
+    display : block;
+    opacity : 1;
+}
+.customform .section.inactive {
+    left : -10px;
+}
+
+.customform .section h2 {
+    font-size : 120%;
+    line-height : 130%;
+    /*position:fixed;*/
+    z-index : 3;
+    width : auto;
+    margin : 0 0 10px;
+    padding : 10px;
+    color : #000;
+    border-bottom : 1px solid #ddd;
+    border-radius : 5px 5px 0 0;
+    background : #d9edf7;
+}
+
+.customform label {
+    display : block;
+}
+.customform .q_label {
+    font-weight : bold;
+    position : relative;
+}
+.customform .hasLoading:after {
+    display : inline-block;
+    width : 16px;
+    height : 16px;
+    margin-left : 10px;
+    content : '';
+    vertical-align : middle;
+    background : url(../images/ajax-loader_red.gif) 0 0 no-repeat;
+}
+
+.profile_card .hasLoading:after {
+    position:absolute; 
+    top:20px;
+    left:-20px; 
+}
+
+.customform .sectionInputs {
+    border : 1px solid red;
+}
+
+.customform .hasBranching {
+    display : none;
+}
+
+.customform input {
+    padding : 5px;
+    border : 1px solid #ddd;
+    border-radius : 5px;
+}
+
+.customform .inputwrap,
+.customform .LV
+.customform .LH,
+.customform .RH,
+.customform .RV {
+    margin-left : 10px;
+    vertical-align :top;
+}
+
+.customform .inputwrap {
+    margin-bottom : 10px;
+    padding : 10px 0;
+}
+.customform .LV {
+    padding : 10px 0 0;
+}
+
+.customform .LV input[type='text'] {
+    width : 40%;
+}
+
+.customform .LH {
+    display : inline-block;
+    margin-right : 15px;
+}
+
+.customform .RH label {
+    display : inline-block;
+    margin-right : 15px;
+}
+
+.customform .fieldnote {
+    display:block;
+    font-size:92%; 
+    margin:10px 0 0;
+    color:#666;
+}
+
+.table.b-light {
+    border:none;
+}
+.table.b-t {
+    border:none; 
+} 
+    
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+#surveypagination {
+    position : absolute;
+    right : 0;
+}
+.survey_recap h4{ 
+    margin-top:25px; 
+    padding-bottom:5px; 
+    margin-botom:25px;
+    border-bottom:1px solid #ddd; 
+}
+
+
+
+
+
+/*THE FRUITS*/
+.dash_fruits {
+    margin : 0;
+    padding : 0;
+}
+.dash_fruits .fruit {
+    margin-top : 20px;
+    margin-right : 20px;
+    text-indent : -5000px;
+}
+
+
+.surveys span {
+    position : relative;
+    display : block;
+    width : 67px;
+    height : 88px;
+    margin : 0 auto;
+    text-indent : -5000px;
+}
+.surveys span:before {
+    position : absolute;
+    top : 0;
+    left : 0;
+    width : 67px;
+    height : 88px;
+    content : '';
+    opacity : .5;
+    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
+
+    transition : .5s opacity;
+}
+
+.alert .grapes:before,
+.surveys .grapes      span:before {
+    background-position : 100% -85.5px   !important;
+}
+.alert .apple:before,
+.surveys .apple     span:before {
+    background-position : 100% -171px    !important;
+}
+.alert .orange:before,
+.surveys .orange      span:before {
+    background-position : 100% -256.5px !important;
+}
+.alert .cherry:before,
+.surveys .cherry      span:before {
+    background-position : 100% -342px  !important;
+}
+.alert .blueberry:before,
+.surveys .blueberry  span:before {
+    background-position : 100% -427.5px !important;
+}
+.alert .banana:before,
+.surveys .banana      span:before {
+    background-position : 100% -513px  !important;
+}
+.alert .longan:before,
+.surveys .longan      span:before {
+    background-position : 100% -598.5px !important;
+}
+.alert .pineappple:before,
+.surveys .pineappple span:before {
+    background-position : 100% -684px  !important;
+}
+
+/*.surveys .active span:before , */
+.surveys a:hover span:before {
+    opacity : .4;
+    background-position-x : 0 !important;
+}
+
+.surveys .completed span:before {
+    opacity : 1;
+    background-position-x : 0 !important;
+}
+
+
+.surveyHeader {
+    margin : 0 0 20px;
+    padding : 15px 0;
+    border-bottom : 1px solid #888;
+}
+.surveyanswers {
+    margin-bottom : 40px;
+    padding : 0;
+}
+.surveyanswers li {
+    font-size : 120%;
+    display : block;
+    margin : 0 40px 10px;
+    padding-bottom : 10px;
+    border-bottom : 1px solid #efefef;
+}
+.surveyanswers li:last-child {
+    border-bottom : 0;
+}
+.surveyanswers li b {
+    display : inline-block;
+    margin-right : 10px;
+}
+.surveyanswers li span {
+    white-space : nowrap;
+}
+
+
+
+
+
+.alert span.fruit {
+    position : relative;
+    display : block;
+    width : 67px;
+    height : 88px;
+    margin : 0 auto;
+    text-indent : -5000px;
+}
+.alert span.fruit:before {
+    position : absolute;
+    top : 0;
+    left : 0;
+    width : 67px;
+    height : 88px;
+    content : '';
+    opacity : 1;
+    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
+    background-position-x : 0 !important;
+
+    transition : .5s opacity;
+}
+.alert .takenext {
+    font-size : 14px;
+    line-height : 14px;
+    display : table-cell;
+    margin : 12px auto 0;
+    padding : 10px 0 0;
+}
+.alert .surveyname {
+    font-size : 15px;
+    display : block;
+    margin : 5px 0;
+}
+
+.bg-black .nav li > a[rel*='survey'] {
+    color : #8287a9 !important;
+}
+
+.nav .fruit {
+    position : relative;
+    display : inline-block;
+    width : 34px;
+    height : 44px;
+    vertical-align : middle;
+}
+
+.nav .fruit:before {
+    position : absolute;
+    left : 0;
+    width : 34px;
+    height : 44px;
+    content : '';
+    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
+    background-size : 67px 390px;
+}
+
+.nav .fruit.grapes:before {
+    background-position : 100% -44px  !important;
+}
+.nav .fruit.apple:before {
+    background-position : 100% -88px  !important;
+}
+.nav .fruit.orange:before {
+    background-position : 100% -132px !important;
+}
+.nav .fruit.cherry:before {
+    background-position : 100% -176px !important;
+}
+.nav .fruit.blueberry:before {
+    background-position : 100% -220px !important;
+}
+.nav .fruit.banana:before {
+    background-position : 100% -264px !important;
+}
+.nav .fruit.longan:before {
+    background-position : 100% -308px !important;
+}
+.nav .fruit.pineappple:before {
+    background-position : 100% -352px !important;
+}
+
+.nav .completed.fruit:before {
+    opacity : 1;
+    background-position-x : 0 !important;
+}
+
+
+
+
+/*SESSION ALERT*/
+.alert-info {
+    background : #f0f8ff;
+}
+.alert-danger {
+    /*background:#f0f8ff;*/
+}
+.alert-success {
+    /*background:#f0f8ff;*/
+}
+.alert {
+    position : fixed;
+    /*transition: .9s top ease;*/
+    z-index : 1100;
+    top : 35%;
+    left : 50%;
+    width : 40%;
+    margin-left : -20%;
+    box-shadow : 0 0 3px #000;
+
+    transform : translateY(-50%);
+}
+.alert + section {
+    position : relative;
+}
+.alert + section:before {
+    position : absolute;
+    z-index : 100;
+    top : 0;
+    right : 0;
+    bottom : 0;
+    left : 0;
+    width : 100%;
+    height : 100%;
+    content : '';
+    opacity : .4;
+    background : #333;
+}
+.alert a {
+    text-decoration : none;
+}
+.alert ul {
+    margin : 20px 40px 40px;
+    padding : 0 0 20px;
+}
+
+.alert.multi-message ul {
+    list-style : disc;
+}
+.alert.multi-message li {
+    display : block;
+}
+
+.alert.text-center ul {
+    margin : 30px 40px 50px;
+    list-style : none;
+}
+.alert .btn {
+    position : fixed;
+    bottom : 15px;
+    left : 50%;
+    width : 80px;
+    margin-left : -40px;
+}
+
+/*disabled overide sidenav*/
+.nav-primary a.disabled {
+    cursor : default;
+    color : #8287a9 !important;
+    background : #12131a !important;
+}
+
+.nav-primary ul.nav > li > a > .badge {
+    position : absolute;
+    top : 10px;
+    right : 10px;
+}
+
+.portlet-item {
+    min-height : 150px;
+    margin-top : 10px;
+    padding : 0 0 10px;
+    letter-spacing : -.4px;
+}
+.portlet-item .list-group-item {
+    font-size : 108%;
+    padding : 5px 10px 0;
+    border : none;
+}
+.portlet-item .panel-heading {
+    padding : 5px 10px;
+    font-size:115%;
+}

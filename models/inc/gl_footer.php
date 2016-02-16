@@ -21,6 +21,7 @@ $(document).on('click', function(event) {
     $(".nav-item").removeClass("hot");
   }
 });
+<<<<<<< Updated upstream
 
 function doRedirect(caller) {
   var redirectHash1   = caller.attr('redirect');
@@ -73,6 +74,8 @@ function doRedirect(caller) {
 	// 	<NavBar baseurl="http://webtools.irvins.local/portal/"/>,
 	// 	document.getElementById('navbar')
 	// );
+=======
+>>>>>>> Stashed changes
 </script>
 <?php
 // $end_time = microtime(true) - $start_time;

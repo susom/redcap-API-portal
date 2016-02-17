@@ -4,11 +4,10 @@ require_once("../models/config.php");
 //DATA POSSTING
 if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
   if(isset($_REQUEST["surveycomplete"])){
-    $custom_api_url = $custom_surveycomplet_API;
     $result = RC::callApi(array(
         "hash" => $_REQUEST["hash"], 
         "format" => "csv"
-      ),$custom_api_url);
+      ),$custom_surveycomplet_API);
 
     print_r( $result );
     exit;
@@ -680,7 +679,8 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash,
           success:function(result){
-            location.href="index.php?survey_complete=" + instrument_name;
+            console.log("hey", result);
+            // location.href="index.php?survey_complete=" + instrument_name;
           }
         });
       }    

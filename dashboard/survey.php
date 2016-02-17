@@ -9,7 +9,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
         "format" => "csv"
       ),$custom_surveycomplet_API);
 
-    print_r( $custom_surveycomplet_API );
+    print_r( $result );
     exit;
   }
 
@@ -679,8 +679,7 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash,
           success:function(result){
-            console.log("hey", result);
-            // location.href="index.php?survey_complete=" + instrument_name;
+            location.href="index.php?survey_complete=" + instrument_name;
           }
         });
       }    

@@ -52,6 +52,7 @@ if(isset($_GET["survey_pause"])){
 
 
 //FOR THE PIE CHART
+$health_behaviors_complete = false;
 $all_answers  = array();
 $graph_fields = array("core_walking_hr", "core_walking_min", "core_sitting_hr", "core_sitting_min");
 foreach($surveys as $index => $instrument_event){
@@ -62,6 +63,7 @@ foreach($surveys as $index => $instrument_event){
   $user_answers = array();
   foreach($graph_fields as $key){
     if($instrument_event["survey_complete"]){
+      $health_behaviors_complete = true;
       $user_answers[$key] = $instrument_event["completed_fields"][$key];
     }
   }
@@ -307,7 +309,7 @@ weathercodes[47] = "c"; //isolated thundershowers
                             return !empty($item["user_answer"]);
                           }));
 
-                          if(!$surveycomplete){
+                          if(!$health_behaviors_complete){
                             echo  "Please complete the Surveys!";
                           }else{
                           ?>

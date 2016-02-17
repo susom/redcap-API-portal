@@ -70,6 +70,7 @@ foreach($surveys as $survey){
     $active_surveypercent  = 0;
     $active_surveyevent    = $survey["instrument_arm"];
     $active_raw            = $survey["raw"];
+    $active_surveylink     = $survey["survey_link"];
 
     //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
     $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $active_surveyevent);
@@ -539,7 +540,6 @@ function saveFormData(elem){
     type:'POST',
     data: elem.serialize(),
     success:function(result){
-      console.log("Data Saved",result);
       if(elem.is(":checkbox")){
         //GOTTA RESET THE checkbox properties haha
         elem.prop("name",oldname);
@@ -560,11 +560,17 @@ function saveFormData(elem){
 
 $(document).ready(function(){
   <?php
+  $hash       = explode("s=", $active_surveylink);
+  $surveyhash = array("format"  => "csv",
+                      "token"   => REDCAP_API_TOKEN ,
+                      "hash"    => $hash[1]);
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_raw) . ";\n";
   echo "var total_questions     = $active_surveytotal;\n";
   echo "var user_completed      = " . json_encode($active_completed) . ";\n";
   echo "var completed_count     = " . count($active_completed) . ";\n";
+  echo "var surveyCompleteApi   = 'http://redcap.irvins.loc/plugins/api_methods/survey_status.php';";
+  echo "var surveyhash          = '".http_build_query($surveyhash)."'";
   ?>
 
   checksize();
@@ -658,18 +664,12 @@ $(document).ready(function(){
           return false;
         }
       }else{
-        //SUBMIT AN ALL COMPLETE
-        //REDIRECT TO HOME WITH A MESSAGE
         var instrument_name = $("#customform").attr("name");
-        var dataDump        = "survey.php?ajax=1";
-        var elem            = $("<input/>").attr("type","hidden").attr("name",instrument_name+"_complete").val("2");
-
         $.ajax({
-          url:  dataDump,
+          url:  surveyCompleteApi,
           type:'POST',
-          data: elem.serialize(),
+          data: surveyhash,
           success:function(result){
-            console.log("Data Saved?" , result);
             location.href="index.php?survey_complete=" + instrument_name;
           }
         });
@@ -736,7 +736,6 @@ $(document).ready(function(){
       }
     }
 
-    console.log("ReCounted USERCOMPLETE vs TOTALQs",completed_count, total_questions);
     var pbar              = $(".progress-bar");
     var percent_complete  = Math.round((completed_count/total_questions)*100,2) + "%";
     updateProgressBar(pbar, percent_complete);

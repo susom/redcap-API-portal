@@ -9,7 +9,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
         "format" => "csv"
       ),$custom_surveycomplet_API);
 
-    print_r( $result );
+    print_r( $custom_surveycomplet_API );
     exit;
   }
 

@@ -9,8 +9,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
         "format" => "csv"
       ),$custom_surveycomplet_API);
 
-    error_log("why didnt it save?  $custom_surveycomplet_API   " ,0);
-    print_r( "why didnt it save?  $custom_surveycomplet_API   " );
+    print_r( $result);
     exit;
   }
 
@@ -675,17 +674,6 @@ $(document).ready(function(){
       }else{
         //SUBMIT AN ALL COMPLETE
         //REDIRECT TO HOME WITH A MESSAGE
-        // var instrument_name = $("#customform").attr("name");
-        // var dataDump        = "survey.php?ajax=1";
-        // var elem            = $("<input/>").attr("type","hidden").attr("name",instrument_name+"_complete").val("2");
-        // $.ajax({
-        //   url:  dataDump,
-        //   type:'POST',
-        //   data: elem.serialize(),
-        //   success:function(result){
-        //     location.href="index.php?survey_complete=" + instrument_name;
-        //   }
-        // });
 
         var dataDump        = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
@@ -694,8 +682,7 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash,
           success:function(result){
-            console.log(result);
-            // location.href="index.php?survey_complete=" + instrument_name;
+            location.href="index.php?survey_complete=" + instrument_name;
           }
         });
       }    

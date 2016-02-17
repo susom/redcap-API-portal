@@ -10,7 +10,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
       ),$custom_surveycomplet_API);
 
     error_log("why didnt it save?  $custom_surveycomplet_API   " ,0);
-    print_r( $result );
+    print_r( "why didnt it save?  $custom_surveycomplet_API   " );
     exit;
   }
 

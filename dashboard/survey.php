@@ -3,6 +3,17 @@ require_once("../models/config.php");
 
 //DATA POSSTING
 if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
+  if(isset($_REQUEST["surveycomplete"])){
+    $custom_api_url = "http://redcap.irvins.loc/plugins/api_methods/survey_status.php";
+    $result = RC::callApi(array(
+        "hash" => $_REQUEST["hash"], 
+        "format" => "csv"
+      ),$custom_api_url);
+
+    print_r( $result );
+    exit;
+  }
+
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
   $formdata = $_POST;
@@ -30,6 +41,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
   }
   $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
   
+
   echo json_encode($result);
   exit;
 }
@@ -561,15 +573,12 @@ function saveFormData(elem){
 $(document).ready(function(){
   <?php
   $hash       = explode("s=", $active_surveylink);
-  $surveyhash = array("format"  => "csv",
-                      "token"   => REDCAP_API_TOKEN ,
-                      "hash"    => $hash[1]);
+  $surveyhash = array("hash"    => $hash[1]);
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_raw) . ";\n";
   echo "var total_questions     = $active_surveytotal;\n";
   echo "var user_completed      = " . json_encode($active_completed) . ";\n";
   echo "var completed_count     = " . count($active_completed) . ";\n";
-  echo "var surveyCompleteApi   = 'http://redcap.irvins.loc/plugins/api_methods/survey_status.php';";
   echo "var surveyhash          = '".http_build_query($surveyhash)."'";
   ?>
 
@@ -664,9 +673,10 @@ $(document).ready(function(){
           return false;
         }
       }else{
+        var dataDump        = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
         $.ajax({
-          url:  surveyCompleteApi,
+          url:  dataDump,
           type:'POST',
           data: surveyhash,
           success:function(result){

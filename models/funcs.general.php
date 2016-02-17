@@ -621,6 +621,51 @@ function getAnswerOptions($choices){
   return $select_choices;
 }
 
+function getActionTags($fieldmeta){
+	$re = "/  (?(DEFINE)
+	     (?<number>    -? (?= [1-9]|0(?!\\d) ) \\d+ (\\.\\d+)? ([eE] [+-]? \\d+)? )    
+	     (?<boolean>   true | false | null )
+	     (?<string>    \" ([^\"\\\\\\\\]* | \\\\\\\\ [\"\\\\\\\\bfnrt\\/] | \\\\\\\\ u [0-9a-f]{4} )* \" )
+	     (?<array>     \\[  (?:  (?&json)  (?: , (?&json)  )*  )?  \\s* \\] )
+	     (?<pair>      \\s* (?&string) \\s* : (?&json)  )
+	     (?<object>    \\{  (?:  (?&pair)  (?: , (?&pair)  )*  )?  \\s* \\} )
+	     (?<json>      \\s* (?: (?&number) | (?&boolean) | (?&string) | (?&array) | (?&object) )  ) \\s*
+	     (?<tag>       \\@(?:[[:alnum:]])*)
+	  )
+	  
+	  (?'actiontag'
+	    (?:\\@(?:[[:alnum:]_-])*)
+	  )
+	  (?:\\=
+	    (?:
+	     (?:
+	      (?'params_json'(?&json))
+	     )
+	     |
+	     (?:
+	       (?'params'(?:[[:alnum:]_-]+))
+	     )
+	    )
+	  )?/ixm"; 
+
+	$str 		= $fieldmeta["field_annotation"];
+	preg_match_all($re, $str, $matches);
+
+	$results 	= array();
+	foreach($matches["actiontag"] as $key => $tag){
+		$params = false;
+		if(!empty($matches["params_json"][$key])){
+			$params = json_decode($matches["params_json"][$key],1);
+		}elseif(!empty($matches["params"][$key])){
+			$params = $matches["params"][$key];
+		}
+
+		$results[$tag] = $params;
+	}
+	
+	return $results;
+}
+
 function print_rr($d,$exit=false){
 	echo "<pre>";
 	print_r($d);

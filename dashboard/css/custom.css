@@ -261,7 +261,10 @@ h2.weather,
     border-radius : 5px 5px 0 0;
     background : #d9edf7;
 }
-
+.customform h3 {
+    font-size:120%;
+    margin:30px 10px 10px; 
+}
 .customform label {
     display : block;
 }

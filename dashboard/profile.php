@@ -75,106 +75,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10">
                       <h2>My Profile</h2>
-                      
-<style>
-.profile_card{
-  font-size:100%;
-  width:440px; 
-  padding:30px 20px 10px; 
-  border-radius:8px; 
-  background:#fff;
-}
-.profile_card ul {
-  margin:20px 0 0; 
-  padding:0;
-}
-.profile_card li { 
-  position:relative; 
-  display:block; 
-  padding:12px 10px 6px;
-  border-bottom:1px solid #ccc;
-}
-.profile_card figure { 
-  position:relative; 
-}
-.profile_card figure span { 
-  display:inline-block;
-  border:1px solid #ccc;
-  border-radius:50%;  
-  overflow:hidden;
-  width:200px; height:200px; 
-  background:url(images/profile_icons.png) -10px -10px no-repeat;
-  /*background:url(http://executivewinners.ca/wp-content/uploads/2013/11/generic-female-300x300.png) no-repeat;
-  background-size:contain;*/
-}
-.profile_card figcaption {
-  display:inline-block; 
-  margin-left:20px; 
-  position:absolute;
-  top:40%;
-}
-.profile_card figcaption b{
-  display:block; 
-  font-size:200%;
-  color:#333;
-}
-.profile_card figcaption em {
-  font-style:normal; 
-}
-
-.profile_card input {
-  width:100%; 
-  border:1px solid transparent; 
-  background:transparent;
-  cursor:pointer; 
-}
-.profile_card input:focus, .profile_card.editmode input{
-  /*border:1px solid #ddd;*/
-  background:#ffd;
-}
-.profile_card #portal_mail_street {
-  display:inline-block; 
-  width:288px; 
-}
-.profile_card #portal_apartment_no {
-  display:inline-block; 
-  width:80px;
-}
-
-.profile_card #portal_city,
-.profile_card #portal_state,
-.profile_card #portal_zip {
-  display:inline-block; 
-  width:122px;
-}
-
-.profile_card ::-webkit-input-placeholder {  color: #888; }
-.profile_card ::-moz-placeholder {           color: #888; }
-.profile_card :-ms-input-placeholder {       color: #888; }
-.profile_card :-moz-placeholder {            color: #888; }
-
-.profile_card .note { font-size:85%; margin:20px; text-align:center;  display:block;  }
-
-#ppic { cursor:pointer; }
-#picpick { 
-  display:none; 
-  text-align:center; 
-  cursor:pointer;
-  background:#fff; 
-  border-radius:10px; 
-  border:1px solid #333;
-  box-shadow:3px 3px 3px #888; 
-  position:absolute; 
-  top:50%; left:50%;
-  transform: translate(-50%,-50%); 
-}
-.editprofile {
-  margin:15px 0 10px; 
-}
-</style>
-                      
                       <?php
-                      // print_rr($_SESSION,1);
                       $label_map = array();
                       $label_map["portal_nickname"]       = "Nickname";
                       $label_map["portal_middlename"]     = "Middle Name";
@@ -192,7 +93,13 @@ include("inc/gl_head.php");
                       $p_pic            = (!$profile_info->portal_pic     ? "-10px -10px"    :$profile_info->portal_pic    );
                       $p_firstname      = (!$profile_info->firstname      ? "First Name"     :$profile_info->firstname      );
                       $p_lastname       = (!$profile_info->lastname       ? "Last Name"      :$profile_info->lastname       );
-                      
+                     
+
+                     $p_portal_apartment_no  = (!$profile_info->portal_apartment_no ? ""      :$profile_info->portal_apartment_no       );
+                     $p_portal_mail_street   = (!$profile_info->portal_mail_street  ? ""      :$profile_info->portal_mail_street        );
+                     $p_city                 = (!$profile_info->city                ? ""      :$profile_info->city                      );
+                     $p_state                = (!$profile_info->state               ? ""      :$profile_info->state                     );
+                     $p_zip                  = (!$profile_info->zip                 ? ""      :$profile_info->zip                       ); 
                       ?>
                       <style>
                       .profile_card figure span { 
@@ -227,13 +134,13 @@ include("inc/gl_head.php");
                           print $html;
                           ?>
                           <li>
-                          <input type="text" id="portal_mail_street" name="portal_mail_street" value="" placeholder="Street Address">
-                          / <input type="text" id="portal_apartment_no" name="portal_apartment_no" value="" placeholder="Apt No.">
+                          <input type="text" id="portal_mail_street" name="portal_mail_street" value="<?php echo $p_portal_mail_street ?>" placeholder="Street Address">
+                          / <input type="text" id="portal_apartment_no" name="portal_apartment_no" value="<?php echo $p_portal_apartment_no ?>" placeholder="Apt No.">
                           </li>
                           <li>
-                            <input type="text" id="portal_city" name="portal_city" value="los altos" placeholder="City">
-                            , <input type="text" id="portal_state" name="portal_state" value="ca" placeholder="State">
-                            <input data-validate="number" type="text" id="portal_zip" name="portal_zip" value="94022" placeholder="Zip Code">
+                            <input type="text" id="portal_city" name="portal_city" value="<?php echo $p_city ?>" placeholder="City">
+                            , <input type="text" id="portal_state" name="portal_state" value="<?php echo $p_state ?>" placeholder="State">
+                            <input data-validate="number" type="text" id="portal_zip" name="portal_zip" value="<?php echo $p_zip ?>" placeholder="Zip Code">
                           </li>
                         </ul>
 

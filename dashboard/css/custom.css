@@ -367,6 +367,104 @@ h2.weather,
 
 
 
+
+/*PROFILE PAGE*/
+.profile_card{
+  font-size:100%;
+  width:440px; 
+  padding:30px 20px 10px; 
+  border-radius:8px; 
+  background:#fff;
+}
+.profile_card ul {
+  margin:20px 0 0; 
+  padding:0;
+}
+.profile_card li { 
+  position:relative; 
+  display:block; 
+  padding:12px 10px 6px;
+  border-bottom:1px solid #ccc;
+}
+.profile_card figure { 
+  position:relative; 
+}
+.profile_card figure span { 
+  display:inline-block;
+  border:1px solid #ccc;
+  border-radius:50%;  
+  overflow:hidden;
+  width:200px; height:200px; 
+  background:url(../images/profile_icons.png) -10px -10px no-repeat;
+  /*background:url(http://executivewinners.ca/wp-content/uploads/2013/11/generic-female-300x300.png) no-repeat;
+  background-size:contain;*/
+}
+.profile_card figcaption {
+  display:inline-block; 
+  margin-left:20px; 
+  position:absolute;
+  top:40%;
+}
+.profile_card figcaption b{
+  display:block; 
+  font-size:200%;
+  color:#333;
+}
+.profile_card figcaption em {
+  font-style:normal; 
+}
+
+.profile_card input {
+  width:100%; 
+  border:1px solid transparent; 
+  background:transparent;
+  cursor:pointer; 
+}
+.profile_card input:focus, .profile_card.editmode input{
+  /*border:1px solid #ddd;*/
+  background:#ffd;
+}
+.profile_card #portal_mail_street {
+  display:inline-block; 
+  width:288px; 
+}
+.profile_card #portal_apartment_no {
+  display:inline-block; 
+  width:80px;
+}
+
+.profile_card #portal_city,
+.profile_card #portal_state,
+.profile_card #portal_zip {
+  display:inline-block; 
+  width:122px;
+}
+
+.profile_card ::-webkit-input-placeholder {  color: #888; }
+.profile_card ::-moz-placeholder {           color: #888; }
+.profile_card :-ms-input-placeholder {       color: #888; }
+.profile_card :-moz-placeholder {            color: #888; }
+
+.profile_card .note { font-size:85%; margin:20px; text-align:center;  display:block;  }
+
+#ppic { cursor:pointer; }
+#picpick { 
+  display:none; 
+  text-align:center; 
+  cursor:pointer;
+  background:#fff; 
+  border-radius:10px; 
+  border:1px solid #333;
+  box-shadow:3px 3px 3px #888; 
+  position:absolute; 
+  top:50%; left:50%;
+  transform: translate(-50%,-50%); 
+}
+.editprofile {
+  margin:15px 0 10px; 
+}
+
+
 /*THE FRUITS*/
 .dash_fruits {
     margin : 0;

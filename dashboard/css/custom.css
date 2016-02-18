@@ -359,7 +359,8 @@ h2.weather,
 .survey_recap h4{ 
     margin-top:25px; 
     margin-bottom:5px; padding-bottom:0; 
-    font-size: 115%;
+    font-size: 125%;
+    font-weight:bold; 
     line-height: 140%;
     color: #333
 }

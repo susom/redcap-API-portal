@@ -31,7 +31,7 @@ include("models/inc/gl_header.php");
 			<div  class="consent_disclaim">
 				<ul>
 					<li>We need your permission before we can ask you any questions, so please read the following Informed Consent Document</li>
-					<li>The initial survey will take 15 – 20 minutes to complete – but you don't need to fill it all out at one tie</li>
+					<li>The initial survey will take 15 – 20 minutes to complete – but you don't need to fill it all out at one time</li>
 					<li>We will check back in with you every 6 months</li>
 					<li>We will add new surveys and invite you to participate</li>
 				</ul>

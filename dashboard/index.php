@@ -64,7 +64,9 @@ foreach($surveys as $index => $instrument_event){
   foreach($graph_fields as $key){
     if($instrument_event["survey_complete"]){
       $health_behaviors_complete = true;
-      $user_answers[$key] = $instrument_event["completed_fields"][$key];
+      if(array_key_exists($key, $instrument_event["completed_fields"])){
+        $user_answers[$key] = $instrument_event["completed_fields"][$key];
+      }
     }
   }
 }

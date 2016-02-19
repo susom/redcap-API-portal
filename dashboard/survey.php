@@ -351,6 +351,7 @@ function getLabelAnswer($fieldmeta){
 
                                 if($field_type == "dropdown"){
                                   $html .= "<select $required_field id='$field_name' name='$field_name' id='$field_name'>\n";
+                                  $html .= "<option>-</option>";
                                   $options = getAnswerOptions($select_choices_or_calculations);
                                   foreach($options as $val => $value){
                                     $selected  = (array_key_exists($field_name, $active_completed) && $active_completed[$field_name] == $val ? "selected" : "");
@@ -496,17 +497,20 @@ function showBackBtn(){
 
 function checkRequired(){
   //ANNOY USERS IF THEY DIDNT FILL OUT A FORM ITEM, PER SECTION!!!!
-  var current_panel   = $("#surveypagination li.active a").data("panel");
-  var required_fields = $("#customform section").eq(current_panel).find(".required");
+  var required_fields = $("#customform section.active .required");
   var confirm_empty   = false;
+
   required_fields.each(function(){
-    if(!$(this).find(":input").val()){
-      confirm_empty = true;
-      
-      if( !$("#customform section").eq(current_panel).hasClass("annoying_message") ){
-        $("#customform section").eq(current_panel).addClass("annoying_message")
+    if(     ($(this).find(":input").is(':text') && $(this).find(":input").val().length == 0)
+        ||  ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
+        ||  ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0)
+      ){
+      if( !$("#customform section.active").hasClass("annoying_message") ){
+        confirm_empty = true;
+
+        $("#customform section.active").addClass("annoying_message")
         var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left required field(s) empty.  If this was intentional please click Submit again.<li></ul>");
-        reqmsg.append($("<button>").addClass("btn btn-alert").text("Ok"));
+        reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
         $("body").append(reqmsg);
         return false;
       }
@@ -518,8 +522,7 @@ function checkRequired(){
 
 function checkValidation(){
   var validation_choices  = [ "date" ,"email" ,"integer" ,"number" ,"phone" ,"time" ,"zipcode" ,"date_dmy", "date_mdy", "date_ymd", "datetime_dmy", "datetime_mdy", "datetime_ymd", "datetime_seconds_dmy" ,"datetime_seconds_mdy", "datetime_seconds_ymd" ];
-  var current_panel       = $("#surveypagination li.active a").data("panel");
-  var verifyjs            = $("#customform section").eq(current_panel).find(".notifyjs-container");
+  var verifyjs            = $("#customform section.active").find(".notifyjs-container");
   if(verifyjs.is(":visible")){
     return true;
   }
@@ -646,9 +649,9 @@ $(document).ready(function(){
 
   //NEXT PREVIOUS SURVEY PANELS 
   $("button[role='saverecord']").click(function(){
-    $("#customform section").each(function(idx){
+    
+    $("#customform section.active").each(function(idx){
       if($(this).next().length){
-        //check to see if required fields are filled
         if(checkValidation()){
           return;
         }
@@ -665,9 +668,9 @@ $(document).ready(function(){
           //the previous button counts as 0
           //idx = the current panel not the "next" one
           //so going forward direction it is idx + 2
-          $("#surveypagination li").removeClass("active");
-          $("#surveypagination li").eq(idx+2).addClass("active");
-          showBackBtn();
+          // $("#surveypagination li").removeClass("active");
+          // $("#surveypagination li").eq(idx+2).addClass("active");
+          showBackBtn();  
           checksize();
           return false;
         }

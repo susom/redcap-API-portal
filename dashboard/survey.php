@@ -1,12 +1,12 @@
 <?php
 require_once("../models/config.php");
 
-//DATA POSSTING
-if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
+//POSTING DATA TO REDCAP API
+if(isset($_REQUEST["ajax"])){
   if(isset($_REQUEST["surveycomplete"])){
     $result = RC::callApi(array(
-        "hash" => $_REQUEST["hash"], 
-        "format" => "csv"
+        "hash"    => $_REQUEST["hash"], 
+        "format"  => "csv"
       ),$custom_surveycomplet_API);
 
     print_r( $result );
@@ -15,9 +15,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
 
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
-  $formdata = $_POST;
-
-  $data   = array();
+  $data = array();
   foreach($_POST as $field_name => $value){
     if($value === 0){
       $value = "0";
@@ -27,21 +25,15 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
       $value = NULL;
     }
 
-    if(strpos("_complete", $field_name) > -1){
-      //CALL andy CUSTOM API FOR set SurveyComplete
-    }
-
     $data[] = array(
       "record"            => $_SESSION[SESSION_NAME]["user"]->id,
       "redcap_event_name" => $_SESSION[SESSION_NAME]["survey_context"]["event"],
       "field_name"        => $field_name,
-      "value"             => $value,
+      "value"             => $value
     );
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
+    echo json_encode($result);
   }
-  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
-  
-
-  echo json_encode($result);
   exit;
 }
 
@@ -137,6 +129,25 @@ function processBranching($branch_logic){
   return $hideConditional;
 }
 
+function getLabelAnswer($fieldmeta){
+  if(!empty($fieldmeta["user_answer"])){
+    $user_answer = $fieldmeta["user_answer"];
+    if($fieldmeta["field_type"] == "radio" || $fieldmeta["field_type"] == "checkbox" || $fieldmeta["field_type"] == "dropdown"){
+      $possible_answers = explode("|",$fieldmeta["select_choices_or_calculations"]);
+      foreach($possible_answers as $pa){
+        $temp = explode(", ",$pa);
+        if($user_answer == $temp[0]){
+          $user_answer = $temp[1];
+          break;
+        }
+      }
+    }
+    return array("field_label" => $fieldmeta["field_label"], "user_answer" => $user_answer);
+  }
+  return false; 
+}
+
+
 $shownavsmore   = false;
 $survey_active  = ' class="active"';
 $profile_active = '';
@@ -165,39 +176,7 @@ include("inc/gl_head.php");
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
-                      <!-- <ul id="surveypagination" class="pagination pagination">
-                        <li class="prev"><a href="#" data-panel="p"><i class="fa fa-chevron-left"></i></a></li>
-                        <?php
-                        $panels = array_filter($active_raw, function($field){
-                          return !empty($field["section_header"]);
-                        });
-                        for($i = 0; $i < count($panels); $i++){
-                          $pgcount  = $i+1;
-                          echo "<li><a href='#' data-panel=$i>$pgcount</a></li>";
-                        }
-                        ?>
-                        <li class="next"><a href="#" data-panel="n"><i class="fa fa-chevron-right"></i></a></li>
-                      </ul> -->
                       <?php
-
-function getLabelAnswer($fieldmeta){
-  if(!empty($fieldmeta["user_answer"])){
-    $user_answer = $fieldmeta["user_answer"];
-    if($fieldmeta["field_type"] == "radio" || $fieldmeta["field_type"] == "checkbox" || $fieldmeta["field_type"] == "dropdown"){
-      $possible_answers = explode("|",$fieldmeta["select_choices_or_calculations"]);
-      foreach($possible_answers as $pa){
-        $temp = explode(", ",$pa);
-        if($user_answer == $temp[0]){
-          $user_answer = $temp[1];
-          break;
-        }
-      }
-    }
-    return array("field_label" => $fieldmeta["field_label"], "user_answer" => $user_answer);
-  }
-  return false; 
-}
-
                         $yourAnswers = (!$active_surveycomplete ? "" : " : Your Answers");
                         echo "<h2 class='surveyHeader'>$active_surveyname $yourAnswers</h2>";
                         if($active_surveycomplete){
@@ -273,9 +252,6 @@ function getLabelAnswer($fieldmeta){
                             if(!empty($section_header)){
                               if(!$first_section){
                                 $html .= "</section>\n";
-                                $makeactive = "";
-                              }else{
-                                // $makeactive = "active";
                               }
 
                               $html .= "<section class='section '>
@@ -444,14 +420,13 @@ function getLabelAnswer($fieldmeta){
                     <div class="submits">
                       <?php
                         if(!$active_surveycomplete){
-                        ?>
-                        <div class='progress progress-striped  active'>
-                          <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
-                        </div>
-                        <!-- <button class="btn btn-info btn-back" role="saveprevpage">Back</button>  -->
-                        <a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a> 
-                        <button class="btn btn-primary" role="saverecord">Submit/Next</button>
-                        <?php    
+                          ?>
+                          <div class='progress progress-striped  active'>
+                            <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
+                          </div>
+                          <a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a> 
+                          <button class="btn btn-primary" role="saverecord">Submit/Next</button>
+                          <?php    
                         }
                       ?>
                     </div>
@@ -472,52 +447,36 @@ function getLabelAnswer($fieldmeta){
 include("inc/gl_foot.php");
 ?>
 <script>
-function checksize(){
-  //SURVEY HEIGHT OVERFLOW AUTO THING
-  var frameheight = $(".surveyFrame section.active").height();
-  return;
-}
-
 function updateProgressBar(ref, perc){
   //UPDATE SURVEY PROGERSS BAR
   ref.attr("data-original-title",perc).css("width",perc);
-}
-
-function showBackBtn(){
-  //SHOW SURVEY BACK BUTTON
-  var activepanel = $("#customform section.active");
-  var currentidx  = $("#customform section").index(activepanel);
-
-  if(currentidx > 0){
-    $("button.btn-back").fadeIn("slow");
-  }else{
-    $("button.btn-back").fadeOut("fast");
-  }
+  return;
 }
 
 function checkRequired(){
-  //ANNOY USERS IF THEY DIDNT FILL OUT A FORM ITEM, PER SECTION!!!!
+  //ANNOY USERS IF THEY DIDNT FILL OUT A FORM ITEM, PER SECTION!
   var required_fields = $("#customform section.active .required");
-  var confirm_empty   = false;
+  var req_missing     = false;
 
   required_fields.each(function(){
-    if(     ($(this).find(":input").is(':text') && $(this).find(":input").val().length == 0)
-        ||  ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
-        ||  ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0)
+    if(    ($(this).find(":input").is(':text') && $(this).find(":input").val().length == 0)
+        || ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
+        || ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0)
       ){
+      //ONLY SHOW THE ANNOYING MESSAGE ONCE
       if( !$("#customform section.active").hasClass("annoying_message") ){
-        confirm_empty = true;
+        req_missing = true;
 
         $("#customform section.active").addClass("annoying_message")
-        var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left required field(s) empty.  If this was intentional please click Submit again.<li></ul>");
-        reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
+        var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left required fields empty.  If this was intentional please click Submit again.<li></ul>");
+        // reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
         $("body").append(reqmsg);
-        return false;
+        return;
       }
     }
   });                
 
-  return confirm_empty;
+  return req_missing;
 }
 
 function checkValidation(){
@@ -529,20 +488,21 @@ function checkValidation(){
 
   return false;        
 }
+
 function saveFormData(elem){
-  var dataDump = "survey.php?ajax=1";
+  var dataURL = "survey.php?ajax=1";
 
   //FOR CHECKBOX TYPES
   if(elem.is(":checkbox")){
-    var oldname     = elem.prop("name");
-    var chkbx_name  = elem.prop("name");
+    //REDCAP SEES THESE DIFFERENTLY, MUST TEMPORARILY ALTER INPUT ATTRIBUTES TO SUBMIT PROPERLY
     var optioncode  = elem.val();
-    chkbx_name      += "___" + optioncode;
+    var oldname     = elem.prop("name");
+    var chkbx_name  = oldname + "___" + optioncode;;
     var isChecked   = elem.is(":checked") ? 1 : 0;
 
     elem.prop("name", chkbx_name);
-    elem.val(isChecked);
     elem.prop("checked",true);
+    elem.val(isChecked);
   }
 
   if(!elem.val()){
@@ -550,7 +510,7 @@ function saveFormData(elem){
   }
 
   $.ajax({
-    url:  dataDump,
+    url:  dataURL,
     type:'POST',
     data: elem.serialize(),
     success:function(result){
@@ -572,8 +532,9 @@ function saveFormData(elem){
   });
 }
 
+
 $(document).ready(function(){
-  <?php
+<?php
   $hash       = explode("s=", $active_surveylink);
   $surveyhash = array("hash"    => $hash[1]);
   // //PASS FORMS METADATA 
@@ -582,9 +543,7 @@ $(document).ready(function(){
   echo "var user_completed      = " . json_encode($active_completed) . ";\n";
   echo "var completed_count     = " . count($active_completed) . ";\n";
   echo "var surveyhash          = '".http_build_query($surveyhash)."'";
-  ?>
-
-  checksize();
+?>
 
   //SET THE INTIAL PROGRESS BAR
   var pbar              = $(".progress-bar");
@@ -597,60 +556,16 @@ $(document).ready(function(){
   var newactive         = $("div."+last_answered).closest("section");
   if(newactive.length){
     $("#customform section").removeClass("active");
-    $("#surveypagination li").removeClass("active");
-
     var panel = $("#customform section").index(newactive);
-    $("#surveypagination li").find("[data-panel="+panel+"]").parent().addClass("active");
     newactive.addClass("active");
   }else{
-    $("#surveypagination li").find("[data-panel=0]").parent().addClass("active");
     $("#customform section").first().addClass("active");
   }
 
-  //PAGINATION
-  $("#surveypagination a").click(function(){
-    //DO NOT ALLOW FOR PAGE JUMPING, HEIL!
-    // return false; 
-    if(checkValidation()){
-      return;
-    }
-
-    //check to see if required fields are filled
-    if(checkRequired()){
-      return;
-    }
-    
-    var panel = 0;
-    if($(this).data("panel") === parseInt($(this).data("panel"))){
-      panel = $(this).data("panel");
-      $("#customform section").removeClass("active");
-      $("#surveypagination li").removeClass("active");
-      $(this).parent().addClass("active");
-    }else{
-      panel = $("#surveypagination li.active a").data("panel");
-      if($(this).data("panel") == "p"){
-        panel--;
-      }else{
-        panel++;
-      }
-      if(panel < 0 || panel > $("#customform section").length -1){
-        return false;
-      }else{
-        $("#customform section").removeClass("active");
-        $("#surveypagination li").removeClass("active");
-        $("#surveypagination li").find("[data-panel="+panel+"]").parent().addClass("active");
-      }   
-    }
-    $("#customform section").eq(panel).addClass("active");
-    showBackBtn();
-    checksize();
-    return false;
-  });
-
-  //NEXT PREVIOUS SURVEY PANELS 
+  //SUBMIT/NEXT
   $("button[role='saverecord']").click(function(){
-    
     $("#customform section.active").each(function(idx){
+      //IF THERE IS ANOTHER SECTION THEN ITS A "NEXT" ACTION OTHERWISE, FINAL SUBMIT
       if($(this).next().length){
         if(checkValidation()){
           return;
@@ -660,28 +575,19 @@ $(document).ready(function(){
           return;
         }
 
+        $(".required_message").remove();
         if($(this).hasClass("active")){
           $(this).removeClass("active").addClass("inactive");
           $(this).next().addClass("active");
-
-          //in this case .eq 
-          //the previous button counts as 0
-          //idx = the current panel not the "next" one
-          //so going forward direction it is idx + 2
-          // $("#surveypagination li").removeClass("active");
-          // $("#surveypagination li").eq(idx+2).addClass("active");
-          showBackBtn();  
-          checksize();
           return false;
         }
       }else{
         //SUBMIT AN ALL COMPLETE
         //REDIRECT TO HOME WITH A MESSAGE
-
-        var dataDump        = "survey.php?ajax=1&surveycomplete=1";
+        var dataURL         = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
         $.ajax({
-          url:  dataDump,
+          url:  dataURL,
           type:'POST',
           data: surveyhash,
           success:function(result){
@@ -690,36 +596,7 @@ $(document).ready(function(){
         });
       }    
     });
-  });
-
-  $("button[role='saveprevpage']").click(function(){
-    $($("#customform section").get().reverse()).each(function(idx){
-      if($(this).hasClass("active")){
-        if($(this).prev().length){
-          //check to see if required fields are filled
-          if(checkValidation()){
-            return;
-          }
-          
-          if(checkRequired()){
-            return;
-          }
-
-          $(this).removeClass("active");
-          $(this).prev().removeClass("inactive").addClass("active");
-          
-          //in this case .eq 
-          //is really messed up cause its counting in reverse
-          //so going backward direction its actually total count - idx
-          var totalcount = $("#customform section").length;
-          $("#surveypagination li").removeClass("active");
-          $("#surveypagination li").eq(totalcount - idx - 1).addClass("active");
-          showBackBtn();
-          checksize();
-        }
-        return false;
-      }
-    });
+    return;
   });
 
   //INPUT CHANGE ACTIONS
@@ -728,6 +605,7 @@ $(document).ready(function(){
     $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
     saveFormData($(this));
 
+    //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
     var completed_count = 0;
     var total_questions = 0;
     for(var i in form_metadata){
@@ -754,6 +632,7 @@ $(document).ready(function(){
     var pbar              = $(".progress-bar");
     var percent_complete  = Math.round((completed_count/total_questions)*100,2) + "%";
     updateProgressBar(pbar, percent_complete);
+    return;
   }); 
 });
 </script>

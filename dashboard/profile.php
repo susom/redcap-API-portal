@@ -144,7 +144,7 @@ include("inc/gl_head.php");
                           </li>
                         </ul>
 
-                        <a href="#" class="btn btn-large block btn-info editprofile">Edit Profile</a>
+                        <a href="#" class="btn btn-large block btn-info editprofile"><span>Edit</span> Profile</a>
                         </div>
                       </form>
                     </div>
@@ -203,8 +203,10 @@ $(document).ready(function(){
   $(".editprofile").click(function(){
     $(".profile_card").toggleClass("editmode");
     if($(".profile_card").hasClass("editmode")){
+      $(this).find("span").text("Save");
       $(".profile_card input").first().focus();    
     }else{
+      $(this).find("span").text("Edit");
       $(".profile_card input").first().blur(); 
     }
     return false; 

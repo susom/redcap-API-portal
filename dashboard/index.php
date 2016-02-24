@@ -20,22 +20,20 @@ if(!isUserLoggedIn()) {
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
   $surveyid = $_GET["survey_complete"];
-  foreach($surveys as $index => $instrument_event){
-    if($instrument_event["instrument_name"] != $surveyid){
-      continue;
-    }
-
-    if($instrument_event["survey_complete"]){
-      $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $instrument_event["instrument_label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
-      if(isset($surveys[$index+1])){
-        $nextlink     = "survey.php?url=". urlencode($surveys[$index+1]["survey_link"]);
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$index+1]["instrument_label"]."' survey now!</a>";
+  
+  if(array_key_exists($surveyid,$surveys)){
+    $index  = array_search($surveyid, $all_survey_keys);
+    $survey = $surveys[$surveyid];
+    $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $survey["label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
+      
+      if(isset($all_survey_keys[$index+1])){
+        $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$all_survey_keys[$index+1]]["label"]."' survey now!</a>";
       }else{
         $success_msg .= "Congratulations, you got the whole fruit basket! <br/>See how your data compares to others in your area.";
       }
       
       addSessionMessage( $success_msg , "success");
-    }
   }
 }
 
@@ -59,7 +57,7 @@ foreach($surveys as $index => $instrument_event){
   if($instrument_event["instrument_name"] !== "your_health_behaviors"){
     continue;
   }
-  $all_answers  = getUserAnswers(null,$graph_fields);
+  $all_answers  = $user_survey_data->getUserAnswers(null,$graph_fields);
   $user_answers = array();
   foreach($graph_fields as $key){
     if($instrument_event["survey_complete"]){
@@ -138,20 +136,38 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-8">
                       <?php
-                      $reminders = ($core_surveys_complete ? "<li class='list-group-item'>All Done!</li>\n" : "");
+                      //THIS STUFF IS FOR NEWS AND REMINDERS FURTHER DOWN PAGE
+                      $news         = array();
+                      $reminders    = array();
+                      if($core_surveys_complete){
+                        $reminders[]  = "<li class='list-group-item'>All done with core surveys!</li>";
+                      }else{
+                        $news[]       = "<li class='list-group-item'>No news yet.</li>";
+                      }
+
                       echo "<ul class='dash_fruits'>\n";
-                      foreach($surveys as $index => $survey){
-                        $surveylink     = "survey.php?url=". urlencode($survey["survey_link"]);
-                        $surveyname     = $survey["instrument_label"];
+                      foreach($surveys as $surveyid => $survey){
+                        $index          = array_search($surveyid, $all_survey_keys);
+                        $surveylink     = "survey.php?sid=". $surveyid;
+                        $surveyname     = $survey["label"];
                         $surveytotal    = $survey["total_questions"];
                         $usercompleted  = count($survey["completed_fields"]);
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 
+                        //NEWS AND REMINDERS CRAP
                         if(!$surveycomplete){
-                          $reminders .= "<li class='list-group-item'>
-                                Please complete <a href='$surveylink'>$surveyname</a> survey
-                            </li>\n";
+                          if($core_surveys_complete){
+                            $news[]       = "<li class='list-group-item'>
+                                Please take <a href='$surveylink'>$surveyname</a> survey
+                            </li>";
+                          }else{
+                            if(in_array($surveyid,SurveysConfig::$core_surveys)){
+                              $reminders[]  = "<li class='list-group-item'>
+                                  Please complete <a href='$surveylink'>$surveyname</a> survey
+                              </li>";
+                            }
+                          }
                         }
 
                         $percent_complete = round(($usercompleted/$surveytotal)*100,2);
@@ -162,6 +178,19 @@ include("inc/gl_head.php");
                           </li>\n");
                       }
                       echo "<ul>\n";
+
+                      //SHEEEZUZ, WIERD UI FOR NEWS AND REMINDERS IF NOT VERTICALLY EQUAL
+                      $cnt_reminders  = count($reminders);
+                      $cnt_news       = count($news);
+                      $diff           = abs($cnt_reminders - $cnt_news);
+
+                      for($i = 0; $i < $diff; $i++){
+                        if($cnt_reminders > $cnt_news){
+                          $news[]       = "<li class='list-group-item'>&nbsp;</li>";
+                        }else{
+                          $reminders[]  = "<li class='list-group-item'>&nbsp;</li>";
+                        }
+                      }
                       ?>
                     </div>
                   </section>
@@ -185,55 +214,56 @@ include("inc/gl_head.php");
                       <script>
                         // Docs at http://simpleweatherjs.com
                         $(document).ready(function() {
-var weathercodes = [];
-weathercodes[0] = "c";  //tornado
-weathercodes[1] = "c";  //tropical storm
-weathercodes[2] = "c";  //hurricane
-weathercodes[3] = "c";  //severe thunderstorms
-weathercodes[4] = "c";  //thunderstorms
-weathercodes[5] = "c";  //mixed rain and snow
-weathercodes[6] = "c";  //mixed rain and sleet
-weathercodes[7] = "c";  //mixed snow and sleet
-weathercodes[8] = "c";  //freezing drizzle
-weathercodes[9] = "c";  //drizzle
-weathercodes[10] = "c"; //freezing rain
-weathercodes[11] = "c"; //showers
-weathercodes[12] = "c"; //showers
-weathercodes[13] = "c"; //snow flurries
-weathercodes[14] = "c"; //light snow showers
-weathercodes[15] = "c"; //blowing snow
-weathercodes[16] = "c"; //snow
-weathercodes[17] = "c"; //hail
-weathercodes[18] = "c"; //sleet
-weathercodes[19] = "c"; //dust
-weathercodes[20] = "c"; //foggy
-weathercodes[21] = "c"; //haze
-weathercodes[22] = "c"; //smoky
-weathercodes[23] = "c"; //blustery
-weathercodes[24] = "c"; //windy
-weathercodes[25] = "c"; //cold
-weathercodes[26] = "c"; //cloudy
-weathercodes[27] = "c"; //mostly cloudy (night)
-weathercodes[28] = "c"; //mostly cloudy (day)
-weathercodes[29] = "";  //partly cloudy (night)
-weathercodes[30] = "";  //partly cloudy (day)
-weathercodes[31] = "";  //clear (night)
-weathercodes[32] = "";  //sunny
-weathercodes[33] = "";  //fair (night)
-weathercodes[34] = "";  //fair (day)
-weathercodes[35] = "";  //mixed rain and hail
-weathercodes[36] = "";  //hot
-weathercodes[37] = "c"; //isolated thunderstorms
-weathercodes[38] = "c"; //scattered thunderstorms
-weathercodes[39] = "c"; //scattered thunderstorms
-weathercodes[40] = "c"; //scattered showers
-weathercodes[41] = "c"; //heavy snow
-weathercodes[42] = "c"; //scattered snow showers
-weathercodes[43] = "c"; //heavy snow
-weathercodes[44] = "c"; //partly cloudy
-weathercodes[45] = "c"; //thundershowers
-weathercodes[46] = "c"; //snow showers
-weathercodes[47] = "c"; //isolated thundershowers
+                          var weathercodes = [];
+                          weathercodes[0] = "c";  //tornado
+                          weathercodes[1] = "c";  //tropical storm
+                          weathercodes[2] = "c";  //hurricane
+                          weathercodes[3] = "c";  //severe thunderstorms
+                          weathercodes[4] = "c";  //thunderstorms
+                          weathercodes[5] = "c";  //mixed rain and snow
+                          weathercodes[6] = "c";  //mixed rain and sleet
+                          weathercodes[7] = "c";  //mixed snow and sleet
+                          weathercodes[8] = "c";  //freezing drizzle
+                          weathercodes[9] = "c";  //drizzle
+                          weathercodes[10] = "c"; //freezing rain
+                          weathercodes[11] = "c"; //showers
+                          weathercodes[12] = "c"; //showers
+                          weathercodes[13] = "c"; //snow flurries
+                          weathercodes[14] = "c"; //light snow showers
+                          weathercodes[15] = "c"; //blowing snow
+                          weathercodes[16] = "c"; //snow
+                          weathercodes[17] = "c"; //hail
+                          weathercodes[18] = "c"; //sleet
+                          weathercodes[19] = "c"; //dust
+                          weathercodes[20] = "c"; //foggy
+                          weathercodes[21] = "c"; //haze
+                          weathercodes[22] = "c"; //smoky
+                          weathercodes[23] = "c"; //blustery
+                          weathercodes[24] = "c"; //windy
+                          weathercodes[25] = "c"; //cold
+                          weathercodes[26] = "c"; //cloudy
+                          weathercodes[27] = "c"; //mostly cloudy (night)
+                          weathercodes[28] = "c"; //mostly cloudy (day)
+                          weathercodes[29] = "";  //partly cloudy (night)
+                          weathercodes[30] = "";  //partly cloudy (day)
+                          weathercodes[31] = "";  //clear (night)
+                          weathercodes[32] = "";  //sunny
+                          weathercodes[33] = "";  //fair (night)
+                          weathercodes[34] = "";  //fair (day)
+                          weathercodes[35] = "";  //mixed rain and hail
+                          weathercodes[36] = "";  //hot
+                          weathercodes[37] = "c"; //isolated thunderstorms
+                          weathercodes[38] = "c"; //scattered thunderstorms
+                          weathercodes[39] = "c"; //scattered thunderstorms
+                          weathercodes[40] = "c"; //scattered showers
+                          weathercodes[41] = "c"; //heavy snow
+                          weathercodes[42] = "c"; //scattered snow showers
+                          weathercodes[43] = "c"; //heavy snow
+                          weathercodes[44] = "c"; //partly cloudy
+                          weathercodes[45] = "c"; //thundershowers
+                          weathercodes[46] = "c"; //snow showers
+                          weathercodes[47] = "c"; //isolated thundershowers
+                          
                           $.simpleWeather({
                             location: '<?php echo $location ?>',
                             unit: 'F',
@@ -277,7 +307,7 @@ weathercodes[47] = "c"; //isolated thundershowers
                           </header>
                           <ul class="list-group alt">
                             <?php
-                              echo $reminders;
+                              echo implode("\n",$reminders);
                             ?>
                           </ul>
                         </div>
@@ -288,12 +318,9 @@ weathercodes[47] = "c"; //isolated thundershowers
                             <i class="glyphicon glyphicon-star-empty"></i> News
                           </header>
                           <ul class="list-group alt">
-                            <li class="list-group-item">
-                                Please take <a href="#">"Physical Activity"</a> survey
-                            </li>
-                            <li class="list-group-item">
-                                Please take <a href="#">"Diet"</a> survey
-                            </li>
+                            <?php
+                              echo implode("\n",$news);
+                            ?>
                           </ul>
                         </div>
                     </div>

@@ -477,59 +477,97 @@ h2.weather,
 }
 
 
-.surveys span {
+.surveys span, .alert span.fruit {
     position : relative;
     display : block;
-    width : 67px;
-    height : 88px;
-    margin : 0 auto;
+    width : 70px;
+    height : 65px;
+    margin : 10px auto;
     text-indent : -5000px;
 }
-.surveys span:before {
+.surveys span:before, .alert span.fruit:before {
     position : absolute;
     top : 0;
     left : 0;
-    width : 67px;
-    height : 88px;
+    width : 70px;
+    height : 65px;
     content : '';
-    opacity : .5;
-    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
+    opacity : 1;
+    background : url(../images/sprites_fruits.png) 100% 0px no-repeat;
+    background-position-x : 0 !important;
 
     transition : .5s opacity;
 }
 
-.alert .grapes:before,
-.surveys .grapes      span:before {
-    background-position : 100% -85.5px   !important;
+.alert .pomegranate:before,
+.surveys .pomegranate      span:before {
+    background-position : 100% -65px   !important;
 }
-.alert .apple:before,
-.surveys .apple     span:before {
-    background-position : 100% -171px    !important;
+.alert .apricot:before,
+.surveys .apricot     span:before {
+    background-position : 100% -130px  !important;
+}
+.alert .peach:before,
+.surveys .peach      span:before {
+    background-position : 100% -195px !important;
+}
+.alert .strawberry:before,
+.surveys .strawberry      span:before {
+    background-position : 100% -260px  !important;
 }
 .alert .orange:before,
-.surveys .orange      span:before {
-    background-position : 100% -256.5px !important;
+.surveys .orange  span:before {
+    background-position : 100% -325px !important;
 }
-.alert .cherry:before,
-.surveys .cherry      span:before {
-    background-position : 100% -342px  !important;
+.alert .watermelon:before,
+.surveys .watermelon      span:before {
+    background-position : 100% -390px  !important;
 }
-.alert .blueberry:before,
-.surveys .blueberry  span:before {
-    background-position : 100% -427.5px !important;
+.alert .mango:before,
+.surveys .mango      span:before {
+    background-position : 100% -455px !important;
 }
-.alert .banana:before,
-.surveys .banana      span:before {
-    background-position : 100% -513px  !important;
+.alert .lime:before,
+.surveys .lime span:before {
+    background-position : 100% -520px  !important;
 }
-.alert .longan:before,
-.surveys .longan      span:before {
-    background-position : 100% -598.5px !important;
+.alert .raspberry:before,
+.surveys .raspberry span:before {
+    background-position : 100% -585px  !important;
 }
-.alert .pineappple:before,
-.surveys .pineappple span:before {
-    background-position : 100% -684px  !important;
+.alert .greenapple:before,
+.surveys .greenapple span:before {
+    background-position : 100% -650px  !important;
 }
+.alert .plum:before,
+.surveys .plum span:before {
+    background-position : 100% -715px  !important;
+}
+.alert .bananas:before,
+.surveys .bananas span:before {
+    background-position : 100% -780px  !important;
+}
+.alert .pear:before,
+.surveys .pear span:before {
+    background-position : 100% -845px  !important;
+}
+.alert .ranier:before,
+.surveys .ranier span:before {
+    background-position : 100% -905px  !important;
+}
+.alert .redapple:before,
+.surveys .redapple span:before {
+    background-position : 100% -975px  !important;
+}
+.alert .lemon:before,
+.surveys .lemon span:before {
+    background-position : 100% -1040px  !important;
+}
+.alert .cherries:before,
+.surveys .cherries span:before {
+    background-position : 100% -1105px  !important;
+}
+
 
 /*.surveys .active span:before , */
 .surveys a:hover span:before {
@@ -571,30 +609,6 @@ h2.weather,
 }
 
 
-
-
-
-.alert span.fruit {
-    position : relative;
-    display : block;
-    width : 67px;
-    height : 88px;
-    margin : 0 auto;
-    text-indent : -5000px;
-}
-.alert span.fruit:before {
-    position : absolute;
-    top : 0;
-    left : 0;
-    width : 67px;
-    height : 88px;
-    content : '';
-    opacity : 1;
-    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
-    background-position-x : 0 !important;
-
-    transition : .5s opacity;
-}
 .alert .takenext {
     font-size : 14px;
     line-height : 14px;
@@ -612,47 +626,80 @@ h2.weather,
     color : #8287a9 !important;
 }
 
+.nav .survey_name {
+    display: inline-block;
+    width: 170px;
+    vertical-align: middle;
+    line-height: 135%;
+}
 .nav .fruit {
     position : relative;
     display : inline-block;
-    width : 34px;
-    height : 44px;
+    width : 35px;
+    height : 33px;
     vertical-align : middle;
 }
 
 .nav .fruit:before {
     position : absolute;
     left : 0;
-    width : 34px;
-    height : 44px;
+    width : 35px;
+    height : 33px;
     content : '';
-    background : url(../images/sprites_fruit.png) 100% 0 no-repeat;
-    background-size : 67px 390px;
+    background : url(../images/sprites_fruits.png) 100% 0 no-repeat;
+    background-size : 70px 582px;
 }
 
-.nav .fruit.grapes:before {
-    background-position : 100% -44px  !important;
+.nav .fruit.pomegranate:before {
+    background-position : 100% -33px  !important;
 }
-.nav .fruit.apple:before {
-    background-position : 100% -88px  !important;
+.nav .fruit.apricot:before {
+    background-position : 100% -66px  !important;
+}
+.nav .fruit.peach:before {
+    background-position : 100% -99px  !important;
+}
+.nav .fruit.strawberry:before {
+    background-position : 100% -131px  !important;
 }
 .nav .fruit.orange:before {
-    background-position : 100% -132px !important;
+    background-position : 100% -165px  !important;
 }
-.nav .fruit.cherry:before {
-    background-position : 100% -176px !important;
+.nav .fruit.watermelon:before {
+    background-position : 100% -194px  !important;
 }
-.nav .fruit.blueberry:before {
-    background-position : 100% -220px !important;
+.nav .fruit.mango:before {
+    background-position : 100% -227px  !important;
 }
-.nav .fruit.banana:before {
-    background-position : 100% -264px !important;
+.nav .fruit.lime:before {
+    background-position : 100% -261px  !important;
 }
-.nav .fruit.longan:before {
-    background-position : 100% -308px !important;
+.nav .fruit.raspberry:before {
+    background-position : 100% -292px  !important;
 }
-.nav .fruit.pineappple:before {
-    background-position : 100% -352px !important;
+.nav .fruit.greenapple:before {
+    background-position : 100% -325px  !important;
+}
+.nav .fruit.plum:before {
+    background-position : 100% -358px  !important;
+}
+.nav .fruit.bananas:before {
+    background-position : 100% -388px  !important;
+}
+.nav .fruit.pear:before {
+    background-position : 100% -422px  !important;
+}
+.nav .fruit.ranier:before {
+    background-position : 100% -454px  !important;
+}
+.nav .fruit.redapple:before {
+    background-position : 100% -488px  !important;
+}
+.nav .fruit.lemon:before {
+    background-position : 100% -520px  !important;
+}
+.nav .fruit.cherries:before {
+    background-position : 100% -550px  !important;
 }
 
 .nav .completed.fruit:before {
@@ -751,7 +798,11 @@ h2.weather,
     font-size : 108%;
     padding : 5px 10px 0;
     border : none;
+    color:#A94442;
 }
+.portlet-item .list-group-item a {
+    color:#337AB7;
+}   
 .portlet-item .panel-heading {
     padding : 5px 10px;
     font-size:115%;

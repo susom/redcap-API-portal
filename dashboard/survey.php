@@ -8,8 +8,6 @@ if(isset($_REQUEST["ajax"])){
         "hash"    => $_REQUEST["hash"], 
         "format"  => "csv"
       ),$custom_surveycomplet_API);
-
-    print_r( $result );
     exit;
   }
 
@@ -32,7 +30,6 @@ if(isset($_REQUEST["ajax"])){
       "value"             => $value
     );
     $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
-    echo json_encode($result);
   }
   exit;
 }
@@ -42,52 +39,65 @@ if(!isUserLoggedIn()) {
   $destination = $websiteUrl."login.php";
   header("Location: " . $destination);
   exit; 
-}elseif(!isset($_GET["url"])){
-  //IF NO URL PASSED IN THEN REDIRECT BACK
-  $destination = $websiteUrl."login.php";
-  header("Location: " . $destination);
-  exit; 
 }else{
-  //if they are logged in and active
-  //find survey completion and go there?
-  // GET SURVEY LINKS
+  // if they are logged in and active
+  // GET $surveys
   include("../models/inc/surveys.php");
 }
 
-$surveyurl              = $_GET["url"];
-$iframe_src             = urldecode($surveyurl);
+//THIS PAGE NEEDS A SURVEY ID
+$surveyid = $_GET["sid"];
 
-$active_surveyname      = null;
-$active_surveytotal     = null;
-$active_surveycomplete  = null;
-$active_surveypercent   = null;
-$active_surveyevent     = null;
+if(array_key_exists($surveyid, $surveys)){
+  $survey                = $surveys[$surveyid];
+  $active_surveyname     = $survey["label"];
+  $active_surveytotal    = $survey["total_questions"];
+  $active_completed      = $survey["completed_fields"];
+  $active_surveycomplete = $survey["survey_complete"];
+  $active_surveypercent  = 0;
+  $active_raw            = $survey["raw"];
+  $hash                  = explode("s=", $survey["survey_link"]);
+  $surveyhash            = array("hash" => $hash[1]);
 
-foreach($surveys as $survey){
-  if($survey["survey_link"] == $iframe_src){
-    $active_surveyid       = $survey["instrument_name"];
-    $active_surveyname     = $survey["instrument_label"];
-    $active_surveytotal    = $survey["total_questions"];
-    $active_completed      = $survey["completed_fields"];
-    $active_surveycomplete = $survey["survey_complete"];
-    $active_surveypercent  = 0;
-    $active_surveyevent    = $survey["instrument_arm"];
-    $active_raw            = $survey["raw"];
-    $active_surveylink     = $survey["survey_link"];
-
-    //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
-    $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $active_surveyevent);
-
-    if($active_surveycomplete){
-      //SHOW HTML DATA INSTEAD
-      $active_returncode = null;
-    }
-
-    //GET THE RAW  HTML DATA
-    break;
-  }
+  //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
+  $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey["event"]);
+}else{
+  //IF BAD SURVEY ID PASSED, REDIRECT BACK TO DASHBOARD
+  $destination = $websiteUrl."dashboard/index.php";
+  header("Location: " . $destination);
+  exit; 
 }
 
+//SOME PAGE SET UP
+$shownavsmore   = false;
+$survey_active  = ' class="active"';
+$profile_active = '';
+
+$pg_title       = "Surveys : $websiteName";
+$body_classes   = "dashboard survey";
+include("inc/gl_head.php");
+?>
+  <section class="vbox">
+    <?php 
+      include("inc/gl_header.php"); 
+    ?>
+    <section>
+      <section class="hbox stretch">
+        <?php 
+          include("inc/gl_sidenav.php"); 
+        ?>
+        <section id="content">
+          <section class="hbox stretch">
+            <section>
+              <section class="vbox">
+                <section class="scrollable padder">              
+                  <section class="row m-b-md">
+                    <h2></h2>
+                  </section>
+                  <div class="row">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10 surveyFrame">
+<?php
 function processBranching($branch_logic){
   global $active_completed;
   $hideConditional  = true;
@@ -146,37 +156,6 @@ function getLabelAnswer($fieldmeta){
   }
   return false; 
 }
-
-
-$shownavsmore   = false;
-$survey_active  = ' class="active"';
-$profile_active = '';
-
-$pg_title       = "Surveys : $websiteName";
-$body_classes   = "dashboard survey";
-include("inc/gl_head.php");
-?>
-  <section class="vbox">
-    <?php 
-      include("inc/gl_header.php"); 
-    ?>
-    <section>
-      <section class="hbox stretch">
-        <?php 
-          include("inc/gl_sidenav.php"); 
-        ?>
-        <section id="content">
-          <section class="hbox stretch">
-            <section>
-              <section class="vbox">
-                <section class="scrollable padder">              
-                  <section class="row m-b-md">
-                    <h2></h2>
-                  </section>
-                  <div class="row">
-                    <div class="col-sm-1">&nbsp;</div>
-                    <div class="col-sm-10 surveyFrame">
-                      <?php
                         $yourAnswers = (!$active_surveycomplete ? "" : " : Your Answers");
                         echo "<h2 class='surveyHeader'>$active_surveyname $yourAnswers</h2>";
                         if($active_surveycomplete){
@@ -221,8 +200,6 @@ include("inc/gl_head.php");
                             ,"datetime_seconds_mdy" => "date"
                             ,"datetime_seconds_ymd" => "date"
                             );
-    
-
 
                           foreach($active_raw as $field){
                             $html = "";
@@ -412,7 +389,7 @@ include("inc/gl_head.php");
                             echo "</script>\r";
                           }
                         }
-                      ?>
+?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
                     
@@ -535,8 +512,6 @@ function saveFormData(elem){
 
 $(document).ready(function(){
 <?php
-  $hash       = explode("s=", $active_surveylink);
-  $surveyhash = array("hash"    => $hash[1]);
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_raw) . ";\n";
   echo "var total_questions     = $active_surveytotal;\n";
@@ -591,6 +566,7 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash,
           success:function(result){
+            // console.log(result);
             location.href="index.php?survey_complete=" + instrument_name;
           }
         });

@@ -4,9 +4,8 @@
       <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
         <div class="clearfix wrapper dk nav-user hidden-xs">
           <div class="dropdown">
-            
             <!-- USER PROFILE PIC -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="profile.php" >
               <span class="thumb avatar pull-left m-r">                        
               </span>
               <style>
@@ -31,14 +30,12 @@
               <span class="hidden-nav-xs clear">
                 <span class="block m-t-xs">
                   <strong class="font-bold text-lt"><?php echo $firstname . " " . $lastname; ?></strong> 
-                  
                 </span>
                 <span class="text-muted text-xs block"></span>
               </span>
             </a>
           </div>
         </div>                
-
 
         <!-- nav -->                 
         <nav class="nav-primary hidden-xs ">
@@ -50,7 +47,7 @@
             <li>
               <a href="index.php" class="auto">
                 <i class="i i-statistics icon"></i>
-                <span class="font-bold">My Home</span>
+                <span class="font-bold">My Dashboard</span>
               </a>
             </li>
             <script>
@@ -75,43 +72,47 @@
               <ul class="nav dk">
                 <?php
                 $new = null;
-                foreach($surveys as $index => $survey){
-                  $surveylink     = "survey.php?url=".urlencode($survey["survey_link"]);
-                  $surveyname     = $survey["short_name"];
+                $core_surveys     = array();
+                $supp_surveys     = array();
+                foreach($surveys as $surveyid => $survey){
+                  $index          = array_search($surveyid, $all_survey_keys);
+                  $surveylink     = "survey.php?sid=" . $surveyid;
+                  $surveyname     = $survey["label"];
                   $surveytotal    = $survey["total_questions"];
                   $usercompleted  = $survey["completed_fields"];
                   $surveycomplete = $survey["survey_complete"];
 
                   $completeclass  = ($surveycomplete ? "completed":"");
-                  $hreflink       = ($index <= $user_current_survey_index ? "href" : "rel");
-                  $new            = (is_null($new) && $index == $user_current_survey_index && $completeclass == "" ? "<b class='badge bg-danger pull-right'>new!</b>" : null);
-                  print_r("<li >
-                      <a $hreflink='$surveylink' class='auto' title='".$survey["instrument_label"]."'>
-                        $new                                                   
-                        <span class='fruit $completeclass ".$fruits[$index]."'></span>
-                        <span>$surveyname</span>     
-                      </a>
-                    </li>\n");
+                  $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
+                  $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
+                  
+                  if(!$surveycomplete && is_null($new)){
+                    $new = $index;
+                  }
+
+                  if(in_array($surveyid, SurveysConfig::$core_surveys)){
+                    array_push($core_surveys, "<li >
+                        <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                          $newbadge                                                   
+                          <span class='fruit $completeclass ".$fruits[$index]."'></span>
+                          <span class='survey_name'>$surveyname</span>     
+                        </a>
+                      </li>\n");
+                  }else{
+                    array_push($supp_surveys, "<li >
+                        <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                          $newbadge                                                 
+                          <span class='fruit $completeclass ".$fruits[$index]."'></span>
+                          <span class='survey_name'>$surveyname</span>     
+                        </a>
+                      </li>\n");
+                  }
                 }
 
+                echo implode("",$core_surveys);
                 //SHOW NON CORE SURVEYS ONCE THE CORE ARE COMPLETE
                 if($core_surveys_complete){
-                  // fake a couple
-                  print_r("<li >
-                      <a href='#' class='auto' title=''>
-                        <b class='badge bg-danger pull-right'>new!</b>                                                  
-                        <span class='fruit ".$fruits[4]."'></span>
-                        <span>Physical Activity</span>     
-                      </a>
-                    </li>\n");
-
-                  print_r("<li >
-                      <a href='#' class='auto' title=''>
-                        <b class='badge bg-danger pull-right'>new!</b>                                                  
-                        <span class='fruit ".$fruits[5]."'></span>
-                        <span>Diet</span>     
-                      </a>
-                    </li>\n");
+                  echo implode("",$supp_surveys);
                 }
                 ?>
               </ul>
@@ -119,34 +120,6 @@
             <?php 
             if($shownavsmore){
             ?>
-            <li >
-              <!-- <a href="#" class="auto disabled">
-                <span class="pull-right text-muted">
-                  <i class="i i-circle-sm-o text"></i>
-                  <i class="i i-circle-sm text-active"></i>
-                </span>
-                <i class="i i-lab icon">
-                </i>
-                <span class="font-bold">My Progress</span>
-              </a> -->
-              <!-- <ul class="nav dk">
-                <li >
-                  <a href="buttons.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Buttons</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="icons.html" class="auto">                            
-                    <b class="badge bg-info pull-right">3</b>                                                        
-                    <i class="i i-dot"></i>
-
-                    <span>Icons</span>
-                  </a>
-                </li>
-              </ul> -->
-            </li>
             <li <?php echo $profile_active ?>>
               <a href="profile.php" class="nav dk">
                 <span class="pull-right text-muted">
@@ -156,22 +129,7 @@
                 <i class="i i-docs icon"></i>
                 <span class="font-bold">My Profile</span>
               </a>
-              <!-- <ul class="nav dk">
-                <li >
-                  <a href="profile.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Profile</span>
-                  </a>
-                </li>
-                <li >
-                  <a href="profile-2.html" class="auto">                                                        
-                    <i class="i i-dot"></i>
-                    <span>Account Settings</span>
-                  </a>
-                </li>
-              </ul> -->
             </li>
-            
             <!-- <li >
               <a href="#" class="auto">
                 <span class="pull-right text-muted">
@@ -198,7 +156,6 @@
               </ul>
             </li> -->
             <?php
-             
             }
             ?>
           </ul>
@@ -207,9 +164,7 @@
         <!-- / nav -->
       </div>
     </section>
-    
     <footer class="footer hidden-xs no-padder text-center-nav-xs">
-      
       <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
         <i class="i i-circleleft text"></i>
         <i class="i i-circleright text-active"></i>

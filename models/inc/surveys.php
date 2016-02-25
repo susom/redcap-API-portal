@@ -26,12 +26,12 @@ class SurveysConfig {
 		, "your_health_behaviors"					
 		, "your_social_and_neighborhood_environment"
 		, "general_questions"
-		// , "physical_health_questions"
-		// , "stress_and_resilience_questions"
-		// , "emotional_health_questions"
-		// , "social_connectedness"
-		// , "little_five_domain_questions"
-		// , "illness_questions"
+		, "physical_health_questions"
+		, "stress_and_resilience_questions"
+		, "emotional_health_questions"
+		, "social_connectedness"
+		, "little_five_domain_questions"
+		, "illness_questions"
 	);
 }
 

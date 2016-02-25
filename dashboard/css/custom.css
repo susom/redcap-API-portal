@@ -804,10 +804,10 @@ h2.weather,
     font-size : 108%;
     padding : 5px 10px 0;
     border : none;
-    color:#A94442;
+    color:#333;
 }
 .portlet-item .list-group-item a {
-    color:#337AB7;
+    color:#1D1DA7;
 }   
 .portlet-item .panel-heading {
     padding : 5px 10px;

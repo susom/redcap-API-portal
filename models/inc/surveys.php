@@ -26,12 +26,12 @@ class SurveysConfig {
 		, "your_health_behaviors"					
 		, "your_social_and_neighborhood_environment"
 		, "general_questions"
-		, "physical_health_questions"
-		, "stress_and_resilience_questions"
-		, "emotional_health_questions"
-		, "social_connectedness"
-		, "little_five_domain_questions"
-		, "illness_questions"
+		// , "physical_health_questions"
+		// , "stress_and_resilience_questions"
+		// , "emotional_health_questions"
+		// , "social_connectedness"
+		// , "little_five_domain_questions"
+		// , "illness_questions"
 	);
 }
 
@@ -216,5 +216,6 @@ $user_survey_data 			= new Surveys($loggedInUser);
 $core_surveys_complete 		= $user_survey_data->getUserCoreComplete();
 $surveys 					= $user_survey_data->getCoreMetaData();
 $all_survey_keys  			= array_keys($surveys);
+
 // print_rr($surveys);
 // exit;

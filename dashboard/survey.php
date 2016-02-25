@@ -40,7 +40,6 @@ if(!isUserLoggedIn()) {
   header("Location: " . $destination);
   exit; 
 }else{
-  // if they are logged in and active
   // GET $surveys
   include("../models/inc/surveys.php");
 }
@@ -48,19 +47,386 @@ if(!isUserLoggedIn()) {
 //THIS PAGE NEEDS A SURVEY ID
 $surveyid = $_GET["sid"];
 
+//LOAD UP THE SURVEY HERE AND PRINT OUT THE HTML
+class Survey {
+  PUBLIC $surveyname;
+  PUBLIC $surveytotal;
+  PUBLIC $completed;
+  PUBLIC $surveycomplete;
+  PUBLIC $surveypercent;
+  PUBLIC $raw;
+  PUBLIC $hash;
+
+  public function __construct( $survey_data ){
+    $this->surveyname     = $survey_data["label"];
+    $this->surveytotal    = $survey_data["total_questions"];
+    $this->completed      = $survey_data["completed_fields"];
+    $this->surveycomplete = $survey_data["survey_complete"];
+    $this->surveypercent  = 0;
+    $this->raw            = $survey_data["raw"];
+
+    $hash                 = explode("s=", $survey_data["survey_link"]);
+    $this->hash           = array("hash" => $hash[1]);
+  }
+
+  private function processBranching($target, $branch_logic){
+    $hideConditional  = true;
+
+    //=,<,>,<=,>=,<>
+    //and/or
+    $condition_count  = substr_count($branch_logic, "="); //multiple = signs means more than 1 condition 
+    $sub_array_count  = substr_count($branch_logic, "("); //if () exists that means it is a specific answer out of a set (checkbox)
+                            
+    if($sub_array_count == 0 && $condition_count == 1){
+      //SINGLE ONE TO ONE BRANCHING a == b
+      $temp           = explode("=",$branch_logic);
+      $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
+      $effector_value = str_replace("'","", trim($temp[1]));  
+      return array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $target);
+    }
+
+    if($sub_array_count == 1 && $condition_count == 1){
+      //SINGLE ONE TO ONE BRANCHING a(9) == b  (radio or checkbox)
+      $temp             = explode("=",$branch_logic);
+      $effector_input   = str_replace("]","",str_replace("[","",trim($temp[0])));
+      $effector_input   = str_replace(")","",$effector_input);
+
+      $temp2            = explode("(",$effector_input);
+      $effector_input   = $temp2[0];
+      $effector_value   = str_replace("'","", trim($temp2[1]));
+      return array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $target);
+    }
+
+    return $hideConditional;
+  }
+
+  private function makeDropdown($field_name,$required_field, $select_choices_or_calculations, $action_tags){
+    $section_html     = array();
+    $section_html[]   = "<select $required_field id='$field_name' name='$field_name' id='$field_name'>";
+    $section_html[]   = "<option>-</option>";
+    $options          = SELF::getAnswerOptions($select_choices_or_calculations);
+    foreach($options as $val => $value){
+      $selected       = (array_key_exists($field_name, $this->completed) && $this->completed[$field_name] == $val ? "selected" : "");
+      $section_html[] = "<option $selected value='$val'>$value</option>";
+    }
+    $section_html[]   = "</select>";
+    return $section_html;
+  }
+
+  private function makeTextarea($field_name,$required_field, $action_tags){
+    $section_html     = array();
+    $value            = (array_key_exists($field_name,$this->completed) ? $this->completed[$field_name] : "");
+    $section_html[]   = "<textarea $required_field id='$field_name' name='$field_name'>$value</textarea>";
+    return $section_html;
+  }
+
+  private function makeTextinput($field_name, $required_field, $field_type, $validation_rules, $action_tags){
+    $section_html   = array();
+    $value          = (array_key_exists($field_name,$this->completed) ? $this->completed[$field_name] : "");
+    $section_html[] = "<input $required_field data-validate='$validation_rules' type='$field_type' id='$field_name' name='$field_name' value='$value'/>";
+    return $section_html;
+  }
+
+  private function makeRadioOrCheck($field_name,$required_field, $select_choices_or_calculations, $field_type, $action_tags){
+    $section_html   = array();
+    $options        = SELF::getAnswerOptions($select_choices_or_calculations);
+    foreach($options as $val => $value){
+      if($field_type == "radio"){
+        $checked      = (array_key_exists($field_name,$this->completed) && $this->completed[$field_name] == $val ? "checked" : "");
+      }else{
+        $altered_name = $field_name . "___" . $val;
+        $checked      = (array_key_exists($altered_name,$this->completed) ? "checked" : "");
+      }
+      $section_html[] = "<label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/> $value</label>\n";
+    }
+    return $section_html;
+  }
+
+  public function getLabelAnswer($fieldmeta){
+    if(!empty($fieldmeta["user_answer"])){
+      $user_answer = $fieldmeta["user_answer"];
+      if(  $fieldmeta["field_type"] == "radio" 
+        || $fieldmeta["field_type"] == "checkbox" 
+        || $fieldmeta["field_type"] == "dropdown"){
+        $possible_answers = explode("|",$fieldmeta["select_choices_or_calculations"]);
+        foreach($possible_answers as $pa){
+          $temp = explode(", ",$pa);
+          if($user_answer == $temp[0]){
+            $user_answer = $temp[1];
+            break;
+          }
+        }
+      }
+      return array("field_label" => $fieldmeta["field_label"], "user_answer" => $user_answer);
+    }
+    return false; 
+  }
+
+  public function getAnswerOptions($choices){
+    //GET PRE BAKED ANSWER FROM USER CHOICE #
+    $answer_choices = explode(" | ",$choices);
+    $select_choices = array();
+
+    foreach($answer_choices as $qa){
+      $temp = explode("," , $qa);
+      $select_choices[trim($temp[0])] = trim($temp[1]);
+    }
+
+    return $select_choices;
+  }
+
+  public function getActionTags($fieldmeta){
+    $re = "/  (?(DEFINE)
+         (?<number>    -? (?= [1-9]|0(?!\\d) ) \\d+ (\\.\\d+)? ([eE] [+-]? \\d+)? )    
+         (?<boolean>   true | false | null )
+         (?<string>    \" ([^\"\\\\\\\\]* | \\\\\\\\ [\"\\\\\\\\bfnrt\\/] | \\\\\\\\ u [0-9a-f]{4} )* \" )
+         (?<array>     \\[  (?:  (?&json)  (?: , (?&json)  )*  )?  \\s* \\] )
+         (?<pair>      \\s* (?&string) \\s* : (?&json)  )
+         (?<object>    \\{  (?:  (?&pair)  (?: , (?&pair)  )*  )?  \\s* \\} )
+         (?<json>      \\s* (?: (?&number) | (?&boolean) | (?&string) | (?&array) | (?&object) )  ) \\s*
+         (?<tag>       \\@(?:[[:alnum:]])*)
+      )
+      
+      (?'actiontag'
+        (?:\\@(?:[[:alnum:]_-])*)
+      )
+      (?:\\=
+        (?:
+         (?:
+          (?'params_json'(?&json))
+         )
+         |
+         (?:
+           (?'params'(?:[[:alnum:]_-]+))
+         )
+        )
+      )?/ixm"; 
+
+    $str      = $fieldmeta["field_annotation"];
+    preg_match_all($re, $str, $matches);
+
+    $results  = array();
+    foreach($matches["actiontag"] as $key => $tag){
+      $params = false;
+      if(!empty($matches["params_json"][$key])){
+        $params = json_decode($matches["params_json"][$key],1);
+      }elseif(!empty($matches["params"][$key])){
+        $params = $matches["params"][$key];
+      }
+      $results[$tag] = $params;
+    }
+    
+    return $results;
+  }
+
+  public function printHTML(){
+    $theHTML      = array();
+    $yourAnswers  = (!$this->surveycomplete ? "" : " : Your Answers");
+    $theHTML[]    =  "<h2 class='surveyHeader'>".$this->surveyname." $yourAnswers</h2>";
+    
+    if($this->surveycomplete){
+      //IF THE SURVEY HAS ALREADY BEEN COMPLETED JUST DUMP OUT THE ANSWERED BITS ON SCREEN
+      $theHTML[]      = "<div class='survey_recap'>";
+      foreach($this->raw as $field){
+        if(!empty($field["section_header"])){
+          $theHTML[]  = "<h4>" . $field["section_header"] ."</h4>";
+        }
+        if(!empty($field["user_answer"])){
+          $item       = SELF::getLabelAnswer($field);
+          $theHTML[]  = $item["field_label"] . " : " . $item["user_answer"] . "<br>";
+        }
+      }
+      $theHTML[]      = "</div>";
+      $theHTML[]      = "<style>.surveyFrame{ height:auto; }</style>";
+    }else{
+      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."'>";
+      
+      //CONTAINERS FOR BUILDING FORM COMPONENTS
+      $sections       = array();
+      $matrixes       = array();
+      $branches       = array();
+      $first_section  = true;
+      
+      $verify_map     = array( 
+         "email"                => "email"
+        ,"integer"              => "number" 
+        ,"number"               => "number"
+        ,"phone"                => "phone"
+        ,"time"                 => "alphaNumeric"
+        ,"zipcode"              => "number" 
+        ,"date_dmy"             => "date"
+        ,"date_mdy"             => "date"
+        ,"date_ymd"             => "date"
+        ,"datetime_dmy"         => "date"
+        ,"datetime_mdy"         => "date"
+        ,"datetime_ymd"         => "date"
+        ,"datetime_seconds_dmy" => "date"
+        ,"datetime_seconds_mdy" => "date"
+        ,"datetime_seconds_ymd" => "date"
+      );
+
+      foreach($this->raw as $field){
+        $section_html = array();
+        $show         = true;
+        
+        $required_field                 = ($field["required_field"] == "y" ? "required" : "");
+        $field_name                     = $field["field_name"];
+        $section_header                 = $field["section_header"];
+        $field_type                     = $field["field_type"];
+        $field_note                     = $field["field_note"];
+        $field_label                    = $field["field_label"];
+        $select_choices_or_calculations = $field["select_choices_or_calculations"];
+        $branching_logic                = $field["branching_logic"];
+        $custom_alignment               = $field["custom_alignment"];
+        $matrix_group                   = $field["matrix_group_name"];
+        $validation_rules               = (array_key_exists($field["text_validation_type_or_show_slider_number"], $verify_map) ? $verify_map[$field["text_validation_type_or_show_slider_number"]] : "");
+        $action_tags                    = SELF::getActionTags($field);
+        
+        if($branching_logic != "") {
+          $branches[$field_name]        = $branching_logic;
+        }
+        
+        //SECTION HEADERS CAN BE FORM INPUTS TOO
+        //SECTION HEADERS CAN BE DESCRIPTIVES TOO
+        if(!empty($section_header)){
+          if(!$first_section){
+            $section_html[] = "</section>";
+          }
+
+          //OPEN UP A SECTION
+          $section_html[]   = "<section class='section'>";
+          $section_html[]   = "<h2>$section_header</h2>";
+          $first_section    = false;
+        }
+
+        //DESCRIPTIVE CAN BE SECTION HEADER AS WELL BUT NOT FORM INPUT
+        if($field_type == "descriptive"){
+          $section_html[]   = "<h3>$field_label</h3>";
+        }
+
+        //LETS JUST PRINT A REGULAR FIELD
+        if( $field_type !== "descriptive" ){
+          if($matrix_group !== ""){
+            $section_html[] = "<div class='table-responsive'>";
+            if(!in_array($matrix_group, $matrixes)){
+              //THIS GETS ME ALL THE ITEMS WITH THIS MATRIX NAME AND THEIR PRESERVED KEYS 
+              //SOME TIMES SOME ITEMS GET INSERTED IN BETWEEN MATRIX ROWS (WHY?!), SO INSTEAD OF FOREACH, DO A FOR FROM START Index TO END Index
+              $all_matrix_group = array_filter($this->raw, function($item) use ($matrix_group){
+                return $item["matrix_group_name"] == $matrix_group;
+              });
+              $matrix_range     = array_keys($all_matrix_group);
+              $last_matrix      = array_pop($matrix_range);
+              $first_matrix     = array_shift($matrix_range);
+
+              $section_html[]   = "<div class='table-responsive'>";
+              $section_html[]   = "<table class='table table-striped b-t b-light'>";
+              $section_html[]   = "<thead>";
+              $section_html[]   = "<th></th>";
+
+              $options  = getAnswerOptions($select_choices_or_calculations);
+              foreach($options as $val => $value){
+                $section_html[] = "<th class='text-center'>$value</th>";
+              } 
+              $section_html[]   = "</thead><tbody>";
+
+              for($i = $first_matrix ; $i <= $last_matrix; $i++){
+                $item           = $this->raw[$i];
+                $field_name     = $item["field_name"];
+                $field_type     = $item["field_type"];
+                $field_label    = $item["field_label"];
+                $required_field = ($item["required_field"] == "y" ? "required" : "");
+
+                $section_html[] = "<tr>";
+                $section_html[] = "<td>$field_label</td>";
+                $options        = SELF::getAnswerOptions($item["select_choices_or_calculations"]);
+                foreach($options as $val => $value){
+                  if($field_type == "radio"){
+                    $checked      = (array_key_exists($field_name,$completed) && $completed[$field_name] == $val ? "checked" : "");
+                  }else{
+                    $altered_name = $field_name . "___" . $val;
+                    $checked      = (array_key_exists($altered_name,$completed) ? "checked" : "");
+                  }
+                  $section_html[] = "<td class='text-center'><label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/></label></td>";
+                } 
+                $section_html[]   = "</tr>";
+              }
+              $section_html[]     = "</tbody></table>";
+              array_push($matrixes,$matrix_group);
+            }
+          }else{
+            $has_branching  = (array_key_exists($field_name,$branches) ? "hasBranching" : "");
+            $section_html[] = "<div class='inputwrap $field_name $custom_alignment $has_branching $required_field'>";
+            $section_html[] = "<label class='q_label' for='$field_name'>$field_label</label>";
+
+            if($field_type == "dropdown"){
+              $dropdown         = SELF::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $action_tags); 
+              $section_html     = array_merge($section_html, $dropdown);
+            }elseif($field_type == "notes"){
+              $textarea         = SELF::makeTextarea($field_name, $required_field, $action_tags); 
+              $section_html     = array_merge($section_html, $textarea);
+            }else{
+              if($field_type == "text"){
+                $textinput      = SELF::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $action_tags); 
+                $section_html   = array_merge($section_html, $textinput);
+              }else{
+                $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $action_tags);
+                $section_html   = array_merge($section_html, $radioOrCheck);
+              }
+            }
+          }
+          if($field_note !== "") $section_html[] = "<div class='fieldnote'>$field_note </div>";
+          $section_html[] = "</div>";
+        }
+
+        if($show){
+          $theHTML  = array_merge($theHTML,$section_html);
+        } 
+      }
+      $theHTML[]    = "</section></form>";
+
+      if(count($branches)){
+        $theHTML[]            = "<script>";
+        $theHTML[]            = "\$(document).ready(function(){";
+
+        $writeJsToPage        = array();
+        foreach($branches as $affected => $effector){
+          //NEED TO PARSE THE BRANCHES for $affected
+          //THEN ADD EVENTS TO PREVIOUS INPUTS $effectors
+          $writeJsToPage[]    = SELF::processBranching($affected,$effector);
+        }
+
+        foreach($writeJsToPage as $item){
+          $effector_input     = $item["effector_input"];
+          $effector_value     = $item["effector_value"];
+          $affected           = $item["affected"];
+          
+          $theHTML[] = "\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+            //NEED TO CHECK FOR RANGES TOO >= <= > < != 
+            $theHTML[] = "if($(this).val() == '$effector_input'){";
+              $theHTML[] = "$('div.".$affected."').slideDown('fast');";
+            $theHTML[] = "}else{";
+              $theHTML[] = "$('div.".$affected."').hide();";
+            $theHTML[] = "}";
+          $theHTML[] = "});";
+        }
+        $theHTML[] = "});";
+        $theHTML[] = "</script>";
+      }
+    }
+
+    // DUMP IT OUT HTML
+    print_r(implode("\r",$theHTML));
+  }
+}
+
 if(array_key_exists($surveyid, $surveys)){
-  $survey                = $surveys[$surveyid];
-  $active_surveyname     = $survey["label"];
-  $active_surveytotal    = $survey["total_questions"];
-  $active_completed      = $survey["completed_fields"];
-  $active_surveycomplete = $survey["survey_complete"];
-  $active_surveypercent  = 0;
-  $active_raw            = $survey["raw"];
-  $hash                  = explode("s=", $survey["survey_link"]);
-  $surveyhash            = array("hash" => $hash[1]);
+  $survey_data    = $surveys[$surveyid];
 
   //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
-  $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey["event"]);
+  $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
+
+  //LOAD UP THE SURVEY PRINTER HERE
+  $active_survey  = new Survey($survey_data);
 }else{
   //IF BAD SURVEY ID PASSED, REDIRECT BACK TO DASHBOARD
   $destination = $websiteUrl."dashboard/index.php";
@@ -97,309 +463,18 @@ include("inc/gl_head.php");
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
-<?php
-function processBranching($branch_logic){
-  global $active_completed;
-  $hideConditional  = true;
-
-  //=,<,>,<=,>=,<>
-  //and/or
-
-  $condition_count = substr_count($branch_logic, "="); //multiple = signs means more than 1 condition 
-  $sub_array_count = substr_count($branch_logic, "("); //if () exists that means it is a specific answer out of a set (checkbox)
-                          
-  if($sub_array_count == 0 && $condition_count == 1){
-    $temp           = explode("=",$branch_logic);
-    $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
-    $effector_value = str_replace("'","", trim($temp[1]));    
-    if(array_key_exists($effector_input,$active_completed) && $active_completed[$effector_input] == $effector_value){
-      $hideConditional = false;
-    }
-  }
-
-  if($sub_array_count == 1 && $condition_count == 1){
-    //[core_hispanic___4] => 1
-    $temp           = explode("=",$branch_logic);
-    $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
-    $effector_input = str_replace(")","",$effector_input);
-    $effector_input = str_replace("(","___",$effector_input);
-    if(array_key_exists($effector_input,$active_completed)){
-      $hideConditional = false;
-    }
-  }
-
-  // if($condition_count > 1){
-  //   //[core_education_us] = '1' or [core_education_us] = '3'
-  //   $or_count  = substr_count($branch_logic, " or "); 
-  //   $and_count = substr_count($branch_logic, " and "); 
-  //   $temp      = explode("=",$branch_logic);
-
-  // }
-
-  return $hideConditional;
-}
-
-function getLabelAnswer($fieldmeta){
-  if(!empty($fieldmeta["user_answer"])){
-    $user_answer = $fieldmeta["user_answer"];
-    if($fieldmeta["field_type"] == "radio" || $fieldmeta["field_type"] == "checkbox" || $fieldmeta["field_type"] == "dropdown"){
-      $possible_answers = explode("|",$fieldmeta["select_choices_or_calculations"]);
-      foreach($possible_answers as $pa){
-        $temp = explode(", ",$pa);
-        if($user_answer == $temp[0]){
-          $user_answer = $temp[1];
-          break;
-        }
-      }
-    }
-    return array("field_label" => $fieldmeta["field_label"], "user_answer" => $user_answer);
-  }
-  return false; 
-}
-                        $yourAnswers = (!$active_surveycomplete ? "" : " : Your Answers");
-                        echo "<h2 class='surveyHeader'>$active_surveyname $yourAnswers</h2>";
-                        if($active_surveycomplete){
-                          echo "<div class='survey_recap'>";
-                          foreach($active_raw as $field){
-                            if(!empty($field["section_header"])){
-                              echo "<h4>" . $field["section_header"] ."</h4>";
-                            }
-                            if(!empty($field["user_answer"])){
-                              $item = getLabelAnswer($field);
-                              echo $item["field_label"] . " : " . $item["user_answer"] . "<br>";
-                            }
-                          }
-                          echo "</div>";
-                          echo "<style>.surveyFrame{ height:auto; }</style>";
-                        }else{
-                          echo "<form class='customform' id='customform' name='".$active_raw[0]["form_name"]."'>";
-                          $branches = array_filter($active_raw, function($field){
-                            return $field["branching_logic"] != "";
-                          });
-
-                          //AS LOOP THROUGH ANYTHING THAT MIGHT BE A BRANCHING POINT TOSS IN THIS ARRAY
-                          $branches = array();
-                          $sections = array();
-                          $matrixes = array();
-                          $first_section = true;
-                          
-                          $verify_map = array( 
-                             "email"        => "email"
-                            ,"integer"  => "number" 
-                            ,"number" => "number"
-                            ,"phone" => "phone"
-                            ,"time" => "alphaNumeric"
-                            ,"zipcode" => "number" 
-                            ,"date_dmy" => "date"
-                            ,"date_mdy" => "date"
-                            ,"date_ymd" => "date"
-                            ,"datetime_dmy" => "date"
-                            ,"datetime_mdy" => "date"
-                            ,"datetime_ymd" => "date"
-                            ,"datetime_seconds_dmy" => "date"
-                            ,"datetime_seconds_mdy" => "date"
-                            ,"datetime_seconds_ymd" => "date"
-                            );
-
-                          foreach($active_raw as $field){
-                            $html = "";
-                            $show = true;
-                            $branch_flag = false;
-                            
-                            $required_field                 = ($field["required_field"] == "y" ? "required" : "");
-                            $field_name                     = $field["field_name"];
-                            $section_header                 = $field["section_header"];
-                            $field_type                     = $field["field_type"];
-                            $field_note                     = $field["field_note"];
-                            $field_label                    = $field["field_label"];
-                            $select_choices_or_calculations = $field["select_choices_or_calculations"];
-                            $branching_logic                = $field["branching_logic"];
-                            $custom_alignment               = $field["custom_alignment"];
-                            $matrix_group                   = $field["matrix_group_name"];
-                            $validation_rules               = (array_key_exists($field["text_validation_type_or_show_slider_number"], $verify_map) ? $verify_map[$field["text_validation_type_or_show_slider_number"]] : "");
-
-                            if($branching_logic != "") {
-                              $branches[$field_name]  = $branching_logic;
-                              $has_branching          = processBranching($branching_logic);
-                              $branch_flag            = true;
-                            }
-
-                            //SECTION HEADERS CAN BE FORM INPUTS TOO
-                            //SECTION HEADERS CAN BE DESCRIPTIVES TOO
-                            if(!empty($section_header)){
-                              if(!$first_section){
-                                $html .= "</section>\n";
-                              }
-
-                              $html .= "<section class='section '>
-                                          <h2>$section_header</h2>\n";
-                              $first_section = false;
-                            }
-
-
-                            //DESCRIPTIVE CAN BE SECTION HEADER AS WELL BUT NOT FORM INPUT
-                            if($field_type == "descriptive"){
-                              $html .= "<h3>$field_label</h3>\n";
-                            }
-
-                            // $html   .= "<div class='sectionInputs'>\n";                       
-                            //LETS JUST PRINT A REGULAR FIELD
-                            if( $field_type !== "descriptive" ){
-                              
-
-                              if($matrix_group !== ""){
-                                $html .= "<div class='table-responsive'>";
-                                if(!in_array($matrix_group, $matrixes)){
-                                  //THIS GETS ME ALL THE ITEMS WITH THIS MATRIX NAME AND THEIR PRESERVED KEYS 
-                                  //SOME TIMES SOME ITEMS GET INSERTED IN BETWEEN MATRIX ROWS (WHY?!), SO INSTEAD OF FOREACH, DO A FOR FROM START Index TO END Index
-                                  $all_matrix_group = array_filter($active_raw, function($item) use ($matrix_group){
-                                    return $item["matrix_group_name"] == $matrix_group;
-                                  });
-                                  $matrix_range   = array_keys($all_matrix_group);
-                                  $last_matrix    = array_pop($matrix_range);
-                                  $first_matrix   = array_shift($matrix_range);
-
-                                  $html .= "<div class='table-responsive'>\n";
-                                  $html .= "<table class='table table-striped b-t b-light'>\n";
-                                  $html .= "<thead>\n";
-                                  $html .= "<th></th>";
-
-                                  $options  = getAnswerOptions($select_choices_or_calculations);
-                                  foreach($options as $val => $value){
-                                    $html .= "<th class='text-center'>$value</th>\n";
-                                  } 
-                                  $html .= "</thead><tbody>\n";
-
-                                  for($i = $first_matrix ; $i <= $last_matrix; $i++){
-                                    $item       = $active_raw[$i];
-                                    $field_name = $item["field_name"];
-                                    $field_type = $item["field_type"];
-                                    $field_label    = $item["field_label"];
-                                    $required_field = ($item["required_field"] == "y" ? "required" : "");
-
-                                    $html   .= "<tr>";
-                                    $html   .= "<td>$field_label</td>";
-                                    $options  = getAnswerOptions($item["select_choices_or_calculations"]);
-                                    foreach($options as $val => $value){
-                                      if($field_type == "radio"){
-                                        $checked = (array_key_exists($field_name,$active_completed) && $active_completed[$field_name] == $val ? "checked" : "");
-                                      }else{
-                                        $altered_name = $field_name . "___" . $val;
-                                        $checked = (array_key_exists($altered_name,$active_completed) ? "checked" : "");
-                                      }
-                                      $html .= "<td class='text-center'><label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/></label></td>\n";
-                                    } 
-                                    
-                                    $html .= "</tr>";
-                                  }
-
-                                  $html .= "</tbody></table>";
-                                  array_push($matrixes,$matrix_group);
-                                }
-
-                              }else{
-                                $has_branching = ($branch_flag ? "hasBranching" : "");
-                                $html .= "<div class='inputwrap $field_name $custom_alignment $has_branching $required_field'>\n";
-                                $html .= "<label class='q_label' for='$field_name'>$field_label</label>\n";
-
-                                if($field_type == "dropdown"){
-                                  $html .= "<select $required_field id='$field_name' name='$field_name' id='$field_name'>\n";
-                                  $html .= "<option>-</option>";
-                                  $options = getAnswerOptions($select_choices_or_calculations);
-                                  foreach($options as $val => $value){
-                                    $selected  = (array_key_exists($field_name, $active_completed) && $active_completed[$field_name] == $val ? "selected" : "");
-                                    $html     .= "<option $selected value='$val'>$value</option>\n";
-                                  }
-                                  $html .= "</select>\n";
-                                }elseif($field_type == "notes"){
-                                  $value = (array_key_exists($field_name,$active_completed) ? $active_completed[$field_name] : "");
-                                  $html .= "<textarea $required_field id='$field_name' name='$field_name'>$value</textarea>\n";
-                                }else{
-                                  if($field_type == "text"){
-                                    $value = (array_key_exists($field_name,$active_completed) ? $active_completed[$field_name] : "");
-                                    $html .= "<input $required_field data-validate='$validation_rules' type='$field_type' id='$field_name' name='$field_name' value='$value'/>\n";
-                                  }else{
-                                    $options  = getAnswerOptions($select_choices_or_calculations);
-                                    foreach($options as $val => $value){
-                                      if($field_type == "radio"){
-                                        $checked = (array_key_exists($field_name,$active_completed) && $active_completed[$field_name] == $val ? "checked" : "");
-                                      }else{
-                                        $altered_name = $field_name . "___" . $val;
-                                        $checked = (array_key_exists($altered_name,$active_completed) ? "checked" : "");
-                                      }
-                                      $html .= "<label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/> $value</label>\n";
-                                    }
-                                  }
-                                }
-                              }
-                              if($field_note !== "") $html .= "<div class='fieldnote'>$field_note </div>";
-                              $html .= "</div>\n";
-                            }
-      
-                            if($show) echo $html; 
-                          }
-                          echo "</section></form>";
-
-                          if(count($branches)){
-                            echo "<script>\r";
-                            echo "\$(document).ready(function(){\r";
-                            $writeJsToPage     = array();
-                            foreach($branches as $affected => $effector){
-                              //NEED TO PARSE THE BRANCHES for $affected
-                              //THEN ADD EVENTS TO PREVIOUS INPUTS $effectors
-                              $condition_count = substr_count($effector, "="); //multiple = signs means more than 1 condition
-                              $sub_array_count = substr_count($effector, "("); //if () exists that means it is a specific answer out of a set
-                              
-                              if($sub_array_count == 0 && $condition_count == 1){
-                                //SINGLE ONE TO ONE BRANCHING
-                                $temp           = explode("=",$effector);
-                                $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
-                                $effector_value = str_replace("'","", trim($temp[1]));
-                                $writeJsToPage[] = array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $affected);
-                              }
-
-                              if($sub_array_count == 1 && $condition_count == 1){
-                                //[core_hispanic___4] => 1
-                                $temp           = explode("=",$effector);
-                                $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
-                                $effector_input = str_replace(")","",$effector_input);
-                                $temp2          = explode("(",$effector_input);
-                                $effector_input = $temp2[0];
-                                $effector_value = str_replace("'","", trim($temp2[1]));
-                                $writeJsToPage[] = array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $affected);
-                              }
-
-                            }
-
-                            foreach($writeJsToPage as $item){
-                              $effector_input = $item["effector_input"];
-                              $effector_value = $item["effector_value"];
-                              $affected       = $item["affected"];
-                              ?>
-                              $("input[name='<?php echo $effector_input?>'],select[name='<?php echo $effector_input ?>'],textarea[name='<?php echo $effector_input ?>']").change(function(){
-                                if($(this).val() == '<?php echo $effector_value?>'){
-                                  $('div.<?php echo $affected ?>').slideDown('fast');
-                                }else{
-                                  $('div.<?php echo $affected ?>').hide();
-                                }
-                              });
-                              <?php
-                            }
-                            echo "});\r";
-                            echo "</script>\r";
-                          }
-                        }
-?>
+                    <?php
+                      //PRINT OUT THE HTML FOR THIS SURVEY
+                      $active_survey->printHTML();
+                    ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
-                    
-
                     <div class="submits">
                       <?php
-                        if(!$active_surveycomplete){
+                        if(!$active_survey->surveycomplete){
                           ?>
-                          <div class='progress progress-striped  active'>
-                            <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_surveypercent?>%' style='width: <?php echo $active_surveypercent?>%'></div>
+                          <div class='progress progress-striped active'>
+                            <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_survey->surveypercent?>%' style='width: <?php echo $active_survey->surveypercent?>%'></div>
                           </div>
                           <a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a> 
                           <button class="btn btn-primary" role="saverecord">Submit/Next</button>
@@ -513,11 +588,11 @@ function saveFormData(elem){
 $(document).ready(function(){
 <?php
   // //PASS FORMS METADATA 
-  echo "var form_metadata       = " . json_encode($active_raw) . ";\n";
-  echo "var total_questions     = $active_surveytotal;\n";
-  echo "var user_completed      = " . json_encode($active_completed) . ";\n";
-  echo "var completed_count     = " . count($active_completed) . ";\n";
-  echo "var surveyhash          = '".http_build_query($surveyhash)."'";
+  echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
+  echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
+  echo "var user_completed      = " . json_encode($active_survey->completed) . ";\n";
+  echo "var completed_count     = " . count($active_survey->completed) . ";\n";
+  echo "var surveyhash          = '".http_build_query($active_survey->hash)."'";
 ?>
 
   //SET THE INTIAL PROGRESS BAR

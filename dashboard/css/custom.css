@@ -63,6 +63,12 @@ h2.weather,
        -moz-background-clip : text;
             background-clip : text;
     text-shadow : 0 2px 3px rgba(255,255,255,.5);
+
+
+    background:url(../images/fpo_coming_soon.jpg) no-repeat;
+    text-indent: -5000px;
+    background-position-y: -130px;
+    background-size:cover;
 }
 
 /*SIMPLE WEATHER WIDGET*/

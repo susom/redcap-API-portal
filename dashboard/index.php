@@ -37,18 +37,6 @@ if(isset($_GET["survey_complete"])){
   }
 }
 
-if(isset($_GET["survey_pause"])){
-  //IF NO URL PASSED IN THEN REDIRECT BACK
-  $surveyid = $_GET["survey_pause"];
-  foreach($surveys as $index => $instrument_event){
-    if($instrument_event["instrument_name"] != $surveyid){
-      continue;
-    }
-    addSessionMessage( "Come back later to complete the '" . $instrument_event["instrument_label"] . "' Survey.<br> And collect your reward : <span class='fruit " . $fruits[$index] . "'></span>  Get the whole fruit basket!" , "notice");
-  }
-}
-
-
 //FOR THE PIE CHART
 $health_behaviors_complete = false;
 $all_answers  = array();
@@ -155,7 +143,7 @@ include("inc/gl_head.php");
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 
-                        //NEWS AND REMINDERS CRAP
+                        //NEWS AND REMINDERS JUNK
                         if(!$surveycomplete){
                           if($core_surveys_complete){
                             $news[]       = "<li class='list-group-item'>
@@ -179,7 +167,7 @@ include("inc/gl_head.php");
                       }
                       echo "<ul>\n";
 
-                      //SHEEEZUZ, WIERD UI FOR NEWS AND REMINDERS IF NOT VERTICALLY EQUAL
+                      //UI FIX FOR NEWS AND REMINDERS IF NOT VERTICALLY EQUAL
                       $cnt_reminders  = count($reminders);
                       $cnt_news       = count($news);
                       $diff           = abs($cnt_reminders - $cnt_news);
@@ -203,13 +191,6 @@ include("inc/gl_head.php");
                     </div>
                     
                     <div class="col-sm-6">
-                    <?php
-                      // <a href="https://www.accuweather.com/en/us/new-york-ny/10007/weather-forecast/349727" class="aw-widget-legal"></a>
-                      // <div id="awcc1450204337398" class="aw-widget-current"  data-locationkey="" data-unit="f" data-language="en-us" data-useip="true" data-uid="awcc1450204337398"></div>
-                      // <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
-                    
-                      // http://api.accuweather.com/locations/v1/cities/US/search.json?q=Palo+Alto,CA&apikey={your key}&alias=always
-                    ?>
                       <div id="weather"></div>
                       <script>
                         // Docs at http://simpleweatherjs.com

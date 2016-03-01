@@ -92,7 +92,7 @@
     </div>
 
     <aside class="eligibility">
-      <fieldset class="eli_one">
+      <!-- <fieldset class="eli_one">
         <div class="form-group">
           <label class="control-label col-sm-6">Do you plan to continue living in Santa Clara County for the next 12 months or longer?</label>
           <div class="col-sm-2"> 
@@ -103,7 +103,7 @@
             <label><input name="nextyear" type="radio" value="0"> No</label>
           </div>
         </div>
-      </fieldset>
+      </fieldset> -->
 
       <fieldset class="eli_two">
         <div class="form-group">
@@ -181,56 +181,56 @@
       }
     }
 
-    $("#zip,#city").blur(function(){
-      var locationcheck = $(this).val().toUpperCase();
-      var showeligible  = false;
+    // $("#zip,#city").blur(function(){
+    //   var locationcheck = $(this).val().toUpperCase();
+    //   var showeligible  = false;
 
-      if(locationcheck != ""){        
-        if( ($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1 ) ) {
-          $("#city").val(zip_to_city[parseInt(locationcheck)]);
-          showeligible = true;
-        }
+    //   if(locationcheck != ""){        
+    //     if( ($(this).hasClass("zip") && eligible_zips.indexOf(parseInt(locationcheck)) > -1 ) ) {
+    //       $("#city").val(zip_to_city[parseInt(locationcheck)]);
+    //       showeligible = true;
+    //     }
 
-        if( $(this).hasClass("city") && eligible_map.hasOwnProperty(locationcheck) ) {
-          if( eligible_map[locationcheck].length == 1 ){
-            $("#zip").val(eligible_map[locationcheck][0]);
-          }else{
-            var possible_zips = eligible_map[locationcheck];
+    //     if( $(this).hasClass("city") && eligible_map.hasOwnProperty(locationcheck) ) {
+    //       if( eligible_map[locationcheck].length == 1 ){
+    //         $("#zip").val(eligible_map[locationcheck][0]);
+    //       }else{
+    //         var possible_zips = eligible_map[locationcheck];
 
-            // console.log(possible_zips);
-            $("#zip").val(possible_zips[0].toString()).addClass("goaway");
-            $("#zipset").empty();
+    //         // console.log(possible_zips);
+    //         $("#zip").val(possible_zips[0].toString()).addClass("goaway");
+    //         $("#zipset").empty();
 
-            for(var n in possible_zips){
-              var a_zip       = possible_zips[n].toString();
-              var a_option    = $("<option/>").val(a_zip);
-              a_option.text(a_zip);
-              $("#zipset").append(a_option);
-            }
+    //         for(var n in possible_zips){
+    //           var a_zip       = possible_zips[n].toString();
+    //           var a_option    = $("<option/>").val(a_zip);
+    //           a_option.text(a_zip);
+    //           $("#zipset").append(a_option);
+    //         }
             
-            $("#zipset").fadeIn();
-          }
-          showeligible = true;
-        }
-      }
+    //         $("#zipset").fadeIn();
+    //       }
+    //       showeligible = true;
+    //     }
+    //   }
 
-      if(showeligible){
-        $(".eligibility").slideDown("medium");
-      }else{
-        $(".eligibility").slideUp("fast");
-      }
-    });
+    //   if(showeligible){
+    //     $(".eligibility").slideDown("medium");
+    //   }else{
+    //     $(".eligibility").slideUp("fast");
+    //   }
+    // });
 
     $("#zipset").on("change",function(){
       $(this).hide();
       $("#zip").val($(this).val()).removeClass("goaway");
     });
 
-    $("input[name='nextyear']").click(function(){
-      if($(this).val() == 1) {
-        $(".eli_two").slideDown("medium");
-      }
-    });
+    // $("input[name='nextyear']").click(function(){
+    //   if($(this).val() == 1) {
+    //     $(".eli_two").slideDown("medium");
+    //   }
+    // });
 
     $('#getstarted').validate({
       rules: {

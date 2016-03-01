@@ -100,9 +100,10 @@ class Survey {
     return $hideConditional;
   }
 
-  private function makeDropdown($field_name,$required_field, $select_choices_or_calculations, $action_tags){
+  private function makeDropdown($field_name,$required_field, $select_choices_or_calculations, $field_value = null){
     $section_html     = array();
-    $section_html[]   = "<select $required_field id='$field_name' name='$field_name' id='$field_name'>";
+
+    $section_html[]   = "<select $required_field name='$field_name' id='$field_name'>";
     $section_html[]   = "<option>-</option>";
     $options          = SELF::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
@@ -113,21 +114,38 @@ class Survey {
     return $section_html;
   }
 
-  private function makeTextarea($field_name,$required_field, $action_tags){
+  private function makeTextarea($field_name,$required_field, $field_value = null){
     $section_html     = array();
+
     $value            = (array_key_exists($field_name,$this->completed) ? $this->completed[$field_name] : "");
     $section_html[]   = "<textarea $required_field id='$field_name' name='$field_name'>$value</textarea>";
     return $section_html;
   }
 
-  private function makeTextinput($field_name, $required_field, $field_type, $validation_rules, $action_tags){
+  private function makeHidden($field_name, $field_type, $field_value){
     $section_html   = array();
-    $value          = (array_key_exists($field_name,$this->completed) ? $this->completed[$field_name] : "");
-    $section_html[] = "<input $required_field data-validate='$validation_rules' type='$field_type' id='$field_name' name='$field_name' value='$value'/>";
+    if(!is_null($field_value)){
+      $section_html[] = "<input type='$field_type' id='$field_name' name='$field_name' value='$field_value'/>";
+    }
+    return $section_html;
+  }
+  
+  private function makeReadonly($field_name, $field_type, $field_value){
+    $section_html   = array();
+    if(!is_null($field_value)){
+      $section_html[] = "<input type='text' $field_type id='$field_name' name='$field_name' value='$field_value'/>";
+    }
     return $section_html;
   }
 
-  private function makeRadioOrCheck($field_name,$required_field, $select_choices_or_calculations, $field_type, $action_tags){
+  private function makeTextinput($field_name, $required_field, $field_type, $validation_rules, $field_value = null){
+    $section_html   = array();
+    $value          = (array_key_exists($field_name,$this->completed) ? $this->completed[$field_name] : "");
+    $section_html[] = "<input $required_field data-validate='$validation_rules' type='text' id='$field_name' name='$field_name' value='$value'/>";
+    return $section_html;
+  }
+
+  private function makeRadioOrCheck($field_name,$required_field, $select_choices_or_calculations, $field_type, $field_value = null){
     $section_html   = array();
     $options        = SELF::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
@@ -168,11 +186,36 @@ class Survey {
     $select_choices = array();
 
     foreach($answer_choices as $qa){
-      $temp = explode("," , $qa);
-      $select_choices[trim($temp[0])] = trim($temp[1]);
+      if($qa){
+        $temp = explode("," , $qa);
+        $select_choices[trim($temp[0])] = trim($temp[1]);
+      }
     }
 
     return $select_choices;
+  }
+
+  private function doActionTags($tags){
+    $actions = array();
+    foreach($tags as $tag => $v){
+      if(strpos("@READONLY",$tag) > -1){
+        $actions["field_type"] = "readonly";
+        continue;
+      }
+      if(strpos("@HIDDEN",$tag) > -1){
+        $actions["field_type"] = "hidden";
+        continue;
+      }
+      if(strpos("@NOW",$tag) > -1){
+        $actions["field_value"] = Date("Y-m-d");
+        continue;
+      }else if(strpos("@TODAY",$tag) > -1){
+        $actions["field_value"] = Date("Y-m-d H:i:s");
+        continue;
+      }
+    }
+    return $actions;
+
   }
 
   public function getActionTags($fieldmeta){
@@ -216,7 +259,7 @@ class Survey {
       $results[$tag] = $params;
     }
     
-    return $results;
+    return SELF::doActionTags($results);
   }
 
   public function printHTML(){
@@ -281,7 +324,12 @@ class Survey {
         $matrix_group                   = $field["matrix_group_name"];
         $validation_rules               = (array_key_exists($field["text_validation_type_or_show_slider_number"], $verify_map) ? $verify_map[$field["text_validation_type_or_show_slider_number"]] : "");
         $action_tags                    = SELF::getActionTags($field);
-        
+        $field_value                    = null;
+
+        foreach($action_tags as $k => $v){
+          $$k = $v;
+        }
+
         if($branching_logic != "") {
           $branches[$field_name]        = $branching_logic;
         }
@@ -304,8 +352,14 @@ class Survey {
           $section_html[]   = "<h3>$field_label</h3>";
         }
 
+        //HIDDEN INPUTS
+        if($field_type == "hidden"){
+          $altered_input    = SELF::makeHidden($field_name, $field_type, $field_value); 
+          $section_html     = array_merge($section_html, $altered_input);
+        }
+
         //LETS JUST PRINT A REGULAR FIELD
-        if( $field_type !== "descriptive" ){
+        if( $field_type !== "descriptive" && $field_type !== "hidden" ){
           if($matrix_group !== ""){
             $section_html[] = "<div class='table-responsive'>";
             if(!in_array($matrix_group, $matrixes)){
@@ -322,7 +376,6 @@ class Survey {
               $section_html[]   = "<table class='table table-striped b-t b-light'>";
               $section_html[]   = "<thead>";
               $section_html[]   = "<th></th>";
-
               $options  = getAnswerOptions($select_choices_or_calculations);
               foreach($options as $val => $value){
                 $section_html[] = "<th class='text-center'>$value</th>";
@@ -341,10 +394,10 @@ class Survey {
                 $options        = SELF::getAnswerOptions($item["select_choices_or_calculations"]);
                 foreach($options as $val => $value){
                   if($field_type == "radio"){
-                    $checked      = (array_key_exists($field_name,$completed) && $completed[$field_name] == $val ? "checked" : "");
+                    $checked      = (array_key_exists($field_name,$this->completed) && $completed[$field_name] == $val ? "checked" : "");
                   }else{
                     $altered_name = $field_name . "___" . $val;
-                    $checked      = (array_key_exists($altered_name,$completed) ? "checked" : "");
+                    $checked      = (array_key_exists($altered_name,$this->completed) ? "checked" : "");
                   }
                   $section_html[] = "<td class='text-center'><label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/></label></td>";
                 } 
@@ -359,17 +412,23 @@ class Survey {
             $section_html[] = "<label class='q_label' for='$field_name'>$field_label</label>";
 
             if($field_type == "dropdown"){
-              $dropdown         = SELF::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $action_tags); 
+              $dropdown         = SELF::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
               $section_html     = array_merge($section_html, $dropdown);
             }elseif($field_type == "notes"){
-              $textarea         = SELF::makeTextarea($field_name, $required_field, $action_tags); 
+              $textarea         = SELF::makeTextarea($field_name, $required_field, $field_value); 
               $section_html     = array_merge($section_html, $textarea);
+            }elseif($field_type == "readonly"){
+              $altered_input    = SELF::makeReadonly($field_name, $field_type,  $field_value); 
+              $section_html     = array_merge($section_html, $altered_input);
+            }elseif($field_type == "custom"){
+              // $textarea         = SELF::makeReadonly($field_name, $field_value); 
+              // $section_html     = array_merge($section_html, $textarea);
             }else{
               if($field_type == "text"){
-                $textinput      = SELF::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $action_tags); 
+                $textinput      = SELF::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
                 $section_html   = array_merge($section_html, $textinput);
               }else{
-                $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $action_tags);
+                $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
                 $section_html   = array_merge($section_html, $radioOrCheck);
               }
             }
@@ -392,7 +451,7 @@ class Survey {
         foreach($branches as $affected => $effector){
           //NEED TO PARSE THE BRANCHES for $affected
           //THEN ADD EVENTS TO PREVIOUS INPUTS $effectors
-          $writeJsToPage[]    = SELF::processBranching($affected,$effector);
+          $writeJsToPage[]    = self::processBranching($affected,$effector);
         }
 
         foreach($writeJsToPage as $item){

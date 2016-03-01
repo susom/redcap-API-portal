@@ -130,6 +130,16 @@
                 <span class="font-bold">My Profile</span>
               </a>
             </li>
+            <li <?php echo $profile_active ?>>
+              <a href="mailto:no-reply@wellforlife.com?subject=Question for WELL" class="nav dk">
+                <span class="pull-right text-muted">
+                  <i class="i i-circle-sm-o text"></i>
+                  <i class="i i-circle-sm text-active"></i>
+                </span>
+                <i class="i i-mail icon"></i>
+                <span class="font-bold">Contact Us</span>
+              </a>
+            </li>
             <!-- <li >
               <a href="#" class="auto">
                 <span class="pull-right text-muted">

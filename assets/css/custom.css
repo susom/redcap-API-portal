@@ -99,13 +99,13 @@ a:hover { text-decoration:underline; }
 
 
 /*REGISTER PAGE*/
-.register .eli_two { display:none; }
+.register .eli_two { display:block; }
 .register fieldset { margin:0; padding:0; border:0; }
 
 .eligibility {
-	display:none;
-	border:1px solid #cfcfcf;
-	border-left:0; border-right:0; 
+	/*display:none;*/
+	/*border:1px solid #cfcfcf;*/
+	/*border-left:0; border-right:0; */
 	padding:15px 0 10px; 
 	margin:20px 0;
 }

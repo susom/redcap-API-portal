@@ -39,7 +39,7 @@ if(!empty($_POST['submit_new_user'])){
 	$oldenough 	= (isset($_POST["oldenough"]) 	? $_POST["oldenough"] 	: null) ;
 	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
-	$actualage 	= ((!in_array($zip,$eligible_zips) && !array_key_exists($city, $city_zips)) ? null : date("Y") - $birthyear);
+	$actualage 	= (!$birthyear ? null : date("Y") - $birthyear);
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
 	if(is_null($fname) || is_null($lname)){
@@ -52,9 +52,9 @@ if(!empty($_POST['submit_new_user'])){
 		$errors[] = lang("ACCOUNT_INVALID_EMAIL");
 	}
 
-	if(is_null($zip) && is_null($city)){
-		$errors[] = lang("ACCOUNT_NEED_LOCATION");
-	}
+	// if(is_null($zip) && is_null($city)){
+	// 	$errors[] = lang("ACCOUNT_NEED_LOCATION");
+	// }
 
 	//End data validation
 	if(count($errors) == 0){
@@ -70,10 +70,9 @@ if(!empty($_POST['submit_new_user'])){
 				$errors[] = lang("ACCOUNT_EMAIL_IN_USE_ACTIVE",array($email));
 			}else{
 				//CURRENT ACCOUTN NOT ACTIVE
-				if($oldenough && $nextyear && $optin && $actualage >= 18){
+				if($oldenough && $optin && $actualage >= 18){
 					//WAS FORMERLY INELIGIBLE NOW ELIGIBLE, SEND ACTIVATION LINK
 					$errors[] = lang("ACCOUNT_NEW_ACTIVATION_SENT",array($email));
-	
 					
 					//SEND NEW ACTIVATION LINK
 					$olduser->updateUser(array(
@@ -95,7 +94,7 @@ if(!empty($_POST['submit_new_user'])){
 		}else{
 			//IF THEY DONT PASS ELIGIBILITY THEN THEY GET A THANK YOU , BUT NO ACCOUNT CREATION 
 			//BUT NEED TO STORE THEIR STUFF FOR CONTACT
-			if($oldenough && $nextyear && $optin && $actualage >= 18){
+			if($oldenough && $optin && $actualage >= 18){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
@@ -110,11 +109,7 @@ if(!empty($_POST['submit_new_user'])){
 				$auth->createNewUser($password, FALSE);
 
 				$reason 	= "";
-				if(!in_array($zip,$eligible_zips) && !array_key_exists($city, $city_zips)){
-					$reason = lang("ACCOUNT_NOT_IN_GEO");
-				}elseif(!$nextyear){
-					$reason = lang("ACCOUNT_TOO_NEW_GEO");
-				}elseif(!$oldenough || $actualage < 18){
+				if(!$oldenough || $actualage < 18){
 					$reason = lang("ACCOUNT_TOO_YOUNG");
 				}
 

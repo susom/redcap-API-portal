@@ -67,7 +67,7 @@ h2.weather,
 
     background:url(../images/fpo_coming_soon.jpg) no-repeat;
     text-indent: -5000px;
-    background-position-y: -130px;
+    background-position-y: 50%;
     background-size:cover;
 }
 
@@ -371,7 +371,13 @@ h2.weather,
     color: #333
 }
 
+.noshow_input {
+    display:none !important;
+}
 
+input[readonly] {
+    background-color:#ccc;
+}
 
 
 /*PROFILE PAGE*/
@@ -426,7 +432,8 @@ h2.weather,
   background:transparent;
   cursor:pointer; 
 }
-.profile_card input:focus, .profile_card.editmode input{
+/*.profile_card input:focus, */
+.profile_card.editmode input{
   /*border:1px solid #ddd;*/
   background:#ffd;
 }

@@ -432,11 +432,12 @@ input[readonly] {
   width:100%; 
   border:1px solid transparent; 
   background:transparent;
-  cursor:pointer; 
+  cursor:default; 
 }
 /*.profile_card input:focus, */
 .profile_card.editmode input{
   /*border:1px solid #ddd;*/
+  cursor:pointer;
   background:#ffd;
 }
 .profile_card #portal_mail_street {

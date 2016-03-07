@@ -193,6 +193,12 @@ function saveFormData(elem){
 
 $(document).ready(function(){
   //INPUT CHANGE ACTIONS
+  $(".customform :input").click(function(){
+    if(!$(".profile_card").hasClass("editmode")){
+      $(this).blur();
+    }
+  }); 
+
   $(".customform :input").change(function(){
     //SAVE JUST THIS INPUTS DATA
     $(this).closest("li").addClass("hasLoading");

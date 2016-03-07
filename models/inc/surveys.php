@@ -88,12 +88,21 @@ class Surveys {
 				$unbranched_total 	= count($actual_questions) - count($has_branches);
 				$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
 			
+				$just_formnames 	= array_map(function($item){
+										return $item["field_name"];
+									},$actual_questions);
+				$just_formnames 	= array_flip($just_formnames);
+
+
+				$just_form_ans 		= array_intersect_key($user_answers[0],$just_formnames);
+				$answers_only 		= array_filter($just_form_ans);
+
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
-					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $user_answers) ? $user_answers[$fieldname] : "");
+					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $user_answers) ? $user_answers[0][$fieldname] : "");
 				}
 
-				$user_branched 		= array_intersect_key($branched_fields, $user_answers ) ;
+				$user_branched 		= array_intersect_key($branched_fields, $answers_only) ;
 			}
 			
 			$surveys[$instrument_id] = array(
@@ -104,8 +113,8 @@ class Surveys {
 				,"survey_hash" 		=> $split_hash[1]
 				,"survey_complete" 	=> $survey_complete
 				
-				,"raw"				=> ($getall ? $metadata: null)
-				,"completed_fields"	=> ($getall ? $user_answers: null)
+				,"raw"				=> ($getall ? $metadata 		: null)
+				,"completed_fields"	=> ($getall ? $answers_only 	: null)
 				,"total_questions"	=> ($getall ? $unbranched_total + count($user_branched): null)
 				,"instrument_name"	=> $instrument_id
 			);
@@ -222,5 +231,5 @@ $surveys 					= $user_survey_data->getCoreMetaData();
 $fruits  					= SurveysConfig::$fruits;
 $all_survey_keys  			= array_keys($surveys);
 
-// print_rr($surveys);
+// print_rr($surveys,1);
 // exit;

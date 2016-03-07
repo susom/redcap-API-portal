@@ -300,6 +300,11 @@ h2.weather,
     border : 1px solid red;
 }
 
+.customform textarea {
+    width: 80%;
+    height: 200px;
+}
+
 .customform .hasBranching {
     display : none;
 }

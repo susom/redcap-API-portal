@@ -2,6 +2,8 @@
 html {
     background : #f8f8f8;
 }
+
+a[href="#"]{cursor: default}
 /*WEATHER WIDGET*/
 h2.weather,
 .fullDay {

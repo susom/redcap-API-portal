@@ -69,7 +69,7 @@ if( isset($_POST['account_update']) ) {
 		//REDIRECT TO THE DASHBOARD
 		include("models/inc/surveys.php");
 
-		header("Location: dashboard/survey.php?url=". urlencode($surveys[0]["survey_link"]) ); //survey link of first survey
+		header("Location: dashboard/survey.php?sid=" . SurveysConfig::$core_surveys[0]); //survey link of first survey
 		exit;
 	}
 } 

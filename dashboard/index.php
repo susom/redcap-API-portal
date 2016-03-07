@@ -40,9 +40,9 @@ if(isset($_GET["survey_complete"])){
 //FOR THE PIE CHART
 $health_behaviors_complete = false;
 $all_answers  = array();
-$graph_fields = array("core_walking_hr", "core_walking_min", "core_sitting_hr", "core_sitting_min");
+$graph_fields = array("core_walking", "core_sitting");
 foreach($surveys as $index => $instrument_event){
-  if($instrument_event["instrument_name"] !== "your_health_behaviors"){
+  if($instrument_event["instrument_name"] !== "your_physical_activity"){
     continue;
   }
   $all_answers  = $user_survey_data->getUserAnswers(null,$graph_fields);
@@ -133,6 +133,8 @@ include("inc/gl_head.php");
                         $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
+                      $firstonly      = true;
+                      $showfruit      = array();
                       echo "<ul class='dash_fruits'>\n";
                       foreach($surveys as $surveyid => $survey){
                         $index          = array_search($surveyid, $all_survey_keys);
@@ -145,26 +147,29 @@ include("inc/gl_head.php");
 
                         //NEWS AND REMINDERS JUNK
                         if(!$surveycomplete){
+                          $crap = ($firstonly ? $surveylink : "#");
                           if($core_surveys_complete){
                             $news[]       = "<li class='list-group-item'>
-                                Please take <a href='$surveylink'>$surveyname</a> survey
+                                Please take <a href='$crap'>$surveyname</a> survey
                             </li>";
                           }else{
                             if(in_array($surveyid,SurveysConfig::$core_surveys)){
                               $reminders[]  = "<li class='list-group-item'>
-                                  Please complete <a href='$surveylink'>$surveyname</a> survey
+                                  Please complete <a href='$crap'>$surveyname</a> survey
                               </li>";
                             }
                           }
+                          $firstonly = false;
                         }
 
                         $percent_complete = round(($usercompleted/$surveytotal)*100,2);
-                        print_r("<li class='nav'>
+                        $showfruit[] = "<li class='nav'>
                             <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
                               <span>$surveyname</span>
                             </a>
-                          </li>\n");
+                          </li>";
                       }
+                      echo implode($showfruit);
                       echo "<ul>\n";
 
                       //UI FIX FOR NEWS AND REMINDERS IF NOT VERTICALLY EQUAL

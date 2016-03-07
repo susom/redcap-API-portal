@@ -23,15 +23,16 @@ class SurveysConfig {
 
 	STATIC $core_surveys 	= array(
 		  "about_you" 								
-		, "your_health_behaviors"					
-		, "your_social_and_neighborhood_environment"
-		, "general_questions"
-		, "physical_health_questions"
-		, "stress_and_resilience_questions"
-		, "emotional_health_questions"
-		, "social_connectedness"
-		, "little_five_domain_questions"
-		, "illness_questions"
+		, "contact_information"	
+		, "your_social_and_neighborhood_environment"				
+		, "your_physical_activity"
+		, "your_diet"
+		, "your_sleep_habits"
+		, "your_tobacco_and_alchohol_use"
+		, "your_health"
+		, "wellbeing_questions"
+		, "more_wellbeing_questions"
+		, "even_more_wellbeing_questions"
 	);
 }
 

@@ -458,13 +458,12 @@ class Survey {
           $effector_input     = $item["effector_input"];
           $effector_value     = $item["effector_value"];
           $affected           = $item["affected"];
-          
-          $theHTML[] = "\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+          $theHTML[] = "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
             //NEED TO CHECK FOR RANGES TOO >= <= > < != 
-            $theHTML[] = "if($(this).val() == '$effector_input'){";
-              $theHTML[] = "$('div.".$affected."').slideDown('fast');";
+            $theHTML[] = "if(\$(this).val() == '$effector_value'){";
+              $theHTML[] = "\t\$('div.".$affected."').slideDown('fast');";
             $theHTML[] = "}else{";
-              $theHTML[] = "$('div.".$affected."').hide();";
+              $theHTML[] = "\t\$('div.".$affected."').hide();";
             $theHTML[] = "}";
           $theHTML[] = "});";
         }

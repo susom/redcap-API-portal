@@ -110,6 +110,7 @@
                 }
 
                 echo implode("",$core_surveys);
+                
                 //SHOW NON CORE SURVEYS ONCE THE CORE ARE COMPLETE
                 if($core_surveys_complete){
                   echo implode("",$supp_surveys);
@@ -121,7 +122,7 @@
             if($shownavsmore){
             ?>
             <li <?php echo $profile_active ?>>
-              <a href="profile.php" class="nav dk">
+              <a href="profile.php">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
@@ -130,7 +131,7 @@
                 <span class="font-bold">My Profile</span>
               </a>
             </li>
-            <li <?php echo $profile_active ?>>
+            <li>
               <a href="mailto:no-reply@wellforlife.com?subject=Question for WELL" class="nav dk">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>

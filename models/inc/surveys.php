@@ -23,7 +23,7 @@ class SurveysConfig {
 
 	STATIC $core_surveys 	= array(
 		  "about_you" 								
-		, "contact_information"	
+		// , "contact_information"	
 		, "your_social_and_neighborhood_environment"				
 		, "your_physical_activity"
 		, "your_diet"

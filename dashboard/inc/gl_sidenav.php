@@ -78,8 +78,6 @@
                   $index          = array_search($surveyid, $all_survey_keys);
                   $surveylink     = "survey.php?sid=" . $surveyid;
                   $surveyname     = $survey["label"];
-                  $surveytotal    = $survey["total_questions"];
-                  $usercompleted  = $survey["completed_fields"];
                   $surveycomplete = $survey["survey_complete"];
 
                   $completeclass  = ($surveycomplete ? "completed":"");

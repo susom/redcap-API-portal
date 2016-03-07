@@ -42,12 +42,15 @@ class Surveys {
 	PUBLIC $user_current_survey_index 	= NULL;
 	PUBLIC $current_arm 				= 0;
 
-	public function __construct( $loggedInUser ){
+	public function __construct( $loggedInUser, $getall ){
 		//GET ALL THE INSTRUMENTS
 		$all_instruments 	= SELF::getInstruments();
-
+		
 		//GET ALL THE EVENT MAPPINGS
 		$event_mappings 	= SELF::getEvents();
+
+		//ALL USER ANSWERS IN ONE SHOT
+		$user_answers 		= SELF::getUserAnswers($loggedInUser->id); //ALL PPOSSIBLE USER ANSWERS
 
 		//BUILD SURVEY INFO FOR USER
 		$surveys = array();
@@ -61,42 +64,38 @@ class Surveys {
 			}
 
 			//PUT TOGETHER SURVEY DATA FOR USER
-			$split_hash 		= explode("s=",$check_survey_link);
-			$metadata 			= SELF::getMetaData(array( $instrument_id ));
+			$split_hash 				= explode("s=",$check_survey_link);
 
-			//SOME QUESTION ACCOUNTING
-			$actual_questions 	= array_filter($metadata, function($item){
-								  return $item["field_type"] != "descriptive";
-								});
-			$has_branches 		= array_filter($actual_questions, function($item){
-								  return !empty($item["branching_logic"]);
-								});
-			$unbranched_total 	= count($actual_questions) - count($has_branches);
-			$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
+			//SURVEY COMPLETE
+			$proper_completed_timestamp = $instrument_id . "_timestamp";
+			$user_actually_completed 	= (!isset($user_answers[$this->current_arm]) ? $user_answers[0][$proper_completed_timestamp] : $user_answers[$this->current_arm][$proper_completed_timestamp]); //= "[not completed]"
+			$survey_complete 			= ( ($user_actually_completed == "[not completed]" || $user_actually_completed == "" )  ? 0 : 1);
+			if(!$survey_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
+				$this->core_surveys_complete = false;
+			}
 
-			//GET POSSIBLE FORM FIELDS TO CHECK FOR USER ANWERS
-			$just_formnames 	= array_map(function($item){
-									return $item["field_name"];
-								},$actual_questions);
-			$user_answers 		= SELF::getUserAnswers($loggedInUser->id,$just_formnames);
+			if($getall){
+				//THIS IS KIND OF SERVER INTENSIVE SO Try TO LIMIT IT TO BE CALLED ONLY WHEN NEEDED
+				$metadata 			= SELF::getMetaData(array( $instrument_id ));
 
-			if(isset($user_answers[0])){ //WHY IS THIS 0 and SOEMTIMES 1?
-				$proper_completed_timestamp = $instrument_id . "_timestamp";
-				$user_actually_completed 	= (!isset($user_answers[$this->current_arm]) ? $user_answers[0][$proper_completed_timestamp] : $user_answers[$this->current_arm][$proper_completed_timestamp]); //= "[not completed]"
-				$survey_complete = ( ($user_actually_completed == "[not completed]" || $user_actually_completed == "" )  ? 0 : 1);
-				
-				if(!$survey_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
-					$this->core_surveys_complete = false;
-				}
-		
-				$user_answers = array_filter($user_answers[0]);
+				//SOME QUESTION ACCOUNTING
+				$actual_questions 	= array_filter($metadata, function($item){
+									  return $item["field_type"] != "descriptive";
+									});
+				$has_branches 		= array_filter($actual_questions, function($item){
+									  return !empty($item["branching_logic"]);
+									});
+				$unbranched_total 	= count($actual_questions) - count($has_branches);
+				$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
+			
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
 					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $user_answers) ? $user_answers[$fieldname] : "");
 				}
-			}
-			$user_branched 							= array_intersect_key($branched_fields, $user_answers ) ;
 
+				$user_branched 		= array_intersect_key($branched_fields, $user_answers ) ;
+			}
+			
 			$surveys[$instrument_id] = array(
 				 "label" 			=> str_replace("And","&",$instrument["instrument_label"])
 				,"event" 			=> $event_mappings[$index]["unique_event_name"]
@@ -104,13 +103,14 @@ class Surveys {
 				,"survey_link" 		=> $check_survey_link
 				,"survey_hash" 		=> $split_hash[1]
 				,"survey_complete" 	=> $survey_complete
-				,"raw"				=> $metadata
-				,"completed_fields"	=> $user_answers
-				,"total_questions"	=> $unbranched_total + count($user_branched)
+				
+				,"raw"				=> ($getall ? $metadata: null)
+				,"completed_fields"	=> ($getall ? $user_answers: null)
+				,"total_questions"	=> ($getall ? $unbranched_total + count($user_branched): null)
 				,"instrument_name"	=> $instrument_id
 			);
-		}
 
+		}
 		$this->CoreSurveys = $surveys;
     }
 
@@ -212,10 +212,14 @@ class Surveys {
 	}
 }
 
-$fruits  					= SurveysConfig::$fruits;
-$user_survey_data 			= new Surveys($loggedInUser);
+//WHAT FILE IS CALLING
+$regex = '/\/(\w+)\.php/';
+preg_match($regex, $_SERVER['PHP_SELF'] ,$match);
+$getall 					= ($match[1] == "survey" ? true : false);
+$user_survey_data 			= new Surveys($loggedInUser, $getall);
 $core_surveys_complete 		= $user_survey_data->getUserCoreComplete();
 $surveys 					= $user_survey_data->getCoreMetaData();
+$fruits  					= SurveysConfig::$fruits;
 $all_survey_keys  			= array_keys($surveys);
 
 // print_rr($surveys);

@@ -38,9 +38,9 @@ if(isset($_GET["survey_complete"])){
 }
 
 //FOR THE PIE CHART
-$health_behaviors_complete = false;
-$all_answers  = array();
-$graph_fields = array("core_walking", "core_sitting");
+$health_behaviors_complete  = false;
+$all_answers                = array();
+$graph_fields               = array("core_walking", "core_sitting");
 foreach($surveys as $index => $instrument_event){
   if($instrument_event["instrument_name"] !== "your_physical_activity"){
     continue;
@@ -140,8 +140,6 @@ include("inc/gl_head.php");
                         $index          = array_search($surveyid, $all_survey_keys);
                         $surveylink     = "survey.php?sid=". $surveyid;
                         $surveyname     = $survey["label"];
-                        $surveytotal    = $survey["total_questions"];
-                        $usercompleted  = count($survey["completed_fields"]);
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 
@@ -162,9 +160,8 @@ include("inc/gl_head.php");
                           $firstonly = false;
                         }
 
-                        $percent_complete = round(($usercompleted/$surveytotal)*100,2);
                         $showfruit[] = "<li class='nav'>
-                            <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname : $percent_complete% Complete'>                                                        
+                            <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>";

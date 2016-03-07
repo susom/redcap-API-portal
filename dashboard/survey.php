@@ -198,22 +198,25 @@ class Survey {
   private function doActionTags($tags){
     $actions = array();
     foreach($tags as $tag => $v){
-      if(strpos("@READONLY",$tag) > -1){
+      if(strpos($tag,"@READONLY") > -1){
         $actions["field_type"] = "readonly";
         continue;
       }
-      if(strpos("@HIDDEN",$tag) > -1){
+      
+      if(strpos($tag,"@HIDDEN") > -1){
         $actions["field_type"] = "hidden";
         continue;
       }
-      if(strpos("@NOW",$tag) > -1){
+
+      if(strpos($tag,"@NOW") > -1){
         $actions["field_value"] = Date("Y-m-d");
         continue;
-      }else if(strpos("@TODAY",$tag) > -1){
+      }else if(strpos($tag,"@TODAY") > -1){
         $actions["field_value"] = Date("Y-m-d H:i:s");
         continue;
       }
     }
+
     return $actions;
 
   }
@@ -309,6 +312,7 @@ class Survey {
       );
 
       foreach($this->raw as $field){
+        // print_rr($this->raw,1);
         $section_html = array();
         $show         = true;
         
@@ -329,7 +333,6 @@ class Survey {
         foreach($action_tags as $k => $v){
           $$k = $v;
         }
-
         if($branching_logic != "") {
           $branches[$field_name]        = $branching_logic;
         }

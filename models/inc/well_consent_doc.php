@@ -1230,7 +1230,7 @@ study, please click the button that says 'I agree to participate.'<span
 style="mso-spacerun:yes">&nbsp; </span>You will then be directed to complete the WELL survey.<o:p></o:p></span></p>
 
 </div>
-<form method="POST" class="submits">
+<form method="POST" action="account_setup.php" class="submits">
 	<input type="hidden" name="consented" value="true"/>
 	<button type="submit" class="btn btn-info">I Agree</button>
 </form>

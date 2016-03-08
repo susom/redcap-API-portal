@@ -119,7 +119,7 @@ a:hover { text-decoration:underline; }
 
 
 /*CONSENT FORM*/
-.WordSection1 { margin:20px;     
+/*.WordSection1 { margin:20px;     
   overflow-y: scroll;
   height:50vh;
   border:1px solid #ddd; 
@@ -130,15 +130,7 @@ a:hover { text-decoration:underline; }
 .WordSection1 span { color:#000 !important;}
 .WordSection1 h1 { text-align:center; }
 .consent .submits { 
-  text-align:center; 
-  margin:40px 0; 
-}
-.consent .submits a { 
-  text-decoration:none; 
-  color:#fff; 
-  display:inline-block; 
-  margin:0 10px;
-}
+
 
 .consent_disclaim { 
 	font-size:12pt;
@@ -155,8 +147,83 @@ a:hover { text-decoration:underline; }
 }
 #main-content .consent_disclaim ul li{
 	color:#31708f; font-weight:bold;
+}*/
+.consent_slides { 
+	position : relative;
+    overflow : hidden;
+    text-align : left;
+ 	height:500px;   
+
+ 	font-size:16px;  
+}
+.consent_slides section { 
+	position : absolute;
+    z-index : -1;
+    top : 0;
+    left : 10px;
+    display : block;
+    width : 100%;
+    height:500px;  
+    margin : 0;
+    padding : 0 30px;
+    vertical-align : top;
+    opacity : 0;
+    overflow-y : auto;
+
+    transition : .8s opacity , .2s left ease-in-out;
+}
+.consent_slides section.active {
+    z-index : 1;
+    left : 0;
+    display : block;
+    opacity : 1;
+}
+.consent_slides section.inactive {
+    left : -10px;
 }
 
+.consent .submits{
+  text-align:center; 
+  margin:20px 0 0; 
+}
+.consent .submits a { 
+  text-decoration:none; 
+  color:#fff; 
+  display:inline-block; 
+  margin:0 10px;
+}
+
+.consent_slides h1{
+	font-size:42px;
+}
+
+.consent_slides h2 {
+	font-size:38px; 
+	font-weight:normal; 
+} 
+
+.consent_slides h3 {
+	font-size:20px; 
+	font-weight:normal; 
+	text-transform:capitalize;
+    line-height: 130%;
+    margin: 30px 0 10px;
+} 
+
+.consent_slides ol,
+.consent_slides ul {
+	margin:20px 0;
+	padding:0 0 0 20px; 
+}
+
+.consent .submits button[role='back'] {
+	float:left; margin-left:30px; 
+}
+
+.consent .submits button[role='consent'],
+.consent .submits button[role='next'] {
+	float:right; margin-right:30px;
+}
 
 /*ACCOUNT SETUP*/
 .accountSetup select { margin-bottom:8px; }

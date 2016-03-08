@@ -13,6 +13,8 @@ if(!isUserLoggedIn()) {
 
 // Save updated security settings
 if( isset($_POST['account_update']) ) {
+	$_POST["consented"] = true;
+
 	//NEW PASSWORD!
 	$password_new 		= trim($_POST["password_new"]);
 	$password_new_again = trim($_POST["password_new_again"]);
@@ -74,6 +76,12 @@ if( isset($_POST['account_update']) ) {
 	}
 } 
 
+//MAKE SURE THIS COMES DIRECTYLY FROM consent
+if( !isset($_POST['consented']) ){
+	//REDIRECT TO SECURITY QUESTIONS
+	header("Location: consent.php");
+	exit;
+}
 
 $pg_title 		= "Account Setup | $websiteName";
 $body_classes 	= "login register setup";

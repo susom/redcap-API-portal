@@ -281,10 +281,10 @@ class Survey {
         continue;
       }
 
-      if(strpos($tag,"@NOW") > -1){
+      if(strpos($tag,"@TODAY") > -1){
         $actions["field_value"] = Date("Y-m-d");
         continue;
-      }else if(strpos($tag,"@TODAY") > -1){
+      }else if(strpos($tag,"@NOW") > -1){
         $actions["field_value"] = Date("Y-m-d H:i:s");
         continue;
       }
@@ -774,6 +774,11 @@ $(document).ready(function(){
           return false;
         }
       }else{
+        //SUBMIT ALL THOSE HIDDEN FORMS NOW
+        $("#customform input[type='hidden']").each(function(){
+          saveFormData($(this));
+        });
+
         //SUBMIT AN ALL COMPLETE
         //REDIRECT TO HOME WITH A MESSAGE
         var dataURL         = "survey.php?ajax=1&surveycomplete=1";

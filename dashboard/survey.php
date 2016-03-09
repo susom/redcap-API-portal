@@ -113,7 +113,7 @@ class Survey {
       $temp           = explode("=",$branch_logic);
       $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
       $effector_value = str_replace("'","", trim($temp[1]));  
-      
+      $affected   = $target;
       $jsaction   = "";
       $jsaction .= "\tif(\$('#$effector_input').val() == '$effector_value'){\n";
       $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
@@ -134,7 +134,7 @@ class Survey {
       $temp             = explode("=",$branch_logic);
       $effector_input   = str_replace("]","",str_replace("[","",trim($temp[0])));
       $effector_input   = str_replace(")","",$effector_input);
-
+      $affected   = $target;
       $temp2            = explode("(",$effector_input);
       $effector_input   = $temp2[0];
       $effector_value   = str_replace("'","", trim($temp2[1]));

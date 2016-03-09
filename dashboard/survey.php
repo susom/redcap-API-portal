@@ -56,6 +56,7 @@ class Survey {
   PUBLIC $surveypercent;
   PUBLIC $raw;
   PUBLIC $hash;
+  PRIVATE $fieldtype_map;
 
   public function __construct( $survey_data ){
     $this->surveyname     = $survey_data["label"];
@@ -71,10 +72,9 @@ class Survey {
 
   private function processBranching($target, $branch_logic){
     $hideConditional  = true;
-
     //=,<,>,<=,>=,<>
     //and/or
-    
+
     $condition_count  = substr_count($branch_logic, "="); //multiple = signs means more than 1 condition 
     $sub_array_count  = substr_count($branch_logic, "("); //if () exists that means it is a specific answer out of a set (checkbox)
 
@@ -89,7 +89,12 @@ class Survey {
         $effector_operator  = $matches["operator"][$idx];
         $effector_value     = $matches["value"][$idx];
         $effector_operator  = ($effector_operator == "=" ? "==" : $effector_operator);
-        $condition[]        = "\$('#$effector_input').val() $effector_operator '$effector_value'";
+
+        $field_type = $this->fieldtype_map[$effector_input];
+        $radioCheck = ( $field_type == "radio" || $field_type == "checkbox" ? true: false );
+        $formtype   = ($radioCheck ? "\$(\":input[name='$effector_input']:checked\").val() $effector_operator '$effector_value'" : "\$(\":input[name='$effector_input']\").val() $effector_operator '$effector_value'");
+
+        $condition[] = $formtype;
       }
 
       $jsaction   = "";
@@ -110,18 +115,25 @@ class Survey {
 
     if($sub_array_count == 0 && $condition_count == 1){
       //SINGLE ONE TO ONE BRANCHING a == b
+
       $temp           = explode("=",$branch_logic);
       $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
       $effector_value = str_replace("'","", trim($temp[1]));  
       $affected   = $target;
+      
+      $field_type = $this->fieldtype_map[$effector_input];
+      $radioCheck = ( $field_type == "radio" || $field_type == "checkbox" ? true: false );
+      $formtype   = ($radioCheck ? "\$(\":input[name='$effector_input']:checked\").val() == '$effector_value'" : "\$(\":input[name='$effector_input']\").val() =='$effector_value'");
+      
       $jsaction   = "";
-      $jsaction .= "\tif(\$('#$effector_input').val() == '$effector_value'){\n";
+      $jsaction .= "\tif($formtype){\n";
       $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
       $jsaction .= "\t}else{\n";
       $jsaction .= "\t\t\$('div.".$affected."').hide();\n";
       $jsaction .= "\t}\n";
+      
       $returnHTML = $jsaction;
-      $returnHTML .= "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+      $returnHTML .= "\t\$(\":input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
       //NEED TO CHECK FOR RANGES TOO >= <= > < != 
       $returnHTML .= $jsaction;
       $returnHTML .= "\t});";
@@ -139,8 +151,12 @@ class Survey {
       $effector_input   = $temp2[0];
       $effector_value   = str_replace("'","", trim($temp2[1]));
 
+      $field_type = $this->fieldtype_map[$effector_input];
+      $radioCheck = ( $field_type == "radio" || $field_type == "checkbox" ? true: false );
+      $formtype   = ($radioCheck ? "\$(\":input[name='$effector_input']:checked\").val() == '$effector_value'" : "\$(\":input[name='$effector_input']\").val() =='$effector_value'");
+
       $jsaction   = "";
-      $jsaction .= "\tif(\$('#$effector_input').val() == '$effector_value'){\n";
+      $jsaction .= "\tif($formtype){\n";
       $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
       $jsaction .= "\t}else{\n";
       $jsaction .= "\t\t\$('div.".$affected."').hide();\n";
@@ -377,6 +393,7 @@ class Survey {
         ,"datetime_seconds_ymd" => "date"
       );
 
+      $type_arr = array();
       foreach($this->raw as $field){
         // print_rr($this->raw,1);
         $section_html = array();
@@ -386,6 +403,7 @@ class Survey {
         $field_name                     = $field["field_name"];
         $section_header                 = $field["section_header"];
         $field_type                     = $field["field_type"];
+        $type_arr[$field_name]          = $field_type ;
         $field_note                     = $field["field_note"];
         $field_label                    = $field["field_label"];
         $field_label                    = str_replace("\r","",$field_label);
@@ -515,6 +533,7 @@ class Survey {
         } 
       }
       $theHTML[]    = "</section></form>";
+      $this->fieldtype_map = $type_arr;
 
       if(count($branches)){
         $theHTML[]            = "<script>";
@@ -600,6 +619,11 @@ include("inc/gl_head.php");
                         }
                       ?>
                     </div>
+                    <script>
+                      $(document).ready(function(){
+                        
+                      });
+                    </script>
                   </div>
                 </section>
               </section>

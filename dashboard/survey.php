@@ -74,15 +74,59 @@ class Survey {
 
     //=,<,>,<=,>=,<>
     //and/or
+    
     $condition_count  = substr_count($branch_logic, "="); //multiple = signs means more than 1 condition 
     $sub_array_count  = substr_count($branch_logic, "("); //if () exists that means it is a specific answer out of a set (checkbox)
-                            
+
+    if($condition_count > 1 && $sub_array_count == 0){
+      //THIS MEANS THERE ARE MULTIPLE CONDITIONS BUT NO MIXED COMBOS
+      $or_match = '/\[(?<effector>\w+)\] (?<operator>=|<|>|<>|!=|<=|>=) \'(?<value>\w+)\'\s?(?:or)?/';
+      preg_match_all($or_match, $branch_logic, $matches);
+      
+      $affected   = $target;
+      $condition  = array();
+      foreach($matches["effector"] as $idx => $effector_input){
+        $effector_operator  = $matches["operator"][$idx];
+        $effector_value     = $matches["value"][$idx];
+        $effector_operator  = ($effector_operator == "=" ? "==" : $effector_operator);
+        $condition[]        = "\$('#$effector_input').val() $effector_operator '$effector_value'";
+      }
+
+      $jsaction   = "";
+      $jsaction .= "\tif(". implode(" || ", $condition) ."){\n";
+      $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
+      $jsaction .= "\t}else{\n";
+      $jsaction .= "\t\t\$('div.".$affected."').hide();\n";
+      $jsaction .= "\t}\n";
+
+      $returnHTML = $jsaction;
+      $returnHTML .= "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+      //NEED TO CHECK FOR RANGES TOO >= <= > < != 
+      $returnHTML .= $jsaction;
+      $returnHTML .= "\t});";
+
+      return $returnHTML;
+    }
+
     if($sub_array_count == 0 && $condition_count == 1){
       //SINGLE ONE TO ONE BRANCHING a == b
       $temp           = explode("=",$branch_logic);
       $effector_input = str_replace("]","",str_replace("[","",trim($temp[0])));
       $effector_value = str_replace("'","", trim($temp[1]));  
-      return array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $target);
+      
+      $jsaction   = "";
+      $jsaction .= "\tif(\$('#$effector_input').val() == '$effector_value'){\n";
+      $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
+      $jsaction .= "\t}else{\n";
+      $jsaction .= "\t\t\$('div.".$affected."').hide();\n";
+      $jsaction .= "\t}\n";
+      $returnHTML = $jsaction;
+      $returnHTML .= "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+      //NEED TO CHECK FOR RANGES TOO >= <= > < != 
+      $returnHTML .= $jsaction;
+      $returnHTML .= "\t});";
+
+      return $returnHTML;
     }
 
     if($sub_array_count == 1 && $condition_count == 1){
@@ -94,7 +138,20 @@ class Survey {
       $temp2            = explode("(",$effector_input);
       $effector_input   = $temp2[0];
       $effector_value   = str_replace("'","", trim($temp2[1]));
-      return array("effector_input" => $effector_input, "effector_value" => $effector_value, "affected" => $target);
+
+      $jsaction   = "";
+      $jsaction .= "\tif(\$('#$effector_input').val() == '$effector_value'){\n";
+      $jsaction .= "\t\t\$('div.".$affected."').slideDown('fast');\n";
+      $jsaction .= "\t}else{\n";
+      $jsaction .= "\t\t\$('div.".$affected."').hide();\n";
+      $jsaction .= "\t}\n";
+      $returnHTML = $jsaction;
+      $returnHTML .= "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
+      //NEED TO CHECK FOR RANGES TOO >= <= > < != 
+      $returnHTML .= $jsaction;
+      $returnHTML .= "\t});";
+
+      return $returnHTML;
     }
 
     return $hideConditional;
@@ -278,8 +335,17 @@ class Survey {
           $theHTML[]  = "<h4>" . $field["section_header"] ."</h4>";
         }
         if(!empty($field["user_answer"])){
-          $item       = SELF::getLabelAnswer($field);
-          $theHTML[]  = $item["field_label"] . " : " . $item["user_answer"] . "<br>";
+          $action_tags = SELF::getActionTags($field);
+
+          if(array_key_exists("field_type",$action_tags) && $action_tags["field_type"] == "hidden"){
+            //do nothing
+          }else{
+            $item       = SELF::getLabelAnswer($field);
+            $field_label= $item["field_label"];
+            $field_label= str_replace("\r","",$field_label);
+            $field_label= str_replace("\n","<br>",$field_label);
+            $theHTML[]  = $item["field_label"] . " : " . $item["user_answer"] . "<br>";
+          }
         }
       }
       $theHTML[]      = "</div>";
@@ -322,6 +388,8 @@ class Survey {
         $field_type                     = $field["field_type"];
         $field_note                     = $field["field_note"];
         $field_label                    = $field["field_label"];
+        $field_label                    = str_replace("\r","",$field_label);
+        $field_label                    = str_replace("\n","<br>",$field_label);
         $select_choices_or_calculations = $field["select_choices_or_calculations"];
         $branching_logic                = $field["branching_logic"];
         $custom_alignment               = $field["custom_alignment"];
@@ -390,6 +458,8 @@ class Survey {
                 $field_name     = $item["field_name"];
                 $field_type     = $item["field_type"];
                 $field_label    = $item["field_label"];
+                $field_label    = str_replace("\r","",$field_label);
+                $field_label    = str_replace("\n","<br>",$field_label);
                 $required_field = ($item["required_field"] == "y" ? "required" : "");
 
                 $section_html[] = "<tr>";
@@ -450,26 +520,13 @@ class Survey {
         $theHTML[]            = "<script>";
         $theHTML[]            = "\$(document).ready(function(){";
 
-        $writeJsToPage        = array();
         foreach($branches as $affected => $effector){
           //NEED TO PARSE THE BRANCHES for $affected
           //THEN ADD EVENTS TO PREVIOUS INPUTS $effectors
-          $writeJsToPage[]    = self::processBranching($affected,$effector);
+          $watchingjs   = self::processBranching($affected,$effector);
+          $theHTML[]    = $watchingjs;
         }
 
-        foreach($writeJsToPage as $item){
-          $effector_input     = $item["effector_input"];
-          $effector_value     = $item["effector_value"];
-          $affected           = $item["affected"];
-          $theHTML[] = "\t\$(\"input[name='$effector_input'],select[name='$effector_input'],textarea[name='$effector_input']\").change(function(){";
-            //NEED TO CHECK FOR RANGES TOO >= <= > < != 
-            $theHTML[] = "if(\$(this).val() == '$effector_value'){";
-              $theHTML[] = "\t\$('div.".$affected."').slideDown('fast');";
-            $theHTML[] = "}else{";
-              $theHTML[] = "\t\$('div.".$affected."').hide();";
-            $theHTML[] = "}";
-          $theHTML[] = "});";
-        }
         $theHTML[] = "});";
         $theHTML[] = "</script>";
       }

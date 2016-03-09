@@ -41,10 +41,13 @@ if(isset($_GET["survey_complete"])){
 $health_behaviors_complete  = false;
 $all_answers                = array();
 $graph_fields               = array("core_walking", "core_sitting");
-foreach($surveys as $index => $instrument_event){
-  if($instrument_event["instrument_name"] !== "your_physical_activity"){
-    continue;
-  }
+
+$activity_survey = $user_survey_data->getSurveyInfo(array(array(
+  "instrument_name" => "your_physical_activity"
+  ,"instrument_label" => "Your Physical Activity"
+  )), true);
+
+foreach($activity_survey as $index => $instrument_event){
   $all_answers  = $user_survey_data->getUserAnswers(null,$graph_fields);
   $user_answers = array();
   foreach($graph_fields as $key){

@@ -41,22 +41,34 @@ class Surveys {
 	PUBLIC $core_surveys_complete 		= true;
 	PUBLIC $user_current_survey_index 	= NULL;
 	PUBLIC $current_arm 				= 0;
+	PRIVATE $event_mappings; 
+	PRIVATE $user_answers;
+	PRIVATE $loggedInUser;
 
 	public function __construct( $loggedInUser, $getall ){
+		$this->loggedInUser = $loggedInUser;
+
 		//GET ALL THE INSTRUMENTS
-		$all_instruments 	= SELF::getInstruments();
+		$all_instruments 	= self::getInstruments();
 		
 		//GET ALL THE EVENT MAPPINGS
-		$event_mappings 	= SELF::getEvents();
+		$this->event_mappings 	= self::getEvents();
 
 		//ALL USER ANSWERS IN ONE SHOT
-		$user_answers 		= SELF::getUserAnswers($loggedInUser->id); //ALL PPOSSIBLE USER ANSWERS
+		$this->user_answers 	= self::getUserAnswers($this->loggedInUser->id); //ALL PPOSSIBLE USER ANSWERS
 
 		//BUILD SURVEY INFO FOR USER
-		$surveys = array();
-		foreach($all_instruments as $index => $instrument){
+		
+		$surveys = self::getSurveyInfo($all_instruments, $getall);
+		
+		$this->CoreSurveys = $surveys;
+    }
+
+    public function getSurveyInfo($all_instruments, $getall){
+    	$surveys = array();
+    	foreach($all_instruments as $index => $instrument){
 			$instrument_id 		= $instrument["instrument_name"];
-			$check_survey_link  = SELF::getSurveyLink($loggedInUser->id, $instrument_id, $event_mappings[$index]["unique_event_name"]);
+			$check_survey_link  = self::getSurveyLink($this->loggedInUser->id, $instrument_id, $this->event_mappings[$index]["unique_event_name"]);
 			
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(json_decode($check_survey_link)){
@@ -68,7 +80,7 @@ class Surveys {
 
 			//SURVEY COMPLETE
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
-			$user_actually_completed 	= (!isset($user_answers[$this->current_arm]) ? $user_answers[0][$proper_completed_timestamp] : $user_answers[$this->current_arm][$proper_completed_timestamp]); //= "[not completed]"
+			$user_actually_completed 	= (!isset($this->user_answers[$this->current_arm]) ? $this->user_answers[0][$proper_completed_timestamp] : $this->user_answers[$this->current_arm][$proper_completed_timestamp]); //= "[not completed]"
 			$survey_complete 			= ( ($user_actually_completed == "[not completed]" || $user_actually_completed == "" )  ? 0 : 1);
 			if(!$survey_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
 				$this->core_surveys_complete = false;
@@ -94,12 +106,11 @@ class Surveys {
 				$just_formnames 	= array_flip($just_formnames);
 
 
-				$just_form_ans 		= array_intersect_key($user_answers[0],$just_formnames);
+				$just_form_ans 		= array_intersect_key($this->user_answers[0],$just_formnames);
 				$answers_only 		= array_filter($just_form_ans);
-
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
-					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $user_answers) ? $user_answers[0][$fieldname] : "");
+					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $this->user_answers[0]) ? $this->user_answers[0][$fieldname] : "");
 				}
 
 				$user_branched 		= array_intersect_key($branched_fields, $answers_only) ;
@@ -107,8 +118,8 @@ class Surveys {
 			
 			$surveys[$instrument_id] = array(
 				 "label" 			=> str_replace("And","&",$instrument["instrument_label"])
-				,"event" 			=> $event_mappings[$index]["unique_event_name"]
-				,"arm"				=> $event_mappings[$index]["arm_num"]
+				,"event" 			=> $this->event_mappings[$index]["unique_event_name"]
+				,"arm"				=> $this->event_mappings[$index]["arm_num"]
 				,"survey_link" 		=> $check_survey_link
 				,"survey_hash" 		=> $split_hash[1]
 				,"survey_complete" 	=> $survey_complete
@@ -120,7 +131,7 @@ class Surveys {
 			);
 
 		}
-		$this->CoreSurveys = $surveys;
+		return $surveys;
     }
 
     public function getCoreMetaData(){

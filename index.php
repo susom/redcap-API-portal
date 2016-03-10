@@ -9,8 +9,7 @@ include("models/inc/gl_header.php");
   <div class="row"> 
     <div id="main-content" class="col-md-8 col-md-offset-2" role="main">
       <div class="well">
-        <h2>Well Registry</h2>
-        <p>
+        <p class="login_reg">
           <a href="login.php" class="btn btn-success">Login Page</a>  
           <a href="register.php" class="btn btn-success">Register Page</a>
         </p>

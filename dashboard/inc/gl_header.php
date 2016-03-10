@@ -4,7 +4,7 @@
       <i class="fa fa-bars"></i>
     </a>
     <a href="index.php" class="navbar-brand">
-      <img src="images/logo.png" class="m-r-sm" alt="scale">
+      <img src="images/well_logo_treeonly.png" class="m-r-sm" alt="scale">
       <span class="hidden-nav-xs">WELL Portal</span>
     </a>
     <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">

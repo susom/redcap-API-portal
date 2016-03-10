@@ -14,7 +14,7 @@ a:hover { text-decoration:underline; }
     border: 1px solid #ccc;
     border-bottom:20px solid #c42128;
     background:#fff url(../img/well_logo.png) 50% 50px no-repeat;
-    background-size:14%;
+    background-size:13%;
 }
 .well h2 {     
 	margin: 0;
@@ -26,10 +26,10 @@ a:hover { text-decoration:underline; }
 }
 
 #main-content .well { 
-	padding-top:260px;
+	padding-top:250px;
 }
 #main-content .login_reg { 
-	padding-top:18px;
+	padding-top:17px;
 }
 
 /*SESSION ALERT*/

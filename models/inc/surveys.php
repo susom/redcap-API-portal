@@ -28,7 +28,7 @@ class SurveysConfig {
 		, "your_physical_activity"
 		, "your_diet"
 		, "your_sleep_habits"
-		, "your_tobacco_and_alchohol_use"
+		, "your_tobacco_and_alcohol_use"
 		, "your_health"
 		, "wellbeing_questions"
 		, "more_wellbeing_questions"

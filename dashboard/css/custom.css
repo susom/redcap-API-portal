@@ -67,10 +67,9 @@ h2.weather,
     text-shadow : 0 2px 3px rgba(255,255,255,.5);
 
 
-    background:url(../images/fpo_coming_soon.jpg) no-repeat;
+    background:#fff5dc url(../images/fpo_mwa_coming_soon.png) 50% no-repeat;
     text-indent: -5000px;
-    background-position-y: 50%;
-    background-size:cover;
+    background-size:contain;
 }
 
 /*SIMPLE WEATHER WIDGET*/

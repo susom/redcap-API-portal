@@ -40,7 +40,7 @@ if(isset($_GET["survey_complete"])){
 //FOR THE PIE CHART
 $health_behaviors_complete  = false;
 $all_answers                = array();
-$graph_fields               = array("core_walking", "core_sitting");
+$graph_fields               = array("core_walking_hr","core_walking_min", "core_sitting_hr","core_sitting_min");
 
 $activity_survey = $user_survey_data->getSurveyInfo(array(array(
   "instrument_name" => "your_physical_activity"

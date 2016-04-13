@@ -69,7 +69,7 @@ foreach($all_answers as $answers){
     if(empty($answer)){
       continue;
     }
-    
+
     if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1){
       list($hour, $min) = explode(":",$answer);
       $hour_value   = (isset($hour) ? $hour : 0);
@@ -92,6 +92,10 @@ foreach($all_answers as $answers){
 $USER_TIME_WALKING_IN_MINUTES = 0;
 $USER_TIME_SITTING_IN_MINUTES = 0;
 if(isset($user_answers) && !empty($user_answers)){
+  if(empty($answer)){
+      continue;
+  }
+  
   foreach($user_answers as $index => $answer){
     // $answer_value = intval($answer);
     if(strpos($index,"hr_min") > -1){

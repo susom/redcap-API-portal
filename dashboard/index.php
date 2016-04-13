@@ -24,7 +24,7 @@ if(isset($_GET["survey_complete"])){
   if(array_key_exists($surveyid,$surveys)){
     $index  = array_search($surveyid, $all_survey_keys);
     $survey = $surveys[$surveyid];
-    $success_msg  = "Thanks! You've completed the survey: <strong class='surveyname'>'" . $survey["label"] . "'.</strong> You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
+    $success_msg  = "You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
       
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
@@ -40,7 +40,7 @@ if(isset($_GET["survey_complete"])){
 //FOR THE PIE CHART
 $health_behaviors_complete  = false;
 $all_answers                = array();
-$graph_fields               = array("core_walking_hr","core_walking_min", "core_sitting_hr","core_sitting_min");
+$graph_fields               = array("core_sitting", "core_sitting_weekend", "core_walking");
 
 $activity_survey = $user_survey_data->getSurveyInfo(array(array(
   "instrument_name" => "your_physical_activity"
@@ -59,20 +59,30 @@ foreach($activity_survey as $index => $instrument_event){
     }
   }
 }
-
 // AGGREGATE OF ALL PARTICIPANTS
 $ALL_TIME_WALKING_IN_MINUTES = 0;
 $ALL_TIME_SITTING_IN_MINUTES = 0;
+
 foreach($all_answers as $answers){
   foreach($answers as $fieldname => $answer){
-    $answer_value = intval($answer);
-    if(strpos($fieldname,"hr") > -1){
+    // $answer_value = intval($answer);
+    if(empty($answer)){
+      continue;
+    }
+    
+    if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1){
+      list($hour, $min) = explode(":",$answer);
+      $hour_value   = (isset($hour) ? $hour : 0);
+      $min_value    = (isset($min)  ? $min : 0);
+
+      $answer_value = $min_value + $hour_value*60;
       $answer_value = $answer_value*60;
     }
 
     if(strpos($fieldname,"walking") > -1){
       $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
-    }else{
+    }
+    if(strpos($fieldname,"sitting") > -1){
       $ALL_TIME_SITTING_IN_MINUTES += $answer_value;
     }
   }
@@ -83,9 +93,13 @@ $USER_TIME_WALKING_IN_MINUTES = 0;
 $USER_TIME_SITTING_IN_MINUTES = 0;
 if(isset($user_answers) && !empty($user_answers)){
   foreach($user_answers as $index => $answer){
-    $answer_value = intval($answer);
-    if(strpos($index,"hr") > -1){
-      $answer_value = $answer_value*60;
+    // $answer_value = intval($answer);
+    if(strpos($index,"hr_min") > -1){
+      list($hour, $min) = explode(":",$answer);
+      $hour_value   = (isset($hour) ? $hour : 0);
+      $min_value    = (isset($min)  ? $min : 0);
+
+      $answer_value = $min_value + $hour_value*60;
     }
 
     if(strpos($index,"walking") > -1){
@@ -100,7 +114,7 @@ if(isset($user_answers) && !empty($user_answers)){
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
 $profile_active = '';
-
+$game_active    = '';
 $pg_title 		  = "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");

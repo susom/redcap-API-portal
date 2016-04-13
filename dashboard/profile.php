@@ -49,6 +49,7 @@ if(!isUserLoggedIn()) {
 $shownavsmore   = true;
 $survey_active  = ' ';
 $profile_active = ' class="active"';
+$game_active    = '';
 
 $pg_title       = "Profile : $websiteName";
 $body_classes   = "dashboard profile";

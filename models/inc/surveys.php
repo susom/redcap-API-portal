@@ -22,17 +22,17 @@ class SurveysConfig {
 	);
 
 	STATIC $core_surveys 	= array(
-		  "about_you" 								
-		// , "contact_information"	
-		, "your_social_and_neighborhood_environment"				
+		  "wellbeing_questions" 								
+		, "a_little_bit_about_you"				
 		, "your_physical_activity"
-		, "your_diet"
 		, "your_sleep_habits"
 		, "your_tobacco_and_alcohol_use"
+		, "your_diet"
 		, "your_health"
+		, "about_you"
 		, "wellbeing_questions"
-		, "more_wellbeing_questions"
-		, "even_more_wellbeing_questions"
+		, "your_social_and_neighborhood_environment"
+		, "contact_information"
 	);
 }
 
@@ -50,7 +50,7 @@ class Surveys {
 
 		//GET ALL THE INSTRUMENTS
 		$all_instruments 	= self::getInstruments();
-		
+
 		//GET ALL THE EVENT MAPPINGS
 		$this->event_mappings 	= self::getEvents();
 
@@ -105,8 +105,21 @@ class Surveys {
 									},$actual_questions);
 				$just_formnames 	= array_flip($just_formnames);
 
+				$proper_answers = array();
+				foreach($this->user_answers[0] as $key => $val){
+					$realkey 	= $key;
+					$realvalue 	= $val;
 
-				$just_form_ans 		= array_intersect_key($this->user_answers[0],$just_formnames);
+					if(strpos($key, "___") > -1 && $val == 0){
+						continue;
+					}
+					if(strpos($key, "___") > -1 && $val == 1){
+						list($realkey,$realvalue) = explode("___", $key);
+					}
+					$proper_answers[$realkey] = $realvalue;
+				}
+
+				$just_form_ans 		= array_intersect_key($proper_answers,$just_formnames);
 				$answers_only 		= array_filter($just_form_ans);
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
@@ -196,7 +209,7 @@ class Surveys {
 		return $result;
 	}
 
-	private function getMetaData( $instruments = null ){
+	public function getMetaData( $instruments = null ){
 		$extra_params = array(
 			'content' 	=> 'metadata',
 			'forms'		=> ($instruments?: null)
@@ -227,20 +240,71 @@ class Surveys {
 		  'exportSurveyFields' => true
 		);
 		$result = RC::callApi($extra_params); 
-		  
 		return $result;
+	}
+
+	public function getAllComplete(){
+		$all_complete = array();
+		foreach($this->CoreSurveys as $instrument =>  $data){
+			if ($instrument == "users") {
+				continue;
+			}
+			if(isset($data["completed_fields"])){
+				$all_complete = array_merge($all_complete,$data["completed_fields"]);
+			}
+		}
+		return $all_complete;
+	}
+	public function getAllBranching(){
+		$all_branching = array();
+		foreach($this->CoreSurveys as $instrument =>  $data){
+			if ($instrument == "users") {
+				continue;
+			}
+
+			if(isset($data["raw"])){
+				foreach($data["raw"] as $field){
+					$branching = $field["branching_logic"];
+					if(empty($branching) ){
+						continue;
+					}
+					preg_match_all("/\[(?<effector>[\w_]+)(\((?<check_value>\d+)\))?\] = \'(?<value>\d+)\'/",$branching, $matches);
+					
+					$effectors = array();
+					foreach($matches["effector"] as $i => $ef){
+						if(!array_key_exists($ef,$effectors)){
+							$effectors[$ef] = array();
+						}
+						if(!empty($matches["check_value"][$i])){
+							array_push($effectors[$ef],$matches["check_value"][$i]);
+						}else{
+							array_push($effectors[$ef],$matches["value"][$i]);
+						}
+					}
+					array_push($all_branching, array(
+						 "affected" 	=> $field["field_name"]
+						,"effector" 	=> $effectors
+						,"branching" 	=> $branching) );
+				}
+			}
+		}
+		return array_filter($all_branching);
 	}
 }
 
 //WHAT FILE IS CALLING
 $regex = '/\/(\w+)\.php/';
 preg_match($regex, $_SERVER['PHP_SELF'] ,$match);
-$getall 					= ($match[1] == "survey" ? true : false);
+$getall 					= ($match[1] == "survey" || $match[1] == "game"? true : false);
 $user_survey_data 			= new Surveys($loggedInUser, $getall);
 $core_surveys_complete 		= $user_survey_data->getUserCoreComplete();
 $surveys 					= $user_survey_data->getCoreMetaData();
 $fruits  					= SurveysConfig::$fruits;
 $all_survey_keys  			= array_keys($surveys);
+$all_completed 				= $user_survey_data->getAllComplete();
+$all_branching 				= $user_survey_data->getAllBranching();
 
-// print_rr($surveys,1);
+//THIS IS ALREADY SUNK COST;
+// print_rr($all_branching,1);
+// print_rr($all_completed,1);
 // exit;

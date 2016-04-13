@@ -20,6 +20,9 @@
   <script src="js/jquery.simpleWeather.js"></script>
   <script src="js/weather.js"></script>
   <script src="js/verify.notify.min.js"></script>
+  <script src="js/jquery.maskedinput.min.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.7/min/inputmask/jquery.inputmask.min.js"></script> -->
 </body>
 </html>
 <script>

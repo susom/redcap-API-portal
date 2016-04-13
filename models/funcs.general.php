@@ -596,7 +596,7 @@ function getActionTags($fieldmeta){
 function print_rr($d,$exit=false){
 	echo "<pre>";
 	print_r($d);
-
+	echo "</pre>";
 	if($exit){
 		exit;
 	}

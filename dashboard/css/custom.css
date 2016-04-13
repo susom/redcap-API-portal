@@ -67,7 +67,7 @@ h2.weather,
     text-shadow : 0 2px 3px rgba(255,255,255,.5);
 
 
-    background:#fff5dc url(../images/fpo_mwa_coming_soon.png) 50% no-repeat;
+    background:#FFF1CC url(../images/fpo_mwa_coming_soon.png) 50% no-repeat;
     text-indent: -5000px;
     background-size:contain;
 }
@@ -206,7 +206,7 @@ h2.weather,
 .surveyFrame {
     position : relative;
     overflow : hidden;
-    height : 80vh;
+    height : 70vh;
     padding : 10px 0 0;
     /*border-radius : 10px;*/
     /*background    : #fff ;*/
@@ -227,7 +227,7 @@ h2.weather,
 .customform .required .q_label { 
     color:#333;
 }
-.customform .required .q_label:after {
+.customform .required .q_label i:after {
     content:"*";
 }
 .customform .custom.or_divider {
@@ -275,7 +275,7 @@ h2.weather,
     background : #d9edf7;
 }
 .customform h3 {
-    font-size:120%;
+    font-size:130%;
     margin:30px 10px 10px; 
 }
 .customform label {
@@ -287,12 +287,13 @@ h2.weather,
 }
 .customform .hasLoading:after {
     display : inline-block;
-    width : 16px;
-    height : 16px;
-    margin-left : 10px;
+    width : 20px;
+    height : 20px;
+    margin-left : 5px;
     content : '';
-    vertical-align : middle;
-    background : url(../images/ajax-loader_red.gif) 0 0 no-repeat;
+    vertical-align : top;
+    background : url(../images/ajax-loader.gif) 0 0 no-repeat;
+    background-size:contain;
 }
 
 .profile_card .hasLoading:after {
@@ -350,7 +351,9 @@ h2.weather,
     display : inline-block;
     margin-right : 15px;
 }
-
+.customform .RH .q_label {
+    display : block;
+}
 .customform .fieldnote {
     display:block;
     font-size:92%; 
@@ -832,4 +835,237 @@ input[readonly] {
 .portlet-item .panel-heading {
     padding : 5px 10px;
     font-size:115%;
+}
+
+
+
+/*WHEEL OF FORTUNEGAME*/
+#wof_game h1 { text-align:center;  padding:0 0 20px;}
+#letterpicker {
+    text-align:center; 
+}
+
+#letterpicker input {
+    visiblity:hidden;
+    margin-left:-5000px;
+    position:absolute; 
+    z-index:-1;
+}
+
+#letterpicker label { 
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 28px;
+    height: 38px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 205%;
+    font-size: 18px;
+    margin: 0 2px;
+    cursor:pointer; 
+}
+
+#letterpicker label.picked {
+    background:#ccc;
+    cursor:default;
+}
+
+#letterpicker label.selected {
+    border:2px solid orange;
+    background:#ffffcc;
+}
+
+#letterpicker label:not(.picked):not(.selected):hover {
+    background:#efefef; 
+}
+
+#board { 
+    text-align          : Center;
+    border              : 1px solid #333;
+    margin              : 0 0 20px;
+    padding:30px 15px 100px; 
+    background:green url(../images/vannawhite.gif) 95% 100% no-repeat;
+    background-size:30px;
+}
+.flip-container {
+    perspective         : 1000;
+    display: inline-block;
+    overflow: hidden;
+    
+    margin: 0 3px 5px;
+}
+
+/* flip the pane when hovered */
+.flip-container.rotate .flipper {
+    transform           : rotateY(180deg);
+}
+.flip-container, .front, .back, .flipper {
+    width               : 34px;
+    height              : 44px;
+}
+
+/* flip speed goes here */
+.flipper {
+    transition          : 0.6s;
+    transform-style     : preserve-3d;
+    position            : relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+    backface-visibility : hidden;
+    position            : absolute;
+    top                 : 0;
+    left                : 0;
+    font-size: 22px;
+    line-height: 200%;
+    text-align: center;
+}
+
+/* front pane, placed above back */
+.front {
+    z-index             : 2;
+    /* for firefox 31 */
+    transform           : rotateY(0deg);
+    background          : #fff;
+}
+
+/* back, initially hidden pane */
+.back {
+    transform           : rotateY(180deg);
+    background:#fff; 
+
+}
+
+.front.space { background:black; }
+
+
+
+
+#current_survey {
+    margin-bottom:30px;  
+}
+#current_survey span {
+    display:inline-block; 
+    width:30px; height:30px; 
+    background:#efefef; 
+    border:1px solid #ccc; 
+    margin:3px; 
+    text-align: center;
+    line-height: 240%;
+}
+
+#current_survey span.done {
+    background:#ccc; 
+}
+
+#current_survey span.current{
+    background:#ffc;
+    border:1px solid orange; 
+}
+
+#current_question {
+    background:#efefef;
+    border-radius:5px; 
+    padding:10px; 
+    overflow:hidden;
+    margin-bottom:20px; 
+}
+
+#current_question dl {
+    font-size:20px; 
+    display:none;
+}
+#current_question dl.on {
+    display:block; 
+}
+
+#current_question .question,
+#current_question .answer { 
+    padding:10px 0;
+    vertical-align: top;
+}
+
+#current_question .question span,
+#current_question .answer span {
+    display:inline-block; 
+    vertical-align: top;
+}
+#current_question .question .qlabel,
+#current_question .answer .inputs {
+    display:inline-block; 
+    margin:0 10px;
+    max-width: 85%;
+}
+#current_question .answer label {
+    display:block; 
+}
+#current_question .answer input,
+#current_question .answer select,
+#current_question .answer textarea {
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+}
+#current_question .question .qlabel{
+    width:380px ;
+}
+#current_question .submitit {
+    float:right; 
+}
+
+#guesses {
+    padding:0 0 10px;
+    overflow:hidden;
+}
+#guesscount {
+    float:left; 
+    width:49%;
+    font-size:16px; 
+    text-align:left; 
+    background:#efefef;
+    border-radius:5px; 
+    padding:5px; 
+}
+#guesscount i { 
+    margin-top:2px;
+    display:block; 
+    font-size:77%;
+}
+#guessvalue {
+    float:right; 
+    width:49%;
+    font-size:16px; 
+    text-align:left; 
+    background:#efefef;
+    border-radius:5px; 
+    padding:5px; 
+}
+#guessvalue i { 
+    margin-top:2px;
+    display:block; 
+    font-size:77%;
+}
+
+#pickit {
+    margin:10px auto;
+    float:clear; 
+}
+
+#totalpoints { 
+    background:#ffc;
+    border-radius:5px; 
+    padding:10px;
+    height:90px;
+    display:inline-block; 
+    width:90%;
+    float:left;
+    text-align:left;
+    font-size:36px;
+    line-height:200%;
+}
+
+
+#customform {
+    transition : .8s top ease-in-out;
 }

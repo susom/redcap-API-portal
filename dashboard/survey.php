@@ -181,9 +181,9 @@ $(document).ready(function(){
     var req_missing     = false;
 
     required_fields.each(function(){
-      if(    ($(this).find(":input").is(':text') && $(this).find(":input").val().length == 0)
+      if( $(this).is(":visible") && (    ($(this).find(":input").is(':text')  && $(this).find(":input").val().length == 0)
           || ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
-          || ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0)
+          || ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0) )
         ){
         //ONLY SHOW THE ANNOYING MESSAGE ONCE
         if( !$("#customform section.active").hasClass("annoying_message") ){
@@ -191,7 +191,7 @@ $(document).ready(function(){
 
           $("#customform section.active").addClass("annoying_message")
           var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left required fields empty.  If this was intentional please click Submit again.<li></ul>");
-          // reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
+          reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
           $("body").append(reqmsg);
           return;
         }
@@ -357,9 +357,14 @@ $(document).ready(function(){
     }
 
     //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
-    if($(this).closest(".inputwrap").next().length){
-      var nextpos = $(this).closest(".inputwrap").next().position();
-      $("#customform").animate({ scrollTop : nextpos.top + "px"});
+    if($(this).closest(".inputwrap").nextAll(':visible:first')){
+      var nextpos = $(this).closest(".inputwrap").nextAll(':visible:first').position();
+      if(nextpos !== undefined && nextpos.top){
+        console.log("scroll man",nextpos.top);
+        $("#customform").animate({ scrollTop : nextpos.top + "px"});
+      }else{
+        console.log("maybe next input is hidden?");
+      }
     }
     
 

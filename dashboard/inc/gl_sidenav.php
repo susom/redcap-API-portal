@@ -140,7 +140,7 @@
               </a>
             </li>
             <li>
-              <a href="mailto:mailto:wellforlife@stanford.edu?subject=Question for WELL" class="nav dk">
+              <a href="mailto:wellforlife@stanford.edu?subject=Question for WELL" class="nav dk">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>

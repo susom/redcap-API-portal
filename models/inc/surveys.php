@@ -33,6 +33,7 @@ class SurveysConfig {
 		, "wellbeing_questions"
 		, "your_social_and_neighborhood_environment"
 		, "contact_information"
+		, "your_feedback"
 	);
 }
 
@@ -307,4 +308,5 @@ $all_branching 				= $user_survey_data->getAllBranching();
 //THIS IS ALREADY SUNK COST;
 // print_rr($all_branching,1);
 // print_rr($all_completed,1);
+// print_rr($surveys,1);
 // exit;

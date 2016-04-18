@@ -196,9 +196,10 @@ class Survey {
         || $fieldmeta["field_type"] == "dropdown"){
         $possible_answers = explode("|",$fieldmeta["select_choices_or_calculations"]);
         foreach($possible_answers as $pa){
-          $temp = explode(", ",$pa);
-          if($user_answer == $temp[0]){
-            $user_answer = $temp[1];
+          $temp         = explode(", ",$pa);
+          $answervalue  = array_shift($temp);
+          if($user_answer == $answervalue){
+            $user_answer = implode(",",$temp);
             break;
           }
         }
@@ -216,7 +217,8 @@ class Survey {
     foreach($answer_choices as $qa){
       if($qa){
         $temp = explode("," , $qa);
-        $select_choices[trim($temp[0])] = trim($temp[1]);
+        $key  = array_shift($temp);
+        $select_choices[trim($key)] = implode(",",$temp);
       }
     }
 

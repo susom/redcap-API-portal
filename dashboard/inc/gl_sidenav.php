@@ -67,7 +67,7 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-stack icon"></i>
-                <span class="font-bold">My Surveys</span>
+                <span class="font-bold">Core Surveys</span>
               </a>
               <ul class="nav dk">
                 <?php

@@ -298,8 +298,8 @@ $(document).ready(function(){
         $(".required_message").remove();
         if($(this).hasClass("active")){
           $(this).removeClass("active").addClass("inactive");
-          $(this).next().addClass("active");
-          $("#customform").animate({ scrollTop : 0});
+          $(this).next().addClass("active", function(){});
+          $("#customform").animate({ scrollTop : 0}, function(){});
           return false;
         }
       }else{
@@ -360,10 +360,10 @@ $(document).ready(function(){
     if($(this).closest(".inputwrap").nextAll(':visible:first')){
       var nextpos = $(this).closest(".inputwrap").nextAll(':visible:first').position();
       if(nextpos !== undefined && nextpos.top){
-        console.log("scroll man",nextpos.top);
+        // console.log("scroll man",nextpos.top);
         $("#customform").animate({ scrollTop : nextpos.top + "px"});
       }else{
-        console.log("maybe next input is hidden?");
+        // console.log("maybe next input is hidden?");
       }
     }
     

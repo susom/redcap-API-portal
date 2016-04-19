@@ -8,7 +8,6 @@ if(isUserLoggedIn()) {
 	exit; 
 }
 
-
 //ELIGIBLE CITY/ZIP COMBINATIONS
 include("models/inc/city_zips.php");
 $username_label 	= "";

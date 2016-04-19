@@ -95,6 +95,8 @@ function clearSession() {
 	//logIt('Logging out and killing session: ' . print_r($_SESSION,true),'DEBUG');
 	$_SESSION[SESSION_NAME] = NULL;
 	unset($_SESSION[SESSION_NAME]);
+	$_SESSION = array();
+	session_destroy();
 	logIt('Session cleared','DEBUG');
 	//$loggedInUser = NULL;
 }
@@ -601,4 +603,3 @@ function print_rr($d,$exit=false){
 		exit;
 	}
 }
-?>

@@ -10,6 +10,7 @@ class Survey {
   PUBLIC $hash;
   PRIVATE $fieldtype_map;
 
+//name, project(connection stuff), 
   public function __construct( $survey_data ){
     $this->surveyname     = $survey_data["label"];
     $this->surveytotal    = $survey_data["total_questions"];

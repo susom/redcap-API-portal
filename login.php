@@ -91,8 +91,11 @@ include("models/inc/gl_header.php");
 					<div class="pull-left">
 						<a class="showrecover" href="#">Forgot Password?</a> <br>
 						<a class="showregister" href="register.php">Register for Study</a>  
-					</div>    
-					<input <?php echo $disabled?> type="submit" class="btn btn-success pull-right" name="new_login" id="newfeedform" value="Log In"/>      
+					</div>   
+					<div class="pull-right"> 
+						<input <?php echo $disabled?> type="submit" class="btn btn-success" name="new_login" id="newfeedform" value="Log In"/>     
+						<span></span>
+					</div>
 				</div>
 	        </form>
 
@@ -136,6 +139,10 @@ include("models/inc/gl_header.php");
 </div>
 <script>
 $(document).ready(function(){
+	$("#loginForm").submit(function(){
+		$("input[name='new_login']").addClass("loading");
+	});
+
 	$(".showrecover, .showlogin").click(function(e){
 		$(".logpass form").hide();
 

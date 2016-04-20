@@ -100,6 +100,24 @@ a:hover { text-decoration:underline; }
 .login input , .login .steptwo .control-label{ margin:0 0 15px; }
 .login input[type='radio']{ margin:0 3px; }
 
+.login input[name='new_login'].loading {
+	background:#999;
+	color:#666;
+}
+.login input[name='new_login'].loading + span {
+	position:relative;
+	display:inline-block; 
+	vertical-align:absmiddle; 
+	margin-left:5px; 
+}
+.login input[name='new_login'].loading + span:after {
+	content:"";
+	display:block; 
+	width:24px; height:24px; 
+	background:url(http://twosensus.com/img/spinner.gif) no-repeat;
+	background-size:contain; 
+}
+
 .showlogin,.showrecover,.showregister { margin:5px 0 0 2px; color:#007c92; }
 .lostPass { display:none; }
 .steptwo { display:none; }

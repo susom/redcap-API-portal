@@ -7,7 +7,7 @@ if(isset($_REQUEST["ajax"])){
     $result = RC::callApi(array(
         "hash"    => $_REQUEST["hash"], 
         "format"  => "csv"
-      ),$custom_surveycomplet_API);
+      ), true, $custom_surveycomplete_API, REDCAP_API_TOKEN);
     exit;
   }
 
@@ -29,7 +29,7 @@ if(isset($_REQUEST["ajax"])){
       "field_name"        => $field_name,
       "value"             => $value
     );
-    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
   }
   exit;
 }

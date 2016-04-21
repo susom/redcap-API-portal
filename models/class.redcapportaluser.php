@@ -263,7 +263,7 @@ class RedcapPortalUser
       }
 
       //logIt("updateUser data2:".print_r($data,true), "DEBUG");
-      $result = RC::writeToApi($data, $extra_params);
+      $result = RC::writeToApi($data, $extra_params, REDCAP_API_URL, REDCAP_API_TOKEN);
       if (isset($result['error'])) {
          logIt('Error updating User: ' . $result['error'] . " with: " . print_r($data,true));
          return false;
@@ -295,7 +295,7 @@ class RedcapPortalUser
          'records' => array($this->user_id),
          'fields' => $fields
       );
-      $result = RC::callApi($params);
+      $result = RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
       //print "DEBUG: PARAMS: <pre>".print_r($params,true)."</pre>";
       //print "DEBUG: LOAD USER: <pre>".print_r($result,true)."</pre>";
 

@@ -298,7 +298,7 @@ function getUserByPasswordToken($token) {
 			getRF('pass_reset_req_ts')
 		)
 	);
-	$result 		= RC::callApi($params);
+	$result 		= RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
 	$errors 		= array();
 	$token_matches 	= array();
 	
@@ -365,7 +365,7 @@ function getUserByEmail($email) {
 			getRF('email')
 		)
 	);
-	$result = RC::callApi($params);
+	$result = RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
 	
 	$errors = array();
 	$matches = array();

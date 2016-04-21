@@ -41,24 +41,17 @@ if(isset($_GET["survey_complete"])){
 $health_behaviors_complete  = false;
 $all_answers                = array();
 $graph_fields               = array("core_sitting", "core_sitting_weekend", "core_walking");
-
-$activity_survey = $user_survey_data->getSurveyInfo(array(array(
-  "instrument_name" => "your_physical_activity"
-  ,"instrument_label" => "Your Physical Activity"
-  )), true);
-
-foreach($activity_survey as $index => $instrument_event){
-  $all_answers  = $user_survey_data->getUserAnswers(null,$graph_fields);
-  $user_answers = array();
-  foreach($graph_fields as $key){
-    if($instrument_event["survey_complete"]){
-      $health_behaviors_complete = true;
-      if(array_key_exists($key, $instrument_event["completed_fields"])){
-        $user_answers[$key] = $instrument_event["completed_fields"][$key];
-      }
+$instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
+$user_answers               = array();
+foreach($graph_fields as $key){
+  if($instrument_event["survey_complete"]){
+    $health_behaviors_complete = true;
+    if(array_key_exists($key, $instrument_event["completed_fields"])){
+      $user_answers[$key] = $instrument_event["completed_fields"][$key];
     }
   }
 }
+
 // AGGREGATE OF ALL PARTICIPANTS
 $ALL_TIME_WALKING_IN_MINUTES = 0;
 $ALL_TIME_SITTING_IN_MINUTES = 0;
@@ -145,17 +138,31 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-8">
                       <?php
+                      $supplementalProject  = new Project($loggedInUser, 'https://redcap.stanford.edu/api/', '0CE775FBC63981B552D74EFFA5E6741D');
+                      $supp_surveys         = $supplementalProject->getActiveAll();
+                      $supp_survey_keys     = array_keys($supp_surveys);
+
                       //THIS STUFF IS FOR NEWS AND REMINDERS FURTHER DOWN PAGE
                       $news         = array();
                       $reminders    = array();
                       if($core_surveys_complete){
                         $reminders[]  = "<li class='list-group-item'>All done with core surveys!</li>";
                       }else{
-                        $news[]       = "<li class='list-group-item'>No news yet.</li>";
+                        // $news[]       = "<li class='list-group-item'>No news yet.</li>";
+                      }
+
+                      //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
+                      foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
+                        $survey_link  = $supp_instrument["survey_link"];
+                        $surveyname   = $supp_instrument["label"];
+                        $news[]       = "<li class='list-group-item'>
+                                            Please take <a href='$survey_link'>$surveyname</a> survey
+                                        </li>";
                       }
 
                       $firstonly      = true;
                       $showfruit      = array();
+
                       echo "<ul class='dash_fruits'>\n";
                       foreach($surveys as $surveyid => $survey){
                         $index          = array_search($surveyid, $all_survey_keys);
@@ -168,9 +175,9 @@ include("inc/gl_head.php");
                         if(!$surveycomplete){
                           $crap = ($firstonly ? $surveylink : "#");
                           if($core_surveys_complete){
-                            $news[]       = "<li class='list-group-item'>
-                                Please take <a href='$crap'>$surveyname</a> survey
-                            </li>";
+                            // $news[]       = "<li class='list-group-item'>
+                            //     Please take <a href='$crap'>$surveyname</a> survey
+                            // </li>";
                           }else{
                             if(in_array($surveyid,SurveysConfig::$core_surveys)){
                               $reminders[]  = "<li class='list-group-item'>

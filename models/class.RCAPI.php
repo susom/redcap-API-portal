@@ -6,16 +6,15 @@
 
 class RC {
 	// Make API Call
-	public static function callApi($extra_params = null, $api_url = REDCAP_API_URL,  $json_decode = true) {
+	public static function callApi($extra_params = null, $json_decode = true, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
 		$default_params = array(
-			'token' 	=> REDCAP_API_TOKEN,
+			'token' 	=> $api_token,
 			'format' 	=> 'json',
 			'content' 	=> 'record'
 		);	
 
 		$params = array_merge($default_params, $extra_params);
 		//logIt("New Params:" . print_r($params,true), "DEBUG");
-
 
 		// logIt(json_encode($params,1),"DEBUG");
 		$result = self::http_post($api_url, $params);
@@ -36,7 +35,7 @@ class RC {
 	}
 	
 	// Write to the API
-	public static function writeToApi($data, $extra_params = array(), $api_url = REDCAP_API_URL) {
+	public static function writeToApi($data, $extra_params = array(), $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
 		// Force data into an array of arrays if not already set
 		if (!is_array(current($data))) $data = array($data);
 	
@@ -48,7 +47,7 @@ class RC {
 			), $extra_params
 		);
 
-		$j = self::callApi($extra_params);
+		$j = self::callApi($extra_params, true, $api_url, $api_token);
 		return $j;
 	}
 	

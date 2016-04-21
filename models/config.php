@@ -9,21 +9,27 @@ $requires 	= array(
 	,"/class.redcapAuth.php"
 	,"/class.redcapportaluser.php"
 	,"/class.mail.php"
-
 	,"/class.Project.php"
 );
 foreach($requires as $required){
 	require_once( dirname(__FILE__) . $required);
 }
-require_once( dirname(__FILE__) . "/lang/".$langauge.".php");
+require_once( dirname(__FILE__) . "/lang/".$_CFG->WEBSITE["language"] .".php");
 
 $start_time	= microtime(true);
 // $end_time 	= microtime(true) - $start_time; //measure script time somewhere
 
+$default_hooks 				= array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
+$default_replace 			= array( $_CFG->WEBSITE["Name"]
+									,$_CFG->WEBSITE["Url"]
+									,$_CFG->WEBSITE["emailDate"]
+								);
+
+
 // Start Session and determine if we are authenticated
 // Authenticated means user+pass has matched, but does NOT mean the account is active
 session_start();
-$loggedInUser = getSessionUser();
+$loggedInUser = getSessionUser($_CFG->SESSION_NAME);
 if( !empty($loggedInUser) ){
 	// Check for logout
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){

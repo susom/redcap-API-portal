@@ -85,7 +85,7 @@ class RedcapAuth {
       $params = array(
          'fields' => array(REDCAP_FIRST_FIELD, getRF('username'), getRF('password'), getRF('email'))
       );
-      $result = RC::callApi($params);
+      $result = RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
       
       // Scan records for email and username matches and to set nextId
       $new_id = 1;
@@ -139,7 +139,7 @@ class RedcapAuth {
       if (REDCAP_PORTAL_EVENT !== NULL) $data['redcap_event_name'] = REDCAP_PORTAL_EVENT;
 
       logIt("CREATE NEW USER WITH DATA:".print_r($data,true), "DEBUG");
-      $result = RC::writeToApi($data, array('returnContent'=>'ids'));
+      $result = RC::writeToApi($data, array('returnContent'=>'ids'), REDCAP_API_URL, REDCAP_API_TOKEN);
 
       $new_user_id = is_array($result) ? current($result) : null;
 

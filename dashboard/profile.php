@@ -28,7 +28,7 @@ if(isset($_REQUEST["ajax"]) && $_REQUEST["ajax"]){
       "value"             => $value,
     );
   }
-  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"));
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
 
   echo json_encode($data);
   exit;

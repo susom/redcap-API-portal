@@ -9,11 +9,11 @@ if(isUserLoggedIn()) {
 }
 
 if(isset($_GET["session_clear"])){
-	unset($_SESSION[SESSION_NAME]['login_attempts']);
+	unset($_SESSION[$_CFG->SESSION_NAME]['login_attempts']);
 	header("Location: " . $websiteUrl . "login.php"); 
 }
 
-$attempts_remaining = (isset($_SESSION[SESSION_NAME]['login_attempts']) ? $_SESSION[SESSION_NAME]['login_attempts'] : 4);
+$attempts_remaining = (isset($_SESSION[$_CFG->SESSION_NAME]['login_attempts']) ? $_SESSION[$_CFG->SESSION_NAME]['login_attempts'] : 4);
 $username_label 	= "";
 $badlogin 			= "";
 //--------------------------------------------------------------------
@@ -69,7 +69,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 $disabled = ($attempts_remaining < 1 ? "disabled=disabled" : null);
 $username_validation  = $portal_config['useEmailAsUsername'] ? "required: true, email: true" : "required: true";
 
-$pg_title 		= "Login : $websiteName";
+$pg_title 		= "Login : " .$_CFG->WEBSITE["Name"];
 $body_classes 	= "login";
 include("models/inc/gl_header.php");
 ?>

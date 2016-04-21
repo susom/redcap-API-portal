@@ -39,10 +39,12 @@ if(isset($_GET["survey_complete"])){
 
 //FOR THE PIE CHART
 $health_behaviors_complete  = false;
+$user_answers               = array();
 $all_answers                = array();
+
 $graph_fields               = array("core_sitting", "core_sitting_weekend", "core_walking");
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
-$user_answers               = array();
+$all_answers                = $user_survey_data->getUserAnswers(null,$graph_fields);
 foreach($graph_fields as $key){
   if($instrument_event["survey_complete"]){
     $health_behaviors_complete = true;
@@ -55,29 +57,26 @@ foreach($graph_fields as $key){
 // AGGREGATE OF ALL PARTICIPANTS
 $ALL_TIME_WALKING_IN_MINUTES = 0;
 $ALL_TIME_SITTING_IN_MINUTES = 0;
+foreach($all_answers as $fieldname =>  $answers){
+  // $answer_value = intval($answer);
+  if(empty($answer)){
+    continue;
+  }
 
-foreach($all_answers as $answers){
-  foreach($answers as $fieldname => $answer){
-    // $answer_value = intval($answer);
-    if(empty($answer)){
-      continue;
-    }
+  if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1){
+    list($hour, $min) = explode(":",$answer);
+    $hour_value   = (isset($hour) ? $hour : 0);
+    $min_value    = (isset($min)  ? $min : 0);
 
-    if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1){
-      list($hour, $min) = explode(":",$answer);
-      $hour_value   = (isset($hour) ? $hour : 0);
-      $min_value    = (isset($min)  ? $min : 0);
+    $answer_value = $min_value + $hour_value*60;
+    $answer_value = $answer_value*60;
+  }
 
-      $answer_value = $min_value + $hour_value*60;
-      $answer_value = $answer_value*60;
-    }
-
-    if(strpos($fieldname,"walking") > -1){
-      $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
-    }
-    if(strpos($fieldname,"sitting") > -1){
-      $ALL_TIME_SITTING_IN_MINUTES += $answer_value;
-    }
+  if(strpos($fieldname,"walking") > -1){
+    $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
+  }
+  if(strpos($fieldname,"sitting") > -1){
+    $ALL_TIME_SITTING_IN_MINUTES += $answer_value;
   }
 }
 
@@ -85,13 +84,13 @@ foreach($all_answers as $answers){
 $USER_TIME_WALKING_IN_MINUTES = 0;
 $USER_TIME_SITTING_IN_MINUTES = 0;
 if(isset($user_answers) && !empty($user_answers)){
-  if(empty($answer)){
-      continue;
-  }
-  
   foreach($user_answers as $index => $answer){
+    if(empty($answer)){
+        continue;
+    }
+
     // $answer_value = intval($answer);
-    if(strpos($index,"hr_min") > -1){
+    if(in_array($index,$graph_fields)){
       list($hour, $min) = explode(":",$answer);
       $hour_value   = (isset($hour) ? $hour : 0);
       $min_value    = (isset($min)  ? $min : 0);

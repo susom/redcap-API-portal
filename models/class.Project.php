@@ -12,10 +12,13 @@ class Project {
 	PRIVATE $user_current_survey_index 	= NULL;
 	PRIVATE $current_arm 				= 0; //WHAT EVEN IS THIS
 
-	public function __construct($loggedInUser, $api_url, $api_token){
+	PRIVATE $name = "";
+
+	public function __construct($loggedInUser, $projectName="", $api_url, $api_token){
 		$this->API_URL 			= $api_url;
 		$this->API_TOKEN 		= $api_token;
 		$this->LOGGED_IN_USER 	= $loggedInUser;
+		$this->name 			= $projectName;
 
 		$all_events 			= self::getEvents();
 		if(array_key_exists("error",$all_events)){
@@ -35,7 +38,7 @@ class Project {
 			}, $all_events);
 		}
 		$this->ALL_INSTRUMENTS 		= $all_instruments;
-		
+
 		//ALL USER ANSWERS IN ONE SHOT/ PRICEY BUT WITH CACHING WILL BE GOOD
 		$this->ALL_USER_ANSWERS 	= self::getUserAnswers($this->LOGGED_IN_USER->id); //ALL PPOSSIBLE USER ANSWERS
 
@@ -126,17 +129,19 @@ class Project {
 		);
 		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN); 
 		$proper_answers = array();
-		foreach($result[0] as $key => $val){
-			$realkey 	= $key;
-			$realvalue 	= $val;
+		if(!empty($result)){
+			foreach($result[0] as $key => $val){
+				$realkey 	= $key;
+				$realvalue 	= $val;
 
-			if(strpos($key, "___") > -1 && $val == 0){
-				continue;
+				if(strpos($key, "___") > -1 && $val == 0){
+					continue;
+				}
+				if(strpos($key, "___") > -1 && $val == 1){
+					list($realkey,$realvalue) = explode("___", $key);
+				}
+				$proper_answers[$realkey] = $realvalue;
 			}
-			if(strpos($key, "___") > -1 && $val == 1){
-				list($realkey,$realvalue) = explode("___", $key);
-			}
-			$proper_answers[$realkey] = $realvalue;
 		}
 		return $proper_answers;
 	}
@@ -282,6 +287,10 @@ class Project {
 
     public function getSingleInstrument($instrument_id){
     	return $this->ACTIVE_INSTRUMENTS[$instrument_id];
+    }
+
+    public function name(){
+    	return $this->name;
     }
 }
 

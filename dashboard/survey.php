@@ -47,6 +47,14 @@ if(!isUserLoggedIn()) {
 
 //THIS PAGE NEEDS A SURVEY ID
 $surveyid = $_GET["sid"];
+$project  = (isset($_GET["project"])? $_GET["project"]:null);
+
+if($project){
+  if(array_key_exists($project, SurveysConfig::$projects)){
+    $supp_project = new Project($loggedInUser, $project, SurveysConfig::$projects[$project]["URL"], SurveysConfig::$projects[$project]["TOKEN"]);
+    $surveys = $supp_project->getActiveAll();
+  }
+}
 
 if(array_key_exists($surveyid, $surveys)){
   $survey_data    = $surveys[$surveyid];

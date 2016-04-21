@@ -10,13 +10,13 @@
 // print_rr($secondProject,1);
 // exit;
 
-if(!isset($_SESSION["user_survey_data"])){
-	$user_survey_data 				= $_SESSION["user_survey_data"];
-}else{
-	$user_survey_data				= new Project($loggedInUser, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+// if(!isset($_SESSION["user_survey_data"])){
+	// $user_survey_data 				= $_SESSION["user_survey_data"];
+// }else{
+	$user_survey_data				= new Project($loggedInUser, "Portal", $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
 	// $_SESSION["user_survey_data"] 	= $user_survey_data;
 	//WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
-}
+// }
 $fruits  				= SurveysConfig::$fruits;
 $surveys 				= $user_survey_data->getActiveAll();
 $all_survey_keys  		= array_keys($surveys);

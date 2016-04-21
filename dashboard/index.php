@@ -137,7 +137,7 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-8">
                       <?php
-                      $supplementalProject  = new Project($loggedInUser, 'https://redcap.stanford.edu/api/', '0CE775FBC63981B552D74EFFA5E6741D');
+                      $supplementalProject  = new Project($loggedInUser, 'Supp', SurveysConfig::$projects["Supp"]["URL"], SurveysConfig::$projects["Supp"]["TOKEN"]);
                       $supp_surveys         = $supplementalProject->getActiveAll();
                       $supp_survey_keys     = array_keys($supp_surveys);
 
@@ -152,10 +152,10 @@ include("inc/gl_head.php");
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
-                        $survey_link  = $supp_instrument["survey_link"];
+                        $surveylink   = $supp_instrument["survey_link"];//"survey.php?sid=". $supp_instrument_id. "&project=" . $supplementalProject->name();
                         $surveyname   = $supp_instrument["label"];
                         $news[]       = "<li class='list-group-item'>
-                                            Please take <a href='$survey_link'>$surveyname</a> survey
+                                            Please take <a href='$surveylink'>$surveyname</a> survey
                                         </li>";
                       }
 

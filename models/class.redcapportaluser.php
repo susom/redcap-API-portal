@@ -315,6 +315,9 @@ class RedcapPortalUser
          $this->$k = $user[$v];
       }
 
+      //THINK ABOUT THIS - FLAIR FOR first PArticipants
+      $user["elite"] = $user["id"] < 500 ? true : false;
+      
       //logIt("This: " . json_encode($this), "DEBUG");
 
       // TBD Sanitize any of the loaded variables?

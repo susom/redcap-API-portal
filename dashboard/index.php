@@ -107,6 +107,20 @@ if(isset($user_answers) && !empty($user_answers)){
   }
 }
 
+//SUPPLEMENTAL PROJECTS
+$supp_surveys = array();
+$supp_proj    = SurveysConfig::$projects;
+foreach($supp_proj as $proj_name => $project){
+  if($proj_name == $_CFG->SESSION_NAME){
+    continue;
+  }
+
+  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
+}
+// $_SESSION["Supp_Surveys"] = $supp_surveys;
+
+
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
 $profile_active = '';
@@ -124,7 +138,6 @@ include("inc/gl_head.php");
         <?php 
         	include("inc/gl_sidenav.php"); 
         ?>
-
         <section id="content">
           <section class="hbox stretch">
             <section>
@@ -137,10 +150,6 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-sm-8">
                       <?php
-                      $supplementalProject  = new Project($loggedInUser, 'Supp', SurveysConfig::$projects["Supp"]["URL"], SurveysConfig::$projects["Supp"]["TOKEN"]);
-                      $supp_surveys         = $supplementalProject->getActiveAll();
-                      $supp_survey_keys     = array_keys($supp_surveys);
-
                       //THIS STUFF IS FOR NEWS AND REMINDERS FURTHER DOWN PAGE
                       $news         = array();
                       $reminders    = array();
@@ -152,7 +161,7 @@ include("inc/gl_head.php");
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
-                        $surveylink   = $supp_instrument["survey_link"];//"survey.php?sid=". $supp_instrument_id. "&project=" . $supplementalProject->name();
+                        $surveylink   = "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"];
                         $surveyname   = $supp_instrument["label"];
                         $news[]       = "<li class='list-group-item'>
                                             Please take <a href='$surveylink'>$surveyname</a> survey

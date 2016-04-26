@@ -3,33 +3,42 @@ require_once("../models/config.php");
 
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  //IF DOING A END OF SURVEY FINAL SUBMIT
   if(isset($_REQUEST["surveycomplete"])){
-    $result = RC::callApi(array(
+    $result     = RC::callApi(array(
         "hash"    => $_REQUEST["hash"], 
         "format"  => "csv"
-      ), true, $custom_surveycomplete_API, REDCAP_API_TOKEN);
+      ), true, $custom_surveycomplete_API, $API_TOKEN);
     exit;
   }
 
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
-  $data = array();
+  $data       = array();
   foreach($_POST as $field_name => $value){
     if($value === 0){
-      $value = "0";
-    }
-
-    if($value == ""){
+      $value = (string) "0";
+    }else if($value == ""){
       $value = NULL;
     }
 
+    $record_id  = $project_name !== SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+    $event_name = $project_name !== SESSION_NAME ? null : $_SESSION[SESSION_NAME]["survey_context"]["event"];
+
     $data[] = array(
-      "record"            => $_SESSION[SESSION_NAME]["user"]->id,
-      "redcap_event_name" => $_SESSION[SESSION_NAME]["survey_context"]["event"],
+      "record"            => $record_id,
       "field_name"        => $field_name,
       "value"             => $value
     );
-    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
+    if($event_name){
+      $data["redcap_event_name"] = $event_name;
+    }
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
   }
   exit;
 }
@@ -246,15 +255,15 @@ $(document).ready(function(){
     all_completed[for_branch_name] = for_branch_val;
     checkGeneralBranching();
 
-
-    //MAYBE EVERYTIME SOMETHING CHANGES I SHOULD CHECK ALL THE BRANCHING ?!?!
-    // checkGeneralBranching(elem);
-
+    //CHECK PROJECT
+    var project = "&project=" + $("#customform").data("project");
     $.ajax({
       url:  dataURL,
       type:'POST',
-      data: elem.serialize(),
+      data: elem.serialize() + project,
       success:function(result){
+        console.log(result);
+
         if(elem.is(":checkbox")){
           //GOTTA RESET THE checkbox properties haha
           elem.prop("name",oldname);
@@ -320,10 +329,11 @@ $(document).ready(function(){
         //REDIRECT TO HOME WITH A MESSAGE
         var dataURL         = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
+        var project         = "&project=" + $("#customform").data("project");
         $.ajax({
           url:  dataURL,
           type:'POST',
-          data: surveyhash,
+          data: surveyhash + project,
           success:function(result){
             // console.log(result);
             location.href="index.php?survey_complete=" + instrument_name;

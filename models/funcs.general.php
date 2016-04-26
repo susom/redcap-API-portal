@@ -174,6 +174,7 @@ function makeMessageBox($messages, $type) {
 /* LOGIN / STATUS FUNCTIONS */
 //------------------------------------------------------------------
 
+
 // Returns true if user object is defined globally
 function isUserLoggedIn() {
 	global $loggedInUser;
@@ -401,6 +402,44 @@ function getUserByEmail($email) {
 //------------------------------------------------------------------
 // OTHER METHODS
 //------------------------------------------------------------------
+
+function linkSupplementalProject($api, $portalUser, $ev_name = "") {
+	//THIS LINKS A USER OF A MAIN PROJECT (PORTAL w/ userInfo) TO ANOTHER SUPLLEMENTAL PROJECT
+	$pk_field 		= $api["Primary_Key"];
+	$fk_field 		= $api["Foreign_Key"];
+	$portalUserId 	= $portalUser->id;
+
+	$params 				= array( "fields" => array($pk_field) ); //record id + foreignKey
+	$params["filterLogic"] 	= "[$fk_field] = '$portalUserId'"; //foreign key filter
+	if(!empty($ev_name)){
+		$params["events"] = array($ev_name); //event filter
+    }
+    $q = RC::callApi($params, true, $api["URL"], $api["TOKEN"]);
+    $new_id = $portalUserId;
+    if( !empty($q) && !empty($ev_name) ){
+    	//OK DONT CREATE A NEW ROW EVERY DANG TIME ,
+    	//ONLY IF THERE IS ANOTHER EVENT ARM ADDED I GUESS
+    	$prefix = $portalUserId;
+	    $i 		= 2;
+	    do {
+            $new_id = $prefix . "-" . $i;
+            $i++;
+            $found = false;
+            foreach ($q as $record) {
+            	if( $record[$pk_field] === $new_id ){
+            		$found = true;
+            		break;
+            	}
+            }
+        } while ($found && $i < 99);
+	}
+	$data = array("id"=> $new_id, $fk_field => $portalUserId);
+	if(!empty($ev_name)){
+		$data["redcap_event_name"] = $ev_name;
+	}
+	RC::writeToApi($data, array(), $api["URL"], $api["TOKEN"]);
+	return $new_id;
+}
 
 // Looks up the redcap field name for a given user property
 function getRF($property) {

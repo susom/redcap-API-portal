@@ -37,6 +37,17 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 		if($auth->authenticated_user_id != Null) {
 			// Log user in
 			$loggedInUser 		= new RedcapPortalUser($auth->authenticated_user_id);
+
+			//CHECK THIS ON EVERY LOGIN? SURE
+			$supp_proj 		= SurveysConfig::$projects;
+			foreach($supp_proj as $proj_name => $project){
+				if($proj_name == $_CFG->SESSION_NAME){
+					continue;
+				}
+				$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+				$loggedInUser->{$proj_name} = $supp_id;
+			}
+
 			unset($_SESSION[SESSION_NAME]['login_attempts']);
 			setSessionUser($loggedInUser);
 

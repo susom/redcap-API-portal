@@ -20,23 +20,32 @@ class Project {
 		$this->LOGGED_IN_USER 	= $loggedInUser;
 		$this->name 			= $projectName;
 
+		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
-		if(array_key_exists("error",$all_events)){
-			$all_instruments 		= self::getInstruments();
-		}else{
-			//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
-			$all_instruments 		= array_map(function($event){
-				$instrument_id 		= $event["form"];
-				$instrument_label 	= str_replace("_"," ",$instrument_id);
-				return array(
-					 "arm_num" 				=> $event["arm_num"]
-					,"unique_event_name" 	=> $event["unique_event_name"]
-					,"instrument_name"		=> $instrument_id
-					,"instrument_label"		=> ucwords($instrument_label)
 
-				);
-			}, $all_events);
+// if($projectName !== SESSION_NAME){
+// 	echo $projectName;
+// 	print_rr($all_events,1);
+// }
+		if(is_array($all_events)  ){
+			if(array_key_exists("error",$all_events) || empty($all_events)){
+				$all_instruments 		= self::getInstruments();
+			}else{
+				//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
+				$all_instruments 		= array_map(function($event){
+					$instrument_id 		= $event["form"];
+					$instrument_label 	= str_replace("_"," ",$instrument_id);
+					return array(
+						 "arm_num" 				=> $event["arm_num"]
+						,"unique_event_name" 	=> $event["unique_event_name"]
+						,"instrument_name"		=> $instrument_id
+						,"instrument_label"		=> ucwords($instrument_label)
+
+					);
+				}, $all_events);
+			}
 		}
+
 		$this->ALL_INSTRUMENTS 		= $all_instruments;
 
 		//ALL USER ANSWERS IN ONE SHOT/ PRICEY BUT WITH CACHING WILL BE GOOD
@@ -249,6 +258,7 @@ class Project {
 			
 			$surveys[$instrument_id] = array(
 				 "label" 			=> str_replace("And","&",$instrument_label)
+				,"project" 			=> $this->name
 				,"event" 			=> $unique_event_name
 				,"arm"				=> $arm_num
 				,"survey_link" 		=> $check_survey_link

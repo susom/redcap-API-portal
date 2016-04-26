@@ -129,13 +129,23 @@ if(!empty($_POST['submit_new_user'])){
 	$uid 		= $_GET['uid'];
 	$activation = $_GET['activation'];
 
-	$newuser = new RedcapPortalUser($uid);
+	$newuser 	= new RedcapPortalUser($uid);
 	if($newuser->isEmailTokenValid($activation)){
 		//SET EMAIL = VERIFIED
 		$newuser->setEmailVerified();
 
 		//SET USER IN SESSION
 		$loggedInUser = new RedcapPortalUser($uid);
+
+		//AT THIS POINT, LOOK THROUGH ANY OTHER PROJECTS IN THE SURVEYS CONFIG
+		//THEN GO AHEAD AND CREATE A NEW RECORD ID FOR EACH INSTRUMENT  (logged in user id + p001_1)
+		
+
+
+
+
+
+
 		setSessionUser($loggedInUser);
 
 		//REDIRECT TO CONSENT

@@ -8,6 +8,7 @@ class Survey {
   PUBLIC $surveypercent;
   PUBLIC $raw;
   PUBLIC $hash;
+  PUBLIC $project;
   PRIVATE $fieldtype_map;
 
 //name, project(connection stuff), 
@@ -18,7 +19,7 @@ class Survey {
     $this->surveycomplete = $survey_data["survey_complete"];
     $this->surveypercent  = 0;
     $this->raw            = $survey_data["raw"];
-
+    $this->project        = $survey_data["project"];
     $hash                 = explode("s=", $survey_data["survey_link"]);
     $this->hash           = array("hash" => $hash[1]);
   }
@@ -329,7 +330,7 @@ class Survey {
       $theHTML[]      = "</div>";
       $theHTML[]      = "<style>.surveyFrame{ height:auto; }</style>";
     }else{
-      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."'>";
+      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."' data-project='".$this->project."'>";
       
       //CONTAINERS FOR BUILDING FORM COMPONENTS
       $sections       = array();

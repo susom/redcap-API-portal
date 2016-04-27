@@ -173,6 +173,10 @@ h2.weather,
     background : #fff;
 }
 
+.datacharts section { text-align:center; min-width:590px; height:500px; }
+.datacharts.charttoo canvas {  height:100%; }
+.datacharts h3{ color:#333; font-size:24px; margin:0; padding: 16px 0 8px;} 
+.datacharts p { font-size:14px; color:#333; margin: 0 ; padding: 0 0 30px; }
 
 /*SURVEY FRAMES*/
 .survey .m-b-md {

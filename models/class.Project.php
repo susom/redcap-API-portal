@@ -49,7 +49,8 @@ class Project {
 		$this->ALL_INSTRUMENTS 		= $all_instruments;
 
 		//ALL USER ANSWERS IN ONE SHOT/ PRICEY BUT WITH CACHING WILL BE GOOD
-		$this->ALL_USER_ANSWERS 	= self::getUserAnswers($this->LOGGED_IN_USER->id); //ALL PPOSSIBLE USER ANSWERS
+		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
+		$this->ALL_USER_ANSWERS 	= $user_answers[0]; //ALL PPOSSIBLE USER ANSWERS
 
 		//BUILD SNAPSHOT OF ACTIVE INSTRUMENT DATA FOR THIS USER
 		$this->ACTIVE_INSTRUMENTS 	= self::getSurveyInfo($this->ALL_INSTRUMENTS);
@@ -128,7 +129,7 @@ class Project {
 	}
 
 	//GET ALL USER ANSWERS
-	public function getUserAnswers($record_id=null,$fields = null){
+	public function getUserAnswers($record_id=NULL,$fields = NULL){
 		$extra_params = array(
 		  'content'   	=> 'record',
 		  'records' 	=> (is_null($record_id) ? null:  array($record_id) ),
@@ -136,20 +137,24 @@ class Project {
 		  'fields'    	=> $fields,
 		  'exportSurveyFields' => true
 		);
-		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN); 
+
+		$result 		= RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN); 
 		$proper_answers = array();
 		if(!empty($result)){
-			foreach($result[0] as $key => $val){
-				$realkey 	= $key;
-				$realvalue 	= $val;
+			foreach($result as $i => $res){
+				$proper_answers[$i] = array();
+				foreach($res as $key => $val){
+					$realkey 	= $key;
+					$realvalue 	= $val;
 
-				if(strpos($key, "___") > -1 && $val == 0){
-					continue;
-				}
-				if(strpos($key, "___") > -1 && $val == 1){
-					list($realkey,$realvalue) = explode("___", $key);
-				}
-				$proper_answers[$realkey] = $realvalue;
+					if(strpos($key, "___") > -1 && $val == 0){
+						continue;
+					}
+					if(strpos($key, "___") > -1 && $val == 1){
+						list($realkey,$realvalue) = explode("___", $key);
+					}
+					$proper_answers[$i][$realkey] = $realvalue;
+				}	
 			}
 		}
 		return $proper_answers;

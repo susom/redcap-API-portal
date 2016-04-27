@@ -38,81 +38,90 @@ if(isset($_GET["survey_complete"])){
 }
 
 //FOR THE PIE CHART
-$health_behaviors_complete  = false;
-$user_answers               = array();
-$all_answers                = array();
-
-$graph_fields               = array("core_sitting", "core_sitting_nowrk", "core_sitting_weekend", "core_walking", "core_pa_mod", "core_pa_vig");
+$graph_fields               = array(
+                                 "core_sitting"
+                                ,"core_sitting_nowrk"
+                                ,"core_sitting_weekend"
+                                ,"core_walking"
+                                ,"core_pa_mod"
+                                ,"core_pa_vig"
+                              );
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
-$all_answers                = $user_survey_data->getUserAnswers(null,$graph_fields);
 
+//GET ANSWERS FOR ALL USERS
+$all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fields);
 
-
-foreach($graph_fields as $key){
-  if($instrument_event["survey_complete"]){
-    $health_behaviors_complete = true;
-    if(array_key_exists($key, $instrument_event["completed_fields"])){
-      $user_answers[$key] = $instrument_event["completed_fields"][$key];
-    }
-  }
-}
+//GATHER UP THIS USERS ANSWERS
+$health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
+$user_answers               = array_intersect_key( $instrument_event["completed_fields"],  array_flip($graph_fields) );
 
 // AGGREGATE OF ALL PARTICIPANTS
-$ALL_TIME_PA_MOD_IN_MINUTES = 0;
-$ALL_TIME_PA_VIG_IN_MINUTES = 0;
-$ALL_TIME_WALKING_IN_MINUTES = 0;
-$ALL_TIME_SITTING_IN_MINUTES = 0;
-foreach($all_answers as $fieldname =>  $answers){
+$ALL_TIME_PA_MOD_IN_MINUTES   = array();
+$ALL_TIME_PA_VIG_IN_MINUTES   = array();
+$ALL_TIME_WALKING_IN_MINUTES  = array();
+$ALL_TIME_SITTING_IN_MINUTES  = array();
+foreach($all_answers as $users_answers){
+  $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
+  foreach($u_ans as $fieldname => $hhmm){
+    if(!empty($hhmm)){
+      list($hour, $min) = explode(":",$hhmm);
+      $hour_value   = (isset($hour) ? $hour : 0);
+      $min_value    = (isset($min)  ? $min  : 0);
+      $answer_value = $min_value + $hour_value*60;
 
-  // $answer_value = intval($answer);
-  if(empty($answer)){
-    continue;
-  }
+      if(strpos($fieldname,"core_pa_mod") > -1){
+        $ALL_TIME_PA_MOD_IN_MINUTES[]  = $answer_value;
+      }
+      
+      if(strpos($fieldname,"core_pa_vig") > -1){
+        $ALL_TIME_PA_VIG_IN_MINUTES[]  = $answer_value;
+      }
 
-  if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1 || strpos($fieldname,"core_pa_") > -1){
-    list($hour, $min) = explode(":",$answer);
-    $hour_value   = (isset($hour) ? $hour : 0);
-    $min_value    = (isset($min)  ? $min : 0);
-
-    $answer_value = $min_value + $hour_value*60;
-    $answer_value = $answer_value*60;
-  }
-
-  if(strpos($fieldname,"walking") > -1 || strpos($fieldname,"core_pa_") > -1){
-    $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
-  }
-  if(strpos($fieldname,"sitting") > -1){
-    $ALL_TIME_SITTING_IN_MINUTES += $answer_value;
+      if(strpos($fieldname,"walking") > -1){
+        $ALL_TIME_WALKING_IN_MINUTES[] = $answer_value;
+      }
+      
+      if(strpos($fieldname,"sitting") > -1){
+        $ALL_TIME_SITTING_IN_MINUTES[] = $answer_value;
+      }
+    }
   }
 }
+$ALL_TIME_PA_MOD_IN_MINUTES  = round(array_sum($ALL_TIME_PA_MOD_IN_MINUTES )/count($ALL_TIME_PA_MOD_IN_MINUTES ));
+$ALL_TIME_PA_VIG_IN_MINUTES  = round(array_sum($ALL_TIME_PA_VIG_IN_MINUTES )/count($ALL_TIME_PA_VIG_IN_MINUTES ));
+$ALL_TIME_WALKING_IN_MINUTES = round(array_sum($ALL_TIME_WALKING_IN_MINUTES)/count($ALL_TIME_WALKING_IN_MINUTES));
+$ALL_TIME_SITTING_IN_MINUTES = round(array_sum($ALL_TIME_SITTING_IN_MINUTES)/count($ALL_TIME_SITTING_IN_MINUTES));
 
 //CURRENT USERS VALUES
+$USER_TIME_PA_MOD_IN_MINUTES  = 0;
+$USER_TIME_PA_VIG_IN_MINUTES  = 0;
 $USER_TIME_WALKING_IN_MINUTES = 0;
 $USER_TIME_SITTING_IN_MINUTES = 0;
-if(isset($user_answers) && !empty($user_answers)){
-  foreach($user_answers as $index => $answer){
-    if(empty($answer)){
-        continue;
+
+foreach($user_answers as $fieldname => $hhmm){
+  if(!empty($hhmm)){
+    list($hour, $min) = explode(":",$hhmm);
+    $hour_value   = (isset($hour) ? $hour : 0);
+    $min_value    = (isset($min)  ? $min  : 0);
+    $answer_value = $min_value + $hour_value*60;
+
+    if(strpos($fieldname,"core_pa_mod") > -1){
+      $USER_TIME_PA_MOD_IN_MINUTES += $answer_value;
+    }
+    
+    if(strpos($fieldname,"core_pa_vig") > -1){
+      $USER_TIME_PA_VIG_IN_MINUTES += $answer_value;
     }
 
-    // $answer_value = intval($answer);
-    if(in_array($index,$graph_fields)){
-      list($hour, $min) = explode(":",$answer);
-      $hour_value   = (isset($hour) ? $hour : 0);
-      $min_value    = (isset($min)  ? $min : 0);
-
-      $answer_value = $min_value + $hour_value*60;
-    }
-
-    if(strpos($index,"walking") > -1 || strpos($fieldname,"core_pa_") > -1){
+    if(strpos($fieldname,"walking") > -1){
       $USER_TIME_WALKING_IN_MINUTES += $answer_value;
     }
-    if(strpos($index,"sitting") > -1){
+    
+    if(strpos($fieldname,"sitting") > -1){
       $USER_TIME_SITTING_IN_MINUTES += $answer_value;
     }
   }
 }
-
 //SUPPLEMENTAL PROJECTS
 $supp_surveys = array();
 $supp_proj    = SurveysConfig::$projects;
@@ -125,7 +134,6 @@ foreach($supp_proj as $proj_name => $project){
   $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
 }
 // $_SESSION["Supp_Surveys"] = $supp_surveys;
-
 
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
@@ -350,21 +358,16 @@ include("inc/gl_head.php");
                         </div>
                     </div>
   
-                    <div class="col-md-6 bg-light dker chartone">
+                    <div class="col-md-6 bg-light dker datacharts chartone">
                       <section>
                         <div id="pieChart"></div>
                       </section>
                     </div>
-                    <div class="col-md-6 dker charttoo">
+                    <div class="col-md-6 dker datacharts charttoo">
                       <section>
-                        <header class="font-bold padder-v">
-                          <div class="btn-group pull-right">
-                          </div>
-                          You vs All Participants: 
-                        </header>
-                        <div class="panel-body flot-legend">
-                          <div id="colchart_all" style="height:240px"></div>
-                        </div>
+                        <h3>How Do You Compare?</h3>
+                        <p>More activity is better, be above average!</p>
+                        <canvas id="youvsall" ></canvas>
                       </section>
                     </div>
                   </div>
@@ -396,51 +399,90 @@ $(document).ready(function () {
   });
 });
 </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+<script src="js/Chart.js"></script>
+<script>
+var ctx = $("#youvsall");
+var myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity"],
+        datasets: [{
+            label: 'You (Minutes)',
+            data: [
+               <?php echo $USER_TIME_SITTING_IN_MINUTES ?>
+              ,<?php echo $USER_TIME_WALKING_IN_MINUTES ?>
+              ,<?php echo $USER_TIME_PA_MOD_IN_MINUTES  ?>
+              ,<?php echo $USER_TIME_WALKING_IN_MINUTES ?>
+            ],
+            backgroundColor: "rgba(78, 163, 42, .9)",
+            hoverBackgroundColor: "rgba(78, 163, 42, 1)",
+          },{
+            label: 'Average All Users (Minutes)',
+            data: [
+               <?php echo $ALL_TIME_SITTING_IN_MINUTES ?>
+              ,<?php echo $ALL_TIME_WALKING_IN_MINUTES ?>
+              ,<?php echo $ALL_TIME_PA_MOD_IN_MINUTES ?>
+              ,<?php echo $ALL_TIME_WALKING_IN_MINUTES ?>
+            ],
+            backgroundColor: "rgba(246, 210, 0, .9)",
+            hoverBackgroundColor: "rgba(246, 210, 0, 1)",
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+<script src="js/d3.min.js"></script>
 <script src="js/d3pie.min.js"></script>
 <script>
 var pieData = [
       {
-        "label": "Sitting",
-        "value": 120,
-        "color": "#CE1C21"
+        "label": "Moderate Activity",
+        "value": <?php echo $USER_TIME_PA_MOD_IN_MINUTES ?>,
+        "color": "#009966"
       },
       {
-        "label": "Phyical Activity",
-        "value": 40,
-        "color": "#BBE33B"
+        "label": "Vigorous Activity",
+        "value": <?php echo $USER_TIME_PA_VIG_IN_MINUTES ?>,
+        "color": "#006600"
       },
       {
         "label": "Walking",
-        "value": 60,
-        "color": "#27C0BD"
+        "value": <?php echo $USER_TIME_WALKING_IN_MINUTES ?>,
+        "color": "#66CC33"
+      },
+      {
+        "label": "Sitting",
+        "value": <?php echo $USER_TIME_SITTING_IN_MINUTES ?>,
+        "color": "#ff3300"
       },
     ];
 
 var pie = new d3pie("pieChart", {
   "header": {
     "title": {
-      "text": "Sitting vs. Walking/Excercise",
+      "text": "How You Spend Your Time",
       "fontSize": 24,
       "font": "open sans"
     },
     "subtitle": {
-      "text": "Prolonged Sitting is hurting your heath!",
+      "text": "Prolonged sitting can hurt your heath!",
       "color": "#333",
       "fontSize": 14,
       "font": "open sans"
-    },
-    "titleSubtitlePadding": 9
-  },
-  "footer": {
-    "color": "#999999",
-    "fontSize": 10,
-    "font": "open sans",
-    "location": "bottom-left"
+    }
   },
   "size": {
     "canvasWidth": 590,
-    "pieOuterRadius": "90%"
+    "pieOuterRadius": "80%"
   },
   "data": {
     "sortOrder": "value-desc",
@@ -448,7 +490,7 @@ var pie = new d3pie("pieChart", {
   },
   "labels": {
     "outer": {
-      "pieDistance": 32
+      "pieDistance": 22
     },
     "inner": {
       "hideWhenLessThanPercentage": 3
@@ -482,72 +524,8 @@ var pie = new d3pie("pieChart", {
   "misc": {
     "gradient": {
       "enabled": true,
-      "percentage": 70
+      "percentage": 80
     }
   }
 });
-</script>
-
-
-
-
-
-
-
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-  // LOAD CHART PACKAGES FROM GOOGLE
-  google.load("visualization", "1", {packages:["corechart", "bar"]});
-
-  //SINGLE USER BAR CHART
-  google.setOnLoadCallback(drawWalkingSittingChart);
-  function drawWalkingSittingChart() {
-    //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
-    var data = google.visualization.arrayToDataTable([
-      ['Task',   'Minutes per Day'],
-      ['Sitting', <?php echo $USER_TIME_SITTING_IN_MINUTES ?>],
-      ['Walking', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>],
-    ]);
-
-    var options = {
-      is3d : true,
-      pieStartAngle :-180,
-      backgroundColor : '#E0E6F0',
-      colors : ['#297B9F','#F8B300'],
-      chartArea:{left:20,top:10,width:'90%',height:'90%'}
-    };
-
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-    chart.draw(data, options);
-  }
-
-  //VERTICAL COLUMN CHART COMPARE USER TO ALL OTHERS
-  google.setOnLoadCallback(drawUserVsAllChart);
-  function drawUserVsAllChart() {
-      var data = google.visualization.arrayToDataTable([
-          ['', 'Sitting','Walking'],
-          ['You', <?php echo $USER_TIME_WALKING_IN_MINUTES ?>, <?php echo $USER_TIME_SITTING_IN_MINUTES ?>],
-          ['All', <?php echo $ALL_TIME_WALKING_IN_MINUTES/count($all_answers) ?>, <?php echo $ALL_TIME_SITTING_IN_MINUTES/count($all_answers) ?>],
-        ]);
-
-        var options = {
-          backgroundColor : '#E0E6F0',
-          colors          : ['#297B9F','#F8B300'],
-          chart: {
-            // title: 'You VS All Participants',  
-            // titleTextStyle: {color: '#FF0000'}  
-          },
-          vAxis:
-            {
-              title:'Losses',
-              textStyle: {color: 'red'} // Axis 1
-            }
-         
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('colchart_all'));
-
-        chart.draw(data, options);
-    }
 </script>

@@ -177,7 +177,13 @@ h2.weather,
 .datacharts.charttoo canvas {  height:100%; }
 .datacharts h3{ color:#333; font-size:24px; margin:0; padding: 16px 0 8px;} 
 .datacharts p { font-size:14px; color:#333; margin: 0 ; padding: 0 0 30px; }
-
+.datacharts h6 {
+  position: relative;
+  top: 50%; left:50%;
+  transform: translateY(-50%);
+  width:400px;  margin-left:-200px;
+  font-size:18px; 
+}
 /*SURVEY FRAMES*/
 .survey .m-b-md {
     margin-bottom : 10px;
@@ -1090,4 +1096,16 @@ input[readonly] {
     background: url(../images/under_construction.gif) no-repeat;
     background-size:contain;
     width:50px; height:50px;
+}
+
+.badge.bg-danger.pull-right {
+    font-size: 11px;
+    margin: 0; padding: 0;
+    background-color: none;
+    position: absolute;
+    background:url(../images/ico_new.gif) no-repeat;
+    width:32px; height:16px;
+    top: 10px;
+    right: 10px;
+    text-indent:-5000px;
 }

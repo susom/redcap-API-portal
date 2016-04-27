@@ -50,7 +50,7 @@ class Project {
 
 		//ALL USER ANSWERS IN ONE SHOT/ PRICEY BUT WITH CACHING WILL BE GOOD
 		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
-		$this->ALL_USER_ANSWERS 	= $user_answers[0]; //ALL PPOSSIBLE USER ANSWERS
+		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers[0] : array(); //ALL PPOSSIBLE USER ANSWERS
 
 		//BUILD SNAPSHOT OF ACTIVE INSTRUMENT DATA FOR THIS USER
 		$this->ACTIVE_INSTRUMENTS 	= self::getSurveyInfo($this->ALL_INSTRUMENTS);

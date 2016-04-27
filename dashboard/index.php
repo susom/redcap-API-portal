@@ -87,10 +87,10 @@ foreach($all_answers as $users_answers){
     }
   }
 }
-$ALL_TIME_PA_MOD_IN_MINUTES  = round(array_sum($ALL_TIME_PA_MOD_IN_MINUTES )/count($ALL_TIME_PA_MOD_IN_MINUTES ));
-$ALL_TIME_PA_VIG_IN_MINUTES  = round(array_sum($ALL_TIME_PA_VIG_IN_MINUTES )/count($ALL_TIME_PA_VIG_IN_MINUTES ));
-$ALL_TIME_WALKING_IN_MINUTES = round(array_sum($ALL_TIME_WALKING_IN_MINUTES)/count($ALL_TIME_WALKING_IN_MINUTES));
-$ALL_TIME_SITTING_IN_MINUTES = round(array_sum($ALL_TIME_SITTING_IN_MINUTES)/count($ALL_TIME_SITTING_IN_MINUTES));
+$ALL_TIME_PA_MOD_IN_MINUTES  = count($ALL_TIME_PA_MOD_IN_MINUTES ) ? round(array_sum($ALL_TIME_PA_MOD_IN_MINUTES )/count($ALL_TIME_PA_MOD_IN_MINUTES )) : 0;
+$ALL_TIME_PA_VIG_IN_MINUTES  = count($ALL_TIME_PA_VIG_IN_MINUTES ) ? round(array_sum($ALL_TIME_PA_VIG_IN_MINUTES )/count($ALL_TIME_PA_VIG_IN_MINUTES )) : 0;
+$ALL_TIME_WALKING_IN_MINUTES = count($ALL_TIME_WALKING_IN_MINUTES) ? round(array_sum($ALL_TIME_WALKING_IN_MINUTES)/count($ALL_TIME_WALKING_IN_MINUTES)) : 0;
+$ALL_TIME_SITTING_IN_MINUTES = count($ALL_TIME_SITTING_IN_MINUTES) ? round(array_sum($ALL_TIME_SITTING_IN_MINUTES)/count($ALL_TIME_SITTING_IN_MINUTES)) : 0;
 
 //CURRENT USERS VALUES
 $USER_TIME_PA_MOD_IN_MINUTES  = 0;
@@ -124,14 +124,16 @@ foreach($user_answers as $fieldname => $hhmm){
 }
 //SUPPLEMENTAL PROJECTS
 $supp_surveys = array();
-$supp_proj    = SurveysConfig::$projects;
-foreach($supp_proj as $proj_name => $project){
-  if($proj_name == $_CFG->SESSION_NAME){
-    continue;
-  }
+if($core_surveys_complete){
+  $supp_proj    = SurveysConfig::$projects;
+  foreach($supp_proj as $proj_name => $project){
+    if($proj_name == $_CFG->SESSION_NAME){
+      continue;
+    }
 
-  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
+    $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+    $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
+  }
 }
 // $_SESSION["Supp_Surveys"] = $supp_surveys;
 
@@ -170,7 +172,7 @@ include("inc/gl_head.php");
                       if($core_surveys_complete){
                         $reminders[]  = "<li class='list-group-item'>All done with core surveys!</li>";
                       }else{
-                        // $news[]       = "<li class='list-group-item'>No news yet.</li>";
+                        $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
@@ -360,7 +362,13 @@ include("inc/gl_head.php");
   
                     <div class="col-md-6 bg-light dker datacharts chartone">
                       <section>
-                        <div id="pieChart"></div>
+                        <?php 
+                          if ($health_behaviors_complete) { 
+                            echo '<div id="pieChart"></div>';
+                          }else{
+                            echo "<h6>Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!</h4>";
+                          }
+                        ?>
                       </section>
                     </div>
                     <div class="col-md-6 dker datacharts charttoo">

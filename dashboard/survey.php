@@ -20,6 +20,7 @@ if(isset($_REQUEST["ajax"])){
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
   $data       = array();
+  unset($_POST["project"]);
   foreach($_POST as $field_name => $value){
     if($value === 0){
       $value = (string) "0";
@@ -27,16 +28,17 @@ if(isset($_REQUEST["ajax"])){
       $value = NULL;
     }
 
-    $record_id  = $project_name !== SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
-    $event_name = $project_name !== SESSION_NAME ? null : $_SESSION[SESSION_NAME]["survey_context"]["event"];
+    $record_id  = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+    $event_name = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
 
     $data[] = array(
       "record"            => $record_id,
       "field_name"        => $field_name,
       "value"             => $value
     );
+
     if($event_name){
-      $data["redcap_event_name"] = $event_name;
+      $data[0]["redcap_event_name"] = $event_name;
     }
     $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
   }
@@ -207,7 +209,7 @@ $(document).ready(function(){
           req_missing = true;
 
           $("#customform section.active").addClass("annoying_message")
-          var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left required fields empty.  If this was intentional please click Submit again.<li></ul>");
+          var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left some fields empty.  If this was intentional please click Submit/Next again or go back and provide the missing information.<li></ul>");
           reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
           $("body").append(reqmsg);
           return;
@@ -262,7 +264,7 @@ $(document).ready(function(){
       type:'POST',
       data: elem.serialize() + project,
       success:function(result){
-        console.log(result);
+        // console.log(result);
 
         if(elem.is(":checkbox")){
           //GOTTA RESET THE checkbox properties haha
@@ -375,13 +377,12 @@ $(document).ready(function(){
     }
 
     //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
-    if($(this).closest(".inputwrap").nextAll(':visible:first')){
-      var nextpos = $(this).closest(".inputwrap").nextAll(':visible:first').position();
+    var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
+    if(nextEl){
+      var nextpos = nextEl.position();
       if(nextpos !== undefined && nextpos.top){
-        // console.log("scroll man",nextpos.top);
-        $("#customform").animate({ scrollTop : nextpos.top + "px"});
-      }else{
-        // console.log("maybe next input is hidden?");
+        var nexttop       = nextpos.top;
+        $("#customform").animate({ scrollTop :  nexttop},800);
       }
     }
     

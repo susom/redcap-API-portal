@@ -28,9 +28,9 @@ if(isset($_GET["survey_complete"])){
       
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Take the next '".$surveys[$all_survey_keys[$index+1]]["label"]."' survey now!</a>";
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey '".$surveys[$all_survey_keys[$index+1]]["label"]."' survey now!</a>";
       }else{
-        $success_msg .= "Congratulations, you got the whole fruit basket! <br/>See how your data compares to others in your area.";
+        $success_msg .= "Congratulations, you got all the fruits! <br/> Please take some time to fill in your 'My Profile'. ";
       }
       
       addSessionMessage( $success_msg , "success");
@@ -42,9 +42,12 @@ $health_behaviors_complete  = false;
 $user_answers               = array();
 $all_answers                = array();
 
-$graph_fields               = array("core_sitting", "core_sitting_weekend", "core_walking");
+$graph_fields               = array("core_sitting", "core_sitting_nowrk", "core_sitting_weekend", "core_walking", "core_pa_mod", "core_pa_vig");
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
 $all_answers                = $user_survey_data->getUserAnswers(null,$graph_fields);
+
+
+
 foreach($graph_fields as $key){
   if($instrument_event["survey_complete"]){
     $health_behaviors_complete = true;
@@ -55,15 +58,18 @@ foreach($graph_fields as $key){
 }
 
 // AGGREGATE OF ALL PARTICIPANTS
+$ALL_TIME_PA_MOD_IN_MINUTES = 0;
+$ALL_TIME_PA_VIG_IN_MINUTES = 0;
 $ALL_TIME_WALKING_IN_MINUTES = 0;
 $ALL_TIME_SITTING_IN_MINUTES = 0;
 foreach($all_answers as $fieldname =>  $answers){
+
   // $answer_value = intval($answer);
   if(empty($answer)){
     continue;
   }
 
-  if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1){
+  if(strpos($fieldname,"sitting") > -1 || strpos($fieldname,"core_walking") > -1 || strpos($fieldname,"core_pa_") > -1){
     list($hour, $min) = explode(":",$answer);
     $hour_value   = (isset($hour) ? $hour : 0);
     $min_value    = (isset($min)  ? $min : 0);
@@ -72,7 +78,7 @@ foreach($all_answers as $fieldname =>  $answers){
     $answer_value = $answer_value*60;
   }
 
-  if(strpos($fieldname,"walking") > -1){
+  if(strpos($fieldname,"walking") > -1 || strpos($fieldname,"core_pa_") > -1){
     $ALL_TIME_WALKING_IN_MINUTES += $answer_value;
   }
   if(strpos($fieldname,"sitting") > -1){
@@ -98,7 +104,7 @@ if(isset($user_answers) && !empty($user_answers)){
       $answer_value = $min_value + $hour_value*60;
     }
 
-    if(strpos($index,"walking") > -1){
+    if(strpos($index,"walking") > -1 || strpos($fieldname,"core_pa_") > -1){
       $USER_TIME_WALKING_IN_MINUTES += $answer_value;
     }
     if(strpos($index,"sitting") > -1){
@@ -343,31 +349,11 @@ include("inc/gl_head.php");
                           </ul>
                         </div>
                     </div>
-
+  
                     <div class="col-md-6 bg-light dker chartone">
                       <section>
-                        <header class="font-bold padder-v">
-                          <div class="btn-group pull-right">
-                          </div>
-                          You Spent: 
-                        </header>
-                        <div class="panel-body flot-legend" style="min-height:270px">
-                          <?php
-                          $user_completed = count(array_filter($user_answers, function($item){
-                            return !empty($item["user_answer"]);
-                          }));
-
-                          if(!$health_behaviors_complete){
-                            echo  "Please complete the Surveys!";
-                          }else{
-                          ?>
-                            <div id="piechart" style="height:240px"></div>
-                          <?php
-                          }
-                          ?>
-                        </div>
+                        <div id="pieChart"></div>
                       </section>
-
                     </div>
                     <div class="col-md-6 dker charttoo">
                       <section>
@@ -410,6 +396,104 @@ $(document).ready(function () {
   });
 });
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+<script src="js/d3pie.min.js"></script>
+<script>
+var pieData = [
+      {
+        "label": "Sitting",
+        "value": 120,
+        "color": "#CE1C21"
+      },
+      {
+        "label": "Phyical Activity",
+        "value": 40,
+        "color": "#BBE33B"
+      },
+      {
+        "label": "Walking",
+        "value": 60,
+        "color": "#27C0BD"
+      },
+    ];
+
+var pie = new d3pie("pieChart", {
+  "header": {
+    "title": {
+      "text": "Sitting vs. Walking/Excercise",
+      "fontSize": 24,
+      "font": "open sans"
+    },
+    "subtitle": {
+      "text": "Prolonged Sitting is hurting your heath!",
+      "color": "#333",
+      "fontSize": 14,
+      "font": "open sans"
+    },
+    "titleSubtitlePadding": 9
+  },
+  "footer": {
+    "color": "#999999",
+    "fontSize": 10,
+    "font": "open sans",
+    "location": "bottom-left"
+  },
+  "size": {
+    "canvasWidth": 590,
+    "pieOuterRadius": "90%"
+  },
+  "data": {
+    "sortOrder": "value-desc",
+    "content": pieData
+  },
+  "labels": {
+    "outer": {
+      "pieDistance": 32
+    },
+    "inner": {
+      "hideWhenLessThanPercentage": 3
+    },
+    "mainLabel": {
+      "fontSize": 14
+    },
+    "percentage": {
+      "color": "#ffffff",
+      "decimalPlaces": 0,
+      "fontSize": 18
+    },
+    "value": {
+      "color": "#333",
+      "fontSize": 10
+    },
+    "lines": {
+      "enabled": true
+    },
+    "truncation": {
+      "enabled": true
+    }
+  },
+  "effects": {
+    "pullOutSegmentOnClick": {
+      "effect": "linear",
+      "speed": 400,
+      "size": 8
+    }
+  },
+  "misc": {
+    "gradient": {
+      "enabled": true,
+      "percentage": 70
+    }
+  }
+});
+</script>
+
+
+
+
+
+
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   // LOAD CHART PACKAGES FROM GOOGLE

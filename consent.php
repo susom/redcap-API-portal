@@ -26,8 +26,8 @@ include("models/inc/gl_header.php");
 				<ul>
 					<li>We need your permission before we can ask you any questions, so please read the following Informed Consent Document</li>
 					<li>The initial survey will take 15 – 20 minutes to complete – but you don't need to fill it all out at one time</li>
-					<li>We will check back in with you every 6 months</li>
-					<li>We will add new surveys and invite you to participate</li>
+					<li>We will check back in with you every few months</li>
+					<li>We will add new surveys, materials, and content and invite you to participate</li>
 				</ul>
 				<p>FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, John Ioannidis at 650-725-5465.</p>
 			</section>

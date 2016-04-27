@@ -3,17 +3,17 @@
 	<p>The WELL for Life Program aims to improve understanding of living well and ways to increase wellness. The WELL for Life Program starts with your completion of a survey (the WELL for Life Registry).  In addition, you will be invited to participate in an extension of the registry to learn how biological factors influence living well.  You will also have the opportunity to participate in intervention studies focused on promoting health and wellness. The choice to take part and continue taking part is yours.</p> 
 	<p>You are currently being invited to complete the WELL for Life Registry.</p>
 	<p>If you decide to end your participation in this study, you should notify John Ioannidis at 650-725-5465.</p>
-	<p>The WELL for Life Program has been created by the Stanford Prevention Research Center in the Stanford University School of Medicine. It will initially target 10, 000 people living in Santa Clara County, with a longer-term goal of including participants from all over the world. WELL for Life Registry provides an ongoing source of valuable information on factors related to health and wellness.</p> 
+	<p>The WELL for Life Program has been created by the Stanford Prevention Research Center in the Stanford University School of Medicine. Living in the San Francisco Bay Area, CA, the United States? WELL for Life Registry provides an ongoing source of valuable information on factors related to health and wellness.</p> 
 </section>
 
 <section>
 	<h2>PROGRAM ACTIVITIES</h2> 
-	<p>You are invited to participate in the WELL for Life Registry, which is comprised of a number of surveys – this first survey will take about 15-30 minutes and is required. In this survey you will be asked to complete questions about your life, health and community. The core survey takes 15-30 mins to complete and will include such information as your contact details, demographics (for example, age, gender, language), lifestyle habits and behaviors, and your community. You have the right to refuse to answer particular questions.  You will be asked to participate in additional surveys a few times a year that gather further information about your life, health, and wellness. Participation in these additional surveys will be optional. You will have the opportunity to complete additional surveys.  You may also be asked to provide a photograph, voice or video recording that captures what wellness means to you.</p>
+	<p>You are invited to participate in the WELL for Life Registry, which is comprised of a number of surveys – this first survey will take about 15-30 minutes and is required. In this survey you will be asked to complete questions about your life, health and community. The core survey takes 15-30 mins to complete and will include your contact information, demographics (for example, age, gender, language), lifestyle habits and behaviors, and your community. You have the right to refuse to answer any question.  In the future you will be asked to participate in additional surveys that gather further information about your life, health, and wellbeing. Participation in these additional surveys will be optional.  You may also be asked to provide a photograph, voice or video recording that captures various information about wellbeing .</p>
 </section>
 
 <section>
 	<h2>DURATION OF STUDY INVOLVEMENT</h2>
-	<p>Additional surveys updates will help us understand factors related to health and wellness in the long-term. We plan to contact you a few times a year. We anticipate the study will continue to 2099 and we welcome your involvement for as long as you can take part.</p>
+	<p>Additional surveys updates will help us understand factors related to health and wellbeing in the long-term. We plan to update you as more surveys and content become available. We anticipate the study will continue to 2099 and we welcome your involvement for as long as you can take part.</p>
 </section>
 
 <section>
@@ -28,7 +28,7 @@
 
 <section>
 	<h2>POSSIBLE RISKS</h2>
-	<p>The risks associated with this study are minimal and we do not expect any negative effects from participating. If some of the survey questions make you feel uneasy, you can choose to skip them. While loss of confidentiality is a risk, we take great care to protect your information.</p>
+	<p>The risks associated with this study are minimal and we do not expect any negative effects from participating. If some of the survey questions make you feel uneasy, you can choose to skip them. While loss of confidentiality is a risk, we take great care to protect your information.  We follow federal, state, and Stanford University regulations to protect your information </p>
 </section>
 
 <section> 
@@ -44,20 +44,18 @@
 
 <section>
 	<h2>PARTICIPANT'S RIGHTS</h2>
-	<p>If you have read this form and have decided to participate in this project, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. The alternative is not to participate.  The results of this research study may be presented at scientific or professional meetings or published in scientific journals.  However, your identity will not be disclosed. You have the right to refuse to answer particular questions.</p> 
+	<p>If you have read this form and have decided to participate in this project, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. The alternative is not to participate.  The results of this research study may be presented at scientific or professional meetings or published in scientific journals.  However, your identity will not be disclosed. You have the right to refuse to answer any questions.</p> 
 </section>
 
 <section>
 	<h2>FOR QUESTIONS ABOUT THE STUDY</h2>
 	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, John Ioannidis. You may contact him now or later at 650-725-5465.</p>
-	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the 
+	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB at:
 	<br><br>
 	<addr>
-	Stanford IRB<br>
-	Stanford University<br>
 	3000 El Camino Real<br>
-	Five Palo Alto Square, 4th Floor<br>
-	Palo Alto, CA 94306.
+	5 Palo Alto Square, 4th Floor<br>
+	Palo Alto, CA 94306
 	</addr></p>
 </section>
 
@@ -77,10 +75,10 @@
 	<h3>What Personal Information Will Be Obtained, Used or Disclosed?</h3>
 	<p>Your health information related to this study, may be used or disclosed in connection with this research study, including, but not limited to the following protected health information:</p>
 	<ol>
-	<li>Contact information (for example, name, address, phone number, e-mail address, contact details of a friend/family member, Web Uniform Resource Locators (URLs), Internet Protocol (IP) address numbers</li>
-	<li>Socio-demographic data (for example, age, gender, place of birth, ethnicity, race, language, marital status, number of children, number of people in household, education, income, employment status)</li> 
-	<li>Health information (self-reported health, number of prescribed medications, self-reported height and weight, brief health history)</li>
-	<li>Health behavior information (relating to physical activity, sleep, tobacco and alcohol use, diet)</li>
+	<li>Contact information (for example : name, address, phone number, e-mail address, contact details of a friend/family member, Web Uniform Resource Locators (URLs), Internet Protocol (IP) address numbers</li>
+	<li>Socio-demographic data (for example : age, gender, place of birth, ethnicity, race, language, marital status, number of children, number of people in household, education, income, employment status)</li> 
+	<li>Health information (for example : self-reported health, number of prescribed medications, self-reported height and weight, brief health history)</li>
+	<li>Health behavior information (for example : relating to physical activity, sleep, tobacco and alcohol use, diet)</li>
 	<li>Your perceptions (for example of your wellbeing and mood and your social and neighborhood environment)</li>
 	<li>Biometric identifiers, including finger, retinal and voice prints</li>
 	<li>Full face photographic images and any comparable images</li>
@@ -91,7 +89,7 @@
 	<ul>
 	<li>The Protocol Director (John Ioannidis, D.Sc.)</li>
 	<li>The Stanford University Administrative Panel on Human Subjects in Medical Research and any other unit of Stanford University as necessary</li>
-	<li>Research Staff</li>
+	<li>WELL Research Staff</li>
 	</ul>
 
 	<h3>Who May Receive or Use the Information?</h3>
@@ -107,8 +105,8 @@
 	<p>Your authorization for the use and/or disclosure of your health information will end on 12/31/2099 or when the research project ends, whichever is earlier.</p>
 
 	<h3>Will access to my medical record be limited during the study?</h3>
-	<p>To maintain the integrity of this research study, you may not have access to any health information developed as part of this study until it is completed.  At that point, you would have access to such health information if it was used to make a medical or billing decision about you (e.g., if included in your official medical record). </p> 
+	<p>To maintain the integrity of this research study, you may not have access to any health information developed as part of this study until it is completed.  At that point, you would have access to such health information if it was used to make a medical or billing decision about you (e.g., if included in your official medical record). No information collected during this study will be used to make any medical or billing decisions about you.</p> 
 
 	<p>Please print a copy of this page for your records</p>
-	<p>If you wish to be in this study, please click the button that says “I agree to participate.”  You will then be directed  to complete the WELL for Life survey.</p>
+	<p>If you wish to be in this study, please click the button that says “I Agree”  You will then be directed  to complete the WELL for Life survey.</p>
 </section>

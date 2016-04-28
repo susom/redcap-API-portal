@@ -6,7 +6,7 @@
           <div class="dropdown">
             <!-- USER PROFILE PIC -->
             <a href="profile.php" >
-              <span class="thumb avatar pull-left m-r">                        
+              <span class="thumb avatar pull-left m-r <?php echo $special_user ?>">                        
               </span>
               <style>
                 .thumb.avatar {

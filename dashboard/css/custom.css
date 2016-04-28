@@ -402,7 +402,17 @@ h2.weather,
     line-height: 140%;
     color: #333
 }
-
+.survey_recap p {
+    font-size:18px;
+    color:#333;
+}
+.survey_recap p b {
+    font-weight:lighter;
+}
+.survey_recap p i {
+    ffont-size:20px;
+    font-weight:bold;
+}
 .noshow_input {
     display:none !important;
 }
@@ -1108,4 +1118,18 @@ input[readonly] {
     top: 10px;
     right: 10px;
     text-indent:-5000px;
+}
+
+.special_user_icon:after {
+    content:"";
+    position:absolute; 
+    background:url(../images/ribbon_heart.png) no-repeat;
+    background-size:contain;
+    width:34px; height:42px;
+    bottom:-10px; right:60%; 
+}
+
+.thumb.avatar.special_user_icon:after{
+    width:17px; height:21px;
+    right:0;
 }

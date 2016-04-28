@@ -139,17 +139,17 @@ $USER_NO_ACTIVITY  = 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -
 
 //SUPPLEMENTAL PROJECTS
 $supp_surveys = array();
-if($core_surveys_complete){
-  $supp_proj    = SurveysConfig::$projects;
-  foreach($supp_proj as $proj_name => $project){
-    if($proj_name == $_CFG->SESSION_NAME){
-      continue;
-    }
-
-    $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-    $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
+$supp_proj    = SurveysConfig::$projects;
+foreach($supp_proj as $proj_name => $project){
+  if($proj_name == $_CFG->SESSION_NAME){
+    continue;
   }
+
+  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
 }
+
+// print_rr($supp_surveys,1);
 // $_SESSION["Supp_Surveys"] = $supp_surveys;
 
 $shownavsmore   = true;
@@ -187,12 +187,12 @@ include("inc/gl_head.php");
                       if($core_surveys_complete){
                         $reminders[]  = "<li class='list-group-item'>All done with core surveys!</li>";
                       }else{
-                        $news[]       = "<li class='list-group-item'>No news yet.</li>";
+                        // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
-                        $surveylink   = "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"];
+                        $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $surveyname   = $supp_instrument["label"];
                         $news[]       = "<li class='list-group-item'>
                                             Please take <a href='$surveylink'>$surveyname</a> survey
@@ -533,12 +533,12 @@ var pie = new d3pie("pieChart", {
       "hideWhenLessThanPercentage": 3
     },
     "mainLabel": {
-      "fontSize": 14
+      "fontSize": 15
     },
     "percentage": {
       "color": "#ffffff",
       "decimalPlaces": 0,
-      "fontSize": 18
+      "fontSize": 15
     },
     "value": {
       "color": "#333",

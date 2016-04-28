@@ -110,7 +110,7 @@ include("inc/gl_head.php");
                       <form class="customform">
                         <div class="profile_card">
                         <figure>
-                          <span id="ppic"></span>
+                          <span id="ppic" class="<?php echo $special_user ?>"></span>
                           <figcaption>
                             <b><?php echo $p_firstname . " " . $p_lastname ?></b>
                             <em>Joined : <?php echo $p_joined ?></em>

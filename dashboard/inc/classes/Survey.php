@@ -323,7 +323,7 @@ class Survey {
             $field_label= $item["field_label"];
             $field_label= str_replace("\r","",$field_label);
             $field_label= str_replace("\n","<br>",$field_label);
-            $theHTML[]  = $item["field_label"] . " : " . $item["user_answer"] . "<br>";
+            $theHTML[]  = "<p><b>".$item["field_label"] . "</b>: <i>" . $item["user_answer"] . "</i></p>";
           }
         }
       }

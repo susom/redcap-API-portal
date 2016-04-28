@@ -54,7 +54,7 @@ $all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fiel
 
 //GATHER UP THIS USERS ANSWERS
 $health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
-$user_answers               = array_intersect_key( $instrument_event["completed_fields"],  array_flip($graph_fields) );
+$user_answers               = array_intersect_key( $all_completed,  array_flip($graph_fields) );
 
 // AGGREGATE OF ALL PARTICIPANTS
 $ALL_TIME_PA_MOD_IN_HOURS   = array();
@@ -518,8 +518,8 @@ var pie = new d3pie("pieChart", {
     }
   },
   "size": {
-    "canvasWidth": 590,
-    "pieOuterRadius": "80%"
+    "canvasWidth": 600,
+    "pieOuterRadius": "70%"
   },
   "data": {
     "sortOrder": "value-desc",

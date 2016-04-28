@@ -30,8 +30,6 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 // Authenticated means user+pass has matched, but does NOT mean the account is active
 session_start();
 $loggedInUser = getSessionUser($_CFG->SESSION_NAME);
-
-$special_user = $loggedInUser->id < $_CFG->SPECIAL_USERS_RANGE ?  "special_user_icon" : ""; 
 if( !empty($loggedInUser) ){
 	// Check for logout
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){

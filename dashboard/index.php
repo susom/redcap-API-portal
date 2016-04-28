@@ -1,6 +1,8 @@
 <?php
 require_once("../models/config.php");
 
+
+$special_user = $loggedInUser->id < $_CFG->SPECIAL_USERS_RANGE ?  "special_user_icon" : ""; 
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
   $destination = $websiteUrl . "login.php";

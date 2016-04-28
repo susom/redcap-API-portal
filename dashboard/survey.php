@@ -31,6 +31,12 @@ if(isset($_REQUEST["ajax"])){
     $record_id  = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
     $event_name = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
 
+    $is_date    = preg_match('/^\d{2}-\d{2}\-\d{4}$/', $value);
+    if($is_date){
+      list($mm,$dd,$yyyy) = explode("-",$value);
+      $value = "$yyyy-$mm-$dd";
+    }
+
     $data[] = array(
       "record"            => $record_id,
       "field_name"        => $field_name,
@@ -350,6 +356,7 @@ $(document).ready(function(){
 
   //INPUT CHANGE ACTIONS
   $("#customform :input").change(function(){
+    console.log($(this));
     //SAVE JUST THIS INPUTS DATA
     $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
     saveFormData($(this));

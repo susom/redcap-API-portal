@@ -45,6 +45,7 @@ $graph_fields               = array(
                                 ,"core_walking"
                                 ,"core_pa_mod"
                                 ,"core_pa_vig"
+                                ,"core_sleep"
                               );
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
 
@@ -56,10 +57,12 @@ $health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
 $user_answers               = array_intersect_key( $instrument_event["completed_fields"],  array_flip($graph_fields) );
 
 // AGGREGATE OF ALL PARTICIPANTS
-$ALL_TIME_PA_MOD_IN_MINUTES   = array();
-$ALL_TIME_PA_VIG_IN_MINUTES   = array();
-$ALL_TIME_WALKING_IN_MINUTES  = array();
-$ALL_TIME_SITTING_IN_MINUTES  = array();
+$ALL_TIME_PA_MOD_IN_HOURS   = array();
+$ALL_TIME_PA_VIG_IN_HOURS   = array();
+$ALL_TIME_WALKING_IN_HOURS  = array();
+$ALL_TIME_SITTING_IN_HOURS  = array();
+$ALL_TIME_SLEEP_HOURS       = array();
+
 foreach($all_answers as $users_answers){
   $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
   foreach($u_ans as $fieldname => $hhmm){
@@ -67,61 +70,73 @@ foreach($all_answers as $users_answers){
       list($hour, $min) = explode(":",$hhmm);
       $hour_value   = (isset($hour) ? $hour : 0);
       $min_value    = (isset($min)  ? $min  : 0);
-      $answer_value = $min_value + $hour_value*60;
+      $answer_value = ($min_value/60) + $hour_value;
 
       if(strpos($fieldname,"core_pa_mod") > -1){
-        $ALL_TIME_PA_MOD_IN_MINUTES[]  = $answer_value;
+        $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
       }
       
       if(strpos($fieldname,"core_pa_vig") > -1){
-        $ALL_TIME_PA_VIG_IN_MINUTES[]  = $answer_value;
+        $ALL_TIME_PA_VIG_IN_HOURS[]  = $answer_value;
       }
 
       if(strpos($fieldname,"walking") > -1){
-        $ALL_TIME_WALKING_IN_MINUTES[] = $answer_value;
+        $ALL_TIME_WALKING_IN_HOURS[] = $answer_value;
       }
       
       if(strpos($fieldname,"sitting") > -1){
-        $ALL_TIME_SITTING_IN_MINUTES[] = $answer_value;
+        $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
+      }
+
+      if(strpos($fieldname,"sleep") > -1){
+        $ALL_TIME_SLEEP_HOURS[] = $answer_value;
       }
     }
   }
 }
-$ALL_TIME_PA_MOD_IN_MINUTES  = count($ALL_TIME_PA_MOD_IN_MINUTES ) ? round(array_sum($ALL_TIME_PA_MOD_IN_MINUTES )/count($ALL_TIME_PA_MOD_IN_MINUTES )) : 0;
-$ALL_TIME_PA_VIG_IN_MINUTES  = count($ALL_TIME_PA_VIG_IN_MINUTES ) ? round(array_sum($ALL_TIME_PA_VIG_IN_MINUTES )/count($ALL_TIME_PA_VIG_IN_MINUTES )) : 0;
-$ALL_TIME_WALKING_IN_MINUTES = count($ALL_TIME_WALKING_IN_MINUTES) ? round(array_sum($ALL_TIME_WALKING_IN_MINUTES)/count($ALL_TIME_WALKING_IN_MINUTES)) : 0;
-$ALL_TIME_SITTING_IN_MINUTES = count($ALL_TIME_SITTING_IN_MINUTES) ? round(array_sum($ALL_TIME_SITTING_IN_MINUTES)/count($ALL_TIME_SITTING_IN_MINUTES)) : 0;
+$ALL_TIME_PA_MOD_IN_HOURS   = count($ALL_TIME_PA_MOD_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_MOD_IN_HOURS )/count($ALL_TIME_PA_MOD_IN_HOURS ),2) : 0;
+$ALL_TIME_PA_VIG_IN_HOURS   = count($ALL_TIME_PA_VIG_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_VIG_IN_HOURS )/count($ALL_TIME_PA_VIG_IN_HOURS ),2) : 0;
+$ALL_TIME_WALKING_IN_HOURS  = count($ALL_TIME_WALKING_IN_HOURS) ? round(array_sum($ALL_TIME_WALKING_IN_HOURS)/count($ALL_TIME_WALKING_IN_HOURS),2) : 0;
+$ALL_TIME_SITTING_IN_HOURS  = count($ALL_TIME_SITTING_IN_HOURS) ? round(array_sum($ALL_TIME_SITTING_IN_HOURS)/count($ALL_TIME_SITTING_IN_HOURS),2) : 0;
+$ALL_TIME_SLEEP_HOURS       = count($ALL_TIME_SLEEP_HOURS)      ? round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) : 0;
+$ALL_NO_ACTIVITY            = 24 - $ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS;
 
 //CURRENT USERS VALUES
-$USER_TIME_PA_MOD_IN_MINUTES  = 0;
-$USER_TIME_PA_VIG_IN_MINUTES  = 0;
-$USER_TIME_WALKING_IN_MINUTES = 0;
-$USER_TIME_SITTING_IN_MINUTES = 0;
-
+$USER_TIME_PA_MOD_IN_HOURS  = 0;
+$USER_TIME_PA_VIG_IN_HOURS  = 0;
+$USER_TIME_WALKING_IN_HOURS = 0;
+$USER_TIME_SITTING_IN_HOURS = 0;
+$USER_TIME_SLEEP_HOURS      = 0;
 foreach($user_answers as $fieldname => $hhmm){
   if(!empty($hhmm)){
     list($hour, $min) = explode(":",$hhmm);
     $hour_value   = (isset($hour) ? $hour : 0);
     $min_value    = (isset($min)  ? $min  : 0);
-    $answer_value = $min_value + $hour_value*60;
+    $answer_value = ($min_value/60) + $hour_value;
 
     if(strpos($fieldname,"core_pa_mod") > -1){
-      $USER_TIME_PA_MOD_IN_MINUTES += $answer_value;
+      $USER_TIME_PA_MOD_IN_HOURS += $answer_value;
     }
     
     if(strpos($fieldname,"core_pa_vig") > -1){
-      $USER_TIME_PA_VIG_IN_MINUTES += $answer_value;
+      $USER_TIME_PA_VIG_IN_HOURS += $answer_value;
     }
 
     if(strpos($fieldname,"walking") > -1){
-      $USER_TIME_WALKING_IN_MINUTES += $answer_value;
+      $USER_TIME_WALKING_IN_HOURS += $answer_value;
     }
     
     if(strpos($fieldname,"sitting") > -1){
-      $USER_TIME_SITTING_IN_MINUTES += $answer_value;
+      $USER_TIME_SITTING_IN_HOURS += $answer_value;
+    }
+
+    if(strpos($fieldname,"sleep") > -1){
+      $USER_TIME_SLEEP_HOURS += $answer_value;
     }
   }
 }
+$USER_NO_ACTIVITY  = 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
+
 //SUPPLEMENTAL PROJECTS
 $supp_surveys = array();
 if($core_surveys_complete){
@@ -373,8 +388,8 @@ include("inc/gl_head.php");
                     </div>
                     <div class="col-md-6 dker datacharts charttoo">
                       <section>
-                        <h3>How Do You Compare?</h3>
-                        <p>More activity is better, be above average!</p>
+                        <h3>How Do You Compare With Other Survey Takers?</h3>
+                        <p></p>
                         <canvas id="youvsall" ></canvas>
                       </section>
                     </div>
@@ -413,24 +428,28 @@ var ctx = $("#youvsall");
 var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity"],
+        labels: ["Sitting", "Light/No Activity" , "Walking", "Moderate Activity", "Vigorous Activity", "Sleep"],
         datasets: [{
-            label: 'You (Minutes)',
+            label: 'You (Hours)',
             data: [
-               <?php echo $USER_TIME_SITTING_IN_MINUTES ?>
-              ,<?php echo $USER_TIME_WALKING_IN_MINUTES ?>
-              ,<?php echo $USER_TIME_PA_MOD_IN_MINUTES  ?>
-              ,<?php echo $USER_TIME_WALKING_IN_MINUTES ?>
+               <?php echo $USER_TIME_SITTING_IN_HOURS ?>
+              ,<?php echo $USER_NO_ACTIVITY ?> 
+              ,<?php echo $USER_TIME_WALKING_IN_HOURS ?>
+              ,<?php echo $USER_TIME_PA_MOD_IN_HOURS  ?>
+              ,<?php echo $USER_TIME_PA_VIG_IN_HOURS ?>
+              ,<?php echo $USER_TIME_SLEEP_HOURS ?>
             ],
             backgroundColor: "rgba(78, 163, 42, .9)",
             hoverBackgroundColor: "rgba(78, 163, 42, 1)",
           },{
-            label: 'Average All Users (Minutes)',
+            label: 'Average All Users (Hours)',
             data: [
-               <?php echo $ALL_TIME_SITTING_IN_MINUTES ?>
-              ,<?php echo $ALL_TIME_WALKING_IN_MINUTES ?>
-              ,<?php echo $ALL_TIME_PA_MOD_IN_MINUTES ?>
-              ,<?php echo $ALL_TIME_WALKING_IN_MINUTES ?>
+               <?php echo $ALL_TIME_SITTING_IN_HOURS ?>
+              ,<?php echo $ALL_NO_ACTIVITY ?>
+              ,<?php echo $ALL_TIME_WALKING_IN_HOURS ?>
+              ,<?php echo $ALL_TIME_PA_MOD_IN_HOURS ?>
+              ,<?php echo $ALL_TIME_PA_VIG_IN_HOURS ?>
+              ,<?php echo $ALL_TIME_SLEEP_HOURS ?>
             ],
             backgroundColor: "rgba(246, 210, 0, .9)",
             hoverBackgroundColor: "rgba(246, 210, 0, 1)",
@@ -453,36 +472,46 @@ var myBarChart = new Chart(ctx, {
 <script>
 var pieData = [
       {
+        "label": "Light/No Activity",
+        "value": <?php echo $USER_NO_ACTIVITY ?>,
+        "color": "#cccccc"
+      },
+      {
         "label": "Moderate Activity",
-        "value": <?php echo $USER_TIME_PA_MOD_IN_MINUTES ?>,
+        "value": <?php echo $USER_TIME_PA_MOD_IN_HOURS ?>,
         "color": "#009966"
       },
       {
         "label": "Vigorous Activity",
-        "value": <?php echo $USER_TIME_PA_VIG_IN_MINUTES ?>,
+        "value": <?php echo $USER_TIME_PA_VIG_IN_HOURS ?>,
         "color": "#006600"
       },
       {
         "label": "Walking",
-        "value": <?php echo $USER_TIME_WALKING_IN_MINUTES ?>,
+        "value": <?php echo $USER_TIME_WALKING_IN_HOURS ?>,
         "color": "#66CC33"
       },
       {
         "label": "Sitting",
-        "value": <?php echo $USER_TIME_SITTING_IN_MINUTES ?>,
+        "value": <?php echo $USER_TIME_SITTING_IN_HOURS ?>,
         "color": "#ff3300"
+      },
+      {
+        "label": "Sleeping",
+        "value": <?php echo $USER_TIME_SLEEP_HOURS ?>,
+        "color": "#C8A0D8"
       },
     ];
 
 var pie = new d3pie("pieChart", {
   "header": {
     "title": {
-      "text": "How You Spend Your Time",
+      "text": "How You Spend Your Time Each Day",
       "fontSize": 24,
       "font": "open sans"
     },
     "subtitle": {
-      "text": "Prolonged sitting can hurt your heath!",
+      "text": "",
       "color": "#333",
       "fontSize": 14,
       "font": "open sans"

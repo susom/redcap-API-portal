@@ -407,6 +407,7 @@ include("inc/gl_head.php");
       </section>
     </section>
   </section>
+  
 <?php
 include("inc/gl_foot.php");
 ?>

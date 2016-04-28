@@ -357,6 +357,14 @@ class Survey {
       );
 
       $mask_js  = array();
+      $mask_js[]= "$.mask.definitions['M']='[01]';";
+      $mask_js[]= "$.mask.definitions['m']='[1-9]';";
+      $mask_js[]= "$.mask.definitions['D']='[0-3]';";
+      $mask_js[]= "$.mask.definitions['d']='[0-9]';";
+      $mask_js[]= "$.mask.definitions['Y']='[12]';";
+      $mask_js[]= "$.mask.definitions['y']='[09]';";
+      $mask_js[]= "$.mask.definitions['H']='[012]';";
+      $mask_js[]= "$.mask.definitions['N']='[0-5]';";
       $type_arr = array();
 
       // print_rr($this->raw,1);

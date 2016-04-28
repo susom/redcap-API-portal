@@ -23,7 +23,7 @@ if(isset($_REQUEST["ajax"])){
   unset($_POST["project"]);
   foreach($_POST as $field_name => $value){
     if($value === 0){
-      $value = (string) "0";
+      $value = 0;
     }else if($value == ""){
       $value = NULL;
     }
@@ -41,6 +41,8 @@ if(isset($_REQUEST["ajax"])){
       $data[0]["redcap_event_name"] = $event_name;
     }
     $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    print_r($data);
+    print_r($result);
   }
   exit;
 }
@@ -264,7 +266,7 @@ $(document).ready(function(){
       type:'POST',
       data: elem.serialize() + project,
       success:function(result){
-        // console.log(result);
+        console.log("result from save:",result);
 
         if(elem.is(":checkbox")){
           //GOTTA RESET THE checkbox properties haha

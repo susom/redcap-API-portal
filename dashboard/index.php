@@ -28,7 +28,7 @@ if(isset($_GET["survey_complete"])){
       
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey '".$surveys[$all_survey_keys[$index+1]]["label"]."' survey now!</a>";
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey.</a>";
       }else{
         $success_msg .= "Congratulations, you got all the fruits! <br/> Please take some time to fill in your 'My Profile'. ";
       }
@@ -430,7 +430,7 @@ var myBarChart = new Chart(ctx, {
     data: {
         labels: ["Sitting", "Light/No Activity" , "Walking", "Moderate Activity", "Vigorous Activity", "Sleep"],
         datasets: [{
-            label: 'You (Hours)',
+            label: 'You (Hours/Day)',
             data: [
                <?php echo $USER_TIME_SITTING_IN_HOURS ?>
               ,<?php echo $USER_NO_ACTIVITY ?> 
@@ -442,7 +442,7 @@ var myBarChart = new Chart(ctx, {
             backgroundColor: "rgba(78, 163, 42, .9)",
             hoverBackgroundColor: "rgba(78, 163, 42, 1)",
           },{
-            label: 'Average All Users (Hours)',
+            label: 'Average All Users (Hours/Day)',
             data: [
                <?php echo $ALL_TIME_SITTING_IN_HOURS ?>
               ,<?php echo $ALL_NO_ACTIVITY ?>

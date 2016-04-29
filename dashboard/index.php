@@ -431,12 +431,11 @@ var ctx = $("#youvsall");
 var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Sitting", "Light/No Activity" , "Walking", "Moderate Activity", "Vigorous Activity", "Sleep"],
+        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity", "Sleep"],
         datasets: [{
             label: 'You (Hours/Day)',
             data: [
                <?php echo $USER_TIME_SITTING_IN_HOURS ?>
-              ,<?php echo $USER_NO_ACTIVITY ?> 
               ,<?php echo $USER_TIME_WALKING_IN_HOURS ?>
               ,<?php echo $USER_TIME_PA_MOD_IN_HOURS  ?>
               ,<?php echo $USER_TIME_PA_VIG_IN_HOURS ?>
@@ -448,7 +447,6 @@ var myBarChart = new Chart(ctx, {
             label: 'Average All Users (Hours/Day)',
             data: [
                <?php echo $ALL_TIME_SITTING_IN_HOURS ?>
-              ,<?php echo $ALL_NO_ACTIVITY ?>
               ,<?php echo $ALL_TIME_WALKING_IN_HOURS ?>
               ,<?php echo $ALL_TIME_PA_MOD_IN_HOURS ?>
               ,<?php echo $ALL_TIME_PA_VIG_IN_HOURS ?>

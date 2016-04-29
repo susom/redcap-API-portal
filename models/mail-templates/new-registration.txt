@@ -1,12 +1,12 @@
 Dear #USERNAME#
 
-Thank you for enrolling in the WELL Registry! 
+Thank you for enrolling in the WELL for Life initiative! 
 
-The Living Well Research Program aims to improve understanding of living well and ways to increase wellbeing.
+The WELL for Life initiative aims to improve understanding of living well and ways to increase wellbeing.
 #ACTIVATION-MESSAGE
 
-Please follow this link to log into the Registry in the future:
-http://wellforlife.stanford.edu
+Please follow this link to log into the WELL for Life initiative in the future:
+http://wellforlife-portal.stanford.edu
 
 The choice to take part and continue taking part is yours.  If you have any questions, feel free to contact Matthew Grason at 650-725-9682 or at mgrason1@stanford.edu.
 

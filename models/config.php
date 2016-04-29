@@ -1,5 +1,5 @@
 <?php
-ob_start("ob_gzhandler"); //gzip outputted html
+// ob_start("ob_gzhandler"); //gzip outputted html
 
 //REQUIRED LIBRARIES
 $requires 	= array(

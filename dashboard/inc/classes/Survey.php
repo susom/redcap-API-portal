@@ -406,7 +406,9 @@ class Survey {
         }
 
         if($branching_logic != "") {
-          // print_rr($branching_logic . " - " . $field_name);
+          if(strpos($field_name,"core_education_us") > -1){
+            print_rr($branching_logic . " - " . $field_name);
+          }
           $branches[$field_name]        = $branching_logic;
         }
         

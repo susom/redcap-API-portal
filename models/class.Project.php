@@ -207,6 +207,8 @@ class Project {
 						
 						if($ors && !$ands){
 							$andor = "||";
+							print_rr($branching);
+							print_rr($effectors);
 						}else if($ors && $ands){
 							//the multiple effector will take the "or" and the and is for the other
 						}//else its default 
@@ -221,6 +223,8 @@ class Project {
 				}
 			}
 		}
+
+		exit;
 		return array_filter($all_branching);
 	}
 
@@ -251,7 +255,7 @@ class Project {
 
 			if($getall){
 				//THIS IS KIND OF SERVER INTENSIVE SO TRY TO LIMIT IT TO BE CALLED ONLY WHEN NEEDED
-				$metadata 			= SELF::getMetaData(array($instrument_id));
+				$metadata 			= self::getMetaData(array($instrument_id));
 
 				//SOME QUESTION ACCOUNTING
 				$actual_questions 	= array_filter($metadata, function($item){

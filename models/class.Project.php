@@ -182,7 +182,6 @@ class Project {
 						continue;
 					}
 					preg_match_all("/\[(?<effector>[\w_]+)(\((?<check_value>\d+)\))?\] = \'(?<value>\d+)\'/",$branching, $matches);
-					
 					$effectors = array();
 					foreach($matches["effector"] as $i => $ef){
 						if(!array_key_exists($ef,$effectors)){
@@ -194,10 +193,31 @@ class Project {
 							array_push($effectors[$ef],$matches["value"][$i]);
 						}
 					}
+					
+					$andor  = "&&"; //Defualt && , doesnt matter
+					if(count($effectors) == 1){
+						//then it doesnt matter it will be OR
+						//its mutually exclusive values for the same input(fieldname)
+						//so the $andor value is moot
+					}else{
+						preg_match_all("/(?<ors>\sor\s)/",$branching, $matches);
+						$ors 	= count($matches["ors"]);
+						preg_match_all("/(?<ands>\sand\s)/",$branching, $matches);
+						$ands 	= count($matches["ands"]);
+						
+						if($ors && !$ands){
+							$andor = "||";
+						}else if($ors && $ands){
+							//the multiple effector will take the "or" and the and is for the other
+						}//else its default 
+					}
+
 					array_push($all_branching, array(
 						 "affected" 	=> $field["field_name"]
 						,"effector" 	=> $effectors
-						,"branching" 	=> $branching) );
+						,"branching" 	=> $branching
+						,"andor"		=> $andor //WILL BE BEST GUESS
+						) );
 				}
 			}
 		}

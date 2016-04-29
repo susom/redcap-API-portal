@@ -169,6 +169,7 @@ $(document).ready(function(){
   
   $branching_function =  "function checkGeneralBranching(){\n";
     foreach($all_branching as $branch){
+      $andor      = $branch["andor"];
       $affected   = $branch["affected"];
       $effectors  = array();
       $ef_only    = array();
@@ -182,7 +183,7 @@ $(document).ready(function(){
         $effectors[] = "(".implode(" || ",$temp_arr).")";
       }
 
-      $branching_function .= "if((".implode(" && ", $ef_only).") && (".implode(" && ", $effectors).")){\n";
+      $branching_function .= "if((".implode(" && ", $ef_only).") && (".implode(" $andor ", $effectors).")){\n";
       $branching_function .= "\$('.$affected').show();\n";
       $branching_function .= "}else{\n";
       $branching_function .= "\$('.$affected').hide();\n";

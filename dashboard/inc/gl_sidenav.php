@@ -1,3 +1,4 @@
+<?php $special_user = $loggedInUser->id < $_CFG->SPECIAL_USERS_RANGE ?  "special_user_icon" : "";  ?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?php echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">

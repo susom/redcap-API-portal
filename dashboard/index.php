@@ -1,8 +1,6 @@
 <?php
 require_once("../models/config.php");
 
-
-$special_user = $loggedInUser->id < $_CFG->SPECIAL_USERS_RANGE ?  "special_user_icon" : ""; 
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
   $destination = $websiteUrl . "login.php";
@@ -32,7 +30,7 @@ if(isset($_GET["survey_complete"])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
         $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey.</a>";
       }else{
-        $success_msg .= "Congratulations, you got all the fruits! <br/> Please take some time to fill in your 'My Profile'. ";
+        $success_msg .= "Congratulations, you got all the fruits! <br/> Check out some of the new modules under 'News'. ";
       }
       
       addSessionMessage( $success_msg , "success");
@@ -195,8 +193,9 @@ include("inc/gl_head.php");
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                        $icon_update  = $core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];
-                        $news[]       = "<li class='list-group-item'>
+                        $news[]       = "<li class='list-group-item $icon_update'>
                                             Please take <a href='$surveylink'>$surveyname</a> survey
                                         </li>";
                       }

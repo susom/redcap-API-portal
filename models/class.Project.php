@@ -23,10 +23,6 @@ class Project {
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
 
-// if($projectName !== SESSION_NAME){
-// 	echo $projectName;
-// 	print_rr($all_events,1);
-// }
 		if(is_array($all_events)  ){
 			if(array_key_exists("error",$all_events) || empty($all_events)){
 				$all_instruments 		= self::getInstruments();
@@ -246,14 +242,16 @@ class Project {
 									});
 				$unbranched_total 	= count($actual_questions) - count($has_branches);
 				$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
-			
+
 				$just_formnames 	= array_map(function($item){
 										return $item["field_name"];
 									},$actual_questions);
 				$just_formnames 	= array_flip($just_formnames);
-
 				$just_form_ans 		= array_intersect_key($this->ALL_USER_ANSWERS,$just_formnames);
-				$answers_only 		= array_filter($just_form_ans);
+				$answers_only 		= array_filter($just_form_ans, function($var){
+									  return ($var !== NULL && $var !== FALSE && $var !== '');
+									});
+
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
 					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $this->ALL_USER_ANSWERS) ? $this->ALL_USER_ANSWERS[$fieldname] : "");

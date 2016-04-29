@@ -1133,3 +1133,12 @@ input[readonly] {
     width:17px; height:21px;
     right:0;
 }
+
+.icon_update:after{
+    content:"";
+    display: inline-block;
+    position:relative; 
+    background:url(../images/icon_update.gif) no-repeat;
+    background-size:contain;
+    width:39px; height:7px;
+}

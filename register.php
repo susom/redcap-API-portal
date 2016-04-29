@@ -139,13 +139,15 @@ if(!empty($_POST['submit_new_user'])){
 
 		//AT THIS POINT, LOOK THROUGH ANY OTHER PROJECTS IN THE SURVEYS CONFIG
 		//THEN GO AHEAD AND CREATE A NEW RECORD ID FOR EACH INSTRUMENT  (logged in user id + p001_1)
+		$supp_proj 		= SurveysConfig::$projects;
+		foreach($supp_proj as $proj_name => $project){
+			if($proj_name == $_CFG->SESSION_NAME){
+				continue;
+			}
+			$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+			$loggedInUser->{$proj_name} = $supp_id;
+		}
 		
-
-
-
-
-
-
 		setSessionUser($loggedInUser);
 
 		//REDIRECT TO CONSENT

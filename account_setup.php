@@ -71,6 +71,9 @@ if( isset($_POST['account_update']) ) {
 		//REDIRECT TO THE DASHBOARD
 		include("models/inc/surveys.php");
 
+		if($loggedInUser->id < 500){
+			addSessionMessage("Thank you for being one of our first 500 participants. The data we collect will help us improve all of our well being!  Display your ribbon proudly! <br><br><img src='images/ribbon_heart.png'>","success");
+		}
 		header("Location: dashboard/survey.php?sid=" . SurveysConfig::$core_surveys[0]); //survey link of first survey
 		exit;
 	}

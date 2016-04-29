@@ -313,15 +313,15 @@ $(document).ready(function(){
   $("button[role='saverecord']").click(function(){
     $("#customform section.active").each(function(idx){
       //IF THERE IS ANOTHER SECTION THEN ITS A "NEXT" ACTION OTHERWISE, FINAL SUBMIT
+      if(checkValidation()){
+        return;
+      }
+
+      if(checkRequired()){
+        return;
+      }
+      
       if($(this).next().length){
-        if(checkValidation()){
-          return;
-        }
-
-        if(checkRequired()){
-          return;
-        }
-
         $(".required_message").remove();
         if($(this).hasClass("active")){
           $(this).removeClass("active").addClass("inactive");

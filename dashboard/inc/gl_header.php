@@ -5,7 +5,7 @@
     </a>
     <a href="index.php" class="navbar-brand">
       <img src="images/well_logo_treeonly.png" class="m-r-sm" alt="scale">
-      <span class="hidden-nav-xs">WELL for Life initiative</span>
+      <span class="hidden-nav-xs">WELL for Life</span>
     </a>
     <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
       <i class="fa fa-cog"></i>

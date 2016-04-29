@@ -98,8 +98,10 @@ if(!empty($_POST['submit_new_user'])){
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
 					
-					// THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
-					$loggedInUser = new RedcapPortalUser($auth->new_user_id);
+					//REDIRECT TO CONSENT
+					header("Location: login.php");
+					// // THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
+					// $loggedInUser = new RedcapPortalUser($auth->new_user_id);
 				}else{
 					$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
 				}

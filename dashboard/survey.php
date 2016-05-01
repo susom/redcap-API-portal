@@ -1,6 +1,7 @@
 <?php
 require_once("../models/config.php");
 
+
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
   $project_name = $_REQUEST["project"] ?: null;
@@ -63,6 +64,7 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
   include("inc/classes/Survey.php");
 }
+
 
 //THIS PAGE NEEDS A SURVEY ID
 $surveyid = $_GET["sid"];
@@ -183,7 +185,7 @@ $(document).ready(function(){
         $effectors[] = "(".implode(" || ",$temp_arr).")";
       }
 
-      $branching_function .= "if((".implode(" && ", $ef_only).") && (".implode(" $andor ", $effectors).")){\n";
+      $branching_function .= "if((".implode(" $andor ", $ef_only).") && (".implode(" $andor ", $effectors).")){\n";
       $branching_function .= "\$('.$affected').show();\n";
       $branching_function .= "}else{\n";
       $branching_function .= "\$('.$affected').hide();\n";

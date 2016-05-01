@@ -223,8 +223,6 @@ class Project {
 				}
 			}
 		}
-
-		// exit;
 		return array_filter($all_branching);
 	}
 

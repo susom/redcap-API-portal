@@ -97,9 +97,8 @@ if(!empty($_POST['submit_new_user'])){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
-					
-					//REDIRECT TO CONSENT
 					header("Location: login.php");
+					exit;
 					// // THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
 					// $loggedInUser = new RedcapPortalUser($auth->new_user_id);
 				}else{

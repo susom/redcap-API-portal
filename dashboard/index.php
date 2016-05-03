@@ -64,6 +64,7 @@ $ALL_TIME_WALKING_IN_HOURS  = array();
 $ALL_TIME_SITTING_IN_HOURS  = array();
 $ALL_TIME_SLEEP_HOURS       = array();
 
+$sitting_count = 0;
 foreach($all_answers as $users_answers){
   $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
   foreach($u_ans as $fieldname => $hhmm){
@@ -86,7 +87,14 @@ foreach($all_answers as $users_answers){
       }
       
       if(strpos($fieldname,"sitting") > -1){
+        $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
         $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
+
+        if(strpos($fieldname,"nowrk") > -1){
+          $sitting_count = $sitting_count  + 1;
+        }else{
+          $sitting_count = $sitting_count  +  .5;
+        }
       }
 
       if(strpos($fieldname,"sleep") > -1){
@@ -98,9 +106,10 @@ foreach($all_answers as $users_answers){
 $ALL_TIME_PA_MOD_IN_HOURS   = count($ALL_TIME_PA_MOD_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_MOD_IN_HOURS )/count($ALL_TIME_PA_MOD_IN_HOURS ),2) : 0;
 $ALL_TIME_PA_VIG_IN_HOURS   = count($ALL_TIME_PA_VIG_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_VIG_IN_HOURS )/count($ALL_TIME_PA_VIG_IN_HOURS ),2) : 0;
 $ALL_TIME_WALKING_IN_HOURS  = count($ALL_TIME_WALKING_IN_HOURS) ? round(array_sum($ALL_TIME_WALKING_IN_HOURS)/count($ALL_TIME_WALKING_IN_HOURS),2) : 0;
-$ALL_TIME_SITTING_IN_HOURS  = count($ALL_TIME_SITTING_IN_HOURS) ? round(array_sum($ALL_TIME_SITTING_IN_HOURS)/count($ALL_TIME_SITTING_IN_HOURS),2) : 0;
+$ALL_TIME_SITTING_IN_HOURS  = count($ALL_TIME_SITTING_IN_HOURS) ? round(array_sum($ALL_TIME_SITTING_IN_HOURS)/$sitting_count,2) : 0;
 $ALL_TIME_SLEEP_HOURS       = count($ALL_TIME_SLEEP_HOURS)      ? round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) : 0;
 $ALL_NO_ACTIVITY            = 24 - $ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS;
+$ALL_NO_ACTIVITY            = $ALL_NO_ACTIVITY < 0 ? 0 : $ALL_NO_ACTIVITY  ;
 
 //CURRENT USERS VALUES
 $USER_TIME_PA_MOD_IN_HOURS  = 0;
@@ -128,6 +137,7 @@ foreach($user_answers as $fieldname => $hhmm){
     }
     
     if(strpos($fieldname,"sitting") > -1){
+      $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
       $USER_TIME_SITTING_IN_HOURS += $answer_value;
     }
 
@@ -137,7 +147,7 @@ foreach($user_answers as $fieldname => $hhmm){
   }
 }
 $USER_NO_ACTIVITY  = 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
-
+$USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 //SUPPLEMENTAL PROJECTS
 $supp_surveys = array();
 $supp_proj    = SurveysConfig::$projects;
@@ -431,7 +441,7 @@ var ctx = $("#youvsall");
 var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity", "Sleep"],
+        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity", "Light/No Activity" , "Sleep"],
         datasets: [{
             label: 'You (Hours/Day)',
             data: [
@@ -439,6 +449,7 @@ var myBarChart = new Chart(ctx, {
               ,<?php echo $USER_TIME_WALKING_IN_HOURS ?>
               ,<?php echo $USER_TIME_PA_MOD_IN_HOURS  ?>
               ,<?php echo $USER_TIME_PA_VIG_IN_HOURS ?>
+              ,<?php echo $USER_NO_ACTIVITY ?>
               ,<?php echo $USER_TIME_SLEEP_HOURS ?>
             ],
             backgroundColor: "rgba(78, 163, 42, .9)",
@@ -450,6 +461,7 @@ var myBarChart = new Chart(ctx, {
               ,<?php echo $ALL_TIME_WALKING_IN_HOURS ?>
               ,<?php echo $ALL_TIME_PA_MOD_IN_HOURS ?>
               ,<?php echo $ALL_TIME_PA_VIG_IN_HOURS ?>
+              ,<?php echo $ALL_NO_ACTIVITY ?>
               ,<?php echo $ALL_TIME_SLEEP_HOURS ?>
             ],
             backgroundColor: "rgba(246, 210, 0, .9)",

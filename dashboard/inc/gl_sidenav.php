@@ -1,4 +1,12 @@
-<?php $special_user = $loggedInUser->id < $_CFG->SPECIAL_USERS_RANGE ?  "special_user_icon" : "";  ?>
+<?php 
+  if(isset($_SESSION["elite_users"])){
+    $elite        = $_SESSION["elite_users"];
+  }else{
+    $elite        = getEliteUsers();
+    $_SESSION["elite_users"]  = $elite;
+  }
+  $special_user = in_array($loggedInUser->id, $elite) ?  "special_user_icon" : "";  
+?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?php echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
     <section class="w-f scrollable">

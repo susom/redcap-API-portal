@@ -1,4 +1,48 @@
 <?php
+
+/**
+ * Sort a 2 dimensional array based on 1 or more indexes.
+ * 
+ * msort() can be used to sort a rowset like array on one or more
+ * 'headers' (keys in the 2th array).
+ * 
+ * @param array        $array      The array to sort.
+ * @param string|array $key        The index(es) to sort the array on.
+ * @param int          $sort_flags The optional parameter to modify the sorting 
+ *                                 behavior. This parameter does not work when 
+ *                                 supplying an array in the $key parameter. 
+ * 
+ * @return array The sorted array.
+ */
+function msort($array, $key, $sort_flags = SORT_REGULAR) {
+    if (is_array($array) && count($array) > 0) {
+        if (!empty($key)) {
+            $mapping = array();
+            foreach ($array as $k => $v) {
+                $sort_key = '';
+                if (!is_array($key)) {
+                    $sort_key = $v[$key];
+                } else {
+                    // @TODO This should be fixed, now it will be sorted as string
+                    foreach ($key as $key_key) {
+                        $sort_key .= $v[$key_key];
+                    }
+                    $sort_flags = SORT_STRING;
+                }
+                $mapping[$k] = $sort_key;
+            }
+            asort($mapping, $sort_flags);
+            $sorted = array();
+            foreach ($mapping as $k => $v) {
+                $sorted[] = $array[$k];
+            }
+            return $sorted;
+        }
+    }
+    return $array;
+}
+
+
 if (! function_exists('array_column')) {
     function array_column(array $input, $columnKey, $indexKey = null) {
         $array = array();
@@ -200,7 +244,30 @@ function makeMessageBox($messages, $type) {
 //------------------------------------------------------------------
 /* LOGIN / STATUS FUNCTIONS */
 //------------------------------------------------------------------
+//GET "ELITE" 500 USERS
+function getEliteUsers(){
+	$extra_params = array(
+		'content' 	=> 'record',
+		'fields'	=> array("id","portal_active","portal_consent_ts")
+	);
+	$result = RC::callApi($extra_params, false, REDCAP_API_URL, REDCAP_API_TOKEN);
+	$result = json_decode($result,1);
+	//GET ALL USERS, THEN GET ACTIVE
+	$active = array_filter($result, function($u){
+		return $u["portal_active___1"] == 1;
+	});
 
+	//THEN SORT BY OLDEST FIRST
+	$elite = msort($active, "portal_consent_ts", 0);
+	
+	//NOW JUST SLICE OFF THE FIRST 500
+	$elite 	= array_slice($elite, 0, 500);
+
+	//EXTRACT USER ID INTO ARRAY
+	$elite 	= array_column($elite, "id");
+
+	return $elite;
+}
 
 // Returns true if user object is defined globally
 function isUserLoggedIn() {

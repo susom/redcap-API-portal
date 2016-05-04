@@ -26,8 +26,6 @@ $all_branching 			= $user_survey_data->getAllInstrumentsBranching();
 $all_completed 			= $user_survey_data->getAllComplete();
 $core_surveys_complete 	= $user_survey_data->getUserActiveComplete();
 
-
-
 // print_rr($all_branching,1);
 // print_rr($all_completed,1);
 // print_rr($surveys,1);

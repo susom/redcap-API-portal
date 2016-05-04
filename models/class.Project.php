@@ -80,6 +80,15 @@ class Project {
 		return $result;
 	}
 
+	//GET METADATA - DEFAULT GETS ALL
+	public function getProjectInfo(){
+		$extra_params = array(
+			'content' 	=> 'project',
+		);
+		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+		return $result;
+	}
+
 	/*
 	INSTRUMENT LEVEL STUFF
 	*/
@@ -235,6 +244,10 @@ class Project {
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
 
+
+
+
+
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(json_decode($check_survey_link)){
 				continue;
@@ -254,6 +267,8 @@ class Project {
 			if($getall){
 				//THIS IS KIND OF SERVER INTENSIVE SO TRY TO LIMIT IT TO BE CALLED ONLY WHEN NEEDED
 				$metadata 			= self::getMetaData(array($instrument_id));
+				$projectInfo 		= self::getProjectInfo();
+				$project_notes	 	= $projectInfo["project_notes"];
 
 				//SOME QUESTION ACCOUNTING
 				$actual_questions 	= array_filter($metadata, function($item){
@@ -289,7 +304,7 @@ class Project {
 				,"survey_link" 		=> $check_survey_link
 				,"survey_hash" 		=> $survey_hash
 				,"survey_complete" 	=> $instrument_complete
-				
+				,"project_notes"	=> $project_notes
 				,"raw"				=> ($getall ? $metadata 		: null)
 				,"completed_fields"	=> ($getall ? $answers_only 	: null)
 				,"total_questions"	=> ($getall ? $unbranched_total + count($user_branched): null)

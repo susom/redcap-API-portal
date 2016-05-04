@@ -1143,3 +1143,18 @@ input[readonly] {
     background-size:contain;
     width:39px; height:7px;
 }
+
+#testserver {
+    background: #C42128;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 18px;
+    display: block;
+    position: fixed;
+    left: 50%;
+    margin-left: -100px;
+    width:200px; 
+    top: 15px;
+    text-align: center;
+    z-index: 20000;
+}

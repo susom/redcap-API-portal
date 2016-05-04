@@ -26,8 +26,6 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 								);
 
 if(isset($portal_test)){
-
-}else{
 	echo "<div id='testserver'>Test Server</div>";
 }
 

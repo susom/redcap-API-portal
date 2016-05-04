@@ -1158,3 +1158,11 @@ input[readonly] {
     text-align: center;
     z-index: 20000;
 }
+
+.redcap {
+    display:block; 
+    text-align:center;
+    font-style:normal;
+    color:#bbb;
+    font-size:14px; 
+}

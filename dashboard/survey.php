@@ -141,6 +141,8 @@ include("inc/gl_head.php");
                         }
                       ?>
                     </div>
+
+                    <cite class="redcap">Powered by REDCap</cite>
                   </div>
                 </section>
               </section>

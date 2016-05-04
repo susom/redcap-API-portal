@@ -160,7 +160,6 @@ foreach($supp_proj as $proj_name => $project){
   $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
 }
 
-// print_rr($supp_surveys,1);
 // $_SESSION["Supp_Surveys"] = $supp_surveys;
 
 $shownavsmore   = true;
@@ -206,8 +205,9 @@ include("inc/gl_head.php");
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];
+                        $titletext    = $core_surveys_complete ? : "You may come back to these surveys once you complete the Core Surveys!";
                         $news[]       = "<li class='list-group-item $icon_update'>
-                                            Please take <a href='$surveylink'>$surveyname</a> survey
+                                            Please take <a href='$surveylink' title='$titletext'>$surveyname</a> survey
                                         </li>";
                       }
 

@@ -16,9 +16,9 @@ class RC {
 		$params = array_merge($default_params, $extra_params);
 		//logIt("New Params:" . print_r($params,true), "DEBUG");
 
-		logIt(json_encode($params,1),"DEBUG");
+		// logIt(json_encode($params,1),"DEBUG");
 		$result = self::http_post($api_url, $params);
-		logIt('call API Raw result: ' . print_r($params, true), "DEBUG");	
+		logIt('call API Raw result: ' . print_r($result, true), "DEBUG");	
 
 		if ($json_decode) {
 			$result = json_decode($result, true);

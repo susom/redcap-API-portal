@@ -314,12 +314,12 @@ class Survey {
           $theHTML[]  = "<h4>" . str_replace("\n","<br>",$field["section_header"]) ."</h4>";
         }
         if(!empty($field["user_answer"])){
-          $action_tags = SELF::getActionTags($field);
+          $action_tags = self::getActionTags($field);
 
           if(array_key_exists("field_type",$action_tags) && $action_tags["field_type"] == "hidden"){
             //do nothing
           }else{
-            $item       = SELF::getLabelAnswer($field);
+            $item       = self::getLabelAnswer($field);
             $field_label= $item["field_label"];
             $field_label= str_replace("\r","",$field_label);
             $field_label= str_replace("\n","<br>",$field_label);
@@ -393,7 +393,7 @@ class Survey {
         $custom_alignment               = $field["custom_alignment"];
         $matrix_group                   = $field["matrix_group_name"];
         $validation_rules               = (array_key_exists($field["text_validation_type_or_show_slider_number"], $verify_map) ? $verify_map[$field["text_validation_type_or_show_slider_number"]] : "");
-        $action_tags                    = SELF::getActionTags($field);
+        $action_tags                    = self::getActionTags($field);
         $field_value                    = null;
 
         foreach($action_tags as $k => $v){
@@ -474,7 +474,7 @@ class Survey {
 
                 $section_html[] = "<tr>";
                 $section_html[] = "<td>$field_label</td>";
-                $options        = SELF::getAnswerOptions($item["select_choices_or_calculations"]);
+                $options        = self::getAnswerOptions($item["select_choices_or_calculations"]);
                 foreach($options as $val => $value){
                   if($field_type == "radio"){
                     $checked      = (array_key_exists($field_name,$this->completed) && $completed[$field_name] == $val ? "checked" : "");
@@ -495,27 +495,27 @@ class Survey {
             $section_html[] = "<label class='q_label' for='$field_name'>$field_label<i></i></label>";
 
             if($field_type == "dropdown"){
-              $dropdown         = SELF::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
+              $dropdown         = self::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
               $section_html     = array_merge($section_html, $dropdown);
             }elseif($field_type == "yesno" || $field_type == "truefalse"){
               $select_choices_or_calculations = ($field_type == "yesno" ? "1, Yes | 0, No": "1, True | 0, False");
-              $radioOrCheck     = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
+              $radioOrCheck     = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
               $section_html     = array_merge($section_html, $radioOrCheck);
             }elseif($field_type == "notes"){
-              $textarea         = SELF::makeTextarea($field_name, $required_field, $field_value); 
+              $textarea         = self::makeTextarea($field_name, $required_field, $field_value); 
               $section_html     = array_merge($section_html, $textarea);
             }elseif($field_type == "readonly"){
-              $altered_input    = SELF::makeReadonly($field_name, $field_type,  $field_value); 
+              $altered_input    = self::makeReadonly($field_name, $field_type,  $field_value); 
               $section_html     = array_merge($section_html, $altered_input);
             }elseif($field_type == "custom"){
               // $textarea         = SELF::makeReadonly($field_name, $field_value); 
               // $section_html     = array_merge($section_html, $textarea);
             }else{
               if($field_type == "text"){
-                $textinput      = SELF::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
+                $textinput      = self::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
                 $section_html   = array_merge($section_html, $textinput);
               }else{
-                $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
+                $radioOrCheck   = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
                 $section_html   = array_merge($section_html, $radioOrCheck);
               }
             }
@@ -592,7 +592,7 @@ class Survey {
       $select_choices_or_calculations = $field["select_choices_or_calculations"];
       $branching_logic                = $field["branching_logic"];
       $validation_rules               = (array_key_exists($field["text_validation_type_or_show_slider_number"], $verify_map) ? $verify_map[$field["text_validation_type_or_show_slider_number"]] : "");
-      $action_tags                    = SELF::getActionTags($field);
+      $action_tags                    = self::getActionTags($field);
       $field_value                    = null;
 
       foreach($action_tags as $k => $v){
@@ -610,7 +610,7 @@ class Survey {
 
       //HIDDEN INPUTS
       if($field_type == "hidden"){
-        $altered_input    = SELF::makeHidden($field_name, $field_type, $field_value); 
+        $altered_input    = self::makeHidden($field_name, $field_type, $field_value); 
         $section_html     = array_merge($section_html, $altered_input);
       }
 
@@ -624,27 +624,27 @@ class Survey {
         $required_field = "";
 
         if($field_type == "dropdown"){
-          $dropdown         = SELF::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
+          $dropdown         = self::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
           $section_html     = array_merge($section_html, $dropdown);
         }elseif($field_type == "yesno" || $field_type == "truefalse"){
           $select_choices_or_calculations = ($field_type == "yesno" ? "1, Yes | 0, No": "1, True | 0, False");
-          $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
+          $radioOrCheck   = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
           $section_html   = array_merge($section_html, $radioOrCheck);
         }elseif($field_type == "notes"){
-          $textarea         = SELF::makeTextarea($field_name, $required_field, $field_value); 
+          $textarea         = self::makeTextarea($field_name, $required_field, $field_value); 
           $section_html     = array_merge($section_html, $textarea);
         }elseif($field_type == "readonly"){
-          $altered_input    = SELF::makeReadonly($field_name, $field_type,  $field_value); 
+          $altered_input    = self::makeReadonly($field_name, $field_type,  $field_value); 
           $section_html     = array_merge($section_html, $altered_input);
         }elseif($field_type == "custom"){
           // $textarea         = SELF::makeReadonly($field_name, $field_value); 
           // $section_html     = array_merge($section_html, $textarea);
         }else{
           if($field_type == "text"){
-            $textinput      = SELF::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
+            $textinput      = self::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
             $section_html   = array_merge($section_html, $textinput);
           }else{
-            $radioOrCheck   = SELF::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
+            $radioOrCheck   = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
             $section_html   = array_merge($section_html, $radioOrCheck);
           }
         }

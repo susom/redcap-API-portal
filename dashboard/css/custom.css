@@ -555,6 +555,43 @@ input[readonly] {
     transition : .5s opacity;
 }
 
+.dash_fruits {
+    margin : 0;
+    padding : 0;
+}
+.dash_fruits .fitness {
+    margin-top : 20px;
+    margin-right : 8px;
+    text-indent : -5000px;
+}
+
+
+.alert span.fitness {
+    position : relative;
+    display : block;
+    width : 70px;
+    height : 65px;
+    margin : 10px auto;
+    text-indent : -5000px;
+}
+.alert span.fitness:before {
+    position : absolute;
+    top : 0;
+    left : 0;
+    width : 70px;
+    height : 65px;
+    content : '';
+    opacity : 1;
+    background : url(../images/fitness_fruits.png) 100% 0px no-repeat;
+    background-position-x : 0 !important;
+
+    transition : .5s opacity;
+}
+
+
+
+
+
 .alert .pomegranate:before,
 .surveys .pomegranate      span:before {
     background-position : 100% -65px   !important;

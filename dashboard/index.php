@@ -18,6 +18,20 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
 }
 
+//SUPPLEMENTAL PROJECTS
+$supp_surveys = array();
+$supp_proj    = SurveysConfig::$projects;
+foreach($supp_proj as $proj_name => $project){
+  if($proj_name == $_CFG->SESSION_NAME){
+    continue;
+  }
+
+  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
+  $supp_surveys_keys    = array_keys($supp_surveys);
+}
+
+//NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
   $surveyid = $_GET["survey_complete"];
@@ -32,6 +46,20 @@ if(isset($_GET["survey_complete"])){
         $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey.</a>";
       }else{
         $success_msg .= "Congratulations, you got all the fruits! <br/> Check out some of the new modules under 'News'. ";
+      }
+      
+      addSessionMessage( $success_msg , "success");
+  }
+
+  if(array_key_exists($surveyid,$supp_surveys)){
+    $index  = array_search($surveyid, $supp_surveys_keys);
+    $survey = $supp_surveys[$surveyid];
+    $success_msg  = "You've been awarded a fitness badge: <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
+      
+      if(isset($all_survey_keys[$index+1])){
+        $success_msg .= "Get all the fitness badges!<br> ";
+      }else{
+        $success_msg .= "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards! ";
       }
       
       addSessionMessage( $success_msg , "success");
@@ -148,19 +176,7 @@ foreach($user_answers as $fieldname => $hhmm){
 }
 $USER_NO_ACTIVITY  = 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
-//SUPPLEMENTAL PROJECTS
-$supp_surveys = array();
-$supp_proj    = SurveysConfig::$projects;
-foreach($supp_proj as $proj_name => $project){
-  if($proj_name == $_CFG->SESSION_NAME){
-    continue;
-  }
 
-  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
-}
-
-// $_SESSION["Supp_Surveys"] = $supp_surveys;
 
 $shownavsmore   = true;
 $survey_active  = ' class="active"';

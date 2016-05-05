@@ -135,7 +135,7 @@ class Survey {
 
     $section_html[]   = "<select $required_field name='$field_name' id='$field_name'>";
     $section_html[]   = "<option>-</option>";
-    $options          = SELF::getAnswerOptions($select_choices_or_calculations);
+    $options          = self::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
       $selected       = (array_key_exists($field_name, $this->completed) && $this->completed[$field_name] == $val ? "selected" : "");
       $section_html[] = "<option $selected value='$val'>$value</option>";
@@ -177,7 +177,7 @@ class Survey {
 
   private function makeRadioOrCheck($field_name,$required_field, $select_choices_or_calculations, $field_type, $field_value = null){
     $section_html   = array();
-    $options        = SELF::getAnswerOptions($select_choices_or_calculations);
+    $options        = self::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
       if($field_type == "radio"){
         $checked      = (array_key_exists($field_name,$this->completed) && $this->completed[$field_name] == $val ? "checked" : "");
@@ -298,7 +298,7 @@ class Survey {
       }
       $results[$tag] = $params;
     }
-    return SELF::doActionTags($results);
+    return self::doActionTags($results);
   }
 
   public function printHTML(){
@@ -435,7 +435,7 @@ class Survey {
 
         //HIDDEN INPUTS
         if($field_type == "hidden"){
-          $altered_input    = SELF::makeHidden($field_name, $field_type, $field_value); 
+          $altered_input    = self::makeHidden($field_name, $field_type, $field_value); 
           $section_html     = array_merge($section_html, $altered_input);
         }
 

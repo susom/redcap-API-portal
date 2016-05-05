@@ -225,6 +225,11 @@ a:hover { text-decoration:underline; }
 .consent_slides h2 {
 	font-size:38px; 
 	font-weight:normal; 
+	margin-top:50px;
+} 
+
+.consent_slides section h2:first-child {
+	margin-top:0; 
 } 
 
 .consent_slides h3 {

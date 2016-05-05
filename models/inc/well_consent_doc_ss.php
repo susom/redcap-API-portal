@@ -14,9 +14,7 @@
 <section>
 	<h2>DURATION OF STUDY INVOLVEMENT</h2>
 	<p>Additional surveys updates will help us understand factors related to health and wellbeing in the long-term. We plan to update you as more surveys and content become available. We anticipate the study will continue to 2099 and we welcome your involvement for as long as you can take part.</p>
-</section>
 
-<section>
 	<h2>VOLUNTARY PARTICIPATION</h2>
 	<p>Your participation is entirely voluntary. Your decision not to participate will not have any negative effect on you or your medical care. You can decide to participate now, but withdraw your consent later and stop being in the study without any loss of benefits or medical care to which you are entitled.</p>
 </section>
@@ -24,9 +22,7 @@
 <section>
 	<h2>POTENTIAL BENEFITS</h2>       
 	<p>The goal of the WELL for Life initiative is to learn how to promote living well. We cannot and do not guarantee or promise you will receive any benefits from this study. All participants will receive information about living well and updates about the research study. By participating, you also will contribute to the health and wellbeing of your community.</p>
-</section>
 
-<section>
 	<h2>POSSIBLE RISKS</h2>
 	<p>The risks associated with this study are minimal and we do not expect any negative effects from participating. If some of the survey questions make you feel uneasy, you can choose to skip them. While loss of confidentiality is a risk, we take great care to protect your information.  We follow federal, state, and Stanford University regulations to protect your information </p>
 </section>
@@ -35,9 +31,7 @@
 	<h2>FINANCIAL CONSIDERATIONS</h2>
 	<h3>Payment</h3>
 	<p>You will not be paid for participating in this study. Program-branded items, however, may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys.</p>
-</section>
 
-<section>
 	<h2>PARTICIPATING IN FUTURE STUDIES</h2>
 	<p>We would like to contact you about participating in future studies.  If you do NOT wish to be contacted, please check this box.</p>
 </section>

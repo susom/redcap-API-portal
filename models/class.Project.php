@@ -23,23 +23,21 @@ class Project {
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
 
-		if(is_array($all_events)  ){
-			if(array_key_exists("error",$all_events) || empty($all_events)){
-				$all_instruments 		= self::getInstruments();
-			}else{
-				//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
-				$all_instruments 		= array_map(function($event){
-					$instrument_id 		= $event["form"];
-					$instrument_label 	= str_replace("_"," ",$instrument_id);
-					return array(
-						 "arm_num" 				=> $event["arm_num"]
-						,"unique_event_name" 	=> $event["unique_event_name"]
-						,"instrument_name"		=> $instrument_id
-						,"instrument_label"		=> ucwords($instrument_label)
+		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
+			$all_instruments 		= self::getInstruments($projectName);
+		}else{
+			//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
+			$all_instruments 		= array_map(function($event){
+				$instrument_id 		= $event["form"];
+				$instrument_label 	= str_replace("_"," ",$instrument_id);
+				return array(
+					 "arm_num" 				=> $event["arm_num"]
+					,"unique_event_name" 	=> $event["unique_event_name"]
+					,"instrument_name"		=> $instrument_id
+					,"instrument_label"		=> ucwords($instrument_label)
 
-					);
-				}, $all_events);
-			}
+				);
+			}, $all_events);
 		}
 
 		$this->ALL_INSTRUMENTS 		= $all_instruments;
@@ -53,7 +51,7 @@ class Project {
     }
 
     //GET ALL THE INSTRUMENTS
-    private function getInstruments(){
+    private function getInstruments($projname = false){
 		$extra_params = array(
 			'content' 	=> 'instrument',
 		);
@@ -244,13 +242,17 @@ class Project {
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
 
+
+
+
+
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(json_decode($check_survey_link)){
 				continue;
 			}
 
 			//PUT TOGETHER SURVEY DATA FOR USER
-			// list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
+			list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
 
 			//SURVEY COMPLETE
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
@@ -298,7 +300,7 @@ class Project {
 				,"event" 			=> $unique_event_name
 				,"arm"				=> $arm_num
 				,"survey_link" 		=> $check_survey_link
-				// ,"survey_hash" 		=> $survey_hash
+				,"survey_hash" 		=> $survey_hash
 				,"survey_complete" 	=> $instrument_complete
 				,"project_notes"	=> $project_notes
 				,"raw"				=> ($getall ? $metadata 		: null)

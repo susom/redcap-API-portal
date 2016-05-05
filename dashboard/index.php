@@ -159,7 +159,7 @@ foreach($supp_proj as $proj_name => $project){
   $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
   $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
 }
-// print_rr($supp_surveys,1);
+
 // $_SESSION["Supp_Surveys"] = $supp_surveys;
 
 $shownavsmore   = true;

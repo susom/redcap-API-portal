@@ -6,7 +6,7 @@
 
 class RC {
 	// Make API Call
-	public static function callApi($extra_params = null, $json_decode = true, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
+	public static function callApi($extra_params = null, $json_expected = true, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
 		$default_params = array(
 			'token' 	=> $api_token,
 			'format' 	=> 'json',
@@ -17,17 +17,18 @@ class RC {
 		//logIt("New Params:" . print_r($params,true), "DEBUG");
 
 		// logIt(json_encode($params,1),"DEBUG");
-		$result = self::http_post($api_url, $params);
-		logIt('call API Raw result: ' . print_r($result, true), "DEBUG");	
-
-		if ($json_decode) {
-			$result = json_decode($result, true);
-			if (isset($result->error)) {
-				logIt('Error in writeToApi: ' . $result->error , "DEBUG");
+		$raw = self::http_post($api_url, $params);
+		logIt('call API Raw result: ' . print_r($raw, true), "DEBUG");	
+		
+		if ( $json_expected ) {
+			$result = json_decode($raw,true);
+			if (isset($result["error"])) {
+				logIt('Error in writeToApi: ' . $result["error"] , "DEBUG");
 				return false;
 			}
 		} else {
 		 	// Return raw result
+		 	$result = $raw;
 		}
       	
       	//logIt('call API result: ' . print_r($result,true), "DEBUG");

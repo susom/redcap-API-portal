@@ -244,17 +244,13 @@ class Project {
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
 
-
-
-
-
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(json_decode($check_survey_link)){
 				continue;
 			}
 
 			//PUT TOGETHER SURVEY DATA FOR USER
-			list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
+			// list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
 
 			//SURVEY COMPLETE
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
@@ -302,7 +298,7 @@ class Project {
 				,"event" 			=> $unique_event_name
 				,"arm"				=> $arm_num
 				,"survey_link" 		=> $check_survey_link
-				,"survey_hash" 		=> $survey_hash
+				// ,"survey_hash" 		=> $survey_hash
 				,"survey_complete" 	=> $instrument_complete
 				,"project_notes"	=> $project_notes
 				,"raw"				=> ($getall ? $metadata 		: null)

@@ -207,7 +207,7 @@ include("inc/gl_head.php");
                         $surveyname   = $supp_instrument["label"];
 
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
-                        $tooltip      = $projnotes[$supp_instrument_id];
+                        $tooltip      = isset($projnotes[$supp_instrument_id]) ? $projnotes[$supp_instrument_id] : "";
 
                         $titletext    = !$core_surveys_complete ? $tooltip : "You may come back to these surveys once you complete the Core Surveys!";
                         $news[]       = "<li class='list-group-item $icon_update'>

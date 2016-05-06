@@ -243,7 +243,7 @@ include("inc/gl_head.php");
                           , $proj_name , SurveysConfig::$projects[$proj_name]["URL"]
                           , SurveysConfig::$projects[$proj_name]["TOKEN"]);
 
-                        $ffq = $ffq_project->getAccunt();
+                        $ffq = $ffq_project->getAccount();
                         $_SESSION[SESSION_NAME]['ffq'] = $ffq;
                       }
 

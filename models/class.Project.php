@@ -348,7 +348,7 @@ class PreGenAccounts extends Project{
 
     }
 
-    public function getAcount(){
+    public function getAccount(){
     	$completed = self::getAllComplete();
 
     	if(isset($completed["portal_id"]) && $completed["portal_id"] == $this->LOGGED_IN_USER->id){

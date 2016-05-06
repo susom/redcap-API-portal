@@ -1,18 +1,15 @@
 <?php
 class Project {
-	PRIVATE $LOGGED_IN_USER;
-	PRIVATE $API_URL;
-	PRIVATE $API_TOKEN;
-
-	PRIVATE $ALL_INSTRUMENTS;
-	PRIVATE $ACTIVE_INSTRUMENTS;
-	PRIVATE $ALL_USER_ANSWERS;
-
-	PRIVATE $active_surveys_complete 	= true;
-	PRIVATE $user_current_survey_index 	= NULL;
-	PRIVATE $current_arm 				= 0; //WHAT EVEN IS THIS
-
-	PRIVATE $name = "";
+	protected $LOGGED_IN_USER;
+	protected $API_URL;
+	protected $API_TOKEN;
+	protected $ALL_INSTRUMENTS;
+	protected $ACTIVE_INSTRUMENTS;
+	protected $ALL_USER_ANSWERS;
+	protected $active_surveys_complete 	= true;
+	protected $user_current_survey_index 	= NULL;
+	protected $current_arm 				= 0; //WHAT EVEN IS THIS
+	protected $name = "";
 
 	public function __construct($loggedInUser, $projectName="", $api_url, $api_token){
 		$this->API_URL 			= $api_url;
@@ -342,16 +339,48 @@ class Project {
     }
 }
 
-class Instrument extends Project{
+class PreGenAccounts extends Project{
 	//NOW INSTRUMENT HAS ACCESS TO THE METHODS THAT PROJECT HAS.
 	
 	//BUT... IT WILL NEED ALSO ITS API URL AND API TOKEN?
-	public function __construct($instrument_id, $loggedInUser, $api_url, $api_token){
-		parent::__construct($loggedInUser, $api_url, $api_token);
+	public function __construct($loggedInUser, $projectName, $api_url, $api_token){
+		parent::__construct($loggedInUser,$projectName, $api_url, $api_token);
 
     }
 
-    //SINCE EVERYTHING IS IN PARENT PROJECT CLASS.
-    //WHY DO I NEED ANYTHING DOWN HERE?
-    //WHAT SPECIAL THING CAN THIS DO?
+    public function getAcount(){
+    	$completed = self::getAllComplete();
+
+    	if(isset($completed["portal_id"]) && $completed["portal_id"] == $this->LOGGED_IN_USER->id){
+    		$ffq = array( 
+    			 "ffq_username" => $completed["ffq_username"]
+	    		,"ffq_password" => $completed["ffq_password"]
+	    		,"record_id" 	=> $completed["record_id"]
+			);
+    	}else{
+    		$extra_params = array(
+		      'content'   	=> 'record',
+		      'fields'  	=> array("ffq_username","ffq_password","portal_id", "record_id"),
+		      'filterLogic' => "[portal_id] = 0"
+		    );
+		    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+		    if(count($result)){
+		    	$ffq = array_shift($result);
+		    	unset($ffq["portal_id"]);
+
+		    	$data[] = array(
+		          "record"            => $ffq["record_id"],
+		          "field_name"        => "portal_id",
+		          "value"             => $this->LOGGED_IN_USER->id
+		        );
+		        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $this->API_URL,$this->API_TOKEN);
+		    }else{
+				//ERROR
+				$ffq = array("error" => "Error. No new accounts available.");		    	
+		    }
+    	}
+    	
+    	return $ffq;
+    }
 }
+

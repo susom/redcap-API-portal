@@ -223,18 +223,36 @@ include("inc/gl_head.php");
                         if($supp_instrument["survey_complete"]){
                           continue;
                         }
+                        $projnotes    = json_decode($supp_instrument["project_notes"],1);
+                        $tooltip      = isset($projnotes[$supp_instrument_id]) ? $projnotes[$supp_instrument_id] : "";
+                        $titletext    = $core_surveys_complete ? $tooltip : "You may come back to these surveys once you complete the Core Surveys!";
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];
 
-                        $projnotes    = json_decode($supp_instrument["project_notes"],1);
-                        $tooltip      = isset($projnotes[$supp_instrument_id]) ? $projnotes[$supp_instrument_id] : "";
-
-                        $titletext    = !$core_surveys_complete ? $tooltip : "You may come back to these surveys once you complete the Core Surveys!";
                         $news[]       = "<li class='list-group-item $icon_update'>
                                             Please take <a href='$surveylink' title='$titletext'>$surveyname</a> survey
                                         </li>";
                       }
+
+
+// // GET ALL
+// $extra_params = array(
+//       'content'   => 'record',
+//       'fields'  => array("ffq_username","ffq_password","portal_id", "record_id"),
+//       // 'filterLogic' => "[portal_id] = " .$loggedInUser->id
+//     );
+// $result = RC::callApi($extra_params, true, "http://redcap.irvins.loc/api/", "C0449461FCEBCD4960B5CE544503156F");//BB961EC459C4BDDD243292430BD8AED8
+
+// // FIND IF THERE, If not write tO ONE
+
+// //THEN WRITE ?
+// $possible_match = array_search($loggedInUser->id,array_column($result, "portal_id"));
+// print_rr($possible_match , 1) ;
+
+
+                      // $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=WELL-USER-AHXN4PYDWD7HFTRAWJCHKAACWAANC&password=PASS-CTMMR3EAP7RW4Y&BDDSgroup_id=747&Submit=Submit";
+                      // $news[]         = "<li class='list-group-item icon_update'>Please take the <a href='$nutrilink' target='_blank'>Nutrition Quest Survey</a></li>";
 
                       $firstonly      = true;
                       $showfruit      = array();

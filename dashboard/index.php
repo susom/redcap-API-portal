@@ -223,8 +223,8 @@ include("inc/gl_head.php");
                         if($supp_instrument["survey_complete"]){
                           continue;
                         }
-                        $surveylink   = !$core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
-                        $icon_update  = !$core_surveys_complete ? " icon_update" : "";
+                        $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                        $icon_update  = $core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];
 
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);

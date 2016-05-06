@@ -248,7 +248,7 @@ include("inc/gl_head.php");
                       }
 
                       if(!array_key_exists("error",$ffq)){
-                        $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&Submit=Submit";
+                        $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
                         $news[]         = "<li class='list-group-item icon_update'>Please take the <a href='$nutrilink' target='_blank'>Nutrition Quest Survey</a></li>";
                       }
 

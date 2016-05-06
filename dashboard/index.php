@@ -216,10 +216,15 @@ include("inc/gl_head.php");
                         // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
+
+
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
-                        $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
-                        $icon_update  = $core_surveys_complete ? " icon_update" : "";
+                        if($supp_instrument["survey_complete"]){
+                          continue;
+                        }
+                        $surveylink   = !$core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                        $icon_update  = !$core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];
 
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
@@ -264,6 +269,19 @@ include("inc/gl_head.php");
                               <span>$surveyname</span>
                             </a>
                           </li>";
+                      }
+
+                      foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
+                        $index       = array_search($supp_instrument_id, $supp_surveys_keys);
+                        $surveyname  = $supp_instrument["label"];
+                        $surveylink  = "survey.php?sid=". $supp_instrument_id;
+                        $completeclass  = ($supp_instrument["survey_complete"] ? "completed":"");
+                        $showfruit[] = "<li class='nav'>
+                            <a rel='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        
+                              <span>$surveyname</span>
+                            </a>
+                          </li>";
+
                       }
                       echo implode($showfruit);
                       echo "<ul>\n";

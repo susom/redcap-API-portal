@@ -570,7 +570,7 @@ input[readonly] {
     position : relative;
     display : block;
     width : 70px;
-    height : 65px;
+    height : 70px;
     margin : 10px auto;
     text-indent : -5000px;
 }
@@ -579,16 +579,27 @@ input[readonly] {
     top : 0;
     left : 0;
     width : 70px;
-    height : 65px;
+    height : 70px;
     content : '';
     opacity : 1;
-    background : url(../images/fitness_fruits.png) 100% 0px no-repeat;
+    background : url(../images/ico_fitness_sprite.png) 100% 0px no-repeat;
+    background-size:200%;
     background-position-x : 0 !important;
-
     transition : .5s opacity;
 }
 
-
+.alert .biking:before,
+.surveys .biking      span:before {
+    background-position : 100% -70px   !important;
+}
+.alert .yoga:before,
+.surveys .yoga     span:before {
+    background-position : 100% -140px  !important;
+}
+.alert .weightlifting:before,
+.surveys .weightlifting      span:before {
+    background-position : 100% -210px !important;
+}
 
 
 
@@ -725,7 +736,7 @@ input[readonly] {
     vertical-align: middle;
     line-height: 135%;
 }
-.nav .fruit {
+.nav .fruit, .nav .fitness {
     position : relative;
     display : inline-block;
     width : 35px;
@@ -741,6 +752,26 @@ input[readonly] {
     content : '';
     background : url(../images/sprites_fruits.png) 100% 0 no-repeat;
     background-size : 70px 582px;
+}
+
+.nav .fitness:before {
+    position : absolute;
+    left : 0;
+    width : 33px;
+    height : 33px;
+    content : '';
+    background : url(../images/ico_fitness_sprite.png) 100% 0 no-repeat;
+    background-size : 67px 133px;
+}
+
+.nav .fitness.biking:before {
+    background-position : 100% -34px  !important;
+}
+.nav .fitness.yoga:before {
+    background-position : 100% -67px  !important;
+}
+.nav .fitness.weightlifting:before {
+    background-position : 100% -101px  !important;
 }
 
 .nav .fruit.pomegranate:before {
@@ -795,7 +826,7 @@ input[readonly] {
     background-position : 100% -550px  !important;
 }
 
-.nav .completed.fruit:before {
+.nav .completed.fruit:before,.nav .completed.fitness:before {
     opacity : 1;
     background-position-x : 0 !important;
 }

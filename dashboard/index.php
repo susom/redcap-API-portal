@@ -43,7 +43,7 @@ if(isset($_GET["survey_complete"])){
       
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of survey.</a>";
+        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of the survey.</a>";
       }else{
         $success_msg .= "Congratulations, you got all the fruits! <br/> Check out some of the new modules under 'News'. ";
       }
@@ -225,7 +225,7 @@ include("inc/gl_head.php");
                         }
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $tooltip      = isset($projnotes[$supp_instrument_id]) ? $projnotes[$supp_instrument_id] : "";
-                        $titletext    = $core_surveys_complete ? $tooltip : "You may come back to these surveys once you complete the Core Surveys!";
+                        $titletext    = $core_surveys_complete ? $tooltip : "Come back to these surveys once you complete the Core Surveys!";
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $core_surveys_complete ? " icon_update" : "";
                         $surveyname   = $supp_instrument["label"];

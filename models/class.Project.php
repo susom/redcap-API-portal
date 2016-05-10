@@ -361,7 +361,7 @@ class PreGenAccounts extends Project{
     		$extra_params = array(
 		      'content'   	=> 'record',
 		      'fields'  	=> array("ffq_username","ffq_password","portal_id", "record_id"),
-		      'filterLogic' => "[portal_id] = 0"
+		      'filterLogic' => "[portal_id] = ''"
 		    );
 		    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 		    if(count($result)){

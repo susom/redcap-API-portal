@@ -86,7 +86,7 @@
       </div>
       
       <div class="col-sm-2"> 
-        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip">
+        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip" min="0">
         <select id="zipset"></select>
       </div>
     </div>
@@ -135,7 +135,7 @@
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-        <em>By clicking the Submit button I agree to be contacted about WELL for Life initiative related studies and information.</em>
+        <em>By clicking the Submit button I agree to be contacted about WELL for Life related studies and information.</em>
       </div>
     </div>
     <div class="form-group">

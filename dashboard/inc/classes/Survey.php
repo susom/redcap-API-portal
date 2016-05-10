@@ -134,7 +134,7 @@ class Survey {
     $section_html     = array();
 
     $section_html[]   = "<select $required_field name='$field_name' id='$field_name'>";
-    $section_html[]   = "<option>-</option>";
+    $section_html[]   = "<option></option>";
     $options          = self::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
       $selected       = (array_key_exists($field_name, $this->completed) && $this->completed[$field_name] == $val ? "selected" : "");

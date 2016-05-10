@@ -345,33 +345,34 @@ class PreGenAccounts extends Project{
 	//BUT... IT WILL NEED ALSO ITS API URL AND API TOKEN?
 	public function __construct($loggedInUser, $projectName, $api_url, $api_token){
 		parent::__construct($loggedInUser,$projectName, $api_url, $api_token);
-
     }
 
     public function getAccount(){
-    	$completed = self::getAllComplete();
+    	$foreign_key 	= PROJ_ENV ."_" . $this->LOGGED_IN_USER->id;
+    	$extra_params = array(
+	      'content'   	=> 'record',
+	      'fields'  	=> array("portal_id", "record_id","ffq_username","ffq_password"),
+	      'filterLogic' => "[portal_id] = '$foreign_key'"
+	    );
+	    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 
-    	if(isset($completed["portal_id"]) && $completed["portal_id"] == $this->LOGGED_IN_USER->id){
-    		$ffq = array( 
-    			 "ffq_username" => $completed["ffq_username"]
-	    		,"ffq_password" => $completed["ffq_password"]
-	    		,"record_id" 	=> $completed["record_id"]
-			);
+    	if(!empty($result)){
+    		$ffq = array_shift($result);
+    		unset($ffq["portal_id"]);
     	}else{
     		$extra_params = array(
 		      'content'   	=> 'record',
-		      'fields'  	=> array("ffq_username","ffq_password","portal_id", "record_id"),
+		      'fields'  	=> array("portal_id", "record_id","ffq_username","ffq_password"),
 		      'filterLogic' => "[portal_id] = ''"
 		    );
 		    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 		    if(count($result)){
 		    	$ffq = array_shift($result);
 		    	unset($ffq["portal_id"]);
-
 		    	$data[] = array(
 		          "record"            => $ffq["record_id"],
 		          "field_name"        => "portal_id",
-		          "value"             => $this->LOGGED_IN_USER->id
+		          "value"             => $foreign_key
 		        );
 		        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $this->API_URL,$this->API_TOKEN);
 		    }else{

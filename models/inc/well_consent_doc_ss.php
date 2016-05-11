@@ -55,7 +55,7 @@
 
 <section>
 	<h1>Authorization To Use Your Health Information For Research Purposes</h1>
-	<p>Because information about you and your health is personal and private, it generally cannot be used in this research study without your authorization. Clicking on the button that says “I agree to participate in this study” will provide that authorization. The information provided here is intended to inform you about how your health information will be used or disclosed in the study. Your information will only be used in accordance with this authorization and the informed consent form and as required or allowed by law. Please read it carefully before agreeing to participate. </p>
+	<p>Because information about you and your health is personal and private, it generally cannot be used in this research study without your authorization. Clicking on the button that says “I agree” will provide that authorization. The information provided here is intended to inform you about how your health information will be used or disclosed in the study. Your information will only be used in accordance with this authorization and the informed consent form and as required or allowed by law. Please read it carefully before agreeing to participate. </p>
 
 	<h3>What is the purpose of this research study and how will my health information be utilized in the study?</h3>
 	<p>The WELL for Life initiative is an international registry created by the Stanford Prevention Research Center in the Stanford University School of Medicine. The WELL for Life initiative will provide an ongoing source of valuable information on factors related to health and wellness. Thousands of people from all over the world are anticipated to take part in the WELL for Life initiative.</p>

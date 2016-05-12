@@ -35,6 +35,7 @@ session_start();
 $loggedInUser = getSessionUser($_CFG->SESSION_NAME);
 if( !empty($loggedInUser) ){
 	// Check for logout
+	unset($_SESSION);
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){
 		logout("Goodbye!");
 	}

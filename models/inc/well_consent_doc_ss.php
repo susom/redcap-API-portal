@@ -103,5 +103,5 @@ If you decide to end your participation in this study, you should notify Sandra 
 	<p>To maintain the integrity of this research study, you may not have access to any health information developed as part of this study until it is completed.  At that point, you would have access to such health information if it was used to make a medical or billing decision about you (e.g., if included in your official medical record).</p> 
 
 	<p>Please print a copy of this page for your records</p>
-	<p>If you wish to be in this study, please click the button that says “I agree to participate.”  You will then be directed  to complete the WELL for Life survey.</p>
+	<p>If you wish to be in this study, please click the button that says “I agree”  You will then be directed  to complete the WELL for Life survey.</p>
 </section>

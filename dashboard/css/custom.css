@@ -765,65 +765,65 @@ input[readonly] {
 }
 
 .nav .fitness.biking:before {
-    background-position : 100% -34px  !important;
+    background-position : 0 -34px  !important;
 }
 .nav .fitness.yoga:before {
-    background-position : 100% -67px  !important;
+    background-position : 0 -67px  !important;
 }
 .nav .fitness.weightlifting:before {
-    background-position : 100% -101px  !important;
+    background-position : 0 -101px  !important;
 }
 
 .nav .fruit.pomegranate:before {
-    background-position : 100% -33px  !important;
+    background-position : 0 -33px  !important;
 }
 .nav .fruit.apricot:before {
-    background-position : 100% -66px  !important;
+    background-position : 0 -66px  !important;
 }
 .nav .fruit.peach:before {
-    background-position : 100% -99px  !important;
+    background-position : 0 -99px  !important;
 }
 .nav .fruit.strawberry:before {
-    background-position : 100% -131px  !important;
+    background-position : 0 -131px  !important;
 }
 .nav .fruit.orange:before {
-    background-position : 100% -165px  !important;
+    background-position : 0 -165px  !important;
 }
 .nav .fruit.watermelon:before {
-    background-position : 100% -194px  !important;
+    background-position : 0 -194px  !important;
 }
 .nav .fruit.mango:before {
-    background-position : 100% -227px  !important;
+    background-position : 0 -227px  !important;
 }
 .nav .fruit.lime:before {
-    background-position : 100% -261px  !important;
+    background-position : 0 -261px  !important;
 }
 .nav .fruit.raspberry:before {
-    background-position : 100% -292px  !important;
+    background-position : 0 -292px  !important;
 }
 .nav .fruit.greenapple:before {
-    background-position : 100% -325px  !important;
+    background-position : 0 -325px  !important;
 }
 .nav .fruit.plum:before {
-    background-position : 100% -358px  !important;
+    background-position : 0 -358px  !important;
 }
 .nav .fruit.bananas:before {
-    background-position : 100% -388px  !important;
+    background-position : 0 -388px  !important;
 }
 .nav .fruit.pear:before {
-    background-position : 100% -422px  !important;
+    background-position : 0 -422px  !important;
 }
 .nav .fruit.ranier:before {
-    background-position : 100% -454px  !important;
+    background-position : 0 -454px  !important;
 }
 .nav .fruit.redapple:before {
-    background-position : 100% -488px  !important;
+    background-position : 0 -488px  !important;
 }
 .nav .fruit.lemon:before {
-    background-position : 100% -520px  !important;
+    background-position : 0 -520px  !important;
 }
 .nav .fruit.cherries:before {
-    background-position : 100% -550px  !important;
+    background-position : 0 -550px  !important;
 }
 
 .nav .completed.fruit:before,.nav .completed.fitness:before {

@@ -234,8 +234,6 @@ include("inc/gl_head.php");
                                             Please take <a href='$surveylink' title='$titletext'>$surveyname</a> survey
                                         </li>";
                       }
-// unset($_SESSION[SESSION_NAME]['ffq']);
-// exit;
                       if(isset($_SESSION[SESSION_NAME]['ffq'])){
                         $ffq = $_SESSION[SESSION_NAME]['ffq'];
                       }else{
@@ -247,10 +245,9 @@ include("inc/gl_head.php");
                         $ffq = $ffq_project->getAccount();
                         $_SESSION[SESSION_NAME]['ffq'] = $ffq;
                       }
-// print_rr($ffq,1);
                       if(!array_key_exists("error",$ffq)){
                         $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
-                        $news[]         = "<li class='list-group-item icon_update'>Please take the <a href='$nutrilink' title='This survey asks about your diet.' target='_blank'>Nutrition Survey</a></li>";
+                        // $news[]         = "<li class='list-group-item icon_update'>Please take the <a href='$nutrilink' title='This survey asks about your diet.' target='_blank'>Nutrition Survey</a></li>";
                       }
 
                       $firstonly      = true;

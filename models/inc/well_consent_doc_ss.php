@@ -2,7 +2,7 @@
 	<h2>PURPOSE OF RESEARCH</h2>
 	<p>The WELL for Life initiative aims to improve understanding of living well and ways to increase wellness. The WELL for Life initiative starts with your completion of a survey (the WELL for Life initiative).  In addition, you will be invited to participate in an extension of the registry to learn how biological factors influence living well.  You will also have the opportunity to participate in intervention studies focused on promoting health and wellness. The choice to take part and continue taking part is yours.</p> 
 	<p>You are currently being invited to complete the WELL for Life initiative.</p>
-	<p>If you decide to end your participation in this study, you should notify John Ioannidis at 650-725-5465.</p>
+	<p>If you decide to end your participation in this study, you should notify Sandra Winter at 650-723-8513.</p>
 	<p>The WELL for Life initiative has been created by the Stanford Prevention Research Center in the Stanford University School of Medicine. Living in the San Francisco Bay Area, CA, the United States? WELL for Life initiative provides an ongoing source of valuable information on factors related to health and wellness.</p> 
 </section>
 
@@ -43,7 +43,7 @@
 
 <section>
 	<h2>FOR QUESTIONS ABOUT THE STUDY</h2>
-	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask John Ioannidis. You may contact him now or later at 650-725-5465.</p>
+	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask Sandra Winter. You may contact her now or later at 650-723-8513.</p>
 	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB at:
 	<br><br>
 	<addr>
@@ -64,7 +64,7 @@
 	<p>You do not have to provide your authorization. But if you do not, you will not be able to participate in this research study. Providing your authorization is not a condition for receiving any medical care outside the study.</p>
 
 	<p>If I provide my authorization, can I revoke it or withdraw from the research later?</p>
-	<p>If you decide to participate, you are free to withdraw your authorization regarding the use and disclosure of your health information (and to discontinue any other participation in the study) at any time. After any revocation, your health information will no longer be used or disclosed in the study, except to the extent that the law allows us to continue using your information (e.g., necessary to maintain integrity of research). If you wish to revoke your authorization for the research use or disclosure of your health information in this study, you must write to: the Protocol Director, John Ioannidis, Stanford Prevention Research Center, Department of Medicine, Stanford University, Medical School Office Building, X3C02. 1265 Welch Road. Stanford, CA 94305-5411, or e-mail jioannid@stanford.edu.</p>
+	<p>If you decide to participate, you are free to withdraw your authorization regarding the use and disclosure of your health information (and to discontinue any other participation in the study) at any time. After any revocation, your health information will no longer be used or disclosed in the study, except to the extent that the law allows us to continue using your information (e.g., necessary to maintain integrity of research). If you wish to revoke your authorization for the research use or disclosure of your health information in this study, you must write to: the Protocol Director, Sandra Winter, Stanford Prevention Research Center, Department of Medicine, Stanford University, 1070 Arastradero Rd. #100. Stanford, CA 94305-1334, or e-mail sjwinter@stanford.edu.</p>
 
 	<h3>What Personal Information Will Be Obtained, Used or Disclosed?</h3>
 	<p>Your health information related to this study, may be used or disclosed in connection with this research study, including, but not limited to the following protected health information:</p>
@@ -81,7 +81,7 @@
 	<h3>Who May Use or Disclose the Information?</h3>
 	<p>The following parties are authorized to use and/or disclose your health information in connection with this research study:</p>
 	<ul>
-	<li>The Protocol Director (John Ioannidis, D.Sc.)</li>
+	<li>The Protocol Director (Sandra Winter)</li>
 	<li>The Stanford University Administrative Panel on Human Subjects in Medical Research and any other unit of Stanford University as necessary</li>
 	<li>WELL for Life Research Staff</li>
 	</ul>

@@ -21,18 +21,18 @@ if(isset($_REQUEST["ajax"])){
         "format"  => "csv"
       ), true, $custom_surveycomplete_API, $API_TOKEN);
     
-    $data[] = array(
-      "record"            => $record_id,
-      "field_name"        => $survey_id."_complete",
-      "value"             => 2
-    );
-    if($event_name){
-      $data[0]["redcap_event_name"] = $event_name;
-    }
-    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    // $data[] = array(
+    //   "record"            => $record_id,
+    //   "field_name"        => $survey_id."_complete",
+    //   "value"             => 2
+    // );
+    // if($event_name){
+    //   $data[0]["redcap_event_name"] = $event_name;
+    // }
+    // $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
 
-    print_rr($data);
-    exit;
+    // print_rr($data);
+    // exit;
   }
 
   //WRITE TO API
@@ -366,8 +366,8 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash + project,
           success:function(result){
-            console.log(result);
-            // location.href="index.php?survey_complete=" + instrument_name;
+            // console.log(result);
+            location.href="index.php?survey_complete=" + instrument_name;
           }
         });
       }    

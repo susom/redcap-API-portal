@@ -203,11 +203,9 @@ include("inc/gl_head.php");
                         // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
-
-
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
-                      foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
+                      foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
                         }
@@ -273,7 +271,7 @@ include("inc/gl_head.php");
                           </li>";
                       }
 
-                      foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
+                      foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         $index       = array_search($supp_instrument_id, $supp_surveys_keys);
                         $surveyname  = $supp_instrument["label"];
                         $surveylink  = "survey.php?sid=". $supp_instrument_id;

@@ -353,6 +353,7 @@ class Project {
     //PROJECT OBJECT IS STORED IN SESSION, NEED TO REFRESH DATA TO MAKE SURE ITS NOT STALE
 	public function refreshData(){
 		//REFRESH DATA THAT FEEDS THESE
+		$this->active_surveys_complete = true;
 		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
 		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers[0] : array(); 
 		return;

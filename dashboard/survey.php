@@ -75,8 +75,8 @@ $project  = (isset($_GET["project"])? $_GET["project"]:null);
 
 if($project){
   if(array_key_exists($project, SurveysConfig::$projects)){
-    $supp_project = $supp_surveys->getSingleInstrument($surveyid);
-    $surveys      = $supp_project->getActiveAll();
+    $supp_project = $supp_surveys[$project]->getSingleInstrument($surveyid);
+    $surveys      = $supp_surveys[$project]->getActiveAll();
   }
 }
 

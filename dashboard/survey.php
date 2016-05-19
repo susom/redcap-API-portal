@@ -20,19 +20,6 @@ if(isset($_REQUEST["ajax"])){
         "hash"    => $_REQUEST["hash"], 
         "format"  => "csv"
       ), true, $custom_surveycomplete_API, $API_TOKEN);
-    
-    // $data[] = array(
-    //   "record"            => $record_id,
-    //   "field_name"        => $survey_id."_complete",
-    //   "value"             => 2
-    // );
-    // if($event_name){
-    //   $data[0]["redcap_event_name"] = $event_name;
-    // }
-    // $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-
-    // print_rr($data);
-    // exit;
   }
 
   //WRITE TO API

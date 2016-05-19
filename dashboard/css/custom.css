@@ -582,7 +582,7 @@ input[readonly] {
     height : 70px;
     content : '';
     opacity : 1;
-    background : url(../images/ico_fitness_sprite.png) 0 0px no-repeat;
+    background : url(../images/ico_fitness_sprites.png) 0 0px no-repeat;
     background-size:200%;
     background-position-x : 0 !important;
     transition : .5s opacity;
@@ -592,15 +592,22 @@ input[readonly] {
 .surveys .biking      span:before {
     background-position : 0 -70px   !important;
 }
-.alert .yoga:before,
-.surveys .yoga     span:before {
+.alert .weightlifting:before,
+.surveys .weightlifting     span:before {
     background-position : 0 -140px  !important;
 }
-.alert .weightlifting:before,
-.surveys .weightlifting      span:before {
+.alert .cardio:before,
+.surveys .cardio      span:before {
     background-position : 0 -210px !important;
 }
-
+.alert .tbone:before,
+.surveys .tbone      span:before {
+    background-position : 0 -280px !important;
+}
+.alert .carrot:before,
+.surveys .carrot      span:before {
+    background-position : 0 -350px !important;
+}
 
 
 .alert .pomegranate:before,
@@ -740,7 +747,7 @@ input[readonly] {
     position : relative;
     display : inline-block;
     width : 35px;
-    height : 33px;
+    height : 35px;
     vertical-align : middle;
 }
 
@@ -757,21 +764,27 @@ input[readonly] {
 .nav .fitness:before {
     position : absolute;
     left : 0;
-    width : 33px;
-    height : 33px;
+    width : 35px;
+    height : 35px;
     content : '';
-    background : url(../images/ico_fitness_sprite.png) 100% 0 no-repeat;
-    background-size : 67px 133px;
+    background : url(../images/ico_fitness_sprites.png) 100% 0 no-repeat;
+    background-size : 200%;
 }
 
 .nav .fitness.biking:before {
-    background-position : 100% -34px  !important;
-}
-.nav .fitness.yoga:before {
-    background-position : 100% -67px  !important;
+    background-position : 100% -35px  !important;
 }
 .nav .fitness.weightlifting:before {
-    background-position : 100% -101px  !important;
+    background-position : 100% -70px  !important;
+}
+.nav .fitness.cardio:before {
+    background-position : 100% -105px  !important;
+}
+.nav .fitness.tbone:before {
+    background-position : 100% -140px  !important;
+}
+.nav .fitness.carrot:before {
+    background-position : 100% -175px  !important;
 }
 
 .nav .fruit.pomegranate:before {
@@ -839,15 +852,20 @@ input[readonly] {
 .nav .completed.fitness:before {
     background-position : 0 0  !important;
 }
-
 .nav .completed.fitness.biking:before {
-    background-position : 0 -34px  !important;
-}
-.nav .completed.fitness.yoga:before {
-    background-position : 0 -67px  !important;
+    background-position : 0 -35px  !important;
 }
 .nav .completed.fitness.weightlifting:before {
-    background-position : 0 -101px  !important;
+    background-position : 0 -70px  !important;
+}
+.nav .completed.fitness.cardio:before {
+    background-position : 0 -105px  !important;
+}
+.nav .completed.fitness.tbone:before {
+    background-position : 0 -140px  !important;
+}
+.nav .completed.fitness.carrot:before {
+    background-position : 0 -175px  !important;
 }
 
 .nav .completed.fruit.pomegranate:before {

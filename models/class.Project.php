@@ -3,15 +3,25 @@ class Project {
 	protected $LOGGED_IN_USER;
 	protected $API_URL;
 	protected $API_TOKEN;
+
 	protected $ALL_INSTRUMENTS;
-	protected $ACTIVE_INSTRUMENTS;
+	protected $SURVEY_LINKS;
+	protected $METADATA;
+	protected $PROJECT_INFO;
+
 	protected $ALL_USER_ANSWERS;
-	protected $active_surveys_complete 	= true;
+	protected $ACTIVE_INSTRUMENTS;
+
+	protected $active_surveys_complete 		= true;
 	protected $user_current_survey_index 	= NULL;
-	protected $current_arm 				= 0; //WHAT EVEN IS THIS
-	protected $name = "";
+	protected $current_arm 				 	= 0; //WHAT EVEN IS THIS
+	protected $name                       	= "";
 
 	public function __construct($loggedInUser, $projectName="", $api_url, $api_token){
+		//DO ALL THE ONE TIME CALLS OUT HERE
+		//THEN I CAN GRANULARLY REFRESH JUST THE LIVE DATA
+		//WHILE LEAVING THE OBJECT ITSELF STORED IN THE SESSION
+		
 		$this->API_URL 			= $api_url;
 		$this->API_TOKEN 		= $api_token;
 		$this->LOGGED_IN_USER 	= $loggedInUser;
@@ -37,24 +47,24 @@ class Project {
 			}, $all_events);
 		}
 
-		$this->ALL_INSTRUMENTS 		= $all_instruments;
+		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
+		$this->ALL_INSTRUMENTS 	= $all_instruments;
 
-		//ALL USER ANSWERS IN ONE SHOT/ PRICEY BUT WITH CACHING WILL BE GOOD
-		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
-		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers[0] : array(); //ALL PPOSSIBLE USER ANSWERS
+		$surveylinks 	= array();
+		$metadata 		= array(); 
+		foreach($all_instruments as $index => $instrument){
+			$instrument_id 					= $instrument["instrument_name"];
+			$unique_event_name 				= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
+			$surveylinks[$instrument_id]  	= self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
+			$metadata[$instrument_id]		= self::getMetaData(array($instrument_id));
+		}
+		$this->SURVEY_LINKS 	= $surveylinks;
+		$this->METADATA 		= $metadata;
+		$this->PROJECT_INFO 	= self::getProjectInfo();
 
-		//BUILD SNAPSHOT OF ACTIVE INSTRUMENT DATA FOR THIS USER
-		$this->ACTIVE_INSTRUMENTS 	= self::getSurveyInfo($this->ALL_INSTRUMENTS);
+		//ALL USER ANSWERS
+		self::refreshData();
     }
-
-    //GET ALL THE INSTRUMENTS
-    private function getInstruments($projname = false){
-		$extra_params = array(
-			'content' 	=> 'instrument',
-		);
-		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);	
-		return $result;
-	}
 
 	//GET ALL EVENTS (IF LONGITUDINAL)
 	private function getEvents(){
@@ -65,29 +75,16 @@ class Project {
 		return $result;
 	}
 
-	//GET METADATA - DEFAULT GETS ALL
-	public function getMetaData($instruments = null){
+	//GET ALL THE INSTRUMENTS
+    private function getInstruments($projname = false){
 		$extra_params = array(
-			'content' 	=> 'metadata',
-			'forms'		=> ($instruments?: null)
+			'content' 	=> 'instrument',
 		);
-		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);	
 		return $result;
 	}
 
-	//GET METADATA - DEFAULT GETS ALL
-	public function getProjectInfo(){
-		$extra_params = array(
-			'content' 	=> 'project',
-		);
-		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
-		return $result;
-	}
-
-	/*
-	INSTRUMENT LEVEL STUFF
-	*/
-	//GET SURVEY LINK
+	//GET SURVEY LINKS
 	private function getSurveyLink($id,$instrument,$event=null) {
 		$extra_params = array(
 			'content' 		=> 'surveyLink',		
@@ -96,6 +93,25 @@ class Project {
 			'event' 		=> $event
 		);
 		$result = RC::callApi($extra_params, false, $this->API_URL, $this->API_TOKEN);
+		return $result;
+	}
+
+	//GET METADATA 
+	private function getMetaData($instruments = null){
+		$extra_params = array(
+			'content' 	=> 'metadata',
+			'forms'		=> ($instruments?: null)
+		);
+		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+		return $result;
+	}
+
+	//GET PROJECT INFO
+	private function getProjectInfo(){
+		$extra_params = array(
+			'content' 	=> 'project',
+		);
+		$result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 		return $result;
 	}
 
@@ -114,21 +130,94 @@ class Project {
 		return $result;
 	}
 
-	//GET ALL USER INPUTTED
-	public function getAllComplete(){
-		$all_complete = array();
-		foreach($this->ACTIVE_INSTRUMENTS as $instrument =>  $data){
-			if ($instrument == "users") {
-				continue;
-			}
-			if(isset($data["completed_fields"])){
-				$all_complete = array_merge($all_complete,$data["completed_fields"]);
-			}
-		}
-		return $all_complete;
+	//GET THE RETURN CODE (NOT USED IN API BASED PORTAL)
+	private function getReturnCode($record_id, $instrument, $event=null){
+		$extra_params = array(
+			'content' 		=> 'surveyReturnCode',
+			'record'		=> $record_id,
+			'instrument'	=> $instrument,
+			'event' 		=> $event
+		);
+		$result = RC::callApi($extra_params, false, $this->API_URL, $this->API_TOKEN);	
+		return $result;
 	}
 
-	//GET ALL USER ANSWERS
+	private function getSurveyInfo($all_instruments, $getall = true){
+    	$surveys = array();
+    	foreach($all_instruments as $index => $instrument){
+			$instrument_id 		= $instrument["instrument_name"];
+			$instrument_label	= $instrument["instrument_label"];
+			$unique_event_name 	= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
+			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
+			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
+
+			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
+			if(json_decode($check_survey_link)){
+				continue;
+			}
+
+			//PUT TOGETHER SURVEY DATA FOR USER
+			list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
+
+			//SURVEY COMPLETE
+			$proper_completed_timestamp = $instrument_id . "_timestamp";
+			$user_actually_completed 	= $this->ALL_USER_ANSWERS[$proper_completed_timestamp]; //= "[not completed]"
+			$instrument_complete 		= $user_actually_completed == "[not completed]" || $user_actually_completed == ""   ? 0 : 1;
+			if(!$instrument_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
+				$this->active_surveys_complete = false;
+			}
+
+			if($getall){
+				//THIS IS KIND OF SERVER INTENSIVE SO TRY TO LIMIT IT TO BE CALLED ONLY WHEN NEEDED
+				$metadata 			= $this->METADATA[$instrument_id];
+				$projectInfo 		= $this->PROJECT_INFO;
+				$project_notes	 	= $projectInfo["project_notes"];
+
+				//SOME QUESTION ACCOUNTING
+				$actual_questions 	= array_filter($metadata, function($item){
+									  return $item["field_type"] != "descriptive";
+									});
+				$has_branches 		= array_filter($actual_questions, function($item){
+									  return !empty($item["branching_logic"]);
+									});
+				$unbranched_total 	= count($actual_questions) - count($has_branches);
+				$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
+
+				$just_formnames 	= array_map(function($item){
+										return $item["field_name"];
+									},$actual_questions);
+				$just_formnames 	= array_flip($just_formnames);
+				$just_form_ans 		= array_intersect_key($this->ALL_USER_ANSWERS,$just_formnames);
+				$answers_only 		= array_filter($just_form_ans, function($var){
+									  return ($var !== NULL && $var !== FALSE && $var !== '');
+									});
+
+				foreach($metadata as $idx => $item){
+					$fieldname 						= $item["field_name"];
+					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $this->ALL_USER_ANSWERS) ? $this->ALL_USER_ANSWERS[$fieldname] : "");
+				}
+				$user_branched 		= array_intersect_key($branched_fields, $answers_only) ;
+			}
+			
+			$surveys[$instrument_id] = array(
+				 "label" 			=> str_replace("And","&",$instrument_label)
+				,"project" 			=> $this->name
+				,"event" 			=> $unique_event_name
+				,"arm"				=> $arm_num
+				,"survey_link" 		=> $check_survey_link
+				,"survey_hash" 		=> $survey_hash
+				,"survey_complete" 	=> $instrument_complete
+				,"project_notes"	=> $project_notes
+				,"raw"				=> ($getall ? $metadata 		: null)
+				,"completed_fields"	=> ($getall ? $answers_only 	: null)
+				,"total_questions"	=> ($getall ? $unbranched_total + count($user_branched): null)
+				,"instrument_name"	=> $instrument_id
+			);
+		}
+		return $surveys;
+    }
+
+    //GET ALL USER ANSWERS
 	public function getUserAnswers($record_id=NULL,$fields = NULL){
 		$extra_params = array(
 		  'content'   	=> 'record',
@@ -159,19 +248,28 @@ class Project {
 		}
 		return $proper_answers;
 	}
+	
+    public function getActiveAll(){
+    	//BUILD SNAPSHOT OF ACTIVE INSTRUMENT DATA FOR THIS USER
+		$this->ACTIVE_INSTRUMENTS 	= self::getSurveyInfo($this->ALL_INSTRUMENTS);
+    	return $this->ACTIVE_INSTRUMENTS;
+    }
 
-	private function getReturnCode($record_id, $instrument, $event=null){
-		$extra_params = array(
-			'content' 		=> 'surveyReturnCode',
-			'record'		=> $record_id,
-			'instrument'	=> $instrument,
-			'event' 		=> $event
-		);
-		$result = RC::callApi($extra_params, false, $this->API_URL, $this->API_TOKEN);	
-		return $result;
+    //GET ALL USER INPUTTED
+	public function getAllComplete(){
+		$all_complete = array();
+		foreach($this->ACTIVE_INSTRUMENTS as $instrument =>  $data){
+			if ($instrument == "users") {
+				continue;
+			}
+			if(isset($data["completed_fields"])){
+				$all_complete = array_merge($all_complete,$data["completed_fields"]);
+			}
+		}
+		return $all_complete;
 	}
 
-	//GET ALL THE BRANCHING ACROSS ALL ACTIVE INSTRUMENTS
+    //GET ALL THE BRANCHING ACROSS ALL ACTIVE INSTRUMENTS
 	public function getAllInstrumentsBranching(){
 		$all_branching = array();
 		foreach($this->ACTIVE_INSTRUMENTS as $instrument =>  $data){
@@ -230,94 +328,12 @@ class Project {
 		return array_filter($all_branching);
 	}
 
-	public function getSurveyInfo($all_instruments, $getall = true){
-    	$surveys = array();
-    	foreach($all_instruments as $index => $instrument){
-			$instrument_id 		= $instrument["instrument_name"];
-			$instrument_label	= $instrument["instrument_label"];
-			$unique_event_name 	= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
-			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
-			$check_survey_link  = self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
-
-
-
-
-
-			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
-			if(json_decode($check_survey_link)){
-				continue;
-			}
-
-			//PUT TOGETHER SURVEY DATA FOR USER
-			list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
-
-			//SURVEY COMPLETE
-			$proper_completed_timestamp = $instrument_id . "_timestamp";
-			$user_actually_completed 	= $this->ALL_USER_ANSWERS[$proper_completed_timestamp]; //= "[not completed]"
-			$instrument_complete 		= $user_actually_completed == "[not completed]" || $user_actually_completed == ""   ? 0 : 1;
-			if(!$instrument_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
-				$this->active_surveys_complete = false;
-			}
-
-			if($getall){
-				//THIS IS KIND OF SERVER INTENSIVE SO TRY TO LIMIT IT TO BE CALLED ONLY WHEN NEEDED
-				$metadata 			= self::getMetaData(array($instrument_id));
-				$projectInfo 		= self::getProjectInfo();
-				$project_notes	 	= $projectInfo["project_notes"];
-
-				//SOME QUESTION ACCOUNTING
-				$actual_questions 	= array_filter($metadata, function($item){
-									  return $item["field_type"] != "descriptive";
-									});
-				$has_branches 		= array_filter($actual_questions, function($item){
-									  return !empty($item["branching_logic"]);
-									});
-				$unbranched_total 	= count($actual_questions) - count($has_branches);
-				$branched_fields 	= array_flip(array_column($has_branches,"field_name") );
-
-				$just_formnames 	= array_map(function($item){
-										return $item["field_name"];
-									},$actual_questions);
-				$just_formnames 	= array_flip($just_formnames);
-				$just_form_ans 		= array_intersect_key($this->ALL_USER_ANSWERS,$just_formnames);
-				$answers_only 		= array_filter($just_form_ans, function($var){
-									  return ($var !== NULL && $var !== FALSE && $var !== '');
-									});
-
-				foreach($metadata as $idx => $item){
-					$fieldname 						= $item["field_name"];
-					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $this->ALL_USER_ANSWERS) ? $this->ALL_USER_ANSWERS[$fieldname] : "");
-				}
-				$user_branched 		= array_intersect_key($branched_fields, $answers_only) ;
-			}
-			
-			$surveys[$instrument_id] = array(
-				 "label" 			=> str_replace("And","&",$instrument_label)
-				,"project" 			=> $this->name
-				,"event" 			=> $unique_event_name
-				,"arm"				=> $arm_num
-				,"survey_link" 		=> $check_survey_link
-				,"survey_hash" 		=> $survey_hash
-				,"survey_complete" 	=> $instrument_complete
-				,"project_notes"	=> $project_notes
-				,"raw"				=> ($getall ? $metadata 		: null)
-				,"completed_fields"	=> ($getall ? $answers_only 	: null)
-				,"total_questions"	=> ($getall ? $unbranched_total + count($user_branched): null)
-				,"instrument_name"	=> $instrument_id
-			);
-		}
-		return $surveys;
-    }
-
-    /*
-    PUBLIC ACCESS
-    */
-   	public function getActiveAll(){
-    	return $this->ACTIVE_INSTRUMENTS;
-    }
-
     public function getUserActiveComplete (){
     	return $this->active_surveys_complete;
+    }
+
+    public function getSingleInstrument($instrument_id){
+    	return $this->ACTIVE_INSTRUMENTS[$instrument_id];
     }
 
     public function getUserCurrentInstrument (){
@@ -330,13 +346,17 @@ class Project {
     	},$this->ALL_INSTRUMENTS);
     }
 
-    public function getSingleInstrument($instrument_id){
-    	return $this->ACTIVE_INSTRUMENTS[$instrument_id];
-    }
-
     public function name(){
     	return $this->name;
     }
+
+    //PROJECT OBJECT IS STORED IN SESSION, NEED TO REFRESH DATA TO MAKE SURE ITS NOT STALE
+	public function refreshData(){
+		//REFRESH DATA THAT FEEDS THESE
+		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
+		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers[0] : array(); 
+		return;
+	}
 }
 
 class PreGenAccounts extends Project{

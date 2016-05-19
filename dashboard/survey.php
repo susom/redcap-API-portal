@@ -1,7 +1,6 @@
 <?php
 require_once("../models/config.php");
 
-
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
   $project_name = $_REQUEST["project"] ?: null;
@@ -9,18 +8,36 @@ if(isset($_REQUEST["ajax"])){
   $API_TOKEN    = $projects[$project_name]["TOKEN"];
   $API_URL      = $projects[$project_name]["URL"];
 
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  
   //IF DOING A END OF SURVEY FINAL SUBMIT
   if(isset($_REQUEST["surveycomplete"])){
     $result     = RC::callApi(array(
         "hash"    => $_REQUEST["hash"], 
         "format"  => "csv"
       ), true, $custom_surveycomplete_API, $API_TOKEN);
+    
+    $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => $survey_id."_complete",
+      "value"             => 2
+    );
+    if($event_name){
+      $data[0]["redcap_event_name"] = $event_name;
+    }
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+
+    print_rr($data);
     exit;
   }
 
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
-  $data       = array();
+  
   unset($_POST["project"]);
   foreach($_POST as $field_name => $value){
     if($value === 0){
@@ -65,15 +82,14 @@ if(!isUserLoggedIn()) {
   include("inc/classes/Survey.php");
 }
 
-
 //THIS PAGE NEEDS A SURVEY ID
 $surveyid = $_GET["sid"];
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
 
 if($project){
   if(array_key_exists($project, SurveysConfig::$projects)){
-    $supp_project = new Project($loggedInUser, $project, SurveysConfig::$projects[$project]["URL"], SurveysConfig::$projects[$project]["TOKEN"]);
-    $surveys = $supp_project->getActiveAll();
+    $supp_project = $supp_surveys->getSingleInstrument($surveyid);
+    $surveys      = $supp_project->getActiveAll();
   }
 }
 
@@ -277,7 +293,7 @@ $(document).ready(function(){
       type:'POST',
       data: elem.serialize() + project,
       success:function(result){
-        console.log("result from save:",result);
+        // console.log("result from save:",result);
 
         if(elem.is(":checkbox")){
           //GOTTA RESET THE checkbox properties haha
@@ -344,14 +360,14 @@ $(document).ready(function(){
         //REDIRECT TO HOME WITH A MESSAGE
         var dataURL         = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
-        var project         = "&project=" + $("#customform").data("project");
+        var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
         $.ajax({
           url:  dataURL,
           type:'POST',
           data: surveyhash + project,
           success:function(result){
-            // console.log(result);
-            location.href="index.php?survey_complete=" + instrument_name;
+            console.log(result);
+            // location.href="index.php?survey_complete=" + instrument_name;
           }
         });
       }    
@@ -361,7 +377,7 @@ $(document).ready(function(){
 
   //INPUT CHANGE ACTIONS
   $("#customform :input").change(function(){
-    console.log($(this));
+    // console.log($(this));
     //SAVE JUST THIS INPUTS DATA
     $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
     saveFormData($(this));

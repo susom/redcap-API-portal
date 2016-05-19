@@ -18,19 +18,6 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
 }
 
-//SUPPLEMENTAL PROJECTS
-$supp_surveys = array();
-$supp_proj    = SurveysConfig::$projects;
-foreach($supp_proj as $proj_name => $project){
-  if($proj_name == $_CFG->SESSION_NAME){
-    continue;
-  }
-
-  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-  $supp_surveys         = array_merge($supp_surveys,$supplementalProject->getActiveAll());
-  $supp_surveys_keys    = array_keys($supp_surveys);
-}
-
 //NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
@@ -219,6 +206,7 @@ include("inc/gl_head.php");
 
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
+                      //THIS COMES FROM THE models/inc/surveys.php file
                       foreach($supp_surveys as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
@@ -295,7 +283,6 @@ include("inc/gl_head.php");
                               <span>$surveyname</span>
                             </a>
                           </li>";
-
                       }
                       echo implode($showfruit);
                       echo "<ul>\n";

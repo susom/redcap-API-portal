@@ -2,6 +2,7 @@
 //LOAD UP THE SURVEY HERE AND PRINT OUT THE HTML
 class Survey {
   PUBLIC $surveyname;
+  PUBLIC $surveyid; 
   PUBLIC $surveytotal;
   PUBLIC $completed;
   PUBLIC $surveycomplete;
@@ -14,6 +15,7 @@ class Survey {
 //name, project(connection stuff), 
   public function __construct( $survey_data ){
     $this->surveyname     = $survey_data["label"];
+    $this->surveyid       = $survey_data["instrument_name"];
     $this->surveytotal    = $survey_data["total_questions"];
     $this->completed      = $survey_data["completed_fields"];
     $this->surveycomplete = $survey_data["survey_complete"];
@@ -330,7 +332,7 @@ class Survey {
       $theHTML[]      = "</div>";
       $theHTML[]      = "<style>.surveyFrame{ height:auto; }</style>";
     }else{
-      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."' data-project='".$this->project."'>";
+      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."' data-project='".$this->project."' data-instrument='".$this->surveyid."'>";
       
       //CONTAINERS FOR BUILDING FORM COMPONENTS
       $sections       = array();

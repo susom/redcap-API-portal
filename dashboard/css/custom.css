@@ -1322,3 +1322,43 @@ input[readonly] {
     color:#bbb;
     font-size:14px; 
 }
+
+#met_results{
+    background:lightblue;
+    margin-bottom:40px;  
+    border-radius:10px; 
+    padding:20px;
+}
+
+#met_score {
+    text-align:center;
+    font-size:100px;
+    margin:10px 0;
+}
+
+#met_results h2{
+    background:none; 
+    text-align:center;
+    font-size:24px;
+}
+#met_results dl {
+    margin:0 40px 8px;
+    padding:8px 0; 
+    font-size:15px; 
+    border-bottom:1px solid #ddd;
+}
+#met_results dt {
+    display:inline-block;
+    width:15%;
+    vertical-align:top;
+}
+#met_results dd {
+    display:inline-block;
+    width:80%;
+    vertical-align:top;
+}
+
+.video_frame{
+    text-align: left;
+    padding: 20px 0;
+}

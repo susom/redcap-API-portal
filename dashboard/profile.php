@@ -50,7 +50,7 @@ $shownavsmore   = true;
 $survey_active  = ' ';
 $profile_active = ' class="active"';
 $game_active    = '';
-
+$assesments     = '';
 $pg_title       = "Profile : $websiteName";
 $body_classes   = "dashboard profile";
 include("inc/gl_head.php");

@@ -1,6 +1,34 @@
 <?php
 require_once("../models/config.php");
 
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["met"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'met_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
   $project_name = $_REQUEST["project"] ?: null;
@@ -100,7 +128,7 @@ $shownavsmore   = false;
 $survey_active  = ' class="active"';
 $profile_active = '';
 $game_active    = '';
-
+$assesments     = '';
 $pg_title       = "Surveys : $websiteName";
 $body_classes   = "dashboard survey";
 include("inc/gl_head.php");
@@ -165,6 +193,8 @@ include("inc/gl_foot.php");
 <script>
 $(document).ready(function(){
 <?php
+  $isMET = "met_physical_activity" ? "true" : "false";
+  echo "var isMET               = $isMET ;\n";
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
   echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
@@ -317,6 +347,11 @@ $(document).ready(function(){
     $("#customform section").first().addClass("active");
   }
 
+  //CUSTOM WORK FOR MET SURVEY
+  if(isMET){
+    showMETScoring();
+  }
+
   //SUBMIT/NEXT
   $("button[role='saverecord']").click(function(){
     $("#customform section.active").each(function(idx){
@@ -328,7 +363,7 @@ $(document).ready(function(){
       if(checkRequired()){
         return;
       }
-      
+
       if($(this).next().length){
         $(".required_message").remove();
         if($(this).hasClass("active")){
@@ -367,7 +402,13 @@ $(document).ready(function(){
     // console.log($(this));
     //SAVE JUST THIS INPUTS DATA
     $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
+    
     saveFormData($(this));
+    if(isMET){
+      showMETScoring();
+    }
+
+
 
     //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
     var completed_count = 0;
@@ -409,6 +450,87 @@ $(document).ready(function(){
     updateProgressBar(pbar, percent_complete);
     return;
   }); 
+
+
+  
+  //CUSTOM SCORING FOR MET / MAT SURVEYS
+  function getBMI(met_weight_pound, met_height_total_inch){
+    var BMI = (met_weight_pound * 703)/(Math.pow(met_height_total_inch,2));
+    return Math.round(BMI,2);
+  }
+
+  function getMETScore(gender,age,bmi,isSmoker,PA_level){
+    //HARD CONSTANTS
+    PA_SCORE = [];
+    if(gender == "male"){
+      PA_SCORE[1] = 0.37;
+      PA_SCORE[2] = 0.51;
+      PA_SCORE[3] = 1.03;
+      PA_SCORE[4] = 1.48;
+    }else{
+      PA_SCORE[1]   = 0.27;
+      PA_SCORE[2]   = 0.36;
+      PA_SCORE[3]   = 0.77;
+      PA_SCORE[4]   = 1.22;
+    }
+    phys_act_score = PA_SCORE[PA_level];
+    
+    //LINEAR WEIGHTs
+    var x_age    = gender == "male" ? .10    : .16;
+    var x_bmi    = gender == "male" ? .20    : .32;
+    var x_smoker = gender == "male" ? .29    : .41;
+    var x_const  = gender == "male" ? 12.77  : 12.26;
+
+    var MetScore = (age*x_age) - .002*(Math.pow(age,2)) - (bmi*x_bmi) + phys_act_score - x_smoker*isSmoker + x_const;
+    return Math.round(MetScore);
+  }
+
+  function showMETScoring(){
+    //GATHER ALL AND IF THEY ARE ALL FILLED OUT SHOW THE SCORE
+    var age       = $('#met_age').val();
+
+    var foot      = $('#met_height_ft :selected').val();
+    var inch      = $('#met_height_inch :selected').val();
+    var weight    = $('#met_weigh_pound :selected').val();
+    var height    = parseInt(foot)*12 + parseInt(inch);
+    var bmi       = getBMI(weight, height);
+    var gender    = $('.met_gender input:checked').val();
+    var ughgender = gender == 2 || gender == 4 ? "female" : "male";
+    var isSmoker  = $('.met_smoker input:checked').val();
+    var PA_level  = $('.met_pa_level input:checked').val();
+
+    if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
+      var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
+      
+      var dataURL         = "survey.php?met=1";
+      var instrument_name = $("#customform").attr("name");
+      var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+      $.ajax({
+        url:  dataURL,
+        type:'POST',
+        data: project + "&met_score=" + METScore,
+        success:function(result){
+          console.log(result);
+        }
+      });
+
+      var nextSection = $("#customform section.active").next();
+      var dataURL         = "MET_detail.php?gender=" + ughgender;
+      $.ajax({
+        url:  dataURL,
+        type:'POST',
+        data: null,
+        success:function(result){
+          nextSection.prepend(result);
+          $("#met_score").text(METScore);
+        }
+      });
+    }
+  }
+
+  function isEmpty($v){
+    return $v == null || $v == undefined;
+  }
 
   // $.mask.definitions['M'] = "[0|1|\s]";
 });

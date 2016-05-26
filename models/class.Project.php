@@ -161,7 +161,7 @@ class Project {
 
 			//SURVEY COMPLETE
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
-			$user_actually_completed 	= $this->ALL_USER_ANSWERS[$proper_completed_timestamp]; //= "[not completed]"
+			$user_actually_completed 	= isset($this->ALL_USER_ANSWERS[$proper_completed_timestamp]) ? $this->ALL_USER_ANSWERS[$proper_completed_timestamp] : null; //= "[not completed]"
 			$instrument_complete 		= $user_actually_completed == "[not completed]" || $user_actually_completed == ""   ? 0 : 1;
 			if(!$instrument_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
 				$this->active_surveys_complete = false;

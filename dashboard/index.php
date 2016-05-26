@@ -169,6 +169,7 @@ $shownavsmore   = true;
 $survey_active  = ' class="active"';
 $profile_active = '';
 $game_active    = '';
+$assesments     = '';
 $pg_title 		  = "Dashboard : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
@@ -203,6 +204,22 @@ include("inc/gl_head.php");
                         // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
+                      if(isset($_SESSION[SESSION_NAME]['ffq'])){
+                        $ffq = $_SESSION[SESSION_NAME]['ffq'];
+                      }else{
+                        $proj_name    = "foodquestions";
+                        $ffq_project  = new PreGenAccounts($loggedInUser
+                          , $proj_name , SurveysConfig::$projects[$proj_name]["URL"]
+                          , SurveysConfig::$projects[$proj_name]["TOKEN"]);
+
+                        $ffq = $ffq_project->getAccount();
+                        $_SESSION[SESSION_NAME]['ffq'] = $ffq;
+                      }
+                      if(!array_key_exists("error",$ffq)){
+                        $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
+                        $news[]         = "<li class='list-group-item icon_update'>Please take <a href='$nutrilink' style='color:#8C1515; font-weight:bold;' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>Diet Assessment Survey &#128150 </a></li>";
+                      }
+                      
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
@@ -220,21 +237,7 @@ include("inc/gl_head.php");
                                             Please take <a href='$surveylink' title='$titletext'>$surveyname</a> survey
                                         </li>";
                       }
-                      if(isset($_SESSION[SESSION_NAME]['ffq'])){
-                        $ffq = $_SESSION[SESSION_NAME]['ffq'];
-                      }else{
-                        $proj_name    = "foodquestions";
-                        $ffq_project  = new PreGenAccounts($loggedInUser
-                          , $proj_name , SurveysConfig::$projects[$proj_name]["URL"]
-                          , SurveysConfig::$projects[$proj_name]["TOKEN"]);
-
-                        $ffq = $ffq_project->getAccount();
-                        $_SESSION[SESSION_NAME]['ffq'] = $ffq;
-                      }
-                      if(!array_key_exists("error",$ffq)){
-                        $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
-                        $news[]         = "<li class='list-group-item icon_update'>Please take the <a href='$nutrilink' title='This survey asks about your diet.' target='_blank'>Nutrition Survey</a></li>";
-                      }
+                      
 
                       $firstonly      = true;
                       $showfruit      = array();

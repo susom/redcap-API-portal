@@ -1,6 +1,46 @@
 <?php
 require_once("../models/config.php");
 
+//SPECIAL CUSTOM MAT SCORINGCAPTURE
+if(isset($_REQUEST["mat"])){
+  include "MAT_scoring.php";
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $mat_answers  = $_REQUEST["mat_answers"] ?: null;
+  $mat_answers  = json_decode($mat_answers,1);
+
+  $matstring  = "";
+  foreach($mat_answers as $fieldlabel => $values){
+    $mat_key  = $values["vid"];
+    $q_val    = $values["value"];
+    $mat_category = $MAT_cat[$mat_key];
+    $matvalue = getMATscoreCAT($mat_category,$q_val);
+    $matstring .= $matvalue;
+  }
+  
+  $matscore = $scoring[$matstring];
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'mat_score',
+      "value"             => $matscore
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r( json_encode(array_shift($data)) );
+  exit;
+}
+
 //SPECIAL CUSTOM MET SCORECAPTURE
 if(isset($_REQUEST["met"])){
   $project_name = $_REQUEST["project"] ?: null;
@@ -193,8 +233,10 @@ include("inc/gl_foot.php");
 <script>
 $(document).ready(function(){
 <?php
-  $isMET = "met_physical_activity" ? "true" : "false";
+  $isMET = $surveyid == "met_physical_activity"   ? "true" : "false";
+  $isMAT = $surveyid == "mat_functional_capacity" ? "true" : "false";
   echo "var isMET               = $isMET ;\n";
+  echo "var isMAT               = $isMAT ;\n";
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
   echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
@@ -347,9 +389,36 @@ $(document).ready(function(){
     $("#customform section").first().addClass("active");
   }
 
-  //CUSTOM WORK FOR MET SURVEY
+  //CUSTOM WORK FOR MET AND MAT SURVEY
   if(isMET){
     showMETScoring();
+  }
+
+  var mat_map = {
+     "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 
+    ,"mat_walkonground_fast"     : {"vid" : "Flat_NoRail_Fast" , "value" : null } 
+    ,"mat_jogonground"           : {"vid" : "Flat_NoRail_Jog" , "value" : null } 
+    ,"mat_walkincline_handrail"  : {"vid" : "Ramp_12Pcnt_Rail_Med" , "value" : null } 
+    ,"mat_walkincline"           : {"vid" : "Ramp_12Pcnt_NoRail_Med" , "value" : null } 
+    ,"mat_stepover_lowhurdle"    : {"vid" : "Walk_Hurdles_1" , "value" : null } 
+    ,"mat_walkincline_tern"      : {"vid" : "Terrain_4" , "value" : null } 
+    ,"mat_walkincline_tern_fast" : {"vid" : "Terrain_5" , "value" : null } 
+    ,"mat_walkup3_handrail"      : {"vid" : "Stairs_3Step_1Foot_Rail_MedSlo2" , "value" : null } 
+    ,"mat_walkdn3"               : {"vid" : "DownStairs_3Step_2Foot_NoRail_Slow" , "value" : null } 
+    ,"mat_walkup3_carry"         : {"vid" : "Bag_Stairs_3Step_1Foot_NoRail_2_3" , "value" : null } 
+    ,"mat_walkup9_carry"         : {"vid" : "2Bag_Stairs_9Step_1Foot_NoRail2_1" , "value" : null } 
+  };
+
+  if(isMAT){
+    var initcheck = $("#customform").serializeArray();
+    for(var i in initcheck){
+      var fieldname = initcheck[i].name;
+      var fieldval  = initcheck[i].value;
+      if(mat_map.hasOwnProperty(fieldname)){
+        mat_map[fieldname]["value"] = fieldval;
+      }
+    }
+    showMATScoring();
   }
 
   //SUBMIT/NEXT
@@ -407,8 +476,9 @@ $(document).ready(function(){
     if(isMET){
       showMETScoring();
     }
-
-
+    if(isMAT){
+      showMATScoring($(this));
+    }
 
     //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
     var completed_count = 0;
@@ -450,7 +520,6 @@ $(document).ready(function(){
     updateProgressBar(pbar, percent_complete);
     return;
   }); 
-
 
   
   //CUSTOM SCORING FOR MET / MAT SURVEYS
@@ -510,7 +579,7 @@ $(document).ready(function(){
         type:'POST',
         data: project + "&met_score=" + METScore,
         success:function(result){
-          console.log(result);
+          
         }
       });
 
@@ -523,6 +592,49 @@ $(document).ready(function(){
         success:function(result){
           nextSection.prepend(result);
           $("#met_score").text(METScore);
+        }
+      });
+    }
+  }
+
+  
+  function showMATScoring(qinput){
+    var mat_complete  = true;
+
+    if(qinput){
+      //single input, stuff value into object 
+      var fieldname = qinput.attr("name");
+      var fieldval  = qinput.val();
+      if(mat_map.hasOwnProperty(fieldname)){
+        mat_map[fieldname]["value"] = fieldval;   
+      }
+    }
+
+    for(var prop in mat_map){
+      //check to see if all the questions are complete
+      if(!mat_map[prop]["value"]){
+        mat_complete = false;
+      }
+    }
+
+    if(mat_complete) {
+      console.log("all required questions complete");
+      // then ajax to compute the score
+      var dataURL         = "survey.php?mat=1";
+      var instrument_name = $("#customform").attr("name");
+      var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+      $.ajax({
+        url:  dataURL,
+        type:'POST',
+        data: project + "&mat_answers=" + JSON.stringify(mat_map),
+        success:function(result){
+          var data      = JSON.parse(result);
+          var matscore  = data.value;
+
+          var nextSection = $("#customform section.active").next();
+          var results = $("<div id='mat_results'><div id='matscore'></div></div>");
+          nextSection.append(results);
+          $("#matscore").text(matscore);
         }
       });
     }

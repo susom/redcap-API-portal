@@ -1358,6 +1358,19 @@ input[readonly] {
     vertical-align:top;
 }
 
+#mat_results {
+    text-align:center; 
+}
+
+#matscore {
+    font-size: 36px;
+    width: 30%;
+    border-radius: 15px;
+    text-align: center;
+    background: #ffc;
+    padding: 30px;
+}
+
 .video_frame{
     text-align: left;
     padding: 20px 0;

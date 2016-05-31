@@ -26,7 +26,7 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 								);
 
 if(isset($portal_test)){
-	echo "<div id='testserver'>Test Server</div>";
+	// echo "<div id='testserver'>Test Server</div>";
 }
 
 // Start Session and determine if we are authenticated

@@ -7,7 +7,6 @@
 <!--<![endif]-->
 <head>
 <title><?php echo $pg_title?></title>
-
 <!-- Meta -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,6 +77,11 @@
 <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,600,700' rel='stylesheet' type='text/css'>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
+<?php
+if(isset($portal_test)){
+	echo "<div id='testserver'>Test Server</div>";
+}
+?>
 <body class="<?php echo $body_classes ?>">
 <?php
   print getSessionMessages();

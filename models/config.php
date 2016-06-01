@@ -25,10 +25,6 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 									,$_CFG->WEBSITE["emailDate"]
 								);
 
-if(isset($portal_test)){
-	// echo "<div id='testserver'>Test Server</div>";
-}
-
 // Start Session and determine if we are authenticated
 // Authenticated means user+pass has matched, but does NOT mean the account is active
 session_start();

@@ -138,7 +138,7 @@ if(!isUserLoggedIn()) {
 }
 
 //THIS PAGE NEEDS A SURVEY ID
-$surveyid = $_GET["sid"];
+$surveyid = $sid = $_GET["sid"];
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
 
 if($project){
@@ -233,8 +233,8 @@ include("inc/gl_foot.php");
 <script>
 $(document).ready(function(){
 <?php
-  $isMET = $surveyid == "met_physical_activity"   ? "true" : "false";
-  $isMAT = $surveyid == "mat_functional_capacity" ? "true" : "false";
+  $isMET = $sid == "met_physical_activity"   ? "true" : "false";
+  $isMAT = $sid == "mat_functional_capacity" ? "true" : "false";
   echo "var isMET               = $isMET ;\n";
   echo "var isMAT               = $isMAT ;\n";
   // //PASS FORMS METADATA 
@@ -389,11 +389,7 @@ $(document).ready(function(){
     $("#customform section").first().addClass("active");
   }
 
-  //CUSTOM WORK FOR MET AND MAT SURVEY
-  if(isMET){
-    showMETScoring();
-  }
-
+  //CUSTOM MAT SCORING
   var mat_map = {
      "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 
     ,"mat_walkonground_fast"     : {"vid" : "Flat_NoRail_Fast" , "value" : null } 
@@ -419,6 +415,11 @@ $(document).ready(function(){
       }
     }
     showMATScoring();
+  }
+
+  //CUSTOM WORK FOR MET AND MAT SURVEY
+  if(isMET){
+    showMETScoring();
   }
 
   //SUBMIT/NEXT
@@ -532,15 +533,17 @@ $(document).ready(function(){
     //HARD CONSTANTS
     PA_SCORE = [];
     if(gender == "male"){
-      PA_SCORE[1] = 0.37;
-      PA_SCORE[2] = 0.51;
-      PA_SCORE[3] = 1.03;
-      PA_SCORE[4] = 1.48;
+      PA_SCORE[1] = 0;
+      PA_SCORE[2] = 0.37;
+      PA_SCORE[3] = 0.51;
+      PA_SCORE[4] = 1.03;
+      PA_SCORE[5] = 1.48;
     }else{
-      PA_SCORE[1]   = 0.27;
-      PA_SCORE[2]   = 0.36;
-      PA_SCORE[3]   = 0.77;
-      PA_SCORE[4]   = 1.22;
+      PA_SCORE[1]   = 0;
+      PA_SCORE[2]   = 0.27;
+      PA_SCORE[3]   = 0.36;
+      PA_SCORE[4]   = 0.77;
+      PA_SCORE[5]   = 1.22;
     }
     phys_act_score = PA_SCORE[PA_level];
     
@@ -579,18 +582,19 @@ $(document).ready(function(){
         type:'POST',
         data: project + "&met_score=" + METScore,
         success:function(result){
-          
+
         }
       });
 
       var nextSection = $("#customform section.active").next();
-      var dataURL         = "MET_detail.php?gender=" + ughgender;
+      var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore;
       $.ajax({
         url:  dataURL,
         type:'POST',
         data: null,
         success:function(result){
           nextSection.prepend(result);
+          $("#met_desc").data("")
           $("#met_score").text(METScore);
         }
       });
@@ -618,7 +622,6 @@ $(document).ready(function(){
     }
 
     if(mat_complete) {
-      console.log("all required questions complete");
       // then ajax to compute the score
       var dataURL         = "survey.php?mat=1";
       var instrument_name = $("#customform").attr("name");
@@ -632,8 +635,8 @@ $(document).ready(function(){
           var matscore  = data.value;
 
           var nextSection = $("#customform section.active").next();
-          var results = $("<div id='mat_results'><div id='matscore'></div></div>");
-          nextSection.append(results);
+          var results     = $("<div id='mat_results'><div id='matscore'></div></div>");
+          nextSection.find("h2").after(results);
           $("#matscore").text(matscore);
         }
       });

@@ -417,7 +417,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-6">
                         <div class="panel panel-success portlet-item">
                           <header class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> News
+                            <i class="glyphicon glyphicon-star-empty"></i> Learn More
                           </header>
                           <ul class="list-group alt">
                             <?php

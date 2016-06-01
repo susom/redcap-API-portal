@@ -31,6 +31,11 @@ $location   = $city . "," . $state;
     <script src="js/ie/excanvas.js"></script>
   <![endif]-->
 </head>
+<?php
+if(isset($portal_test)){
+  echo "<div id='testserver'>Test Server</div>";
+}
+?>
 <body class="<?php echo $body_classes ?>">
 <?php
   print getSessionMessages();

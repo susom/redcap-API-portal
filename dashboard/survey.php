@@ -233,8 +233,8 @@ include("inc/gl_foot.php");
 <script>
 $(document).ready(function(){
 <?php
-  $isMET = $sid == "met_physical_activity"   ? "true" : "false";
-  $isMAT = $sid == "mat_functional_capacity" ? "true" : "false";
+  $isMET = $sid == "how_physically_active_are_you"   ? "true" : "false";
+  $isMAT = $sid == "how_is_your_physical_mobility" ? "true" : "false";
   echo "var isMET               = $isMET ;\n";
   echo "var isMAT               = $isMAT ;\n";
   // //PASS FORMS METADATA 
@@ -587,7 +587,7 @@ $(document).ready(function(){
       });
 
       var nextSection = $("#customform section.active").next();
-      var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore;
+      var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
       $.ajax({
         url:  dataURL,
         type:'POST',

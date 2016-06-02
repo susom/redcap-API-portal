@@ -1330,21 +1330,22 @@ input[readonly] {
 }
 
 #met_score, #matscore {
-    float:left; 
-    background: url(../images/MET_MAT_Results_Ribbon.png) 0 0  no-repeat;
-    height:440px;
-    width:310px; 
-    font-size:80px;
-    margin:10px 0;
-    text-align:center; 
-    line-height:360%;
-    text-indent:-20px;
+    float: left;
+    background: url(../images/MET_MAT_Results_Ribbon.png) 0 0 no-repeat;
+    height: 220px;
+    width: 155px;
+    font-size: 50px;
+    margin: 10px 0;
+    text-align: center;
+    line-height: 280%;
+    text-indent: -12px;
+    background-size: 100%;
 }
 
 #met_desc {
     float:left;
     margin-left:10px; 
-    width:50%; 
+    width:70%; 
 }
 #met_results h2{
     background:none; 
@@ -1356,16 +1357,15 @@ input[readonly] {
     margin:0 40px 8px;
     padding:8px 0; 
     font-size:15px; 
-    border-bottom:1px solid #ddd;
+    text-align: center
 }
 #met_results dt {
     display:inline-block;
-    width:15%;
+    width:100%;
     vertical-align:top;
 }
 #met_results dd {
     display:inline-block;
-    width:80%;
     vertical-align:top;
 }
 

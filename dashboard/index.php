@@ -217,7 +217,7 @@ include("inc/gl_head.php");
                       }
                       if(!array_key_exists("error",$ffq)){
                         $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
-                        $news[]         = "<li class='list-group-item icon_update'>Please take <a href='$nutrilink' style='color:#8C1515; font-weight:bold;' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>Diet Assessment Survey &#128150 </a></li>";
+                        $news[]         = "<li class='list-group-item icon_update'><a href='$nutrilink' style='color:#8C1515; font-weight:bold;' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>How well do you eat? &#128150 </a></li>";
                       }
                       
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
@@ -234,7 +234,7 @@ include("inc/gl_head.php");
                         $surveyname   = $supp_instrument["label"];
 
                         $news[]       = "<li class='list-group-item $icon_update'>
-                                            Please take <a href='$surveylink' title='$titletext'>$surveyname</a> survey
+                                            <a href='$surveylink' title='$titletext'>$surveyname</a> survey
                                         </li>";
                       }
                       

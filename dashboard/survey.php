@@ -413,7 +413,7 @@ $(document).ready(function(){
       if(mat_map.hasOwnProperty(fieldname)){
         mat_map[fieldname]["value"] = fieldval;
       }
-    }
+    }    
     showMATScoring();
   }
 
@@ -633,7 +633,8 @@ $(document).ready(function(){
         success:function(result){
           var data      = JSON.parse(result);
           var matscore  = data.value;
-
+    
+      console.log("hey mah");
           var nextSection = $("#customform section.active").next();
           var results     = $("<div id='mat_results'><div id='matscore'></div></div>");
           nextSection.find("h2").after(results);

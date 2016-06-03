@@ -1334,10 +1334,10 @@ input[readonly] {
     background: url(../images/MET_MAT_Results_Ribbon.png) 0 0 no-repeat;
     height: 220px;
     width: 155px;
-    font-size: 50px;
+    font-size: 40px;
     margin: 10px 0;
     text-align: center;
-    line-height: 280%;
+    line-height: 370%;
     text-indent: -12px;
     background-size: 100%;
 }

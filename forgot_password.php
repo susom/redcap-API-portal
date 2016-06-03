@@ -52,6 +52,17 @@ if( !empty($_GET["confirm"]) ){
 
 	if(!empty($user) && !$user->isActive()){
 		addSessionAlert("This account is not active yet.  Please check your email for an activation link.");
+		
+		$olduser = new RedcapPortalUser($user->user_id);
+		//SEND NEW ACTIVATION LINK
+		$olduser->updateUser(array(
+			getRF("zip") 	=> $zip,
+	        getRF("city") 	=> $city,
+	        getRF("state") 	=> $state,
+	        getRF("age") 	=> $actualage
+	      ));
+        $olduser->createEmailToken();
+        $olduser->emailEmailToken();
 		header("Location: login.php");
 		exit;	
 	}

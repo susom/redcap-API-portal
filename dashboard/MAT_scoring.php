@@ -1,4 +1,9 @@
 <?php
+// Below 40 		= "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+// From 40-49 		= "In the next 4 years, 5.2 out of 10 people with your score are going to lose the ability to do active things they enjoy or value"
+// From 50 – 59 	= "In the next 4 years, 3.5 people out of 10 are going to lose the ability to do the active things they enjoy or value"
+// Higher than 60 	= "Your functional capacity and physical mobility are excellent! Keep up the good work!"
+
 
 $MAT_cat = array(
 	 "Cane_Ramp_Rail_Slow" => "B"

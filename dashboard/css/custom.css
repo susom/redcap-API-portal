@@ -1327,6 +1327,11 @@ input[readonly] {
     overflow:hidden;
     border-radius:10px; 
     padding:20px;
+
+    background:#E1FBEE;
+    padding:20px 0;
+    border-radius:8px; 
+    margin-bottom:40px; 
 }
 
 #met_score{
@@ -1335,7 +1340,7 @@ input[readonly] {
     height: 220px;
     width: 155px;
     font-size: 40px;
-    margin: 10px 0;
+    margin: 10px 0 0 80px;
     text-align: center;
     line-height: 370%;
     text-indent: -12px;
@@ -1349,8 +1354,10 @@ input[readonly] {
 }
 #met_results h2{
     background:none; 
-    text-align:center;
-    font-size:24px;
+    text-align: center;
+    font-size: 360%;
+    margin-bottom: 30px;
+    color: #619361;
     border: none;
 }
 #met_results dl {
@@ -1362,6 +1369,9 @@ input[readonly] {
 #met_results dt {
     display:inline-block;
     width:100%;
+    font-size: 130%;
+    color: #619361;
+    font-weight:normal; 
     vertical-align:top;
 }
 #met_results dd {

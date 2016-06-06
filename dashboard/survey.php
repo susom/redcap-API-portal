@@ -586,7 +586,8 @@ $(document).ready(function(){
         }
       });
 
-      var nextSection = $("#customform section.active").next();
+      var nextSection = $("#customform section:eq(1)");
+      console.log(nextSection);
       var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
       $.ajax({
         url:  dataURL,

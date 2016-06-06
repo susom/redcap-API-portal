@@ -27,7 +27,7 @@ if(isset($_REQUEST["mat"])){
   }
   
   $matscore = $scoring[$matstring];
-  $data[] = array(
+  $data[]   = array(
       "record"            => $record_id,
       "field_name"        => 'mat_score',
       "value"             => $matscore
@@ -633,12 +633,26 @@ $(document).ready(function(){
         success:function(result){
           var data      = JSON.parse(result);
           var matscore  = data.value;
-    
-      console.log("hey mah");
+          
+          if(matscore < 40){
+              var picperc = "sixsix";
+              var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+          }else if(matscore < 50){
+              var picperc = "fivetwo";
+              var desc = "In the next 4 years, 5.2 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+          }else if(matscore < 60){
+              var picperc = "threefive";
+              var desc = "In the next 4 years, 3.5 people out of 10 are going to lose the ability to do the active things they enjoy or value."
+          }else{
+              var picperc = "hundo";
+              var desc = "Your functional capacity and physical mobility are excellent! Keep up the good work!"
+          }
+
           var nextSection = $("#customform section.active").next();
-          var results     = $("<div id='mat_results'><div id='matscore'></div></div>");
+          var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
           nextSection.find("h2").after(results);
-          $("#matscore").text(matscore);
+          $("#mat_pic").addClass(picperc);
+          $("#mat_text").text(desc);
         }
       });
     }

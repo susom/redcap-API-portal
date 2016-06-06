@@ -444,3 +444,5 @@ a:hover { text-decoration:underline; }
     text-align: center;
     z-index:20000;
 }
+
+.alink { color:#369; }

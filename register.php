@@ -157,7 +157,7 @@ if(!empty($_POST['submit_new_user'])){
 	}else{
 		// Invalid token match
 		$errors[] = "The supplied email activation token is invalid or expired.  This can happen if you regenerated a new token but followed the link from an older request.";
-		addSessionAlert("Invalid email activation token");
+		addSessionAlert("Invalid email activation token <br><a class='alink' href='login.php'>Click Here</a> and chose 'Forgot Password' to get a new token.");
 	}
 }
 

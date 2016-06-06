@@ -1329,7 +1329,7 @@ input[readonly] {
     padding:20px;
 }
 
-#met_score, #matscore {
+#met_score{
     float: left;
     background: url(../images/MET_MAT_Results_Ribbon.png) 0 0 no-repeat;
     height: 220px;
@@ -1370,9 +1370,82 @@ input[readonly] {
 }
 
 #mat_results {
+    position:relative; 
+    z-index:-4;
     overflow:hidden;
     text-align:center; 
+    background:#E1FBEE;
+    padding:20px 0;
+    border-radius:8px; 
+    margin-bottom:40px; 
 }
+
+
+#mat_score {
+    display:none; 
+}
+
+#mat_pic {
+    background:url(../images/mat_people_cutout.png) repeat-x;
+    background-size:20%;
+    height:202px;
+    width:990px;
+    position:relative;
+    display: inline-block;
+}
+#mat_pic:before{
+    content:"";
+    position:absolute; 
+    top:0; left:0;
+    width:100%;
+    height:198px;
+    z-index:-2;
+
+    /* IE10+ */ 
+    background-image: -ms-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+
+    /* Opera */ 
+    background-image: -o-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #FF0000), color-stop(25, #FF8800), color-stop(75, #FFFF05), color-stop(100, #00FF22));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+
+    /* W3C Markup */ 
+    background-image: linear-gradient(to right, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+}
+#mat_pic:after{
+    content:"";
+    position:absolute; 
+    top:0; right:0;
+    height:198px;
+    z-index:-1;
+    background:#F8F8F8;
+}
+#mat_pic.sixsix:after{
+    width:34%;
+}
+#mat_pic.threefive:after{
+    width:65%;
+}
+#mat_pic.fivetwo:after{
+    width:48%;
+}
+#mat_pic.hundo:after{
+    width:0%;
+}
+#mat_text {
+    font-size:160%;
+    font-weight:bold;
+    padding:5px 0 0px;
+    color:#619361;
+}
+
 
 
 .video_frame{

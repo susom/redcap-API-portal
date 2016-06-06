@@ -50,7 +50,7 @@
 	//Forgot password
 	$lang = array_merge($lang,array(
 		"FORGOTPASS_SUGGEST"					=> "Click on the 'Forgot Password?' to reset your password.  Or <a href=\"register.php\">register here</a>.",
-		"FORGOTPASS_INVALID_TOKEN"				=> "Invalid token",
+		"FORGOTPASS_INVALID_TOKEN"				=> "Invalid token.",
 		"FORGOTPASS_NEW_PASS_EMAIL"				=> "Please check your email account for instructions on how to reset your forgotten password.  Be sure to check your spam/junk folders if you do not see the message in the next few minutes.",
 		"FORGOTPASS_REQUEST_CANNED"				=> "Lost password request cancelled",
 		"FORGOTPASS_REQUEST_EXISTS"				=> "A forgotten password authorization email was sent %m1% min ago.<br>Please check your email or try again later.",

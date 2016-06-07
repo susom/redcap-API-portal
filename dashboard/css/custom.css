@@ -1379,7 +1379,7 @@ input[readonly] {
     vertical-align:top;
 }
 
-.met_pa_ref  {
+.met_pa_ref , .mat_ref  {
     font-size:10px;
 }
 .labellink {

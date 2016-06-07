@@ -1382,6 +1382,10 @@ input[readonly] {
 .met_pa_ref  {
     font-size:10px;
 }
+.labellink {
+        color: #369;
+    text-decoration: underline;
+}
 #mat_results {
     position:relative; 
     z-index:-4;

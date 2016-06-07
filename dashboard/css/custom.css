@@ -1379,6 +1379,9 @@ input[readonly] {
     vertical-align:top;
 }
 
+.met_pa_ref  {
+    font-size:10px;
+}
 #mat_results {
     position:relative; 
     z-index:-4;

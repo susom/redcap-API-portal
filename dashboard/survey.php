@@ -587,18 +587,19 @@ $(document).ready(function(){
       });
 
       var nextSection = $("#customform section:eq(1)");
-      console.log(nextSection);
       var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
-      $.ajax({
-        url:  dataURL,
-        type:'POST',
-        data: null,
-        success:function(result){
-          nextSection.prepend(result);
-          $("#met_desc").data("")
-          $("#met_score").text(METScore);
-        }
-      });
+      if($("#met_score").length < 1){
+        $.ajax({
+          url:  dataURL,
+          type:'POST',
+          data: null,
+          success:function(result){
+            nextSection.prepend(result);
+            $("#met_desc").data("")
+            $("#met_score").text(METScore);
+          }
+        });
+      }
     }
   }
 

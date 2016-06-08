@@ -1408,12 +1408,18 @@ input[readonly] {
     z-index:-4;
     overflow:hidden;
     text-align:center; 
-    background:#E1FBEE;
     padding:20px 0;
     border-radius:8px; 
     margin-bottom:40px; 
+    background:#CF9494;
+    color:#770000;
+    
 }
 
+#mat_results.hundo{
+    color:#619361;
+    background:#E1FBEE;
+}
 
 #mat_score {
     display:none; 
@@ -1434,8 +1440,9 @@ input[readonly] {
     width:100%;
     height:198px;
     z-index:-2;
-
-    background:#00FF22;
+    
+    background:red;
+    /*#00FF22*/
 }
 #mat_pic:after{
     content:"";
@@ -1443,7 +1450,7 @@ input[readonly] {
     top:0; right:0;
     height:198px;
     z-index:-1;
-    background:#F8F8F8;
+    background:#00FF22; 
 }
 #mat_pic.sixsix:after{
     width:34%;
@@ -1455,13 +1462,12 @@ input[readonly] {
     width:48%;
 }
 #mat_pic.hundo:after{
-    width:0%;
+    width:100%;
 }
 #mat_text {
-    font-size:160%;
+    font-size:120%;
     font-weight:bold;
     padding:5px 0 0px;
-    color:#619361;
 }
 
 

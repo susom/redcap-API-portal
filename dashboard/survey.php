@@ -26,7 +26,7 @@ if(isset($_REQUEST["mat"])){
     $matstring .= $matvalue;
   }
   
-  $matscore = $scoring[$matstring];
+  $matscore = isset($scoring[$matstring]) ? $scoring[$matstring] : 0 ;
   $data[]   = array(
       "record"            => $record_id,
       "field_name"        => 'mat_score',
@@ -637,6 +637,7 @@ $(document).ready(function(){
         type:'POST',
         data: project + "&mat_answers=" + JSON.stringify(mat_map),
         success:function(result){
+          console.log(result);
           var data      = JSON.parse(result);
           var matscore  = data.value;
           
@@ -660,7 +661,7 @@ $(document).ready(function(){
           var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
           nextSection.find("h2").after(results);
 
-          $("#mat_pic").addClass(picperc);
+          $("#mat_pic, #mat_results").addClass(picperc);
           $("#mat_text").text(desc);
         }
       });

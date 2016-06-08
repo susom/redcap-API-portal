@@ -65,12 +65,11 @@ if($gender == "male"){
 
 $suggest = $suggestion[$level];
 ?>
-<div id="met_results">
+<div id="met_results" class="level_<?php echo $level?>">
 <div id="met_score"></div>
 <div id="met_desc">
 	<h2><?php echo $suggest[0] ?></h2>
-	
-	<dl data-value="3">
+	<dl>
 	<dt><?php echo $suggest[1] ?></dt>
 	</dl>
 </div>

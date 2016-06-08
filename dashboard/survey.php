@@ -402,7 +402,7 @@ $(document).ready(function(){
     ,"mat_walkup3_handrail"      : {"vid" : "Stairs_3Step_1Foot_Rail_MedSlo2" , "value" : null } 
     ,"mat_walkdn3"               : {"vid" : "DownStairs_3Step_2Foot_NoRail_Slow" , "value" : null } 
     ,"mat_walkup3_carry"         : {"vid" : "Bag_Stairs_3Step_1Foot_NoRail_2_3" , "value" : null } 
-    ,"mat_walkup9_carry"         : {"vid" : "2Bag_Stairs_9Step_1Foot_NoRail2_1" , "value" : null } 
+    ,"mat_walkup9_carry"         : {"vid" : "TWObag_stairs_9step_1foot_norail" , "value" : null } 
   };
 
   if(isMAT){
@@ -588,18 +588,20 @@ $(document).ready(function(){
 
       var nextSection = $("#customform section:eq(1)");
       var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
-      if($("#met_score").length < 1){
-        $.ajax({
-          url:  dataURL,
-          type:'POST',
-          data: null,
-          success:function(result){
-            nextSection.prepend(result);
-            $("#met_desc").data("")
-            $("#met_score").text(METScore);
+      $.ajax({
+        url:  dataURL,
+        type:'POST',
+        data: null,
+        success:function(result){
+          if($("#met_results").length > 0){
+            $("#met_results").remove();
           }
-        });
-      }
+          nextSection.prepend(result);
+          $("#met_desc").data("")
+          $("#met_score").text(METScore);
+        }
+      });
+      
     }
   }
 
@@ -628,6 +630,8 @@ $(document).ready(function(){
       var dataURL         = "survey.php?mat=1";
       var instrument_name = $("#customform").attr("name");
       var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+      
+      var nextSection = $("#customform section.active").next();
       $.ajax({
         url:  dataURL,
         type:'POST',
@@ -650,9 +654,12 @@ $(document).ready(function(){
               var desc = "Your functional capacity and physical mobility are excellent! Keep up the good work!"
           }
 
-          var nextSection = $("#customform section.active").next();
+          if($("#mat_results").length > 0){
+            $("#mat_results").remove();
+          }
           var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
           nextSection.find("h2").after(results);
+
           $("#mat_pic").addClass(picperc);
           $("#mat_text").text(desc);
         }

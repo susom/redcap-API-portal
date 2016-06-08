@@ -1327,12 +1327,20 @@ input[readonly] {
     overflow:hidden;
     border-radius:10px; 
     padding:20px;
-
     background:#E1FBEE;
+    color: #619361;
     padding:20px 0;
     border-radius:8px; 
     margin-bottom:40px; 
 }
+
+#met_results.level_0, #met_results.level_0 h2{
+    background:#CF9494;
+    color:#770000;
+}
+
+#met_results.level_1 {}
+#met_results.level_2 {}
 
 #met_score{
     float: left;
@@ -1356,8 +1364,8 @@ input[readonly] {
     background:none; 
     text-align: center;
     font-size: 360%;
-    margin-bottom: 30px;
     color: #619361;
+    margin-bottom: 30px;
     border: none;
 }
 #met_results dl {
@@ -1370,7 +1378,6 @@ input[readonly] {
     display:inline-block;
     width:100%;
     font-size: 130%;
-    color: #619361;
     font-weight:normal; 
     vertical-align:top;
 }
@@ -1382,10 +1389,20 @@ input[readonly] {
 .met_pa_ref , .mat_ref  {
     font-size:10px;
 }
+
+.met_pa_r8 {
+    font-style: italic;
+    margin-bottom: 200px;
+    font-size: 115%;
+    color: #000;
+}
 .labellink {
         color: #369;
     text-decoration: underline;
 }
+
+
+
 #mat_results {
     position:relative; 
     z-index:-4;
@@ -1418,23 +1435,7 @@ input[readonly] {
     height:198px;
     z-index:-2;
 
-    /* IE10+ */ 
-    background-image: -ms-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
-
-    /* Opera */ 
-    background-image: -o-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #FF0000), color-stop(25, #FF8800), color-stop(75, #FFFF05), color-stop(100, #00FF22));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-linear-gradient(left, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
-
-    /* W3C Markup */ 
-    background-image: linear-gradient(to right, #FF0000 0%, #FF8800 25%, #FFFF05 75%, #00FF22 100%);
+    background:#00FF22;
 }
 #mat_pic:after{
     content:"";

@@ -18,7 +18,7 @@ $MAT_cat = array(
 	,"Stairs_3Step_1Foot_Rail_MedSlo2"	=> "C"
 	,"DownStairs_3Step_2Foot_NoRail_Slow"	=> "C"
 	,"Bag_Stairs_3Step_1Foot_NoRail_2_3"	=> "C"
-	,"2Bag_Stairs_9Step_1Foot_NoRail2_1"	=> "C"
+	,"TWObag_stairs_9step_1foot_norail"	=> "C"
 );
 
 function convertQvalMatVal($scoring_category, $qval){

@@ -32,7 +32,7 @@ if(isset($_GET["survey_complete"])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
         $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of the survey.</a>";
       }else{
-        $success_msg .= "Congratulations, you got all the fruits! <br/> Check out some of the new modules under 'News'. ";
+        $success_msg .= "Congratulations, you got all the fruits! <br/> Check out some of the new modules under 'Learn More'. ";
       }
       
       addSessionMessage( $success_msg , "success");

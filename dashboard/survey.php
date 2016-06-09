@@ -673,5 +673,10 @@ $(document).ready(function(){
   }
 
   // $.mask.definitions['M'] = "[0|1|\s]";
+  // 
+  //WTF
+  console.log($(".surveyHeader").height());
+  console.log($(".surveyFrame").height());
+  console.log($("#customform").height());
 });
 </script>

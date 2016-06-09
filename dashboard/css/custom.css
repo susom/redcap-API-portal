@@ -1340,8 +1340,6 @@ input[readonly] {
     color:#770000;
 }
 
-#met_results.level_1 {}
-#met_results.level_2 {}
 
 #met_score{
     float: left;
@@ -1403,7 +1401,14 @@ input[readonly] {
 }
 
 
-
+.mat_title {
+    font-size:150%;
+    font-weight:bold;
+}
+.mat_quote {
+    font-style:italic;
+    color:#999;   
+}
 #mat_results {
     position:relative; 
     z-index:-4;
@@ -1442,7 +1447,7 @@ input[readonly] {
     height:198px;
     z-index:-2;
     
-    background:red;
+    background:#ccc;
     /*#00FF22*/
 }
 #mat_pic:after{

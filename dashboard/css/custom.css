@@ -1629,6 +1629,8 @@ input[readonly] {
     color: #000;
 }
 
+.labellink:active,
+.labellink:visited,
 .labellink {
     color: #369;
     text-decoration: underline;

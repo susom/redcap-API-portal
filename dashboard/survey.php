@@ -37,7 +37,9 @@ if(isset($_REQUEST["mat"])){
     $data[0]["redcap_event_name"] = $event_name;
   }
   $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-  print_r( json_encode(array_shift($data)) );
+  $data   = array_shift($data);
+  $data["matstring"] = $matstring;
+  print_r( json_encode($data) );
   exit;
 }
 
@@ -641,6 +643,7 @@ $(document).ready(function(){
           var data      = JSON.parse(result);
           var matscore  = data.value;
           
+          console.log("matscore",matscore);
           if(matscore < 40){
               var picperc = "sixsix";
               var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."

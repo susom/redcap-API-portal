@@ -7,6 +7,7 @@
 
 $MAT_cat = array(
 	 "Cane_Ramp_Rail_Slow" => "B"
+
 	,"Flat_NoRail_Slow"	=> "A"
 	,"Flat_NoRail_Fast"	=> "A"
 	,"Flat_NoRail_Jog"	=> "D"

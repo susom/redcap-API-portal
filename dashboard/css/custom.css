@@ -575,9 +575,9 @@ input[readonly] {
     width: 80px;
 }
 
-.profile_card #portal_city,
-.profile_card #portal_state,
-.profile_card #portal_zip {
+.profile_card #city,
+.profile_card #state,
+.profile_card #zip {
     display: inline-block;
     width: 122px;
 }
@@ -1723,4 +1723,12 @@ input[readonly] {
 .video_frame {
     text-align: left;
     padding: 20px 0;
+}
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .panel {
+       
+    }
 }

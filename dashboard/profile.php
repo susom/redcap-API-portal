@@ -139,9 +139,9 @@ include("inc/gl_head.php");
                           / <input type="text" id="portal_apartment_no" name="portal_apartment_no" value="<?php echo $p_portal_apartment_no ?>" placeholder="Apt No.">
                           </li>
                           <li>
-                            <input type="text" id="portal_city" name="portal_city" value="<?php echo $p_city ?>" placeholder="City">
-                            , <input type="text" id="portal_state" name="portal_state" value="<?php echo $p_state ?>" placeholder="State">
-                            <input data-validate="number" type="text" id="portal_zip" name="portal_zip" value="<?php echo $p_zip ?>" placeholder="Zip Code">
+                            <input type="text" id="city" name="city" value="<?php echo $p_city ?>" placeholder="City">
+                            , <input type="text" id="state" name="state" value="<?php echo $p_state ?>" placeholder="State">
+                            <input data-validate="number" type="text" id="zip" name="zip" value="<?php echo $p_zip ?>" placeholder="Zip Code">
                           </li>
                         </ul>
 

@@ -1,7 +1,6 @@
 <?php
 require_once("../models/config.php");
 
-
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
   $destination = $websiteUrl . "login.php";

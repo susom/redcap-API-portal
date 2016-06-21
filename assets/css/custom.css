@@ -114,7 +114,7 @@ a:hover { text-decoration:underline; }
 	content:"";
 	display:block; 
 	width:24px; height:24px; 
-	background:url(http://twosensus.com/img/spinner.gif) no-repeat;
+	background:url(../img/login_spinner.gif) no-repeat;
 	background-size:contain; 
 }
 

@@ -1726,6 +1726,24 @@ input[readonly] {
 }
 
 
+#tcm_results { 
+    margin-bottom:40px;  
+}
+.constitution_result{
+    margin:0 0 10px; 
+}
+.constitution_result dt, .constitution_result dd {
+    display:inline-block; 
+    min-width:400px; 
+
+    text-indent:20px;
+    line-height:150%;
+    font-size:150%;
+    padding:10px 0;
+}
+
+
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .panel {

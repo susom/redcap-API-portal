@@ -9,6 +9,7 @@ $suggestion = array(
 		,array("Healthy Zone" , "Your current level of fitness is associated with good health, nice work!")
 		,array("Excellent Zone" , "Your current level of fitness is associated with excellent health, great job!")
 	);
+
 if($gender == "male"){
 	if($age <= 39 ){
 		if($metscore < 9){

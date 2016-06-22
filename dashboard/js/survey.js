@@ -299,7 +299,7 @@ $(document).ready(function(){
     var x_const  = gender == "male" ? 12.77  : 12.26;
 
     var MetScore = (age*x_age) - .002*(Math.pow(age,2)) - (bmi*x_bmi) + phys_act_score - x_smoker*isSmoker + x_const;
-    return Math.round(MetScore);
+    return Math.round(MetScore*10)/10;
   }
 
   function showMETScoring(){

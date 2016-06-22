@@ -12,25 +12,25 @@ $suggestion = array(
 
 if($gender == "male"){
 	if($age <= 39 ){
-		if($metscore < 9){
+		if($metscore < 8.9){
 			$level = 0;
-		}else if($metscore <= 14){
+		}else if($metscore <= 14.9){
 			$level = 1;
 		}else{
 			$level = 2;
 		}
 	}else if($age <= 59){
-		if($metscore < 8){
+		if($metscore < 7.9){
 			$level = 0;
-		}else if($metscore <= 13){
+		}else if($metscore <= 13.9){
 			$level = 1;
 		}else{
 			$level = 2;
 		}
 	}else{
-		if($metscore < 7){
+		if($metscore < 6.9){
 			$level = 0;
-		}else if($metscore <= 12){
+		}else if($metscore <= 12.9){
 			$level = 1;
 		}else{
 			$level = 2;
@@ -38,25 +38,25 @@ if($gender == "male"){
 	}
 }else{
 	if($age <= 39 ){
-		if($metscore < 7){
+		if($metscore < 6.9){
 			$level = 0;
-		}else if($metscore <= 12){
+		}else if($metscore <= 12.9){
 			$level = 1;
 		}else{
 			$level = 2;
 		}
 	}else if($age <= 59){
-		if($metscore < 6){
+		if($metscore < 5.9){
 			$level = 0;
-		}else if($metscore <= 11){
+		}else if($metscore <= 11.9){
 			$level = 1;
 		}else{
 			$level = 2;
 		}
 	}else{
-		if($metscore < 5){
+		if($metscore < 4.9){
 			$level = 0;
-		}else if($metscore <= 10){
+		}else if($metscore <= 10.9){
 			$level = 1;
 		}else{
 			$level = 2;

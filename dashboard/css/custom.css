@@ -279,7 +279,6 @@ h2.weather,
     /*background    : #fff ;*/
     /*overflow-y      : auto;*/
     transition: .2s height ease-in-out;
-    border:1px solid blue;
 }
 
 .customform {
@@ -294,7 +293,6 @@ h2.weather,
     text-align: left;
     color: #222;
     transition: .2s height ease-in-out;
-    border:1px solid red;
 }
 
 .customform .required .q_label {

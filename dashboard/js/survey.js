@@ -117,7 +117,7 @@ $(document).ready(function(){
           $(this).next().addClass("active", function(){
             var panel_height  = $(this).height();
             $("#customform").height(panel_height);
-            // $(".surveyFrame").height(panel_height+100);
+            $(this).height(panel_height*2);
           });
           $("#customform").animate({ scrollTop : 0}, function(){});
           return false;
@@ -138,7 +138,6 @@ $(document).ready(function(){
           type:'POST',
           data: surveyhash + project,
           success:function(result){
-            // console.log(result);
             location.href="index.php?survey_complete=" + instrument_name;
           }
         });
@@ -192,13 +191,10 @@ $(document).ready(function(){
 
     //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
     var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
-    console.log(nextEl);
     if(nextEl && !nextEl.is(".submits")){
       var nextpos = nextEl.position();
-      console.log(nextpos);
       if(nextpos !== undefined && nextpos.top){
         var nexttop       = nextpos.top;
-        console.log(nexttop);
         $("#customform").animate({ scrollTop :  nexttop},550);
       }
     }
@@ -224,13 +220,11 @@ $(document).ready(function(){
     var panel         = $("#customform section").index(newactive);
     var panel_height  = newactive.height();
     $("#customform").height(panel_height);
-    // $(".surveyFrame").height(panel_height+100);
-    newactive.addClass("active");
+    newactive.addClass("active").height(panel_height*2);
   }else{
     var panel_height  = $("#customform section").first().height();
     $("#customform").height(panel_height);
-    // $(".surveyFrame").height(panel_height+100);
-    $("#customform section").first().addClass("active");
+    $("#customform section").first().addClass("active").height(panel_height*2);
   }
 
   //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS

@@ -274,7 +274,7 @@ h2.weather,
 .surveyFrame {
     position: relative;
     overflow: hidden;
-    padding: 10px 0 200px;
+    padding: 10px 0 0;
     /*border-radius : 10px;*/
     /*background    : #fff ;*/
     /*overflow-y      : auto;*/

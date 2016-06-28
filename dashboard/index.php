@@ -54,13 +54,20 @@ if(isset($_GET["survey_complete"])){
 
 //FOR THE PIE CHART
 $graph_fields               = array(
-                                 "core_sitting"
-                                ,"core_sitting_nowrk"
-                                ,"core_sitting_weekend"
-                                ,"core_walking"
-                                ,"core_pa_mod"
-                                ,"core_pa_vig"
-                                ,"core_sleep"
+                                 "core_sitting_hh"
+                                ,"core_sitting_mm"
+                                ,"core_sitting_nowrk_hh"
+                                ,"core_sitting_nowrk_mm"
+                                ,"core_sitting_weekend_hh"
+                                ,"core_sitting_weekend_mm"
+                                ,"core_walking_hh"
+                                ,"core_walking_mm"
+                                ,"core_pa_mod_hh"
+                                ,"core_pa_mod_mm"
+                                ,"core_pa_vig_hh"
+                                ,"core_pa_vig_mm"
+                                ,"core_sleep_hh"
+                                ,"core_sleep_mm"
                               );
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
 
@@ -83,10 +90,11 @@ foreach($all_answers as $users_answers){
   $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
   foreach($u_ans as $fieldname => $hhmm){
     if(!empty($hhmm)){
-      list($hour, $min) = explode(":",$hhmm);
-      $hour_value   = (isset($hour) ? $hour : 0);
-      $min_value    = (isset($min)  ? $min  : 0);
-      $answer_value = ($min_value/60) + $hour_value;
+      if(strpos($fieldname,"hh") > -1){
+        $answer_value = (int) $hhmm;
+      }else if(strpos($fieldname,"mm") > -1){
+        $answer_value = (float) $hhmm/60;
+      }
 
       if(strpos($fieldname,"core_pa_mod") > -1){
         $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
@@ -133,10 +141,11 @@ $USER_TIME_SITTING_IN_HOURS = 0;
 $USER_TIME_SLEEP_HOURS      = 0;
 foreach($user_answers as $fieldname => $hhmm){
   if(!empty($hhmm)){
-    list($hour, $min) = explode(":",$hhmm);
-    $hour_value   = (isset($hour) ? $hour : 0);
-    $min_value    = (isset($min)  ? $min  : 0);
-    $answer_value = ($min_value/60) + $hour_value;
+    if(strpos($fieldname,"hh") > -1){
+      $answer_value = (int) $hhmm;
+    }else if(strpos($fieldname,"mm") > -1){
+      $answer_value = (float) $hhmm/60;
+    }
 
     if(strpos($fieldname,"core_pa_mod") > -1){
       $USER_TIME_PA_MOD_IN_HOURS += $answer_value;
@@ -203,17 +212,11 @@ include("inc/gl_head.php");
                         // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
 
-                      if(isset($_SESSION[SESSION_NAME]['ffq'])){
-                        $ffq = $_SESSION[SESSION_NAME]['ffq'];
-                      }else{
-                        $proj_name    = "foodquestions";
-                        $ffq_project  = new PreGenAccounts($loggedInUser
-                          , $proj_name , SurveysConfig::$projects[$proj_name]["URL"]
-                          , SurveysConfig::$projects[$proj_name]["TOKEN"]);
-
-                        $ffq = $ffq_project->getAccount();
-                        $_SESSION[SESSION_NAME]['ffq'] = $ffq;
-                      }
+                      $proj_name    = "foodquestions";
+                      $ffq_project  = new PreGenAccounts($loggedInUser
+                        , $proj_name , SurveysConfig::$projects[$proj_name]["URL"]
+                        , SurveysConfig::$projects[$proj_name]["TOKEN"]);
+                      $ffq = $ffq_project->getAccount();
                       if(!array_key_exists("error",$ffq)){
                         $nutrilink      = "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
                         $news[]         = "<li class='list-group-item icon_update'><a href='$nutrilink' style='color:#8C1515; font-weight:bold;' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>How well do you eat? &#128150 </a></li>";

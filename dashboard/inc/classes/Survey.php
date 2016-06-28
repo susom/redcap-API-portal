@@ -425,8 +425,8 @@ class Survey {
         }
 
         if(isset($mask)){  
-          $mask_js[]    = "$(\"#$field_name\").attr(\"placeholder\",\"$placeholder\");\n";
-          $mask_js[]    = "$(\"#$field_name\").mask(\"$mask\",{placeholder:\"$placeholder\"});\n";
+          $mask_js[]    = "$(\"#$field_name\").attr(\"placeholder\",\"$placeholder\").attr(\"type\",\"number\");\n";
+          // $mask_js[]    = "$(\"#$field_name\").mask(\"$mask\",{placeholder:\"$placeholder\"});\n";
         }
 
         if($branching_logic != "") {
@@ -440,7 +440,13 @@ class Survey {
         //SECTION HEADERS CAN BE DESCRIPTIVES TOO
         if(!empty($section_header)){
           if(!$first_section){
-            $section_html[] = "</section>";
+            //SUBMIT BUTTONS
+            $section_html[]     = '<div class="submits">';
+            $section_html[]     = '<a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a>';
+            $section_html[]     = '<button class="btn btn-primary" role="saverecord">Submit/Next</button>';
+            $section_html[]     = '<cite class="redcap">Powered by REDCap</cite>';
+            $section_html[]     = '</div>';
+            $section_html[]     = "</section>";
           }
 
           //OPEN UP A SECTION
@@ -558,7 +564,16 @@ class Survey {
           $theHTML  = array_merge($theHTML,$section_html);
         } 
       }
-      $theHTML[]    = "</section></form>";
+      
+      //SUBMIT BUTTONS
+      $theHTML[]     = '<div class="submits">';
+      $theHTML[]     = '<a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a>';
+      $theHTML[]     = '<button class="btn btn-primary" role="saverecord">Submit/Next</button>';
+      $theHTML[]     = '<cite class="redcap">Powered by REDCap</cite>';
+      $theHTML[]     = '</div>';
+
+      $theHTML[]    = "</section>";
+      $theHTML[]    = "</form>";
       $this->fieldtype_map = $type_arr;
       
       $theHTML[]  = "<script>";
@@ -566,8 +581,6 @@ class Survey {
       $theHTML    = array_merge($theHTML,$mask_js);
       $theHTML[]  = "});";
       $theHTML[]  = "</script>";
-
-      
     }
 
     // DUMP IT OUT HTML

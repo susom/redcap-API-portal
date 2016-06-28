@@ -226,26 +226,18 @@ include("inc/gl_head.php");
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10 surveyFrame">
                     <?php
+                      if(!$active_survey->surveycomplete){
+                          ?>
+                          <div id="survey_progress" class='progress progress-striped active'>
+                            <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_survey->surveypercent?>%' style='width: <?php echo $active_survey->surveypercent?>%'>Survey Progress</div>
+                          </div>
+                          <?php    
+                      }
                       //PRINT OUT THE HTML FOR THIS SURVEY
                       $active_survey->printHTML();
                     ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
-                    <div class="submits">
-                      <?php
-                        if(!$active_survey->surveycomplete){
-                          ?>
-                          <div class='progress progress-striped active'>
-                            <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_survey->surveypercent?>%' style='width: <?php echo $active_survey->surveypercent?>%'></div>
-                          </div>
-                          <a href="index.php" class="btn btn-info" role="savereturnlater">Save and Exit</a> 
-                          <button class="btn btn-primary" role="saverecord">Submit/Next</button>
-                          <?php    
-                        }
-                      ?>
-                    </div>
-
-                    <cite class="redcap">Powered by REDCap</cite>
                   </div>
                 </section>
               </section>
@@ -298,9 +290,9 @@ include("inc/gl_foot.php");
       }
 
       $branching_function .= "if((".implode(" $andor ", $ef_only).") && (".implode(" $andor ", $effectors).")){\n";
-      $branching_function .= "\$('.$affected').show();\n";
+      $branching_function .= "\$('.$affected').slideDown('medium');\n";
       $branching_function .= "}else{\n";
-      $branching_function .= "\$('.$affected').hide();\n";
+      $branching_function .= "\$('.$affected').slideUp('fast');\n";
       $branching_function .= "}\n";
     }
   $branching_function .= "return;\n";

@@ -93,10 +93,122 @@ $(document).ready(function(){
         //REMOVE THE SPINNER
         setTimeout(function(){
           $(".hasLoading").removeClass("hasLoading");
-        },550);
+        },450);
       }
     });
   }
+  //SUBMIT/NEXT
+  $("button[role='saverecord']").click(function(){
+    $("#customform section.active").each(function(idx){
+      //IF THERE IS ANOTHER SECTION THEN ITS A "NEXT" ACTION OTHERWISE, FINAL SUBMIT
+      if(checkValidation()){
+        return;
+      }
+
+      if(checkRequired()){
+        return;
+      }
+
+      if($(this).next().length){
+        $(".required_message").remove();
+        if($(this).hasClass("active")){
+          $(this).removeClass("active").addClass("inactive");
+
+          $(this).next().addClass("active", function(){
+            var panel_height  = $(this).height();
+            $("#customform").height(panel_height);
+            // $(".surveyFrame").height(panel_height+100);
+          });
+          $("#customform").animate({ scrollTop : 0}, function(){});
+          return false;
+        }
+      }else{
+        //SUBMIT ALL THOSE HIDDEN FORMS NOW
+        $("#customform input[type='hidden']").each(function(){
+          saveFormData($(this));
+        });
+
+        //SUBMIT AN ALL COMPLETE
+        //REDIRECT TO HOME WITH A MESSAGE
+        var dataURL         = "survey.php?ajax=1&surveycomplete=1";
+        var instrument_name = $("#customform").attr("name");
+        var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+        $.ajax({
+          url:  dataURL,
+          type:'POST',
+          data: surveyhash + project,
+          success:function(result){
+            // console.log(result);
+            location.href="index.php?survey_complete=" + instrument_name;
+          }
+        });
+      }    
+    });
+    return false;
+  });
+
+  //INPUT CHANGE ACTIONS
+  $("#customform :input").change(function(){
+    // console.log($(this));
+    //SAVE JUST THIS INPUTS DATA
+    $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
+    
+    saveFormData($(this));
+
+    //IF CONDITIONS MET THEN SHOW
+    if(isMET){
+      showMETScoring();
+    }
+    if(isMAT){
+      showMATScoring($(this));
+    }
+    if(isTCM){
+      showTCMScoring();
+    }
+
+    //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
+    var completed_count = 0;
+    var total_questions = 0;
+    for(var i in form_metadata){
+      //UPDATE THE user_answer FIELD IN form_metadata
+      if(form_metadata[i]["field_name"] == $(this).attr("name")){
+        form_metadata[i]["user_answer"] = $(this).val();
+      }
+
+      //NOW DO A RUNNING COUNT
+      if(form_metadata[i]["field_type"] !== "descriptive"){
+        if(form_metadata[i]["branching_logic"] == ""){
+          total_questions++;
+        }
+
+        if(form_metadata[i]["user_answer"] !== ""){
+          completed_count++;
+          if(form_metadata[i]["branching_logic"] !== ""){
+            total_questions++;
+          }
+        }
+      }
+    }
+
+    //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
+    var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
+    console.log(nextEl);
+    if(nextEl && !nextEl.is(".submits")){
+      var nextpos = nextEl.position();
+      console.log(nextpos);
+      if(nextpos !== undefined && nextpos.top){
+        var nexttop       = nextpos.top;
+        console.log(nexttop);
+        $("#customform").animate({ scrollTop :  nexttop},550);
+      }
+    }
+
+    //UPDATE THE PROGRESS BAR 
+    var pbar              = $(".progress-bar");
+    var percent_complete  = Math.round((completed_count/total_questions)*100,2) + "%";
+    updateProgressBar(pbar, percent_complete);
+    return;
+  }); 
 
   //SET THE INTIAL PROGRESS BAR
   var pbar              = $(".progress-bar");
@@ -109,13 +221,19 @@ $(document).ready(function(){
   var newactive         = $("div."+last_answered).closest("section");
   if(newactive.length){
     $("#customform section").removeClass("active");
-    var panel = $("#customform section").index(newactive);
+    var panel         = $("#customform section").index(newactive);
+    var panel_height  = newactive.height();
+    $("#customform").height(panel_height);
+    // $(".surveyFrame").height(panel_height+100);
     newactive.addClass("active");
   }else{
+    var panel_height  = $("#customform section").first().height();
+    $("#customform").height(panel_height);
+    // $(".surveyFrame").height(panel_height+100);
     $("#customform section").first().addClass("active");
   }
 
-  //CUSTOM MAT SCORING
+  //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS
   var mat_map = {
      "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 
     ,"mat_walkonground_fast"     : {"vid" : "Flat_NoRail_Fast" , "value" : null } 
@@ -165,110 +283,6 @@ $(document).ready(function(){
     showTCMScoring();
   }
 
-  //SUBMIT/NEXT
-  $("button[role='saverecord']").click(function(){
-    $("#customform section.active").each(function(idx){
-      //IF THERE IS ANOTHER SECTION THEN ITS A "NEXT" ACTION OTHERWISE, FINAL SUBMIT
-      if(checkValidation()){
-        return;
-      }
-
-      if(checkRequired()){
-        return;
-      }
-
-      if($(this).next().length){
-        $(".required_message").remove();
-        if($(this).hasClass("active")){
-          $(this).removeClass("active").addClass("inactive");
-          $(this).next().addClass("active", function(){});
-          $("#customform").animate({ scrollTop : 0}, function(){});
-          return false;
-        }
-      }else{
-        //SUBMIT ALL THOSE HIDDEN FORMS NOW
-        $("#customform input[type='hidden']").each(function(){
-          saveFormData($(this));
-        });
-
-        //SUBMIT AN ALL COMPLETE
-        //REDIRECT TO HOME WITH A MESSAGE
-        var dataURL         = "survey.php?ajax=1&surveycomplete=1";
-        var instrument_name = $("#customform").attr("name");
-        var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-        $.ajax({
-          url:  dataURL,
-          type:'POST',
-          data: surveyhash + project,
-          success:function(result){
-            // console.log(result);
-            location.href="index.php?survey_complete=" + instrument_name;
-          }
-        });
-      }    
-    });
-    return;
-  });
-
-  //INPUT CHANGE ACTIONS
-  $("#customform :input").change(function(){
-    // console.log($(this));
-    //SAVE JUST THIS INPUTS DATA
-    $(this).closest(".inputwrap").find(".q_label").addClass("hasLoading");
-    
-    saveFormData($(this));
-    if(isMET){
-      showMETScoring();
-    }
-    if(isMAT){
-      showMATScoring($(this));
-    }
-    if(isTCM){
-      showTCMScoring();
-    }
-
-    //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
-    var completed_count = 0;
-    var total_questions = 0;
-    for(var i in form_metadata){
-      //UPDATE THE user_answer FIELD IN form_metadata
-      if(form_metadata[i]["field_name"] == $(this).attr("name")){
-        form_metadata[i]["user_answer"] = $(this).val();
-      }
-
-      //NOW DO A RUNNING COUNT
-      if(form_metadata[i]["field_type"] !== "descriptive"){
-        if(form_metadata[i]["branching_logic"] == ""){
-          total_questions++;
-        }
-
-        if(form_metadata[i]["user_answer"] !== ""){
-          completed_count++;
-          if(form_metadata[i]["branching_logic"] !== ""){
-            total_questions++;
-          }
-        }
-      }
-    }
-
-    //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
-    var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
-    if(nextEl){
-      var nextpos = nextEl.position();
-      if(nextpos !== undefined && nextpos.top){
-        var nexttop       = nextpos.top;
-        $("#customform").animate({ scrollTop :  nexttop},800);
-      }
-    }
-
-    var pbar              = $(".progress-bar");
-    var percent_complete  = Math.round((completed_count/total_questions)*100,2) + "%";
-    updateProgressBar(pbar, percent_complete);
-    return;
-  }); 
-
-  
-  //CUSTOM SCORING FOR MET / MAT SURVEYS
   function getBMI(met_weight_pound, met_height_total_inch){
     var BMI = (met_weight_pound * 703)/(Math.pow(met_height_total_inch,2));
     return Math.round(BMI,2);
@@ -420,7 +434,6 @@ $(document).ready(function(){
     var user_ans_flat = _.pluck(user_answers,"name");
     var compare       = _.intersection(user_ans_flat, tcm_required_flat);
     var difference    = _.difference(tcm_required_flat, compare);
-
     if(!difference.length) {
       // then ajax to compute the score
       // var dataURL         = "survey.php?tcm=1";

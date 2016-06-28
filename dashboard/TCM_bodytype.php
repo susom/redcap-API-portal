@@ -74,12 +74,35 @@ function getBodyConstitution($constitutions,$type){
 	}
 	return array("result" => $theratio, "determination" => $determination, "other_ratio" => $oratio);
 }
+
+$grouping = array();
+foreach($tcm_map as $set => $qs){
+	$tcm = getBodyConstitution($tcm_map, $set);
+	$key = (strpos($tcm["determination"],"Positive") > 1) ? "<span>Tendency Positive</span> / <span>Essentially Positive</span>" : $tcm["determination"];
+	$grouping[$key][] = $set;
+	// echo "<dl class='constitution_result'><dt>$set</dt><dd>" . $tcm["determination"] ."</dd></dl>";
+}
 ?>
 <div id="tcm_results">
 	<?php
-	foreach($tcm_map as $set => $qs){
-		$tcm = getBodyConstitution($tcm_map, $set);
-		echo "<dl class='constitution_result'><dt>$set</dt><dd>" . $tcm["determination"] ."</dd></dl>";
+	$group_size = array();
+	foreach($grouping as $determination => $type){
+		$group_size[] = count($type);
+	}
+	$max = max($group_size);
+	$min = min($group_size);
+	foreach($grouping as $determination => $type){
+		$perc = count($type) == $max ? 100 : (count($type) == $min ? 50 : 75);
+		echo "<div class='group'>";
+		echo "<div class='subgroup $determination' style='width:$perc%'>";
+		echo "<h4>$determination</h4>";
+		echo "<ul>";
+		echo "<li>";
+		echo implode("</li><li>",$type);
+		echo "</li>";
+		echo "</ul>";
+		echo "</div>";
+		echo"</div>";
 	}
 	?>
 </div>

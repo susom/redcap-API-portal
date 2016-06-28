@@ -239,15 +239,14 @@ h2.weather,
     margin: 0 auto 20px;
     background-color: #ccc;
     position:absolute; 
-    top:24px;
+    top:34px;
     right:10px;
-    height:30px;
     text-indent:10px;
     white-space:nowrap;
 }
 #survey_progress .progress-bar{
     font-size:14px; 
-    line-height:210%;
+    line-height:140%;
     color:#fff;
     font-weight:600;
 }

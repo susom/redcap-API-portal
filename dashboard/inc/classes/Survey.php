@@ -646,7 +646,7 @@ class Survey {
 
       if(isset($mask)){  
         $mask_js[]    = "$(\"#$field_name\").attr(\"placeholder\",\"$placeholder\");\n";
-        $mask_js[]    = "$(\"#$field_name\").mask(\"$mask\",{placeholder:\"$placeholder\"});\n";
+        // $mask_js[]    = "$(\"#$field_name\").mask(\"$mask\",{placeholder:\"$placeholder\"});\n";
       }
 
       if($branching_logic != "") {

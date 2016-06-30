@@ -1602,7 +1602,7 @@ input[readonly] {
     line-height: 370%;
     text-indent: -12px;
     background-size: 100%;
-    display:none;
+    display:block;
 }
 
 #met_desc {

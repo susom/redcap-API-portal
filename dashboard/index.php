@@ -229,11 +229,11 @@ include("inc/gl_head.php");
                           continue;
                         }
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
-                        $tooltip      = isset($projnotes[$supp_instrument_id]) ? $projnotes[$supp_instrument_id] : "";
-                        $titletext    = $core_surveys_complete ? $tooltip : "Come back to these surveys once you complete the Core Surveys!";
+                        $surveyname   = $supp_instrument["label"];
+                        
+                        $titletext    = $core_surveys_complete ? $surveyname : "Come back to these surveys once you complete the Core Surveys!";
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $core_surveys_complete ? " icon_update" : "";
-                        $surveyname   = $supp_instrument["label"];
 
                         $news[]       = "<li class='list-group-item $icon_update'>
                                             <a href='$surveylink' title='$titletext'>$surveyname</a> survey
@@ -270,7 +270,7 @@ include("inc/gl_head.php");
                         }
 
                         $showfruit[] = "<li class='nav'>
-                            <a rel='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname'>                                                        
+                            <a href='$surveylink' class='fruit ".$fruits[$index]." $completeclass' title='$surveyname'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>";
@@ -282,7 +282,7 @@ include("inc/gl_head.php");
                         $surveylink  = "survey.php?sid=". $supp_instrument_id;
                         $completeclass  = ($supp_instrument["survey_complete"] ? "completed":"");
                         $showfruit[] = "<li class='nav'>
-                            <a rel='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        
+                            <a href='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        
                               <span>$surveyname</span>
                             </a>
                           </li>";

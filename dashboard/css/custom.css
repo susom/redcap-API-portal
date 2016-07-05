@@ -566,6 +566,14 @@ input[readonly] {
     color: #333;
 }
 
+.profile_card figcaption i {
+    color:#1CCACC;
+    font-weight:bold;
+    font-size:16px;
+    display:block; 
+    margin:8px 0 0;
+}
+
 .profile_card figcaption em {
     font-style: normal;
 }

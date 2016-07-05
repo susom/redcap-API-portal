@@ -46,6 +46,9 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
 }
 
+
+
+
 $shownavsmore   = true;
 $survey_active  = ' ';
 $profile_active = ' class="active"';
@@ -114,6 +117,7 @@ include("inc/gl_head.php");
                           <figcaption>
                             <b><?php echo $p_firstname . " " . $p_lastname ?></b>
                             <em>Joined : <?php echo $p_joined ?></em>
+                            <i><? if($elite_order) echo "#" . $elite_order . " to sign up!" ?></i>
                           </figcaption>
                         </figure>
                         <ul>

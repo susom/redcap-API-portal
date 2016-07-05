@@ -6,14 +6,13 @@
     $_SESSION["elite_users"]  = $elite;
   }
   $special_user = in_array($loggedInUser->id, $elite) ?  "special_user_icon" : "";  
-  if(!empty($special_user)){
+  if(in_array($loggedInUser->id, $elite)){
     foreach($elite as $uorder => $uids){
       if($uids == $loggedInUser->id){
         $elite_order = $uorder + 1;
       }
     }
   }
-  
 ?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?php echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">

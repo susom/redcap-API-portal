@@ -279,7 +279,7 @@ $(document).ready(function(){
 
   function getBMI(met_weight_pound, met_height_total_inch){
     var BMI = (met_weight_pound * 703)/(Math.pow(met_height_total_inch,2));
-    return Math.round(BMI,2);
+    return BMI;
   }
 
   function getMETScore(gender,age,bmi,isSmoker,PA_level){
@@ -301,13 +301,13 @@ $(document).ready(function(){
     phys_act_score = PA_SCORE[PA_level];
     
     //LINEAR WEIGHTs
-    var x_age    = gender == "male" ? .10    : .16;
-    var x_bmi    = gender == "male" ? .20    : .32;
-    var x_smoker = gender == "male" ? .29    : .41;
-    var x_const  = gender == "male" ? 12.77  : 12.26;
+    var x_age    = gender == "male" ? .16   : .10  ;
+    var x_bmi    = gender == "male" ? .32   : .20  ;
+    var x_smoker = gender == "male" ? .41   : .29  ;
+    var x_const  = gender == "male" ? 17.26 : 12.77;
 
     var MetScore = (age*x_age) - .002*(Math.pow(age,2)) - (bmi*x_bmi) + phys_act_score - x_smoker*isSmoker + x_const;
-    return Math.round(MetScore*10)/10;
+    return Math.round(MetScore*100)/100;
   }
 
   function showMETScoring(){
@@ -318,12 +318,13 @@ $(document).ready(function(){
     var inch      = $('#met_height_inch :selected').val();
     var weight    = $('#met_weigh_pound :selected').val();
     var height    = parseInt(foot)*12 + parseInt(inch);
+
     var bmi       = getBMI(weight, height);
     var gender    = $('.met_gender input:checked').val();
     var ughgender = gender == 2 || gender == 4 ? "female" : "male";
     var isSmoker  = $('.met_smoker input:checked').val();
     var PA_level  = $('.met_pa_level input:checked').val();
-
+console.log(weight,height,bmi,PA_level);
     if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
       var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
       

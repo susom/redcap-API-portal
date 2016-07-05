@@ -845,7 +845,7 @@ input[readonly] {
 
 .surveyHeader {
     margin: 0 0 20px;
-    padding: 15px 0;
+    padding: 15px 300px 15px 0;
     border-bottom: 1px solid #888;
 }
 
@@ -1752,8 +1752,42 @@ input[readonly] {
 
 
 #tcm_results { 
-    margin-bottom:40px;  
+    width:100%;
+    margin-bottom:40px;
 }
+#tcm_results td { 
+    width:10%; 
+    position:relative;
+    vertical-align: bottom;
+}
+#tcm_results td div {
+    height:200px;
+    margin:0 2px;
+    background:green;
+}
+#tcm_results td .neg {
+    height:5px;
+    background:red;
+}
+#tcm_results td .mayb {
+    height:100px;
+    background:orange;
+}
+
+#tcm_results .type td {
+    text-align:right;
+    vertical-align:top;
+    text-align:center;
+}
+#tcm_results .type span {
+    writing-mode: vertical-lr;
+    transform: rotate(200deg);
+    white-space: nowrap;
+    display: inline-block;
+}
+
+
+
 #tcm_results .group {
     width:33%;
     text-align:center; 

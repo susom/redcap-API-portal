@@ -41,6 +41,12 @@ foreach($tcm_reqs as $key => $reqset){
 	$tcm_map[$tcm_types[$key]] = $temp;
 }
 
+$tcm_det = array();
+foreach($tcm_map as $set => $qs){
+	$tcm = getBodyConstitution($tcm_map, $set);
+	$tcm_det[] = $tcm["determination"];
+}
+	
 function getBodyConstitution($constitutions,$type){
 	$constitution 	= $constitutions[$type];
 	$qs 			= count($constitution);
@@ -57,52 +63,42 @@ function getBodyConstitution($constitutions,$type){
 		$oratio 	= $osum/($oqs*5);
 
 
-		$determination = "Negative";
+		$determination = 0;
 		if($theratio >= .7 && $oratio < .5){
-			$determination = "Positive";
+			$determination = 2;
 		}else if($theratio >= .7 && $oratio < .6){
-			$determination = "Essentially Positive";
+			$determination = 1;
 		}
 	}else{
-		$determination = "Negative";
+		$determination = 0;
 		if($theratio >= .6){
-			$determination = "Positive";
+			$determination = 2;
 		}else if($theratio >= .5 && $theratio < .6){
-			$determination = "Tendency to Positive";
+			$determination = 1;
 		}
 		$oratio = null;
 	}
 	return array("result" => $theratio, "determination" => $determination, "other_ratio" => $oratio);
 }
-
-$grouping = array();
-foreach($tcm_map as $set => $qs){
-	$tcm = getBodyConstitution($tcm_map, $set);
-	$key = (strpos($tcm["determination"],"Positive") > 1) ? "<span>Tendency Positive</span> / <span>Essentially Positive</span>" : $tcm["determination"];
-	$grouping[$key][] = $set;
-	// echo "<dl class='constitution_result'><dt>$set</dt><dd>" . $tcm["determination"] ."</dd></dl>";
-}
 ?>
-<div id="tcm_results">
-	<?php
-	$group_size = array();
-	foreach($grouping as $determination => $type){
-		$group_size[] = count($type);
-	}
-	$max = max($group_size);
-	$min = min($group_size);
-	foreach($grouping as $determination => $type){
-		$perc = count($type) == $max ? 100 : (count($type) == $min ? 50 : 75);
-		echo "<div class='group'>";
-		echo "<div class='subgroup $determination' style='width:$perc%'>";
-		echo "<h4>$determination</h4>";
-		echo "<ul>";
-		echo "<li>";
-		echo implode("</li><li>",$type);
-		echo "</li>";
-		echo "</ul>";
-		echo "</div>";
-		echo"</div>";
-	}
-	?>
-</div>
+<table id="tcm_results">
+	<tr>
+		<td>
+			<table>
+				<tr><td >Positive</td></tr>
+				<tr><td style="height:100px; vertical-align:bottom">Essentially/Tendency Positive</td></tr>
+				<tr><td style="height:80px; vertical-align:bottom">Negative</td></tr>
+			</table>	
+		</td>
+		<?php
+			foreach($tcm_det as $det){
+				$det = !$det ? "neg" : ($det > 1 ? "pos" : "mayb");
+				echo "<td><div class='$det'></div></td>";
+			}
+		?>
+	</tr>
+	<tr class="type">
+		<td></td>
+		<td><span><?php echo implode("</span></td><td><span>",$tcm_types) ?></span></td>
+	</tr>
+</table>

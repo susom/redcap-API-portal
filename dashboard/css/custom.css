@@ -1600,6 +1600,7 @@ input[readonly] {
 }
 
 #met_score {
+    display:none;
     float: left;
     background: url(../images/MET_MAT_Results_Ribbon.png) 0 0 no-repeat;
     height: 220px;
@@ -1610,7 +1611,6 @@ input[readonly] {
     line-height: 370%;
     text-indent: -12px;
     background-size: 100%;
-    display:block;
 }
 
 #met_desc {
@@ -1760,6 +1760,7 @@ input[readonly] {
 
 
 #tcm_results { 
+    margin-top:30px;
     width:100%;
     margin-bottom:40px;
 }

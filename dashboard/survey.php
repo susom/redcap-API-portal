@@ -257,7 +257,7 @@ include("inc/gl_foot.php");
 <script>
 // $(document).ready(function(){
 <?php
-  $isMET = $sid == "how_physically_active_are_you"                      ? "true" : "false";
+  $isMET = $sid == "how_fit_are_you"                      ? "true" : "false";
   $isMAT = $sid == "how_is_your_physical_mobility"                      ? "true" : "false";
   $isTCM = $sid == "find_out_your_body_type_according_to_chinese_medic" ? "true" : "false";
   echo "var isMET               = $isMET ;\n";

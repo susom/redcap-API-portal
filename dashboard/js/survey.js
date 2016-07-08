@@ -324,7 +324,6 @@ $(document).ready(function(){
     var ughgender = gender == 2 || gender == 4 ? "female" : "male";
     var isSmoker  = $('.met_smoker input:checked').val();
     var PA_level  = $('.met_pa_level input:checked').val();
-console.log(weight,height,bmi,PA_level);
     if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
       var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
       
@@ -350,7 +349,7 @@ console.log(weight,height,bmi,PA_level);
           if($("#met_results").length > 0){
             $("#met_results").remove();
           }
-          nextSection.prepend(result);
+          nextSection.find("h2").after(result);
           $("#met_desc").data("")
           $("#met_score").text(METScore);
         }
@@ -393,7 +392,6 @@ console.log(weight,height,bmi,PA_level);
           var data      = JSON.parse(result);
           var matscore  = data.value;
           
-          console.log("matscore",matscore);
           if(matscore < 40){
               var picperc = "sixsix";
               var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
@@ -430,27 +428,17 @@ console.log(weight,height,bmi,PA_level);
     var compare       = _.intersection(user_ans_flat, tcm_required_flat);
     var difference    = _.difference(tcm_required_flat, compare);
     if(!difference.length) {
-      // then ajax to compute the score
-      // var dataURL         = "survey.php?tcm=1";
-      // var instrument_name = $("#customform").attr("name");
-      // var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-      // $.ajax({
-      //   url:  dataURL,
-      //   type:'POST',
-      //   data: project + "&tcm_answers=" + JSON.stringify($("#customform").serialize()),
-      //   success:function(result){
-      //     console.log(result);
-      //   }
-      // });
-
-      var nextSection = $("#customform section:last-child");
+      var nextSection = $("#customform section.active").next();
       var dataURL     = "TCM_bodytype.php";
       $.ajax({
         url:  dataURL,
         type:'POST',
         data: "&tcm_answers=" + JSON.stringify($("#customform").serializeArray()),
         success:function(result){
-          nextSection.prepend(result);
+          if($("#tcm_results").length > 0){
+            $("#tcm_results").remove();
+          }
+          nextSection.find("h2").after(result);
         }
       });
     }else{

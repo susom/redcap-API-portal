@@ -255,7 +255,6 @@ include("inc/gl_head.php");
 include("inc/gl_foot.php");
 ?>
 <script>
-// $(document).ready(function(){
 <?php
   $isMET = $sid == "how_fit_are_you"                      ? "true" : "false";
   $isMAT = $sid == "how_is_your_physical_mobility"                      ? "true" : "false";
@@ -307,6 +306,5 @@ include("inc/gl_foot.php");
     return v == null || v == undefined;
   }
   // $.mask.definitions['M'] = "[0|1|\s]";
-// });
 </script>
 <script src="js/survey.js"></script>

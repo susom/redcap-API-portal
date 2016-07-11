@@ -1,102 +1,4 @@
 $(document).ready(function(){
-  //LAUNCH IT INITIALLY TO CHECK IF PAGE HAS BRANCHING
-  checkGeneralBranching();
-
-  function updateProgressBar(ref, perc){
-    //UPDATE SURVEY PROGERSS BAR
-    ref.attr("data-original-title",perc).css("width",perc);
-    return;
-  }
-
-  function checkRequired(){
-    //ANNOY USERS IF THEY DIDNT FILL OUT A FORM ITEM, PER SECTION!
-    var required_fields = $("#customform section.active .required");
-    var req_missing     = false;
-
-    required_fields.each(function(){
-      if( $(this).is(":visible") && (    ($(this).find(":input").is(':text')  && $(this).find(":input").val().length == 0)
-          || ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
-          || ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0) )
-        ){
-        //ONLY SHOW THE ANNOYING MESSAGE ONCE
-        if( !$("#customform section.active").hasClass("annoying_message") ){
-          req_missing = true;
-
-          $("#customform section.active").addClass("annoying_message")
-          var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left some fields empty.  If this was intentional please click Submit/Next again or go back and provide the missing information.<li></ul>");
-          reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
-          $("body").append(reqmsg);
-          return;
-        }
-      }
-    });                
-
-    return req_missing;
-  }
-
-  function checkValidation(){
-    var validation_choices  = [ "date" ,"email" ,"integer" ,"number" ,"phone" ,"time" ,"zipcode" ,"date_dmy", "date_mdy", "date_ymd", "datetime_dmy", "datetime_mdy", "datetime_ymd", "datetime_seconds_dmy" ,"datetime_seconds_mdy", "datetime_seconds_ymd" ];
-    var verifyjs            = $("#customform section.active").find(".notifyjs-container");
-    if(verifyjs.is(":visible")){
-      return true;
-    }
-
-    return false;        
-  }
-
-  function saveFormData(elem){
-    var dataURL = "survey.php?ajax=1";
-    var for_branch_name = elem.prop("name");
-    var for_branch_val  = elem.val();
-
-    //FOR CHECKBOX TYPES
-    if(elem.is(":checkbox")){
-      //REDCAP SEES THESE DIFFERENTLY, MUST TEMPORARILY ALTER INPUT ATTRIBUTES TO SUBMIT PROPERLY
-      var optioncode  = elem.val();
-      for_branch_val  = optioncode;
-      var oldname     = elem.prop("name");
-      var chkbx_name  = oldname + "___" + optioncode;;
-      var isChecked   = elem.is(":checked") ? 1 : 0;
-
-      elem.prop("name", chkbx_name);
-      elem.prop("checked",true);
-      elem.val(isChecked);
-    }
-
-    if(!elem.val()){
-      elem.val(null);
-    }
-
-    //NOW UPDATE THE INMEMORY COMPLETED THING AND RUN THE PAGE BRANCHING CHECK
-    all_completed[for_branch_name] = for_branch_val;
-    checkGeneralBranching();
-
-    //CHECK PROJECT
-    var project = "&project=" + $("#customform").data("project");
-    $.ajax({
-      url:  dataURL,
-      type:'POST',
-      data: elem.serialize() + project,
-      success:function(result){
-        // console.log("result from save:",result);
-
-        if(elem.is(":checkbox")){
-          //GOTTA RESET THE checkbox properties haha
-          elem.prop("name",oldname);
-          elem.val(optioncode);
-
-          if(!isChecked){
-            elem.prop("checked",false);
-          }
-        } 
-
-        //REMOVE THE SPINNER
-        setTimeout(function(){
-          $(".hasLoading").removeClass("hasLoading");
-        },450);
-      }
-    });
-  }
   //SUBMIT/NEXT
   $("button[role='saverecord']").click(function(){
     $("#customform section.active").each(function(idx){
@@ -220,7 +122,10 @@ $(document).ready(function(){
     var panel         = $("#customform section").index(newactive);
     var panel_height  = newactive.height();
     $("#customform").height(panel_height);
-    newactive.addClass("active").height(panel_height*2);
+    newactive.addClass("active");
+    if($("#customform section").length > 1){
+      newactive.height(panel_height*2);
+    }
   }else{
     var panel_height  = $("#customform section").first().height();
     $("#customform").height(panel_height);
@@ -276,177 +181,273 @@ $(document).ready(function(){
   if(isTCM){
     showTCMScoring();
   }
-
-  function getBMI(met_weight_pound, met_height_total_inch){
-    var BMI = (met_weight_pound * 703)/(Math.pow(met_height_total_inch,2));
-    return BMI;
-  }
-
-  function getMETScore(gender,age,bmi,isSmoker,PA_level){
-    //HARD CONSTANTS
-    PA_SCORE = [];
-    if(gender == "male"){
-      PA_SCORE[1] = 0;
-      PA_SCORE[2] = 0.37;
-      PA_SCORE[3] = 0.51;
-      PA_SCORE[4] = 1.03;
-      PA_SCORE[5] = 1.48;
-    }else{
-      PA_SCORE[1]   = 0;
-      PA_SCORE[2]   = 0.27;
-      PA_SCORE[3]   = 0.36;
-      PA_SCORE[4]   = 0.77;
-      PA_SCORE[5]   = 1.22;
-    }
-    phys_act_score = PA_SCORE[PA_level];
-    
-    //LINEAR WEIGHTs
-    var x_age    = gender == "male" ? .16   : .10  ;
-    var x_bmi    = gender == "male" ? .32   : .20  ;
-    var x_smoker = gender == "male" ? .41   : .29  ;
-    var x_const  = gender == "male" ? 17.26 : 12.77;
-
-    var MetScore = (age*x_age) - .002*(Math.pow(age,2)) - (bmi*x_bmi) + phys_act_score - x_smoker*isSmoker + x_const;
-    return Math.round(MetScore*100)/100;
-  }
-
-  function showMETScoring(){
-    //GATHER ALL AND IF THEY ARE ALL FILLED OUT SHOW THE SCORE
-    var age       = $('#met_age').val();
-
-    var foot      = $('#met_height_ft :selected').val();
-    var inch      = $('#met_height_inch :selected').val();
-    var weight    = $('#met_weigh_pound :selected').val();
-    var height    = parseInt(foot)*12 + parseInt(inch);
-
-    var bmi       = getBMI(weight, height);
-    var gender    = $('.met_gender input:checked').val();
-    var ughgender = gender == 2 || gender == 4 ? "female" : "male";
-    var isSmoker  = $('.met_smoker input:checked').val();
-    var PA_level  = $('.met_pa_level input:checked').val();
-    if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
-      var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
-      
-      var dataURL         = "survey.php?met=1";
-      var instrument_name = $("#customform").attr("name");
-      var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-      $.ajax({
-        url:  dataURL,
-        type:'POST',
-        data: project + "&met_score=" + METScore,
-        success:function(result){
-
-        }
-      });
-
-      var nextSection = $("#customform section:eq(1)");
-      var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
-      $.ajax({
-        url:  dataURL,
-        type:'POST',
-        data: null,
-        success:function(result){
-          if($("#met_results").length > 0){
-            $("#met_results").remove();
-          }
-          nextSection.find("h2").after(result);
-          $("#met_desc").data("")
-          $("#met_score").text(METScore);
-        }
-      });
-    }
-  }
-
-  function showMATScoring(qinput){
-    var mat_complete  = true;
-
-    if(qinput){
-      //single input, stuff value into object 
-      var fieldname = qinput.attr("name");
-      var fieldval  = qinput.val();
-      if(mat_map.hasOwnProperty(fieldname)){
-        mat_map[fieldname]["value"] = fieldval;   
-      }
-    }
-
-    for(var prop in mat_map){
-      //check to see if all the questions are complete
-      if(!mat_map[prop]["value"]){
-        mat_complete = false;
-      }
-    }
-
-    if(mat_complete) {
-      // then ajax to compute the score
-      var dataURL         = "survey.php?mat=1";
-      var instrument_name = $("#customform").attr("name");
-      var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-      
-      var nextSection = $("#customform section.active").next();
-      $.ajax({
-        url:  dataURL,
-        type:'POST',
-        data: project + "&mat_answers=" + JSON.stringify(mat_map),
-        success:function(result){
-          // console.log(result);
-          var data      = JSON.parse(result);
-          var matscore  = data.value;
-          
-          if(matscore < 40){
-              var picperc = "sixsix";
-              var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
-          }else if(matscore < 50){
-              var picperc = "fivetwo";
-              var desc = "In the next 4 years, 5.2 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
-          }else if(matscore < 60){
-              var picperc = "threefive";
-              var desc = "In the next 4 years, 3.5 people out of 10 are going to lose the ability to do the active things they enjoy or value."
-          }else{
-              var picperc = "hundo";
-              var desc = "Your functional capacity and physical mobility are excellent! Keep up the good work!"
-          }
-
-          if($("#mat_results").length > 0){
-            $("#mat_results").remove();
-          }
-          var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
-          nextSection.find("h2").after(results);
-
-          $("#mat_pic, #mat_results").addClass(picperc);
-          $("#mat_text").text(desc);
-        }
-      });
-    }
-  }
-
-  function showTCMScoring(){
-    var all_answers   = $("#customform").serializeArray();
-    var user_answers  =  _.filter(all_answers, function(obj){
-      return obj.value !== "" && obj.value !== null;
-    });
-    var user_ans_flat = _.pluck(user_answers,"name");
-    var compare       = _.intersection(user_ans_flat, tcm_required_flat);
-    var difference    = _.difference(tcm_required_flat, compare);
-    if(!difference.length) {
-      var nextSection = $("#customform section:last").prev();
-      var dataURL     = "TCM_bodytype.php";
-      $.ajax({
-        url:  dataURL,
-        type:'POST',
-        data: "&tcm_answers=" + JSON.stringify($("#customform").serializeArray()),
-        success:function(result){
-          if($("#tcm_results").length > 0){
-            $("#tcm_results").remove();
-          }
-          nextSection.find("h2").after(result);
-        }
-      });
-    }else{
-      // console.log(difference);
-    }
-  }
-
-  function isEmpty(v){
-    return v == null || v == undefined;
-  }
 });
+
+function isEmpty(v){
+  return v == null || v == undefined;
+}
+
+function updateProgressBar(ref, perc){
+  //UPDATE SURVEY PROGERSS BAR
+  ref.attr("data-original-title",perc).css("width",perc);
+  return;
+}
+
+function checkRequired(){
+  //ANNOY USERS IF THEY DIDNT FILL OUT A FORM ITEM, PER SECTION!
+  var required_fields = $("#customform section.active .required");
+  var req_missing     = false;
+
+  required_fields.each(function(){
+    if( $(this).is(":visible") && (    ($(this).find(":input").is(':text')  && $(this).find(":input").val().length == 0)
+        || ($(this).find(":input").is('select') && $(this).find(":input").val() == "-")
+        || ($(this).find(":input").is(':radio') && $(this).find(":input:checked").length == 0) )
+      ){
+      //ONLY SHOW THE ANNOYING MESSAGE ONCE
+      if( !$("#customform section.active").hasClass("annoying_message") ){
+        req_missing = true;
+
+        $("#customform section.active").addClass("annoying_message")
+        var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left some fields empty.  If this was intentional please click Submit/Next again or go back and provide the missing information.<li></ul>");
+        reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
+        $("body").append(reqmsg);
+        return;
+      }
+    }
+  });                
+
+  return req_missing;
+}
+
+function checkValidation(){
+  var validation_choices  = [ "date" ,"email" ,"integer" ,"number" ,"phone" ,"time" ,"zipcode" ,"date_dmy", "date_mdy", "date_ymd", "datetime_dmy", "datetime_mdy", "datetime_ymd", "datetime_seconds_dmy" ,"datetime_seconds_mdy", "datetime_seconds_ymd" ];
+  var verifyjs            = $("#customform section.active").find(".notifyjs-container");
+  if(verifyjs.is(":visible")){
+    return true;
+  }
+
+  return false;        
+}
+
+function saveFormData(elem){
+  var dataURL = "survey.php?ajax=1";
+  var for_branch_name = elem.prop("name");
+  var for_branch_val  = elem.val();
+
+  //FOR CHECKBOX TYPES
+  if(elem.is(":checkbox")){
+    //REDCAP SEES THESE DIFFERENTLY, MUST TEMPORARILY ALTER INPUT ATTRIBUTES TO SUBMIT PROPERLY
+    var optioncode  = elem.val();
+    for_branch_val  = optioncode;
+    var oldname     = elem.prop("name");
+    var chkbx_name  = oldname + "___" + optioncode;;
+    var isChecked   = elem.is(":checked") ? 1 : 0;
+
+    elem.prop("name", chkbx_name);
+    elem.prop("checked",true);
+    elem.val(isChecked);
+  }
+
+  if(!elem.val()){
+    elem.val(null);
+  }
+
+  //NOW UPDATE THE INMEMORY COMPLETED THING AND RUN THE PAGE BRANCHING CHECK
+  all_completed[for_branch_name] = for_branch_val;
+  checkGeneralBranching();
+
+  //CHECK PROJECT
+  var project = "&project=" + $("#customform").data("project");
+  $.ajax({
+    url:  dataURL,
+    type:'POST',
+    data: elem.serialize() + project,
+    success:function(result){
+      // console.log("result from save:",result);
+
+      if(elem.is(":checkbox")){
+        //GOTTA RESET THE checkbox properties haha
+        elem.prop("name",oldname);
+        elem.val(optioncode);
+
+        if(!isChecked){
+          elem.prop("checked",false);
+        }
+      } 
+
+      //REMOVE THE SPINNER
+      setTimeout(function(){
+        $(".hasLoading").removeClass("hasLoading");
+      },450);
+    }
+  });
+}
+
+function getBMI(met_weight_pound, met_height_total_inch){
+  var BMI = (met_weight_pound * 703)/(Math.pow(met_height_total_inch,2));
+  return BMI;
+}
+
+function getMETScore(gender,age,bmi,isSmoker,PA_level){
+  //HARD CONSTANTS
+  PA_SCORE = [];
+  if(gender == "male"){
+    PA_SCORE[1] = 0;
+    PA_SCORE[2] = 0.37;
+    PA_SCORE[3] = 0.51;
+    PA_SCORE[4] = 1.03;
+    PA_SCORE[5] = 1.48;
+  }else{
+    PA_SCORE[1]   = 0;
+    PA_SCORE[2]   = 0.27;
+    PA_SCORE[3]   = 0.36;
+    PA_SCORE[4]   = 0.77;
+    PA_SCORE[5]   = 1.22;
+  }
+  phys_act_score = PA_SCORE[PA_level];
+  
+  //LINEAR WEIGHTs
+  var x_age    = gender == "male" ? .16   : .10  ;
+  var x_bmi    = gender == "male" ? .32   : .20  ;
+  var x_smoker = gender == "male" ? .41   : .29  ;
+  var x_const  = gender == "male" ? 17.26 : 12.77;
+
+  var MetScore = (age*x_age) - .002*(Math.pow(age,2)) - (bmi*x_bmi) + phys_act_score - x_smoker*isSmoker + x_const;
+  return Math.round(MetScore*100)/100;
+}
+
+function showMETScoring(){
+  //GATHER ALL AND IF THEY ARE ALL FILLED OUT SHOW THE SCORE
+  var age       = $('#met_age').val();
+
+  var foot      = $('#met_height_ft :selected').val();
+  var inch      = $('#met_height_inch :selected').val();
+  var weight    = $('#met_weigh_pound :selected').val();
+  var height    = parseInt(foot)*12 + parseInt(inch);
+
+  var bmi       = getBMI(weight, height);
+  var gender    = $('.met_gender input:checked').val();
+  var ughgender = gender == 2 || gender == 4 ? "female" : "male";
+  var isSmoker  = $('.met_smoker input:checked').val();
+  var PA_level  = $('.met_pa_level input:checked').val();
+  if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
+    var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
+    
+    var dataURL         = "survey.php?met=1";
+    var instrument_name = $("#customform").attr("name");
+    var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      data: project + "&met_score=" + METScore,
+      success:function(result){
+
+      }
+    });
+
+    var nextSection = $("#customform section:eq(1)");
+    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      data: null,
+      success:function(result){
+        if($("#met_results").length > 0){
+          $("#met_results").remove();
+        }
+        nextSection.find("h2").after(result);
+        $("#met_desc").data("")
+        $("#met_score").text(METScore);
+      }
+    });
+  }
+}
+
+function showMATScoring(qinput){
+  var mat_complete  = true;
+
+  if(qinput){
+    //single input, stuff value into object 
+    var fieldname = qinput.attr("name");
+    var fieldval  = qinput.val();
+    if(mat_map.hasOwnProperty(fieldname)){
+      mat_map[fieldname]["value"] = fieldval;   
+    }
+  }
+
+  for(var prop in mat_map){
+    //check to see if all the questions are complete
+    if(!mat_map[prop]["value"]){
+      mat_complete = false;
+    }
+  }
+
+  if(mat_complete) {
+    // then ajax to compute the score
+    var dataURL         = "survey.php?mat=1";
+    var instrument_name = $("#customform").attr("name");
+    var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+    
+    var nextSection = $("#customform section.active").next();
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      data: project + "&mat_answers=" + JSON.stringify(mat_map),
+      success:function(result){
+        // console.log(result);
+        var data      = JSON.parse(result);
+        var matscore  = data.value;
+        
+        if(matscore < 40){
+            var picperc = "sixsix";
+            var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+        }else if(matscore < 50){
+            var picperc = "fivetwo";
+            var desc = "In the next 4 years, 5.2 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+        }else if(matscore < 60){
+            var picperc = "threefive";
+            var desc = "In the next 4 years, 3.5 people out of 10 are going to lose the ability to do the active things they enjoy or value."
+        }else{
+            var picperc = "hundo";
+            var desc = "Your functional capacity and physical mobility are excellent! Keep up the good work!"
+        }
+
+        if($("#mat_results").length > 0){
+          $("#mat_results").remove();
+        }
+        var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
+        nextSection.find("h2").after(results);
+
+        $("#mat_pic, #mat_results").addClass(picperc);
+        $("#mat_text").text(desc);
+      }
+    });
+  }
+}
+
+function showTCMScoring(){
+  var all_answers   = $("#customform").serializeArray();
+  var user_answers  =  _.filter(all_answers, function(obj){
+    return obj.value !== "" && obj.value !== null;
+  });
+  var user_ans_flat = _.pluck(user_answers,"name");
+  var compare       = _.intersection(user_ans_flat, tcm_required_flat);
+  var difference    = _.difference(tcm_required_flat, compare);
+  if(!difference.length) {
+    var nextSection = $("#customform section:last").prev();
+    var dataURL     = "TCM_bodytype.php";
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      data: "&tcm_answers=" + JSON.stringify($("#customform").serializeArray()),
+      success:function(result){
+        if($("#tcm_results").length > 0){
+          $("#tcm_results").remove();
+        }
+        nextSection.find("h2").after(result);
+      }
+    });
+  }else{
+    // console.log(difference);
+  }
+}

@@ -369,7 +369,7 @@ include("inc/gl_head.php");
                           weathercodes[47] = "c"; //isolated thundershowers
                           
                           $.simpleWeather({
-                            location: '<?php echo $location ?>',
+                            location: '<?php echo $location ?>,USA',
                             unit: 'F',
                             success: function(weather) {
                               var imgurl    = weather.image;

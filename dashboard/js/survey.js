@@ -428,7 +428,7 @@ $(document).ready(function(){
     var compare       = _.intersection(user_ans_flat, tcm_required_flat);
     var difference    = _.difference(tcm_required_flat, compare);
     if(!difference.length) {
-      var nextSection = $("#customform section.active").next();
+      var nextSection = $("#customform section:last").prev();
       var dataURL     = "TCM_bodytype.php";
       $.ajax({
         url:  dataURL,

@@ -123,15 +123,14 @@ $(document).ready(function(){
     var panel_height  = newactive.height();
     $("#customform").height(panel_height);
     newactive.addClass("active");
-    if($("#customform section").length > 1){
-      newactive.height(panel_height*2);
-    }
   }else{
     var panel_height  = $("#customform section").first().height();
     $("#customform").height(panel_height);
-    $("#customform section").first().addClass("active").height(panel_height*2);
+    $("#customform section").first().addClass("active");
   }
-
+  if($("#customform section").length > 1){
+    newactive.height(panel_height*2);
+  }
   //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS
   var mat_map = {
      "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 

@@ -197,11 +197,11 @@ include("inc/gl_head.php");
               <section class="vbox">
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 col_ipad_port col_ipad_land">
                       <h3 class="m-b-xs text-black">Dashboard</h3>
                       <small>Welcome back, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 col_ipad_port col_ipad_land">
                       <?php
                       //THIS STUFF IS FOR NEWS AND REMINDERS FURTHER DOWN PAGE
                       $news         = array();
@@ -307,13 +307,13 @@ include("inc/gl_head.php");
                   </section>
 
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div id="coming_soon">
                           coming soon...
                         </div>
                     </div>
                     
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col_ipad_port col_ipad_land">
                       <div id="weather"></div>
                       <script>
                         // Docs at http://simpleweatherjs.com
@@ -404,7 +404,7 @@ include("inc/gl_head.php");
                     </div>
                   </div>           
                   <div class="row dk m-b">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div class="panel panel-info portlet-item">
                           <header class="panel-heading">
                             <i class="fa fa-list-ul"></i> Reminders
@@ -416,7 +416,7 @@ include("inc/gl_head.php");
                           </ul>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div class="panel panel-success portlet-item">
                           <header class="panel-heading">
                             <i class="glyphicon glyphicon-star-empty"></i> Learn More
@@ -429,7 +429,7 @@ include("inc/gl_head.php");
                         </div>
                     </div>
   
-                    <div class="col-md-6 bg-light dker datacharts chartone">
+                    <div class="col-md-6 bg-light dker datacharts chartone col_ipad_port col_ipad_land">
                       <section>
                         <?php 
                           if ($health_behaviors_complete) { 
@@ -440,7 +440,7 @@ include("inc/gl_head.php");
                         ?>
                       </section>
                     </div>
-                    <div class="col-md-6 dker datacharts charttoo">
+                    <div class="col-md-6 dker datacharts charttoo col_ipad_port col_ipad_land">
                       <section>
                         <h3>How Do You Compare With Other Survey Takers?</h3>
                         <p></p>

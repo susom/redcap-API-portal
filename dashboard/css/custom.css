@@ -1855,3 +1855,58 @@ input[readonly] {
        
     }
 }
+
+
+
+/* portrait layout (exact widths) */
+@media screen and (max-width:768px) and (max-height:1024px) {
+    .col_ipad_port {
+        float:none; 
+        width:100%;
+    }
+
+    .dash_fruits .fitness
+    ,.dash_fruits .fruit {
+        margin-top:5px;
+    }
+
+    .nav .survey_name{
+        width:155px;
+    }
+    .datacharts section{
+        min-width:490px;
+        max-width:490px;
+    }
+    #survey_progress{
+        width: 420px;
+        top: 70px;
+    }
+    .surveyHeader{
+        padding-right:0;
+        padding-bottom: 50px;
+    }
+}
+
+/*Landscape width exact width height*/
+@media screen and (max-width:1024px) and (max-height:768px) {
+    .col_ipad_land.col-sm-3 {
+        float:none; 
+        width:100%;
+    }
+    .col_ipad_land.col-sm-8 {
+        float:none; 
+        width:100%;
+    }
+
+    .nav .survey_name{
+        width:155px;
+    }
+    .dash_fruits .fitness
+    ,.dash_fruits .fruit {
+        margin-top:5px;
+    }
+    .datacharts section{
+        min-width:460px;
+        max-width:460px;
+    }
+}

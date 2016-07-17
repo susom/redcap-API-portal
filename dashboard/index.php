@@ -419,7 +419,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div class="panel panel-success portlet-item">
                           <header class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Learn More
+                            <i class="glyphicon glyphicon-star-empty"></i> Additional Surveys
                           </header>
                           <ul class="list-group alt">
                             <?php

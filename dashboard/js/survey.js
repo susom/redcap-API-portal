@@ -9,7 +9,7 @@ $(document).ready(function(){
 
       if(checkRequired()){
         return;
-      }
+      } 
 
       if($(this).next().length){
         $(".required_message").remove();
@@ -20,6 +20,12 @@ $(document).ready(function(){
             var panel_height  = $(this).height();
             $("#customform").height(panel_height);
             $(this).height(panel_height*2);
+
+            //THIS IS SOME REAL BS (MAT CUSTOM RESULTS DISPLAY)
+            customMAT_BS($(this));
+
+            //THIS IS MORE BS (MET CUSTOM POP UP BEFORE RESULTS)
+            customMET_BS($(this));
           });
           $("#customform").animate({ scrollTop : 0}, function(){});
           return false;
@@ -131,33 +137,7 @@ $(document).ready(function(){
   if($("#customform section").length > 1){
     newactive.height(panel_height*2);
   }
-  //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS
-  var mat_map = {
-     "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 
-    ,"mat_walkonground_fast"     : {"vid" : "Flat_NoRail_Fast" , "value" : null } 
-    ,"mat_jogonground"           : {"vid" : "Flat_NoRail_Jog" , "value" : null } 
-    ,"mat_walkincline_handrail"  : {"vid" : "Ramp_12Pcnt_Rail_Med" , "value" : null } 
-    ,"mat_walkincline"           : {"vid" : "Ramp_12Pcnt_NoRail_Med" , "value" : null } 
-    ,"mat_stepover_lowhurdle"    : {"vid" : "Walk_Hurdles_1" , "value" : null } 
-    ,"mat_walkincline_tern"      : {"vid" : "Terrain_4" , "value" : null } 
-    ,"mat_walkincline_tern_fast" : {"vid" : "Terrain_5" , "value" : null } 
-    ,"mat_walkup3_handrail"      : {"vid" : "Stairs_3Step_1Foot_Rail_MedSlo2" , "value" : null } 
-    ,"mat_walkdn3"               : {"vid" : "DownStairs_3Step_2Foot_NoRail_Slow" , "value" : null } 
-    ,"mat_walkup3_carry"         : {"vid" : "Bag_Stairs_3Step_1Foot_NoRail_2_3" , "value" : null } 
-    ,"mat_walkup9_carry"         : {"vid" : "TWObag_stairs_9step_1foot_norail" , "value" : null } 
-  };
-
-  var tcm_req = [
-     ['tcm_energy','tcm_optimism','tcm_weight','tcm_stool','tcm_loosestool','tcm_stickystool']
-    ,['tcm_energy','tcm_voice','tcm_panting','tcm_tranquility','tcm_colds','tcm_pasweat']
-    ,['tcm_handsfeet_cold','tcm_cold_aversion','tcm_sensitive_cold','tcm_cold_tolerant','tcm_pain_eatingcold','tcm_sleepwell']
-    ,['tcm_handsfeet_hot','tcm_face_hot','tcm_dryskin','tcm_dryeyes','tcm_constipated','tcm_drylips']
-    ,['tcm_sleepy','tcm_sweat','tcm_oily_forehead','tcm_eyelid','tcm_snore','tcm_naturalenv']
-    ,['tcm_frustrated','tcm_nose','tcm_acne','tcm_bitter','tcm_ribcage','tcm_scrotum']
-    ,['tcm_forget','bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_bodyframe']
-    ,['tcm_depressed','tcm_anxious','tcm_melancholy','tcm_scared','tcm_suspicious','tcm_breastpain']
-    ,['tcm_sneeze','tcm_cough','tcm_allergies','tcm_hives','tcm_skin_red']
-  ];
+  
   var tcm_required_flat =  _.uniq(_.flatten(tcm_req));
 
   //CUSTOM WORK FOR MET AND MAT SURVEY
@@ -318,17 +298,19 @@ function getMETScore(gender,age,bmi,isSmoker,PA_level){
 function showMETScoring(){
   //GATHER ALL AND IF THEY ARE ALL FILLED OUT SHOW THE SCORE
   var age       = $('#met_age').val();
-
   var foot      = $('#met_height_ft :selected').val();
   var inch      = $('#met_height_inch :selected').val();
   var weight    = $('#met_weigh_pound :selected').val();
   var height    = parseInt(foot)*12 + parseInt(inch);
 
   var bmi       = getBMI(weight, height);
+  console.log(bmi);
+
   var gender    = $('.met_gender input:checked').val();
   var ughgender = gender == 2 || gender == 4 ? "female" : "male";
   var isSmoker  = $('.met_smoker input:checked').val();
   var PA_level  = $('.met_pa_level input:checked').val();
+
   if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
     var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
     
@@ -357,14 +339,66 @@ function showMETScoring(){
         nextSection.find("h2").after(result);
         $("#met_desc").data("")
         $("#met_score").text(METScore);
+
+        //THE PROMPTS
+        if(isSmoker){
+          $("#met_smoking .yes").show();
+        }else{
+          $("#met_smoking .no").show();
+        }
+
+        var pa_show = "pa_" + PA_level;
+        $("#met_pa ."+pa_show).show();
+
+        if(age >= 50){
+          $("#met_aging").show();
+        }else{
+          $("#met_aging").hide();
+        }
+
+        if(bmi <= 18.5){
+          $("#met_bmi .bmi_b").show();
+        }else if(bmi > 18.5 && bmi <= 24.9){
+          $("#met_bmi .bmi_c").show();
+        }else if(bmi > 25 && bmi <= 29.9){
+          $("#met_bmi .bmi_d").show();
+        }else{
+          //30+
+          $("#met_bmi .bmi_e").show();
+        }
       }
     });
   }
 }
 
+function customMET_BS(_this){
+  if(_this.find("#met_results").length > 0){
+    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>The following data has been prepared in part by utilizing information from previous studies on cardiorespiratory fitness and national standards for health. These results are not intended as a substitute for recommendations or advice from a healthcare provider. Talk to your doctor before making any changes that could affect your health.<li></ul>");
+    reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
+    reqmsg.click(function(){
+      $("#met_results").addClass("disclaimed");
+    });
+    $("body").append(reqmsg);
+  }
+  return;
+}
+
+function customMAT_BS(_this){
+  var time = 3000;
+  if(_this.find("#mat_results").length > 0){
+    _this.find(".dead").each(function(){
+      var closure_this = $(this);
+      setTimeout( function(){ 
+        closure_this.addClass("goGray"); 
+      }, time);
+      time += 500;
+    })
+  }
+  return;
+}
+
 function showMATScoring(qinput){
   var mat_complete  = true;
-
   if(qinput){
     //single input, stuff value into object 
     var fieldname = qinput.attr("name");
@@ -386,7 +420,6 @@ function showMATScoring(qinput){
     var dataURL         = "survey.php?mat=1";
     var instrument_name = $("#customform").attr("name");
     var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-    
     var nextSection = $("#customform section.active").next();
     $.ajax({
       url:  dataURL,
@@ -398,26 +431,29 @@ function showMATScoring(qinput){
         var matscore  = data.value;
         
         if(matscore < 40){
-            var picperc = "sixsix";
-            var desc = "In the next 4 years, 6.6 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+            var picperc = 7;
+            var desc = "In the next 4 years, people with your score are very likely (6.6 out of 10) to lose the ability to do active things they enjoy or value.  However, there are many things you can do to improve your functional capacity."
         }else if(matscore < 50){
-            var picperc = "fivetwo";
-            var desc = "In the next 4 years, 5.2 out of 10 people with your score are going to lose the ability to do active things they enjoy or value."
+            var picperc = 5;
+            var desc = "In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
         }else if(matscore < 60){
-            var picperc = "threefive";
-            var desc = "In the next 4 years, 3.5 people out of 10 are going to lose the ability to do the active things they enjoy or value."
+            var picperc = 3;
+            var desc = "In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
         }else{
-            var picperc = "hundo";
-            var desc = "Your functional capacity and physical mobility are excellent! Keep up the good work!"
+            var picperc = 0;
+            var desc = "People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
         }
 
         if($("#mat_results").length > 0){
           $("#mat_results").remove();
         }
-        var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'></div><div id='mat_text'</div>");
+        var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'><ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div><div id='mat_text'></div>");
         nextSection.find("h2").after(results);
 
-        $("#mat_pic, #mat_results").addClass(picperc);
+        for(var i = 0;i < picperc; i++){
+          $("#mat_pic li:eq("+i+")").addClass("dead");          
+        }
+        
         $("#mat_text").text(desc);
       }
     });

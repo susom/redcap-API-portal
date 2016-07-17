@@ -302,9 +302,36 @@ include("inc/gl_foot.php");
   //LAUNCH IT INITIALLY TO CHECK IF PAGE HAS BRANCHING
   checkGeneralBranching();
 
+  //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS
+  var mat_map = {
+     "mat_walkonground"          : {"vid" : "Flat_NoRail_Slow" , "value" : null } 
+    ,"mat_walkonground_fast"     : {"vid" : "Flat_NoRail_Fast" , "value" : null } 
+    ,"mat_jogonground"           : {"vid" : "Flat_NoRail_Jog" , "value" : null } 
+    ,"mat_walkincline_handrail"  : {"vid" : "Ramp_12Pcnt_Rail_Med" , "value" : null } 
+    ,"mat_walkincline"           : {"vid" : "Ramp_12Pcnt_NoRail_Med" , "value" : null } 
+    ,"mat_stepover_lowhurdle"    : {"vid" : "Walk_Hurdles_1" , "value" : null } 
+    ,"mat_walkincline_tern"      : {"vid" : "Terrain_4" , "value" : null } 
+    ,"mat_walkincline_tern_fast" : {"vid" : "Terrain_5" , "value" : null } 
+    ,"mat_walkup3_handrail"      : {"vid" : "Stairs_3Step_1Foot_Rail_MedSlo2" , "value" : null } 
+    ,"mat_walkdn3"               : {"vid" : "DownStairs_3Step_2Foot_NoRail_Slow" , "value" : null } 
+    ,"mat_walkup3_carry"         : {"vid" : "Bag_Stairs_3Step_1Foot_NoRail_2_3" , "value" : null } 
+    ,"mat_walkup9_carry"         : {"vid" : "TWObag_stairs_9step_1foot_norail" , "value" : null } 
+  };
+
+  var tcm_req = [
+     ['tcm_energy','tcm_optimism','tcm_weight','tcm_stool','tcm_loosestool','tcm_stickystool']
+    ,['tcm_energy','tcm_voice','tcm_panting','tcm_tranquility','tcm_colds','tcm_pasweat']
+    ,['tcm_handsfeet_cold','tcm_cold_aversion','tcm_sensitive_cold','tcm_cold_tolerant','tcm_pain_eatingcold','tcm_sleepwell']
+    ,['tcm_handsfeet_hot','tcm_face_hot','tcm_dryskin','tcm_dryeyes','tcm_constipated','tcm_drylips']
+    ,['tcm_sleepy','tcm_sweat','tcm_oily_forehead','tcm_eyelid','tcm_snore','tcm_naturalenv']
+    ,['tcm_frustrated','tcm_nose','tcm_acne','tcm_bitter','tcm_ribcage','tcm_scrotum']
+    ,['tcm_forget','bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_bodyframe']
+    ,['tcm_depressed','tcm_anxious','tcm_melancholy','tcm_scared','tcm_suspicious','tcm_breastpain']
+    ,['tcm_sneeze','tcm_cough','tcm_allergies','tcm_hives','tcm_skin_red']
+  ];
+  
   function isEmpty(v){
     return v == null || v == undefined;
   }
-  // $.mask.definitions['M'] = "[0|1|\s]";
 </script>
 <script src="js/survey.js"></script>

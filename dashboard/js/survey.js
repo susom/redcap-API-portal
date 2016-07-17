@@ -356,6 +356,17 @@ function showMETScoring(){
           $("#met_aging").hide();
         }
 
+        var a_fill_1 = (18.5/703) * Math.pow(height, 2);
+        var a_fill_2 = (24.9/703) * Math.pow(height, 2);
+        var a_fill_3 = weight - a_fill_2;
+
+        $("#met_bmi .your_height").text(height + " in");
+        $("#met_bmi .your_weight").text(weight + " lb");
+        $("#met_bmi .your_bmi").text(bmi.toFixed(1));
+        $("#met_bmi .healthy_weight_min").text(a_fill_1 + " lb");
+        $("#met_bmi .healthy_weight_max").text(a_fill_2 + " lb");
+        $("#met_bmi .lose_weight").text(a_fill_3 + " lb");
+
         if(bmi <= 18.5){
           $("#met_bmi .bmi_b").show();
         }else if(bmi > 18.5 && bmi <= 24.9){

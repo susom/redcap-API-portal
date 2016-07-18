@@ -1755,9 +1755,10 @@ input[readonly] {
 }
 
 #mat_text {
-    font-size: 120%;
+    font-size: 200%;
     font-weight: bold;
-    padding: 5px 0 0px;
+    padding: 5px 20px 0px;
+    line-height: 140%;
 }
 
 .video_frame {

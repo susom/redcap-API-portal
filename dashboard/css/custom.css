@@ -1641,6 +1641,9 @@ input[readonly] {
     color: #369;
     text-decoration: underline;
 }
+.met_desc p {
+    font-size:115%;
+}
 #met_results .met_desc  h3{
     margin-top: 0;
     margin-bottom:10px; 

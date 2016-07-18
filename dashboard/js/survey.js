@@ -356,9 +356,9 @@ function showMETScoring(){
           $("#met_aging").hide();
         }
 
-        var a_fill_1 = (18.5/703) * Math.pow(height, 2);
-        var a_fill_2 = (24.9/703) * Math.pow(height, 2);
-        var a_fill_3 = weight - a_fill_2;
+        var a_fill_1 = Math.round((18.5/703) * Math.pow(height, 2));
+        var a_fill_2 = Math.round((24.9/703) * Math.pow(height, 2));
+        var a_fill_3 = Math.round(weight - a_fill_2);
 
         $("#met_bmi .your_height").text(height + " in");
         $("#met_bmi .your_weight").text(weight + " lb");

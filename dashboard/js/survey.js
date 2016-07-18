@@ -352,7 +352,7 @@ function showMETScoring(){
         $("#met_pa ."+pa_show).show();
 
         if(age >= 50){
-          $("#met_aging").show();
+          $("#met_aging,#met_aging div").show();
         }else{
           $("#met_aging").hide();
         }

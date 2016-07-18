@@ -71,7 +71,7 @@ $suggest = $suggestion[$level];
 	<h3>Thank you for your participation! Find out about some of the ways you can work to improve your cardiorespiratory fitness below:</h3>
 	<div id="met_aging" class="met_desc">
 		<h3>Aging</h3>
-		<div>
+		<div >
 			<p>Our cardiorespiratory fitness naturally declines as we age. While we cannot prevent aging, we can help to combat some of the negative effects we tend to see with aging by continuing to eat <a target="_blank" href='http://www.choosemyplate.gov/'>healthy</a> and by <a target="_blank" href='https://go4life.nia.nih.gov/'>staying active</a>. For more information about healthy aging, visit <a target="_blank" href='http://www.hhs.gov/aging/healthy-aging/'>http://www.hhs.gov/aging/healthy-aging/</a>. Taking steps now to help to preserve your cardiorespiratory fitness can help to reduce your risk of heart disease.</p>
 			<p>Make sure physical activity is right for you; before starting, take this <a target="_blank" href='pa_readiness_questionaire.pdf'>self-evaluation questionnaire</a> or talk to a healthcare provider.</p>
 		</div>

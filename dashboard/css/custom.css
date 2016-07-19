@@ -1620,7 +1620,6 @@ input[readonly] {
 }
 #met_pa {
     background:#E2F0DA;
-    color: #619361;
 }
 #met_smoking {
     background:#FAE5D7;
@@ -1643,6 +1642,9 @@ input[readonly] {
 }
 .met_desc p {
     font-size:115%;
+}
+.met_desc p span {
+    font-weight:bold; 
 }
 #met_results .met_desc  h3{
     margin-top: 0;

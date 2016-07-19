@@ -55,7 +55,8 @@ $supp_instruments = array();
 foreach($supp_surveys as $projname => $supp_project){
 	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveall() );
 } 
-
+// print_rr($supp_instruments,1);
 $supp_surveys_keys 	= array_keys($supp_instruments);
+// print_rr($supp_surveys_keys);
 // print_rr($surveys,1);
 // exit;

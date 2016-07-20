@@ -143,7 +143,7 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-docs icon"></i>
-                <span class="font-bold">My Assesments</span>
+                <span class="font-bold">My Resources</span>
               </a>
             </li>
             <li <?php echo $profile_active ?>>

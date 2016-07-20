@@ -219,7 +219,8 @@ include("inc/gl_head.php");
                       $ffq = $ffq_project->getAccount();
                       if(!array_key_exists("error",$ffq)){
                         $nutrilink      = isset($portal_test) ? "#" : "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
-                        $news[]         = "<li class='list-group-item icon_update'><a href='$nutrilink' style='color:#8C1515; font-weight:bold;' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>How well do you eat? &#128150 </a></li>";
+                        $a_nutrilink    = "<a href='$nutrilink' class='nutrilink' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>How well do you eat? &#128150 </a>";
+                        $news[]         = "<li class='list-group-item icon_update'>".$a_nutrilink."</li>";
                       }
                       
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
@@ -308,8 +309,11 @@ include("inc/gl_head.php");
 
                   <div class="row">
                     <div class="col-sm-6 col_ipad_port col_ipad_land">
-                        <div id="coming_soon">
-                          coming soon...
+                        <div id="slide_banner">
+                          <ul>
+                            <li id="slide_ffq"><?php echo $a_nutrilink?></li>
+                            <li id="slide_pa"><a href="survey.php?sid=how_fit_are_you&project=Supp2">How fit are you?</a></li>                            
+                          </ul>
                         </div>
                     </div>
                     
@@ -525,6 +529,21 @@ var myBarChart = new Chart(ctx, {
 <script src="js/d3.min.js"></script>
 <script src="js/d3pie.min.js"></script>
 <script>
+//THIS IS FOR THE SLIDER BANNER ON THE INDEX PAGE
+$("#slide_banner li").first().addClass("on");
+setInterval(function(){
+  var nextslide = $("#slide_banner li.on").next().length ? $("#slide_banner li.on").next() : $("#slide_banner li").first();
+  $("#slide_banner li.on").addClass("off", function(){
+    var _this = $(this);
+    setTimeout(function(){
+      _this.removeClass("on").removeClass("off");
+    },500);
+    nextslide.addClass("on");
+  });
+},8000);
+
+
+
 var pieData = [
       {
         "label": "Light/No Activity",

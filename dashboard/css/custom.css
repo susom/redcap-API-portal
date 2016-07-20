@@ -89,7 +89,7 @@ h2.weather,
     z-index:2;
 }
 #slide_banner #slide_pa{
-    background:url(../images/bg_physical_activity.jpg) 0px -130px no-repeat;
+    background:url(../images/bg_physical_activity.jpg) 0px -110px no-repeat;
     background-size:cover;
 }
 #slide_banner li.on{

@@ -1807,9 +1807,6 @@ input[readonly] {
     white-space: nowrap;
     display: inline-block;
 }
-
-
-
 #tcm_results .group {
     width:33%;
     text-align:center; 
@@ -1843,8 +1840,6 @@ input[readonly] {
     background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, green);
     background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, green 100%, red 95%);
 }
-
-
 #tcm_results .subgroup h4 {
     font-size:18px;
     line-height:140%;
@@ -1861,7 +1856,35 @@ input[readonly] {
     white-space:nowrap;
 }
 
-
+.constitutions{
+    background: #efefef;
+    padding: 20px;
+    border-radius: 5px;
+}
+.constitutions dl {
+    padding: 20px;
+    border-radius: 5px;
+    background: powderblue;
+}
+.constitutions dt {
+    cursor:pointer; 
+}
+.constitutions dd {
+    display:none; 
+}
+.constitutions ol{
+    margin:0;
+    padding:0 0 0 15px; 
+}
+.constitutions dl.hidetcm {
+    display:none;
+}
+.constitutions dl.positive{
+    background:palegreen;
+}
+.constitutions dl.tendency{
+    
+}
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .panel {

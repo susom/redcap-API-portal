@@ -137,8 +137,6 @@ $(document).ready(function(){
   if($("#customform section").length > 1){
     newactive.height(panel_height*2);
   }
-  
-  var tcm_required_flat =  _.uniq(_.flatten(tcm_req));
 
   //CUSTOM WORK FOR MET AND MAT SURVEY
   if(isMAT){
@@ -473,6 +471,8 @@ function showMATScoring(qinput){
 }
 
 function showTCMScoring(){
+  var tcm_required_flat =  _.uniq(_.flatten(tcm_req));
+  
   var all_answers   = $("#customform").serializeArray();
   var user_answers  =  _.filter(all_answers, function(obj){
     return obj.value !== "" && obj.value !== null;
@@ -492,6 +492,15 @@ function showTCMScoring(){
           $("#tcm_results").remove();
         }
         nextSection.find("h2").after(result);
+        
+        $(".constitution dt").click(function(){
+          if($(this).next("dd").is(":visible")){
+            $(this).next("dd").slideUp();
+          }else{
+            $(this).next("dd").slideDown();
+          }
+          return false;
+        });
       }
     });
   }else{

@@ -1789,7 +1789,7 @@ input[readonly] {
 }
 #tcm_results td .neg {
     height:5px;
-    background:red;
+    background:lightslategray;
 }
 #tcm_results td .mayb {
     height:100px;

@@ -75,6 +75,8 @@ h2.weather,
     margin:0; padding:0; 
     min-height:150px;
     position:relative;
+    
+    overflow:hidden;
 }
 #slide_banner li{
     display:block;
@@ -87,6 +89,7 @@ h2.weather,
     transition: .4s left ease-in-out, .5s opacity ease-in-out;
     opacity:0;
     z-index:2;
+    border-radius:5px;
 }
 #slide_banner #slide_pa{
     background:url(../images/bg_physical_activity.jpg) 0px -110px no-repeat;
@@ -127,9 +130,6 @@ h2.weather,
 }
 
 
-.list-group .nutrilink{ 
-    color:#8C1515; font-weight:bold;
-}
 /*SIMPLE WEATHER WIDGET*/
 
 #weather {
@@ -1282,6 +1282,9 @@ input[readonly] {
     color: #1D1DA7;
 }
 
+.portlet-item .list-group-item .nutrilink{ 
+    color:#8C1515; font-weight:bold;
+}
 .portlet-item .panel-heading {
     padding: 5px 10px;
     font-size: 115%;

@@ -225,6 +225,7 @@ include("inc/gl_head.php");
                       
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
+                      $survey_alinks  = array();
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
@@ -235,9 +236,11 @@ include("inc/gl_head.php");
                         $titletext    = $core_surveys_complete ? $surveyname : "Come back to these surveys once you complete the Core Surveys!";
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $core_surveys_complete ? " icon_update" : "";
+                        $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
+                    
 
                         $news[]       = "<li class='list-group-item $icon_update'>
-                                            <a href='$surveylink' title='$titletext'>$surveyname</a> survey
+                                            ".$survey_alinks[$supp_instrument_id]." survey
                                         </li>";
                       }
                       
@@ -312,7 +315,7 @@ include("inc/gl_head.php");
                         <div id="slide_banner">
                           <ul>
                             <li id="slide_ffq"><?php echo $a_nutrilink?></li>
-                            <li id="slide_pa"><a href="survey.php?sid=how_fit_are_you&project=Supp2">How fit are you?</a></li>                            
+                            <li id="slide_pa"><?php echo $survey_alinks["how_fit_are_you"] ?></li>                            
                           </ul>
                         </div>
                     </div>

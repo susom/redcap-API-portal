@@ -1950,7 +1950,11 @@ input[readonly] {
         float:none; 
         width:100%;
     }
-
+    
+    #slide_banner{
+        margin-bottom:20px; 
+    }
+    
     .dash_fruits .fitness
     ,.dash_fruits .fruit {
         margin-top:5px;

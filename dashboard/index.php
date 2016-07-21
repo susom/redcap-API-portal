@@ -285,6 +285,10 @@ include("inc/gl_head.php");
                         $surveyname  = $supp_instrument["label"];
                         $surveylink  = "survey.php?sid=". $supp_instrument_id;
                         $completeclass  = ($supp_instrument["survey_complete"] ? "completed":"");
+                        
+                        if($supp_instrument_id == "find_out_your_body_type_according_to_chinese_medic" && !isset($portal_test)){
+                          continue;
+                        }
                         $showfruit[] = "<li class='nav'>
                             <a href='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        
                               <span>$surveyname</span>

@@ -1551,6 +1551,11 @@ input[readonly] {
     transition: .8s top ease-in-out;
 }
 
+#customform[data-instrument="how_is_your_physical_mobility"] .q_label{
+    font-size:140%;
+    font-weight:normal;
+}
+
 .under_construction {
     position: relative;
 }
@@ -1954,7 +1959,7 @@ input[readonly] {
     #slide_banner{
         margin-bottom:20px; 
     }
-    
+
     .dash_fruits .fitness
     ,.dash_fruits .fruit {
         margin-top:5px;

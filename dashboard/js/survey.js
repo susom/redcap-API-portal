@@ -365,7 +365,6 @@ function showMETScoring(){
         $("#met_bmi .healthy_weight_min").text(a_fill_1 + " lb");
         $("#met_bmi .healthy_weight_max").text(a_fill_2 + " lb");
         $("#met_bmi .lose_weight").text(a_fill_3 + " lb");
-
         if(bmi <= 18.5){
           $("#met_bmi .bmi_b").show();
         }else if(bmi > 18.5 && bmi <= 24.9){

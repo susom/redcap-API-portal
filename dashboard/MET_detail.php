@@ -66,7 +66,7 @@ if($gender == "male"){
 
 $suggest = $suggestion[$level];
 ?>
-<div id="met_results" class="level_<?php echo $level?>">
+<div id="met_results">
 	<div id="met_score"></div>
 	<h3>Thank you for your participation! Find out about some of the ways you can work to improve your cardiorespiratory fitness below:</h3>
 	<div id="met_aging" class="met_desc">
@@ -92,7 +92,7 @@ $suggest = $suggestion[$level];
 			<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
 			<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
 		</div>
-		<div class="bmi_3">
+		<div class="bmi_e">
 			<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
 			<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
 			<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>

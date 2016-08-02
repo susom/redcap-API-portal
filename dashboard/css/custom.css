@@ -291,11 +291,26 @@ h2.weather,
     text-indent:10px;
     white-space:nowrap;
 }
+.progress{
+    height:30px;
+}
 #survey_progress .progress-bar{
     font-size:14px; 
-    line-height:140%;
+    line-height:200%;
     color:#fff;
     font-weight:600;
+    position:relative;
+    text-indent:-5000px;
+}
+#survey_progress  .progress-bar:after{
+    position:absolute;
+    content:"";
+    right:-15px; 
+    width:30px;
+    height:30px;
+    z-index:1;
+    background:url(../images/running_man.gif) no-repeat;
+    background-size:contain;
 }
 
 .survey .m-b-md {
@@ -1554,6 +1569,9 @@ input[readonly] {
 #customform[data-instrument="how_is_your_physical_mobility"] .q_label{
     font-size:140%;
     font-weight:normal;
+}
+#customform[data-instrument="how_is_your_physical_mobility"] label{
+    font-size:130%;
 }
 
 .under_construction {

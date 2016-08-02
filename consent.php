@@ -12,6 +12,25 @@ if(isUserLoggedIn() && isUserActive()) {
 	exit; 
 }
 
+//RECORD ACTUAL CONSENT TIME BUTTON PUSH 
+if(isset($_REQUEST["consent_actual"])){
+	$data         	= array();
+	$record_id    	= $loggedInUser->id;
+	$date 			= new DateTime;
+	$date->setTimestamp(time()); 
+	$consent_ts 	= $date->format('Y-m-d H:i:s');
+
+	$data[] = array(
+	  "record"            => $record_id,
+	  "field_name"        => 'consent_agree_ts',
+	  "value"             => $consent_ts
+	);
+
+	$result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
+	print_r($data);
+	exit;
+}
+
 $pg_title 		= "Consent | $websiteName";
 $body_classes 	= "consent";
 include("models/inc/gl_header.php");
@@ -59,13 +78,31 @@ button[role='back'],
 //LOAD UP FIRST SLIDE
 $(".consent_slides section").first().addClass("active");
 
+
+//I AGREE
+$("button[role='consent']").click(function(){
+	var _this = $(this);
+
+	//REDIRECT TO HOME WITH A MESSAGE
+    var dataURL         = "consent.php?ajax=1&consent_actual=1";
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      success:function(result){
+      	console.log(result);
+      }
+    });
+	return false;
+});
+
+
 //NEXT BUTTON
 $("button[role='next']").click(function(){
 	var _this = $(this);
 	$(".consent_slides section.active").each(function(idx){
 		var prevpanel = $( ".consent_slides section" ).index( $(this) );
 
-		console.log(prevpanel, $( ".consent_slides section" ).length);
+		// console.log(prevpanel, $( ".consent_slides section" ).length);
 		//make sure there is a previous section before showing backbutton
 		if($(this).next().length){
 			$(".consent .submits button[role='back']").show();

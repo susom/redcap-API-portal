@@ -89,10 +89,9 @@ $("button[role='consent']").click(function(){
       url:  dataURL,
       type:'POST',
       success:function(result){
-      	console.log(result);
+      	// console.log(result);
       }
     });
-	return false;
 });
 
 

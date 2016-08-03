@@ -102,6 +102,7 @@
                   
                   if(!$surveycomplete && is_null($new)){
                     $new = $index;
+                    $next_survey =  $surveylink;
                   }
 
                   if(in_array($surveyid, SurveysConfig::$core_surveys)){
@@ -113,23 +114,8 @@
                         </a>
                       </li>\n");
                   }
-                  // else{
-                  //   array_push($supp_surveys, "<li >
-                  //       <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
-                  //         $newbadge                                                 
-                  //         <span class='fruit $completeclass ".$fruits[$index]."'></span>
-                  //         <span class='survey_name'>$surveyname</span>     
-                  //       </a>
-                  //     </li>\n");
-                  // }
                 }
-
                 echo implode("",$core_surveys);
-                
-                //SHOW NON CORE SURVEYS ONCE THE CORE ARE COMPLETE
-                // if($core_surveys_complete){
-                //   echo implode("",$supp_surveys);
-                // }
                 ?>
               </ul>
             </li>

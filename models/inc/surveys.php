@@ -18,6 +18,7 @@ if(isset($_SESSION["user_survey_data"])){
 //THIS DATA NEEDS TO BE REFRESHED EVERYTIME OR RISK BEING STALE 
 $surveys 				= $user_survey_data->getActiveAll();	
 $all_completed 			= $user_survey_data->getAllComplete();  
+$first_survey 			= reset($surveys);
 
 //THESE ONLY NEED DATA CALL ONCE PER SESSION
 $all_branching 			= $user_survey_data->getAllInstrumentsBranching();

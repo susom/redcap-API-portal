@@ -83,7 +83,8 @@ function getBodyConstitution($constitutions,$type){
 	return array("result" => $theratio, "determination" => $determination, "other_ratio" => $oratio);
 }
 ?>
-<table id="tcm_results">
+<div id="tcm_results">
+<table >
 	<tr>
 		<td>
 			<table>
@@ -241,4 +242,5 @@ function getBodyConstitution($constitutions,$type){
 	</ol>
 	</dd>
 	</dl>
+</div>
 </div>

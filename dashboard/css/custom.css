@@ -95,6 +95,19 @@ h2.weather,
     background:url(../images/bg_physical_activity.jpg) 0px -110px no-repeat;
     background-size:cover;
 }
+#slide_banner #slide_welcome{
+    background:url(../images/bg_welcome.jpg) 0px -200px no-repeat;
+    background-size:cover;
+}
+#slide_welcome a {
+    display:block; 
+}
+#slide_welcome a b{
+    font-family: 'Dancing Script', cursive;
+    font-size:200%;
+    display:block;
+    color:mistyrose;
+}
 #slide_banner li.on{
     opacity:1;
     left:0;
@@ -128,7 +141,22 @@ h2.weather,
     background:#000;
     opacity:.3;
 }
+#slide_banner #slide_welcome a{
+    left: auto;
+    bottom: auto;
+    right:15px;
+    top:25px;
+    width:40%;
+    font-size: 130%;
+    color:paleturquoise;
+    text-align:center;
 
+}
+#slide_banner #slide_welcome a:after{
+    height:100%;
+    background:none;
+    opacity:1;
+}
 
 /*SIMPLE WEATHER WIDGET*/
 

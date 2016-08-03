@@ -314,6 +314,10 @@ include("inc/gl_head.php");
                     <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div id="slide_banner">
                           <ul>
+                          <?php
+                            $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! Start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
+                          ?>
+                            <li id="slide_welcome"><a href="<?php echo $next_survey ?>"><?php echo $welcome_back ?></li>
                             <li id="slide_ffq"><?php echo $a_nutrilink?></li>
                             <li id="slide_pa"><?php echo $survey_alinks["how_fit_are_you"] ?></li>                            
                           </ul>

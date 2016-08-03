@@ -302,12 +302,9 @@ function showMETScoring(){
   var height    = parseInt(foot)*12 + parseInt(inch);
 
   var bmi       = getBMI(weight, height);
-  console.log(bmi);
-
   var gender    = $('.met_gender input:checked').val();
   var ughgender = gender == 2 || gender == 4 ? "female" : "male";
   var isSmoker  = $('.met_smoker input:checked').val();
-  console.log(isSmoker);
   var PA_level  = $('.met_pa_level input:checked').val();
 
   if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {

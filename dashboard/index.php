@@ -315,8 +315,8 @@ include("inc/gl_head.php");
                         <div id="slide_banner">
                           <ul>
                           <?php
-                            $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! Start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
-                            if(!$next_survey){
+                            $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
+                            if(!isset($next_survey)){
                               $next_survey = $a_nutrilink;
                             } 
                           ?>

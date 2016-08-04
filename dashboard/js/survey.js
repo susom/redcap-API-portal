@@ -492,14 +492,16 @@ function showMATScoring(qinput){
 
 function showTCMScoring(){
   var tcm_required_flat =  _.uniq(_.flatten(tcm_req));
-  
-  var all_answers   = $("#customform").serializeArray();
-  var user_answers  =  _.filter(all_answers, function(obj){
+  var all_answers       = $("#customform").serializeArray();
+  var user_answers      =  _.filter(all_answers, function(obj){
     return obj.value !== "" && obj.value !== null;
   });
   var user_ans_flat = _.pluck(user_answers,"name");
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
+  
+  console.log(difference);
+    
   if(!difference.length) {
     var nextSection = $("#customform section:last").prev();
     var dataURL     = "TCM_bodytype.php";
@@ -532,10 +534,11 @@ function showGRITScoring(){
   var all_answers = $("#customform").serializeArray();
   var nextSection = $("#customform section:last");
   var dataURL     = "GRIT_sisyphus.php";
+
   $.ajax({
     url:  dataURL,
     type:'POST',
-    data: "&grit=" + JSON.stringify($("#customform").serializeArray()),
+    data: "&grit=" + JSON.stringify($("#customform").serializeArray()) + "&gender=" +  all_completed["core_gender"],
     success:function(result){
       if($("#grit_results").length > 0){
         $("#grit_results").remove();

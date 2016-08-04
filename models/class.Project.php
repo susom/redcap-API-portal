@@ -152,7 +152,7 @@ class Project {
 			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
 
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
-			if(json_decode($check_survey_link)){
+			if(strpos($check_survey_link,"error") > -1){
 				continue;
 			}
 

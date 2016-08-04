@@ -108,6 +108,9 @@ h2.weather,
     display:block;
     color:mistyrose;
 }
+#slide_welcome a u {
+    color:mistyrose;
+}
 #slide_banner li.on{
     opacity:1;
     left:0;
@@ -1959,8 +1962,9 @@ input[readonly] {
 
 #grit_results{
     background:url(../images/photo_sisyphus_mountain.jpg) -197px -170px no-repeat;
-    min-width:960px;
-    min-height:650px;
+    width:960px;
+    height:650px;
+    margin:0 auto;
     background-size:120%;
     position:relative;
     z-index:0;
@@ -2014,7 +2018,7 @@ input[readonly] {
     left:268px;
 }
 #grit_results li.eighty {
-    top:135px;
+    top:150px;
     left:333px;
 }
 #grit_results li.seventy {
@@ -2144,241 +2148,241 @@ input[readonly] {
 @keyframes pushing_rock_100 { 
     10% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     20% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     30% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     40% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     50% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
     60% { 
         bottom:180px;
-        right:360px;
+        right:335px;
     } 
     70% { 
         bottom:230px;
-        right:425px;
+        right:395px;
     } 
     80% { 
         bottom:290px;
-        right:505px;
+        right:475px;
     } 
     90% { 
         bottom:390px;
-        right:555px;
+        right:525px;
     } 
     100% { 
         bottom:430px;
-        right:615px;
+        right:595px;
     } 
 }
 @keyframes pushing_rock_90 { 
     11% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     22% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     33% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     44% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     55% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
     66% { 
         bottom:180px;
-        right:360px;
+        right:335px;
     } 
     77% { 
         bottom:230px;
-        right:425px;
+        right:395px;
     } 
     88% { 
         bottom:290px;
-        right:505px;
+        right:475px;
     } 
     100% { 
         bottom:390px;
-        right:555px;
+        right:525px;
     } 
 }
 @keyframes pushing_rock_80 { 
     12% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     24% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     36% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     48% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     60% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
     72% { 
         bottom:180px;
-        right:360px;
+        right:335px;
     } 
     84% { 
         bottom:230px;
-        right:425px;
+        right:395px;
     } 
     100% { 
         bottom:290px;
-        right:505px;
+        right:475px;
     } 
 }
 @keyframes pushing_rock_70 { 
     15% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     30% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     45% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     60% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     75% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
     90% { 
         bottom:180px;
-        right:360px;
+        right:335px;
     } 
     100% { 
         bottom:230px;
-        right:425px;
+        right:395px;
     } 
 }
 @keyframes pushing_rock_60 { 
     17% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     34% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     51% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     68% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     85% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
     100% { 
         bottom:180px;
-        right:360px;
+        right:335px;
     }  
 }
 @keyframes pushing_rock_50 { 
     20% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     40% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     60% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     80% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
     100% { 
         bottom:150px;
-        right:300px;
+        right:265px;
     } 
 }
 @keyframes pushing_rock_40 { 
     25% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     50% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     75% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
     100% { 
         bottom:120px;
-        right:230px;
+        right:200px;
     } 
 }
 @keyframes pushing_rock_30 { 
     33% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     66% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
     100% { 
         bottom:90px;
-        right:170px;
+        right:135px;
     } 
 }
 @keyframes pushing_rock_20 { 
     50% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
     100% { 
         bottom:60px;
-        right:100px;
+        right:65px;
     } 
 }
 @keyframes pushing_rock_10 { 
     100% { 
         bottom:20px;
-        right:40px;
+        right:5px;
     } 
 }
 

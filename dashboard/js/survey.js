@@ -21,8 +21,11 @@ $(document).ready(function(){
             $("#customform").height(panel_height);
             $(this).height(panel_height*2);
 
-            //THIS IS SOME REAL BS (MAT CUSTOM RESULTS DISPLAY)
+            //THIS IS SOME BS (MAT CUSTOM RESULTS DISPLAY)
             customMAT_BS($(this));
+
+            //THIS IS SOME REAL BS (GRIT CUSTOM RESULTS DISPLAY)
+            customGRIT_BS($(this));
 
             //THIS IS MORE BS (MET CUSTOM POP UP BEFORE RESULTS)
             customMET_BS($(this));
@@ -71,6 +74,9 @@ $(document).ready(function(){
     }
     if(isTCM){
       showTCMScoring();
+    }
+    if(isGRIT){
+      showGRITScoring();
     }
 
     //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
@@ -154,9 +160,11 @@ $(document).ready(function(){
   if(isMET){
     showMETScoring();
   }
-
   if(isTCM){
     showTCMScoring();
+  }
+  if(isGRIT){
+    showGRITScoring();
   }
 });
 
@@ -403,6 +411,22 @@ function customMAT_BS(_this){
   return;
 }
 
+function customGRIT_BS(_this){
+  var closure_this  = _this.find("#grit_results");
+  var animtime      = closure_this.data("animation-time"); 
+  if(closure_this.length > 0){
+    setTimeout( function(){ 
+        closure_this.addClass("pushing").addClass("animate", function(){
+          setTimeout(function(){
+            closure_this.removeClass("pushing");
+            closure_this.addClass("showflags");
+          }, animtime*1000);
+        }); 
+      }, 500);
+  }
+  return;
+}
+
 function showMATScoring(qinput){
   var mat_complete  = true;
   if(qinput){
@@ -502,4 +526,21 @@ function showTCMScoring(){
   }else{
     // console.log(difference);
   }
+}
+
+function showGRITScoring(){
+  var all_answers = $("#customform").serializeArray();
+  var nextSection = $("#customform section:last");
+  var dataURL     = "GRIT_sisyphus.php";
+  $.ajax({
+    url:  dataURL,
+    type:'POST',
+    data: "&grit=" + JSON.stringify($("#customform").serializeArray()),
+    success:function(result){
+      if($("#grit_results").length > 0){
+        $("#grit_results").remove();
+      }
+      nextSection.find("h2").after(result);
+    }
+  });
 }

@@ -316,6 +316,9 @@ include("inc/gl_head.php");
                           <ul>
                           <?php
                             $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! Start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
+                            if(!$next_survey){
+                              $next_survey = $a_nutrilink;
+                            } 
                           ?>
                             <li id="slide_welcome"><a href="<?php echo $next_survey ?>"><?php echo $welcome_back ?></li>
                             <li id="slide_ffq"><?php echo $a_nutrilink?></li>

@@ -256,12 +256,14 @@ include("inc/gl_foot.php");
 ?>
 <script>
 <?php
-  $isMET = $sid == "how_fit_are_you"                      ? "true" : "false";
-  $isMAT = $sid == "how_is_your_physical_mobility"                      ? "true" : "false";
-  $isTCM = $sid == "find_out_your_body_type_according_to_chinese_medic" ? "true" : "false";
+  $isMET  = $sid == "how_fit_are_you"                                     ? "true" : "false";
+  $isMAT  = $sid == "how_is_your_physical_mobility"                       ? "true" : "false";
+  $isTCM  = $sid == "find_out_your_body_type_according_to_chinese_medic"  ? "true" : "false";
+  $isGRIT = $sid == "how_resilient_are_you_to_stress"                     ? "true" : "false";
   echo "var isMET               = $isMET ;\n";
   echo "var isMAT               = $isMAT ;\n";
   echo "var isTCM               = $isTCM ;\n";
+  echo "var isGRIT              = $isGRIT ;\n";
 
   // //PASS FORMS METADATA 
   echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";

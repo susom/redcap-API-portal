@@ -1,7 +1,11 @@
 <?php
 $grit_answers 	= $_POST["grit"] ?: NULL;
 
-$animtime 		= 6;
+
+//DO SOME PROCESSING
+$animtime 		= 10;
+$grit_score 	= "$animtime.0/10";
+$grit_perc 		= $animtime*10;
 
 $level = array();
 $level[1] 		= "ten";
@@ -30,8 +34,8 @@ $level[10] 		= "one_hundred";
 		<li class="ten">10%</li>
 	</ul>
 	<div class="grit_score_bubble">
-		<h3 class="grit_score">3.0/5</h3>
-		<p>You acored better than <span class="grit_perc">60</span>% of American Adults</p>
+		<h3 class="grit_score"><?php echo $grit_score ?></h3>
+		<p>You acored better than <span class="grit_perc"><?php echo $grit_perc ?></span>% of American Adults</p>
 	</div>
 	<div class="sisyphus"></div>
 </div>

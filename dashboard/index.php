@@ -226,6 +226,8 @@ include("inc/gl_head.php");
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
                       $survey_alinks  = array();
+
+                      $supp_AB_show   = $loggedInUser->id % 2 == 0 ? true : $core_surveys_complete;
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
@@ -233,9 +235,9 @@ include("inc/gl_head.php");
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $surveyname   = $supp_instrument["label"];
                         
-                        $titletext    = $core_surveys_complete ? $surveyname : "Come back to these surveys once you complete the Core Surveys!";
-                        $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
-                        $icon_update  = $core_surveys_complete ? " icon_update" : "";
+                        $titletext    = $supp_AB_show ? $surveyname : "Come back to these surveys once you complete the Core Surveys!";
+                        $surveylink   = $supp_AB_show ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                        $icon_update  = $supp_AB_show ? " icon_update" : "";
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
                     
 
@@ -437,6 +439,10 @@ include("inc/gl_head.php");
                           </header>
                           <ul class="list-group alt">
                             <?php
+                              if($loggedInUser->id % 4 == 0){
+                                //so not just every even one, but every other even number i guess
+                                shuffle($news);
+                              }
                               echo implode("\n",$news);
                             ?>
                           </ul>

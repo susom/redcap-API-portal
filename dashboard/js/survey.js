@@ -179,24 +179,32 @@ $(document).ready(function(){
   });
 
   $("body").on("click","a[target='blank']",function(){
-    var link      = $(this).attr("href");
-    var winwidth  = Math.round(.85 * $( window ).width() );
-    var winheight = Math.round(.85 * $( window ).height() );
-    window.open(link,'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight);
+    var newin = openNewWindow($(this));
+    return false;
   });
 
-  $("body").on("click","a.offsite",function(){
-    var link      = $(this).attr("href");
-    var reqmsg    = $("<div>").addClass("required_message alert alert-info").html("<ul><li>You are redirecting to an offsite link: <br> <b>"+link+"</b> <br> in a few seconds, click 'Back' to come back to the survey.<li></ul>");
-    $("body").append(reqmsg);
-
+  $("body").on("click","a.offsite",function(e){
+    e.preventDefault();
+    var link  = $(this).attr("href");
+    var newin = openNewWindow($(this),true);
+    newin.document.write('<h1 style="text-align:center; font-weight:500">You clicked on an offsite link , this page will redirect to <br><b>'+link+'</b><br> in 5 seconds .....</h1>');
+    
     setTimeout(function(){  
-      window.location.href = link;
+      newin.location.href = link;
     },5000);
 
     return false;
   });
 });
+
+function openNewWindow(_this,offsite){
+  var link      = offsite ? "" : _this.attr("href");
+  var winwidth  = Math.round(.85 * $( window ).width() );
+  var winheight = Math.round(.85 * $( window ).height() );
+
+  var newwin    = window.open(link,'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight);
+  return newwin;
+}
 
 function isEmpty(v){
   return v == null || v == undefined;

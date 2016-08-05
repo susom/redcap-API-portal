@@ -166,6 +166,36 @@ $(document).ready(function(){
   if(isGRIT){
     showGRITScoring();
   }
+
+  //BMI POPUP 
+  $("body").on("click","a.moreinfo",function(){
+    var contentid = $(this).data("content");
+    var content   = $("#"+contentid);
+    content.slideDown("medium");
+  });
+
+  $("body").on("click","a.closeparent",function(){
+    $(this).parent().slideUp("fast");
+  });
+
+  $("body").on("click","a[target='blank']",function(){
+    var link      = $(this).attr("href");
+    var winwidth  = Math.round(.85 * $( window ).width() );
+    var winheight = Math.round(.85 * $( window ).height() );
+    window.open(link,'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight);
+  });
+
+  $("body").on("click","a.offsite",function(){
+    var link      = $(this).attr("href");
+    var reqmsg    = $("<div>").addClass("required_message alert alert-info").html("<ul><li>You are redirecting to an offsite link: <br> <b>"+link+"</b> <br> in a few seconds, click 'Back' to come back to the survey.<li></ul>");
+    $("body").append(reqmsg);
+
+    setTimeout(function(){  
+      window.location.href = link;
+    },5000);
+
+    return false;
+  });
 });
 
 function isEmpty(v){

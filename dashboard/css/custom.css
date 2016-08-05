@@ -332,6 +332,7 @@ h2.weather,
     font-weight:600;
     position:relative;
     text-indent:-5000px;
+    border-radius: 4px;
 }
 #survey_progress  .progress-bar:after{
     position:absolute;
@@ -1721,6 +1722,47 @@ input[readonly] {
 }
 #met_bmi {
     background:#DAE3F2;
+    position:relative;
+}
+a.moreinfo {
+    display:inline-block;
+    width:25px; height:25px;
+    text-align:center;
+    font-weight:600;
+    background: whitesmoke;
+    border-radius: 50px;
+    text-decoration: none !important;
+    cursor:pointer;
+    font-size:92%;
+}
+a.moreinfo:hover{
+    box-shadow:0 0 1px 1px lightsteelblue;
+}
+a.closeparent {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    font-weight: 600;
+    background: whitesmoke;
+    border-radius: 50px;
+    text-decoration: none !important;
+    cursor: pointer;
+    font-size: 122%;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+#met_bmi div.moreinfo{
+    position:relative;
+    background: lightblue;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+#met_bmi div.moreinfo h3 {
+    margin-left:0; 
 }
 #met_pa {
     background:#E2F0DA;

@@ -81,6 +81,7 @@ $grit_score 	= $gritscore . "/5.0";
 $grit_perc 		= $animtime*10;
 
 $level = array();
+$level[0] 		= "zero";
 $level[1] 		= "ten";
 $level[2] 		= "twenty";
 $level[3] 		= "thirty";

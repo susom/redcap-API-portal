@@ -227,7 +227,7 @@ include("inc/gl_head.php");
                       //THIS COMES FROM THE models/inc/surveys.php file
                       $survey_alinks  = array();
 
-                      $supp_AB_show   = $loggedInUser->id % 2 == 0 ? true : $core_surveys_complete;
+                      $supp_AB_show   = $loggedInUser->id % 2 !== 0 ? true : $core_surveys_complete;
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
@@ -235,7 +235,7 @@ include("inc/gl_head.php");
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $surveyname   = $supp_instrument["label"];
                         
-                        $titletext    = $supp_AB_show ? $surveyname : "Come back to these surveys once you complete the Core Surveys!";
+                        $titletext    = $supp_AB_show ? $projnotes[$supp_instrument_id] : "Come back to these surveys once you complete the Core Surveys!";
                         $surveylink   = $supp_AB_show ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = $supp_AB_show ? " icon_update" : "";
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
@@ -283,11 +283,11 @@ include("inc/gl_head.php");
                       }
 
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
-                        $index       = array_search($supp_instrument_id, $supp_surveys_keys);
-                        $surveyname  = $supp_instrument["label"];
-                        $surveylink  = "survey.php?sid=". $supp_instrument_id;
+                        $index          = array_search($supp_instrument_id, $supp_surveys_keys);
+                        $surveyname     = $supp_instrument["label"];
+                        $surveylink     = "survey.php?sid=". $supp_instrument_id;
                         $completeclass  = ($supp_instrument["survey_complete"] ? "completed":"");
-                        $showfruit[] = "<li class='nav'>
+                        $showfruit[]    = "<li class='nav'>
                             <a href='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        
                               <span>$surveyname</span>
                             </a>

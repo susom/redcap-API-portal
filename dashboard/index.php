@@ -324,7 +324,10 @@ include("inc/gl_head.php");
                           ?>
                             <li id="slide_welcome"><a href="<?php echo $next_survey ?>"><?php echo $welcome_back ?></li>
                             <li id="slide_ffq"><?php echo $a_nutrilink?></li>
-                            <li id="slide_pa"><?php echo $survey_alinks["how_fit_are_you"] ?></li>                            
+                            <li id="slide_mat"><?php echo $survey_alinks["how_is_your_physical_mobility"] ?></li> 
+                            <li id="slide_pa"><?php echo $survey_alinks["how_fit_are_you"] ?></li> 
+                            <li id="slide_grit"><?php echo $survey_alinks["how_resilient_are_you_to_stress"] ?></li> 
+                            <li id="slide_sleep"><?php echo $survey_alinks["how_well_do_you_sleep"] ?></li>                            
                           </ul>
                         </div>
                     </div>

@@ -95,6 +95,18 @@ h2.weather,
     background:url(../images/bg_physical_activity.jpg) 0px -110px no-repeat;
     background-size:cover;
 }
+#slide_banner #slide_mat{
+    background:url(../images/bg_mobility.jpg) 0px -60px no-repeat;
+    background-size:cover;
+}
+#slide_banner #slide_grit{
+    background:url(../images/bg_grit.jpg) 0px -180px no-repeat;
+    background-size:cover;
+}
+#slide_banner #slide_sleep{
+    background:url(../images/bg_sleep.jpg) 0px -110px no-repeat;
+    background-size:cover;
+}
 #slide_banner #slide_welcome{
     background:url(../images/bg_welcome.jpg) 0px -200px no-repeat;
     background-size:cover;

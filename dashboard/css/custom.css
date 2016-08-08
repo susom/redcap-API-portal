@@ -1720,6 +1720,11 @@ input[readonly] {
 #met_aging {
     background:#FFF1CE;
 }
+#met_results .funfact{
+    display:block; 
+    color:#8A0A8A;
+    font-weight:600;
+}
 #met_bmi {
     background:#DAE3F2;
     position:relative;

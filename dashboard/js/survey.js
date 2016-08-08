@@ -187,8 +187,9 @@ $(document).ready(function(){
     e.preventDefault();
     var link  = $(this).attr("href");
     var newin = openNewWindow($(this),true);
-    newin.document.write('<h1 style="text-align:center; font-weight:500">You clicked on an offsite link , this page will redirect to <br><b>'+link+'</b><br> in 5 seconds .....</h1>');
-    
+    newin.document.write('<div style="text-align:center"><img src="../assets/img/well_logo.png"/></div>');
+    newin.document.write('<h2 style="text-align:center; font-weight:500">You will be directed to your page on <br><b>'+link+'</b><br> in just a few seconds. The Well for Life dashboard is still open on the previous window.</h2>');
+    newin.document.write('<p style="text-align:center;">You are now leaving a Stanford Medicine website and are going to a website that is not operated by any entity of Stanford University or Stanford Health Care. We are not responsible for the content or availability of linked sites. If you have any questions or concerns about the products, services, or content offered on linked third party websites, please contact the third party directly.</p>');
     setTimeout(function(){  
       newin.location.href = link;
     },5000);
@@ -392,8 +393,10 @@ function showMETScoring(){
         var pa_show = "pa_" + PA_level;
         $("#met_pa ."+pa_show).show();
 
-        if(age >= 50){
-          $("#met_aging,#met_aging div").show();
+        if(age > 39 && age <= 59){
+          $("#met_aging, #met_aging .old").show();
+        }else if(age > 59){
+          $("#met_aging, #met_aging .really_old").show();
         }else{
           $("#met_aging").hide();
         }
@@ -402,7 +405,7 @@ function showMETScoring(){
         var a_fill_2 = Math.round((24.9/703) * Math.pow(height, 2));
         var a_fill_3 = Math.round(weight - a_fill_2);
 
-        $("#met_bmi .your_height").text(height + " in");
+        $("#met_bmi .your_height").text(parseInt(foot) + "' " +  parseInt(inch) + "\"");
         $("#met_bmi .your_weight").text(weight + " lb");
         $("#met_bmi .your_bmi").text(bmi.toFixed(1));
         $("#met_bmi .healthy_weight_min").text(a_fill_1 + " lb");

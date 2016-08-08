@@ -573,7 +573,7 @@ function showTCMScoring(){
 
 function showGRITScoring(){
   var all_answers = $("#customform").serializeArray();
-  var nextSection = $("#customform section:last");
+  var nextSection = $("#customform section:last").prev();
   var dataURL     = "GRIT_sisyphus.php";
 
   $.ajax({

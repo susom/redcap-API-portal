@@ -441,7 +441,16 @@ include("inc/gl_head.php");
                             <?php
                               if($loggedInUser->id % 4 == 0){
                                 //so not just every even one, but every other even number i guess
+                                $re_add = array();
+                                foreach($news as $k => $item){
+                                  if(strpos($item,"&nbsp;") > -1){
+                                    //purposely empty rows (for layout) need to be removed and re-added after shuffling
+                                    $re_add[] = $item;
+                                    unset($news[$k]);
+                                  }
+                                }
                                 shuffle($news);
+                                $news = array_merge($news,$re_add);
                               }
                               echo implode("\n",$news);
                             ?>

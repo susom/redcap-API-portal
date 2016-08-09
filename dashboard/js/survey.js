@@ -127,8 +127,13 @@ $(document).ready(function(){
 
   //FIND THE PAGE OF THE LAST QUESTION SAVED AND JUMP TO THAT PANEL
   var answered_keys     = Object.keys(user_completed); 
-  var last_answered     = answered_keys[completed_count - 1];
-  var newactive         = $("div."+last_answered).closest("section");
+  if(answered_keys.hasOwnProperty(0)){
+    var last_answered = answered_keys[completed_count - 1];
+  }else{
+    var last_answered = "inputwrap";
+  }
+  var newactive       = $("div."+last_answered).first().closest("section");
+
   if(newactive.length){
     $("#customform section").removeClass("active");
     var panel         = $("#customform section").index(newactive);
@@ -167,22 +172,21 @@ $(document).ready(function(){
     showGRITScoring();
   }
 
-  //BMI POPUP 
+  //BMI POPUP
   $("body").on("click","a.moreinfo",function(){
     var contentid = $(this).data("content");
     var content   = $("#"+contentid);
     content.slideDown("medium");
   });
-
   $("body").on("click","a.closeparent",function(){
     $(this).parent().slideUp("fast");
   });
 
+  //OFFSITE LINKS 
   $("body").on("click","a[target='blank']",function(){
     var newin = openNewWindow($(this));
     return false;
   });
-
   $("body").on("click","a.offsite",function(e){
     e.preventDefault();
     var link  = $(this).attr("href");

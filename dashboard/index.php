@@ -325,13 +325,16 @@ include("inc/gl_head.php");
                             $slides = array(
                                "slide_welcome" => "<a href='$next_survey'>$welcome_back</a>"
                               ,"slide_ffq"     => $a_nutrilink                                     
-                              ,"slide_mat"     => $survey_alinks["how_is_your_physical_mobility"] 
-                              ,"slide_pa"      => $survey_alinks["how_fit_are_you"]                
-                              ,"slide_grit"    => $survey_alinks["how_resilient_are_you_to_stress"]
-                              ,"slide_sleep"   => $survey_alinks["how_well_do_you_sleep"]          
+                              ,"slide_mat"     => !isset($survey_alinks["how_is_your_physical_mobility"])   ? null : $survey_alinks["how_is_your_physical_mobility"] 
+                              ,"slide_pa"      => !isset($survey_alinks["how_fit_are_you"])                 ? null : $survey_alinks["how_fit_are_you"]                
+                              ,"slide_grit"    => !isset($survey_alinks["how_resilient_are_you_to_stress"]) ? null : $survey_alinks["how_resilient_are_you_to_stress"]
+                              ,"slide_sleep"   => !isset($survey_alinks["how_well_do_you_sleep"])           ? null : $survey_alinks["how_well_do_you_sleep"]          
                             );
 
                             foreach($slides as $slideid => $link){
+                              if(is_null($link)){
+                                continue;
+                              }
                               echo "<li id='$slideid'>$link</li>\r";
                             }
                           ?>

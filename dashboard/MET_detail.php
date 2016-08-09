@@ -75,14 +75,14 @@ $suggest = $suggestion[$level];
 		<div class="funfact"><p><i>Did you know that the American Psychological Association has found that wisdom and creativity are traits that often continue into our later years?</i></p></div>
 
 		<div class="old">
-			<p>Our cardiorespiratory fitness naturally declines as we age. Over the next several years, your body will begin to experience changes that may begin to limit your physical abilities. While we cannot prevent aging, we can help to prepare for aging and combat some of its common negative effects by <a class="offsite" href='http://www.choosemyplate.gov/'>eating healthy</a> and <a class="offsite" href='https://go4life.nia.nih.gov/'>staying active</a>.</p>
+			<p>Our cardiorespiratory fitness naturally declines as we age. Over the next several years, your body will begin to experience changes that may begin to limit your physical abilities. While we cannot prevent aging, we can help to prepare for aging and combat some of its common negative effects by <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>eating healthy</a> and <a class="offsite" href='https://go4life.nia.nih.gov/'>staying active</a>.</p>
 
 			<p>It’s important to distinguish between normal aging and abnormal declines in your health. Consider checking out <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">this guide</a> prepared by the American Psychological Association to learn more about some of the truths and common myths associated with aging.</p>
 
 			<p>Make sure physical activity is right for you; before starting, take this <a target="blank" href='pa_readiness_questionaire.pdf'>self-evaluation questionnaire</a> or talk to a healthcare provider.</p>
 		</div>
 		<div class="really_old">
-			<p>Our cardiorespiratory fitness naturally declines as we age. While we cannot prevent aging, we can help to combat some of the negative effects we tend to see with aging by continuing to eat <a class="offsite" href='http://www.choosemyplate.gov/'>healthy</a> and by <a class="offsite" href='https://go4life.nia.nih.gov/'>staying active</a>. For more information about healthy aging, visit <a class="offsite" href='http://www.hhs.gov/aging/healthy-aging/'>http://www.hhs.gov/aging/healthy-aging/</a>. Taking steps now to help to preserve your cardiorespiratory fitness can help to reduce your risk of heart disease.</p>
+			<p>Our cardiorespiratory fitness naturally declines as we age. While we cannot prevent aging, we can help to combat some of the negative effects we tend to see with aging by continuing to eat <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>healthy</a> and by <a class="offsite" href='https://go4life.nia.nih.gov/'>staying active</a>. For more information about healthy aging, visit <a class="offsite" href='http://www.hhs.gov/aging/healthy-aging/'>http://www.hhs.gov/aging/healthy-aging/</a>. Taking steps now to help to preserve your cardiorespiratory fitness can help to reduce your risk of heart disease.</p>
 			<p>Make sure physical activity is right for you; before starting, take this <a target="blank" href='pa_readiness_questionaire.pdf'>self-evaluation questionnaire</a> or talk to a healthcare provider.</p>
 		</div>
 	</div>
@@ -104,18 +104,18 @@ $suggest = $suggestion[$level];
 		</div>
 		<div class="bmi_c">
 			<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the NORMAL BMI category. A BMI of 18.5-24.9 is considered healthy.</p>
-			<p>Good job! Maintaining a healthy weight is an important part of keeping you healthy and maintaining your wellbeing. Continue to maintain your weight through a <a class="offsite" href='http://www.choosemyplate.gov/'>healthy diet</a> and by <a class="offsite" href='http://health.gov/paguidelines/'>remaining active</a>.</p>
+			<p>Good job! Maintaining a healthy weight is an important part of keeping you healthy and maintaining your wellbeing. Continue to maintain your weight through a <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>healthy diet</a> and by <a class="offsite" href='http://health.gov/paguidelines/'>remaining active</a>.</p>
 		</div>
 		<div class="bmi_d">
 			<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OVERWEIGHT BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
-			<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
+			<p>For most adults trying to lose weight, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
 			<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
 			<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
 		</div>
 		<div class="bmi_e">
 			<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
 			<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
-			<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
+			<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes like eating healthy and by remaining active can help to reduce your risk for these complications, and help you live a healthier life.</p>
 			<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
 		</div>
 	</div>

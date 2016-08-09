@@ -318,16 +318,24 @@ include("inc/gl_head.php");
                           <ul>
                           <?php
                             $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
-                            if(!isset($next_survey)){
+                            if( !isset($next_survey) ){
                               $next_survey = $nutrilink;
                             } 
+
+                            $slides = array(
+                               "slide_welcome" => "<a href='$next_survey'>$welcome_back</a>"
+                              ,"slide_ffq"     => $a_nutrilink                                     
+                              ,"slide_mat"     => $survey_alinks["how_is_your_physical_mobility"] 
+                              ,"slide_pa"      => $survey_alinks["how_fit_are_you"]                
+                              ,"slide_grit"    => $survey_alinks["how_resilient_are_you_to_stress"]
+                              ,"slide_sleep"   => $survey_alinks["how_well_do_you_sleep"]          
+                            );
+
+                            foreach($slides as $slideid => $link){
+                              echo "<li id='$slideid'>$link</li>\r";
+                            }
                           ?>
-                            <li id="slide_welcome"><a href="<?php echo $next_survey ?>"><?php echo $welcome_back ?></li>
-                            <li id="slide_ffq"><?php echo $a_nutrilink?></li>
-                            <li id="slide_mat"><?php echo $survey_alinks["how_is_your_physical_mobility"] ?></li> 
-                            <li id="slide_pa"><?php echo $survey_alinks["how_fit_are_you"] ?></li> 
-                            <li id="slide_grit"><?php echo $survey_alinks["how_resilient_are_you_to_stress"] ?></li> 
-                            <li id="slide_sleep"><?php echo $survey_alinks["how_well_do_you_sleep"] ?></li>                            
+                                                      
                           </ul>
                         </div>
                     </div>

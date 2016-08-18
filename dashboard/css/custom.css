@@ -100,7 +100,7 @@ h2.weather,
     background-size:cover;
 }
 #slide_banner #slide_grit{
-    background:url(../images/bg_grit.jpg) 0px -180px no-repeat;
+    background:url(../images/bg_grit.jpg) 0px -260px no-repeat;
     background-size:cover;
 }
 #slide_banner #slide_sleep{
@@ -1348,7 +1348,22 @@ input[readonly] {
     padding: 5px 10px;
     font-size: 115%;
 }
-
+.get_help {
+    color:#333; 
+}
+.get_help h3{
+    margin:0 0 15px; 
+    font-size:150%;
+}
+.get_help div{
+    margin:20px;
+    padding:10px;
+    background:#fff;
+    border-radius:5px; 
+}
+.get_help a {
+    color:darkred;
+}
 
 /*WHEEL OF FORTUNEGAME*/
 
@@ -2484,6 +2499,8 @@ a.closeparent {
 
 
 
+
+
 /* portrait layout (exact widths) */
 @media screen and (max-width:768px) and (max-height:1024px) {
     .col_ipad_port {
@@ -2493,6 +2510,17 @@ a.closeparent {
     
     #slide_banner{
         margin-bottom:20px; 
+    }
+
+    #slide_banner #slide_welcome {
+        background-position:0 -140px;
+    }
+    #slide_banner #slide_welcome a{
+        top:5px;
+    }
+
+    #slide_banner #slide_grit {
+        background-position: 0px -130px;
     }
 
     .dash_fruits .fitness
@@ -2528,6 +2556,7 @@ a.closeparent {
         width:100%;
     }
 
+
     .nav .survey_name{
         width:155px;
     }
@@ -2538,5 +2567,28 @@ a.closeparent {
     .datacharts section{
         min-width:460px;
         max-width:460px;
+    }
+}
+
+/* portrait layout (exact widths) */
+@media screen and (max-width:376px) and (max-height:668px) {
+
+    #slide_banner{
+        margin-bottom:20px; 
+    }
+
+    #slide_banner #slide_welcome {
+        background-position:0 -50px;
+    }
+    #slide_banner #slide_welcome a{
+        top:20px;
+        width:90%;
+    }
+
+    #slide_banner #slide_grit {
+        background-position: 0px -50px;
+    }
+    #slide_banner #slide_sleep {
+        background-position: 0px -50px;
     }
 }

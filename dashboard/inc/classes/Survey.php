@@ -275,9 +275,7 @@ class Survey {
         $actions["MAT_video_key"]   = $v["key"];
       }
     }
-
     return $actions;
-
   }
 
   public function getActionTags($fieldmeta){
@@ -351,18 +349,18 @@ class Survey {
           }
         }
       }
-      $theHTML[]      = "</div>";
-      $theHTML[]      = "<style>.surveyFrame{ height:auto; }</style>";
+      $theHTML[]        = "</div>";
+      $theHTML[]        = "<style>.surveyFrame{ height:auto; }</style>";
     }else{
-      $theHTML[]  = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."' data-project='".$this->project."' data-instrument='".$this->surveyid."'>";
+      $theHTML[]        = "<form class='customform' id='customform' name='".$this->raw[0]["form_name"]."' data-project='".$this->project."' data-instrument='".$this->surveyid."'>";
       
       //CONTAINERS FOR BUILDING FORM COMPONENTS
-      $sections       = array();
-      $matrixes       = array();
-      $branches       = array();
-      $first_section  = true;
+      $sections         = array();
+      $matrixes         = array();
+      $branches         = array();
+      $first_section    = true;
       
-      $verify_map     = array( 
+      $verify_map       = array( 
          "email"                => "email"
         ,"integer"              => "number" 
         ,"number"               => "number"
@@ -471,6 +469,9 @@ class Survey {
 
         //HIDDEN INPUTS
         if($field_type == "hidden"){
+          if(strpos($field_name, "_ts") > -1){
+            $field_value    = date("Y-m-d H:i:s");
+          }
           $altered_input    = self::makeHidden($field_name, $field_type, $field_value); 
           $section_html     = array_merge($section_html, $altered_input);
         }

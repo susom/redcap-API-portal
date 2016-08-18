@@ -36,6 +36,7 @@ $(document).ready(function(){
       }else{
         //SUBMIT ALL THOSE HIDDEN FORMS NOW
         $("#customform input[type='hidden']").each(function(){
+          console.log($(this).attr("name") , $(this).val());
           saveFormData($(this));
         });
 
@@ -369,7 +370,7 @@ function showMETScoring(){
       type:'POST',
       data: project + "&met_score=" + METScore,
       success:function(result){
-
+        console.log(result);
       }
     });
 
@@ -495,7 +496,7 @@ function showMATScoring(qinput){
     var dataURL         = "survey.php?mat=1";
     var instrument_name = $("#customform").attr("name");
     var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
-    var nextSection = $("#customform section.active").next();
+    var nextSection = $("#customform section").last().prev().prev();
     $.ajax({
       url:  dataURL,
       type:'POST',

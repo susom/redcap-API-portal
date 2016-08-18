@@ -58,21 +58,21 @@
           <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm"></div>
           <ul class="nav nav-main" data-ride="collapse">
             <?php 
-            if($shownavsmore || 1){
+            if ($shownavsmore || 1) {
             ?>
-            <li>
-              <a href="index.php" class="auto">
-                <i class="i i-statistics icon"></i>
-                <span class="font-bold">My Dashboard</span>
-              </a>
-            </li>
-            <script>
-            //overide the default behavior of making it active
-            $("a[href='index.php']").click(function(){
-              location.href="index.php";
-              return false;
-            });
-            </script>
+              <li>
+                <a href="index.php" class="auto">
+                  <i class="i i-statistics icon"></i>
+                  <span class="font-bold">My Dashboard</span>
+                </a>
+              </li>
+              <script>
+              //overide the default behavior of making it active
+              $("a[href='index.php']").click(function(){
+                location.href="index.php";
+                return false;
+              });
+              </script>
             <?php
             }
             ?>
@@ -121,17 +121,18 @@
             </li>
             <?php 
             if($shownavsmore){
+            // <li $assesments>
+            //   <a href="assessments.php">
+            //     <span class="pull-right text-muted">
+            //       <i class="i i-circle-sm-o text"></i>
+            //       <i class="i i-circle-sm text-active"></i>
+            //     </span>
+            //     <i class="i i-docs icon"></i>
+            //     <span class="font-bold">My Resources</span>
+            //   </a>
+            // </li>
             ?>
-            <li <?php echo $assesments ?>>
-              <a href="assessments.php">
-                <span class="pull-right text-muted">
-                  <i class="i i-circle-sm-o text"></i>
-                  <i class="i i-circle-sm text-active"></i>
-                </span>
-                <i class="i i-docs icon"></i>
-                <span class="font-bold">My Resources</span>
-              </a>
-            </li>
+            
             <li <?php echo $profile_active ?>>
               <a href="profile.php">
                 <span class="pull-right text-muted">
@@ -142,16 +143,20 @@
                 <span class="font-bold">My Profile</span>
               </a>
             </li>
-            <li <?php echo $game_active ?>>
-              <a href="game.php" class="under_construction">
-                <span class="pull-right text-muted">
-                  <i class="i i-circle-sm-o text"></i>
-                  <i class="i i-circle-sm text-active"></i>
-                </span>
-                <i class="i i-docs icon"></i>
-                <span class="font-bold">Play Game</span>
-              </a>
-            </li>
+
+            <?php
+            // <li $game_active >
+            //   <a href="game.php" class="under_construction">
+            //     <span class="pull-right text-muted">
+            //       <i class="i i-circle-sm-o text"></i>
+            //       <i class="i i-circle-sm text-active"></i>
+            //     </span>
+            //     <i class="i i-docs icon"></i>
+            //     <span class="font-bold">Play Game</span>
+            //   </a>
+            // </li>
+            ?>
+            
             <li>
               <a href="mailto:wellforlife@stanford.edu?subject=Question for WELL" class="nav dk">
                 <span class="pull-right text-muted">
@@ -188,6 +193,16 @@
               </ul>
             </li> -->
             <?php
+            }else{
+            ?>
+            <li class="get_help">
+              <div>
+                <h3>Where to get help</h3>
+                <p>For a medical emergency, call 911 or your healtcare provider.</p>
+                <p>For mental health, please visit <a href="https://www.mentalhealth.gov/get-help/" class="offsite">MentalHealth.gov</a>.</p>
+              </div>
+            </li>
+            <?php 
             }
             ?>
           </ul>

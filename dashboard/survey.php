@@ -17,7 +17,7 @@ if(isset($_REQUEST["TCM"])){
 
   $data[] = array(
       "record"            => $record_id,
-      "field_name"        => 'met_score',
+      "field_name"        => 'tcm_score',
       "value"             => $value
     );
 

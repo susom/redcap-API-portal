@@ -108,7 +108,7 @@ h2.weather,
     background-size:cover;
 }
 #slide_banner #slide_welcome{
-    background:url(../images/bg_welcome.jpg) 0px -200px no-repeat;
+    background:url(../images/bg_welcome.jpg) 0px -170px no-repeat;
     background-size:cover;
 }
 #slide_welcome a {

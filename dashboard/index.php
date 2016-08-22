@@ -11,6 +11,24 @@ if(!isUserLoggedIn()) {
   header("Location: " . $destination);
   exit; 
 }else{
+  if(empty($loggedInUser->user_bucket)){
+    //USER NOT YET IN BUCKET, ASSIGN TO BUCKET "RANDOMLY"
+    $user_bucket = time() % 2 == 0 ? "A" : "B"; //THIS IS ASININE, BUT OK
+    $data[] = array(
+      "record"            => $loggedInUser->id,
+      "field_name"        => 'user_bucket',
+      "value"             => $user_bucket
+    );
+    $projects     = SurveysConfig::$projects;
+    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
+    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
+    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  }else{
+    $user_bucket  = $loggedInUser->user_bucket;
+  }
+
+  $variant = "A"; //THIS WILL DETERMINE THE BUCKETS I GUESS
+
   //if they are logged in and active
   //find survey completion and go there?
   // GET SURVEY LINKS
@@ -226,21 +244,40 @@ include("inc/gl_head.php");
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
                       $survey_alinks  = array();
-
-                      $supp_AB_show   = $loggedInUser->id % 2 !== 0 ? true : $core_surveys_complete;
+                      $supp_part_1_complete = true;
+                      if($user_bucket == $variant){
+                        foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
+                          if($supp_instrument_id == "how_is_your_physical_mobility" 
+                            || $supp_instrument_id == "how_fit_are_you"){
+                            if(!$supp_instrument["survey_complete"]){
+                              $supp_part_1_complete = false;
+                            }
+                          }else{
+                            continue;
+                          }
+                        }
+                      }
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;
                         }
+
+                        if(!$supp_part_1_complete && (
+                            $supp_instrument_id == "how_resilient_are_you_to_stress" 
+                            || $supp_instrument_id == "how_well_do_you_sleep" 
+                            || $supp_instrument_id == "find_out_your_body_type_according_to_chinese_medic" 
+                          )){
+                          continue;
+                        }
+                        //if bucket is A make sure that three other ones are complete before showing.
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $surveyname   = $supp_instrument["label"];
                         
-                        $titletext    = $supp_AB_show ? $projnotes[$supp_instrument_id] : "Come back to these surveys once you complete the Core Surveys!";
-                        $surveylink   = $supp_AB_show ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
-                        $icon_update  = $supp_AB_show ? " icon_update" : "";
+                        $titletext    = $projnotes[$supp_instrument_id];
+                        $surveylink   = "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"];
+                        $icon_update  = " icon_update";
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
                     
-
                         $news[]       = "<li class='list-group-item $icon_update'>
                                             ".$survey_alinks[$supp_instrument_id]." survey
                                         </li>";
@@ -453,7 +490,7 @@ include("inc/gl_head.php");
                           </header>
                           <ul class="list-group alt">
                             <?php
-                              if($loggedInUser->id % 4 == 0){
+                              if($user_bucket == $variant){
                                 //so not just every even one, but every other even number i guess
                                 $re_add = array();
                                 foreach($news as $k => $item){

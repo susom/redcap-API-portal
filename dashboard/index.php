@@ -23,6 +23,8 @@ if(!isUserLoggedIn()) {
     $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
     $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
     $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  
+    $loggedInUser->user_bucket = $user_bucket;
   }else{
     $user_bucket  = $loggedInUser->user_bucket;
   }

@@ -342,5 +342,29 @@ include("inc/gl_foot.php");
   function isEmpty(v){
     return v == null || v == undefined;
   }
+
+  //random icon images on surveys for crissake
+  var num_sections  = $("#customform section").length;
+  var randoIcons    = [  "icons_emotion_152"
+                        ,"icons_exploring_135"
+                        ,"icons_finances_171"
+                        ,"icons_lifestyle_155"
+                        ,"icons_meaning_165"
+                        ,"icons_physical_137"
+                        ,"icons_resilience_130"
+                        ,"icons_self_171"
+                        ,"icons_social_148"
+                        ,"icons_spirituality_134"
+                      ]; 
+  $("#customform section").each(function(i,el){
+    if(i < num_sections - 3){
+      var ts = Math.round( Math.random() * Date.now() );
+      if(ts % 2 == 0){
+        var randoNum = Math.floor(Math.random() * randoIcons.length)
+        $(this).addClass("randoIcon").addClass(randoIcons[randoNum]);
+      }
+    }
+  });
+
 </script>
 <script src="js/survey.js"></script>

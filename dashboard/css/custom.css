@@ -1623,6 +1623,69 @@ input[readonly] {
     line-height: 200%;
 }
 
+
+.randoIcon{
+    position:relative;
+}
+.randoIcon:after {
+    content:"";
+    width:150px;
+    height:150px;
+    position:absolute;
+    top:110px;
+    right:30px;
+}
+.randoIcon.icons_emotion_152:after {
+    background:url(../images/icons_emotion_152.png) top left no-repeat;
+    width:152px;
+    height:152px;
+ }
+.randoIcon.icons_exploring_135:after {
+    background:url(../images/icons_exploring_135.png) top left no-repeat;
+    width:135px;
+    height:135px;
+}
+.randoIcon.icons_finances_171:after {
+    background:url(../images/icons_finances_171.png) top left no-repeat;
+    width:171px;
+    height:171px;
+}
+.randoIcon.icons_lifestyle_155:after {
+    background:url(../images/icons_lifestyle_155.png) top left no-repeat;
+    width:155px;
+    height:155px;
+}
+.randoIcon.icons_meaning_165:after {
+    background:url(../images/icons_meaning_165.png) top left no-repeat;
+    width:165px;
+    height:165px;
+}
+.randoIcon.icons_physical_137:after {
+    background:url(../images/icons_physical_137.png) top left no-repeat;
+    width:137px;
+    height:137px;
+}
+.randoIcon.icons_resilience_130:after {
+    background:url(../images/icons_resilience_130.png) top left no-repeat;
+    width:130px;
+    height:130px;
+}
+.randoIcon.icons_self_171:after {
+    background:url(../images/icons_self_171.png) top left no-repeat;
+    width:171px;
+    height:171px;
+}
+.randoIcon.icons_social_148:after {
+    background:url(../images/icons_social_148.png) top left no-repeat;
+    width:148px;
+    height:148px;
+}
+.randoIcon.icons_spirituality_134:after {
+    background:url(../images/icons_spirituality_134.png) top left no-repeat;
+    width:134px;
+    height:134px;
+}
+
 #customform {
     transition: .8s top ease-in-out;
 }

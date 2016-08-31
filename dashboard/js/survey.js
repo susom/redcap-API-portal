@@ -293,7 +293,6 @@ function saveFormData(elem){
 
   //NOW UPDATE THE INMEMORY COMPLETED THING AND RUN THE PAGE BRANCHING CHECK
   all_completed[for_branch_name] = for_branch_val;
-  console.log(all_completed);
   checkGeneralBranching();
 
   //CHECK PROJECT
@@ -565,9 +564,6 @@ function showTCMScoring(){
       type:'POST',
       data: "&tcm_answers=" + JSON.stringify($("#customform").serializeArray()),
       success:function(result){
-        console.log("TCM SCORing");
-        console.log(result);
-
         if($("#tcm_results").length > 0){
           $("#tcm_results").remove();
         }

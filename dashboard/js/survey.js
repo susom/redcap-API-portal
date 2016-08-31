@@ -1,4 +1,11 @@
 $(document).ready(function(){
+  //onload specially look for "..._start_ts"
+  //ajax it and remove it
+  $("#customform input[name$='start_ts']").each(function(){
+    saveFormData($(this));
+    $(this).remove();
+  });
+  
   //SUBMIT/NEXT
   $("button[role='saverecord']").click(function(){
     $("#customform section.active").each(function(idx){
@@ -10,6 +17,8 @@ $(document).ready(function(){
       if(checkRequired()){
         return;
       } 
+
+      checkGeneralBranching();
 
       if($(this).next().length){
         $(".required_message").remove();
@@ -36,7 +45,6 @@ $(document).ready(function(){
       }else{
         //SUBMIT ALL THOSE HIDDEN FORMS NOW
         $("#customform input[type='hidden']").each(function(){
-          console.log($(this).attr("name") , $(this).val());
           saveFormData($(this));
         });
 
@@ -179,6 +187,7 @@ $(document).ready(function(){
     var content   = $("#"+contentid);
     content.slideDown("medium");
   });
+
   $("body").on("click","a.closeparent",function(){
     $(this).parent().slideUp("fast");
   });
@@ -188,6 +197,7 @@ $(document).ready(function(){
     var newin = openNewWindow($(this));
     return false;
   });
+
   $("body").on("click","a.offsite",function(e){
     e.preventDefault();
     var link  = $(this).attr("href");
@@ -283,6 +293,7 @@ function saveFormData(elem){
 
   //NOW UPDATE THE INMEMORY COMPLETED THING AND RUN THE PAGE BRANCHING CHECK
   all_completed[for_branch_name] = for_branch_val;
+  console.log(all_completed);
   checkGeneralBranching();
 
   //CHECK PROJECT
@@ -546,9 +557,7 @@ function showTCMScoring(){
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
   
-  console.log(difference);
-    
-  if(!difference.length) {
+  // if(!difference.length) {
     var nextSection = $("#customform section:last").prev();
     var dataURL     = "TCM_bodytype.php";
     $.ajax({
@@ -556,6 +565,9 @@ function showTCMScoring(){
       type:'POST',
       data: "&tcm_answers=" + JSON.stringify($("#customform").serializeArray()),
       success:function(result){
+        console.log("TCM SCORing");
+        console.log(result);
+
         if($("#tcm_results").length > 0){
           $("#tcm_results").remove();
         }
@@ -571,9 +583,9 @@ function showTCMScoring(){
         });
       }
     });
-  }else{
-    // console.log(difference);
-  }
+  // }else{
+  //   console.log(difference);
+  // }
 }
 
 function showGRITScoring(){

@@ -193,7 +193,7 @@
               </ul>
             </li> -->
             <?php
-            }else{
+            }
             ?>
             <li class="get_help">
               <div>
@@ -202,9 +202,6 @@
                 <p>For mental health, please visit <a href="https://www.mentalhealth.gov/get-help/" class="offsite">MentalHealth.gov</a>.</p>
               </div>
             </li>
-            <?php 
-            }
-            ?>
           </ul>
           <div class="line dk hidden-nav-xs"></div>
         </nav>

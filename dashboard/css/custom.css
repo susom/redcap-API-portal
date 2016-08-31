@@ -1361,6 +1361,8 @@ input[readonly] {
     background:#fff;
     border-radius:5px; 
 }
+.get_help a:hover,
+.get_help a:visited,
 .get_help a {
     color:darkred;
 }

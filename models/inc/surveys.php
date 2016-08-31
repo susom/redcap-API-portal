@@ -32,9 +32,10 @@ $fruits  				= SurveysConfig::$fruits;
 if(isset($_SESSION["supplemental_surveys"])){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
 	$supp_surveys  = $_SESSION["supplemental_surveys"];
-
 	foreach($supp_surveys as $supp_survey){
 		$supp_survey->refreshData();
+		$supp_branching 	= $supp_survey->getAllInstrumentsBranching();
+		$all_branching 		= array_merge($all_branching,$supp_branching);
 	}
 }else{
 	$supp_surveys = array();
@@ -44,13 +45,14 @@ if(isset($_SESSION["supplemental_surveys"])){
 	    continue;
 	  }
 
-	  $supplementalProject  = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+	  $supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
+	  $all_branching 			= array_merge($all_branching,$supp_branching);
 	  $supp_surveys[$proj_name] = $supplementalProject;
 	}
 	$_SESSION["supplemental_surveys"] 	= $supp_surveys;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
-
 
 $supp_instruments = array();
 foreach($supp_surveys as $projname => $supp_project){

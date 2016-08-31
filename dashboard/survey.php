@@ -265,15 +265,9 @@ include("inc/gl_foot.php");
   echo "var isTCM               = $isTCM ;\n";
   echo "var isGRIT              = $isGRIT ;\n";
 
-  // //PASS FORMS METADATA 
-  echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
-  echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
-  echo "var user_completed      = " . json_encode($active_survey->completed) . ";\n";
-  echo "var all_completed       = " . json_encode($all_completed) .";\n";
-  echo "var all_branching       = " . json_encode($all_branching).";\n";
-  echo "var completed_count     = " . count($active_survey->completed) . ";\n";
-  echo "var surveyhash          = '".http_build_query($active_survey->hash)."';\n";
-  
+  //THIS IS A CONFusINg FUNCTION
+  //BUT SINCE THERE ARE CONDITiONALS THAT SPAN INSTRUMENTS OR EVEN PROJECTS, GOTTA TRACK EM  ALL
+  //THE $all_branching is done in surveys.php
   $branching_function =  "function checkGeneralBranching(){\n";
     foreach($all_branching as $branch){
       $andor      = $branch["andor"];
@@ -296,13 +290,26 @@ include("inc/gl_foot.php");
       $branching_function .= "\$('.$affected').slideUp('fast');\n";
       $branching_function .= "}\n";
     }
+
   $branching_function .= "return;\n";
   $branching_function .= "}\n";
 
   echo $branching_function;
+
+  $all_completed = array_merge($all_completed, $active_survey->completed);
+  // //PASS FORMS METADATA 
+  echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
+  echo "var user_completed      = " . json_encode($active_survey->completed) . ";\n";
+  echo "var all_completed       = " . json_encode($all_completed) .";\n";
+  echo "var all_branching       = " . json_encode($all_branching).";\n";
+  echo "var completed_count     = " . count($active_survey->completed) . ";\n";
+  echo "var surveyhash          = '".http_build_query($active_survey->hash)."';\n";
+  echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
+
+  // echo "console.log(".json_encode($all_completed).");";
 ?>
   //LAUNCH IT INITIALLY TO CHECK IF PAGE HAS BRANCHING
-  checkGeneralBranching();
+  // checkGeneralBranching();
 
   //CUSTOM SCORING FOR MET / MAT / TCM SURVEYS
   var mat_map = {
@@ -331,7 +338,7 @@ include("inc/gl_foot.php");
     ,['tcm_depressed','tcm_anxious','tcm_melancholy','tcm_scared','tcm_suspicious','tcm_breastpain']
     ,['tcm_sneeze','tcm_cough','tcm_allergies','tcm_hives','tcm_skin_red']
   ];
-  
+
   function isEmpty(v){
     return v == null || v == undefined;
   }

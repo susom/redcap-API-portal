@@ -47,7 +47,9 @@ if(isset($_SESSION["supplemental_surveys"])){
 
 	  $supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
 	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
-	  $all_branching 			= array_merge($all_branching,$supp_branching);
+	  if(!empty($supp_branching)){
+		  $all_branching 		= array_merge($all_branching,$supp_branching);
+	  }
 	  $supp_surveys[$proj_name] = $supplementalProject;
 	}
 	$_SESSION["supplemental_surveys"] 	= $supp_surveys;

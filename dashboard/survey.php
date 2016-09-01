@@ -359,12 +359,16 @@ include("inc/gl_foot.php");
   $("#customform section").each(function(i,el){
     if(i < num_sections - 3){
       var ts = Math.round( Math.random() * Date.now() );
-      if(ts % 2 == 0){
+      if(1){//ts % 2 == 0
         var randoNum = Math.floor(Math.random() * randoIcons.length)
         $(this).addClass("randoIcon").addClass(randoIcons[randoNum]);
+        if(ts % 3 == 0){
+          $(this).addClass("topRight");
+        }else if(ts % 5 == 0){
+          $(this).addClass("bottomRight");
+        }
       }
     }
   });
-
 </script>
 <script src="js/survey.js"></script>

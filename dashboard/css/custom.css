@@ -1635,6 +1635,12 @@ input[readonly] {
     top:110px;
     right:30px;
 }
+.randoIcon.topRight {
+    background-position:top right !important;
+}
+.randoIcon.bottomRight{
+    background-position:bottom right !important;
+}
 .randoIcon.icons_emotion_152:after {
     background:url(../images/icons_emotion_152.png) top left no-repeat;
     width:152px;
@@ -2028,7 +2034,7 @@ a.closeparent {
 #tcm_results td div {
     height:200px;
     margin:0 2px;
-    background:lightgreen;
+    background:forestgreen;
 }
 #tcm_results td .neg {
     height:5px;
@@ -2036,7 +2042,7 @@ a.closeparent {
 }
 #tcm_results td .mayb {
     height:100px;
-    background:khaki;
+    background:lightseagreen;
 }
 
 #tcm_results .type td {
@@ -2530,11 +2536,15 @@ a.closeparent {
     background: #efefef;
     padding: 20px;
     border-radius: 5px;
+    color:#fff;
+}
+.constitutions h3{
+    color:#333;
 }
 .constitutions dl {
     padding: 20px;
     border-radius: 5px;
-    background: khaki;
+    background: lightseagreen;
 }
 .constitutions dt {
     cursor:pointer; 
@@ -2550,7 +2560,7 @@ a.closeparent {
     display:none;
 }
 .constitutions dl.positive{
-    background:lightgreen;
+    background:forestgreen;
 }
 .constitutions dl.tendency{
     

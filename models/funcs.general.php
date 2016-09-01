@@ -258,7 +258,7 @@ function getEliteUsers(){
 	});
 
 	//THEN SORT BY OLDEST FIRST
-	$elite = msort($active, "portal_consent_ts", 0);
+	$elite 	= msort($active, "portal_consent_ts", 0);
 	
 	//NOW JUST SLICE OFF THE FIRST 500
 	$elite 	= array_slice($elite, 0, 500);

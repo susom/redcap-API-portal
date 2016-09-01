@@ -272,6 +272,9 @@ class Project {
     //GET ALL THE BRANCHING ACROSS ALL ACTIVE INSTRUMENTS
 	public function getAllInstrumentsBranching(){
 		$all_branching = array();
+		if(!isset($this->ACTIVE_INSTRUMENTS)){
+			return;
+		}
 		foreach($this->ACTIVE_INSTRUMENTS as $instrument =>  $data){
 			if ($instrument == "users") {
 				continue;

@@ -79,6 +79,10 @@ function getBodyConstitution($constitutions,$type){
 			if($constitution_ratio >= .6){
 				$oratio_less_than_6 = false;
 			}
+
+			echo "<pre>";
+			print_r($constitution_ratio);
+			echo "</pre>";
 		}
 		
 		if($theratio >= .7 && $oratio_less_than_5){

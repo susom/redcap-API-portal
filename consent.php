@@ -13,23 +13,23 @@ if(isUserLoggedIn() && isUserActive()) {
 }
 
 //RECORD ACTUAL CONSENT TIME BUTTON PUSH 
-if(isset($_REQUEST["consent_actual"])){
-	$data         	= array();
-	$record_id    	= $loggedInUser->id;
-	$date 			= new DateTime;
-	$date->setTimestamp(time()); 
-	$consent_ts 	= $date->format('Y-m-d H:i:s');
+// if(isset($_REQUEST["consent_actual"])){
+// 	$data         	= array();
+// 	$record_id    	= $loggedInUser->id;
+// 	$date 			= new DateTime;
+// 	$date->setTimestamp(time()); 
+// 	$consent_ts 	= $date->format('Y-m-d H:i:s');
 
-	$data[] = array(
-	  "record"            => $record_id,
-	  "field_name"        => 'consent_agree_ts',
-	  "value"             => $consent_ts
-	);
+// 	$data[] = array(
+// 	  "record"            => $record_id,
+// 	  "field_name"        => 'consent_agree_ts',
+// 	  "value"             => $consent_ts
+// 	);
 
-	$result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
-	print_r($data);
-	exit;
-}
+// 	$result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), REDCAP_API_URL, REDCAP_API_TOKEN);
+// 	print_r($data);
+// 	exit;
+// }
 
 $pg_title 		= "Consent | $websiteName";
 $body_classes 	= "consent";

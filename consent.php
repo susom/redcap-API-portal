@@ -79,20 +79,20 @@ button[role='back'],
 $(".consent_slides section").first().addClass("active");
 
 
-//I AGREE
-$("button[role='consent']").click(function(){
-	var _this = $(this);
+// //I AGREE
+// $("button[role='consent']").click(function(){
+// 	var _this = $(this);
 
-	//REDIRECT TO HOME WITH A MESSAGE
-    var dataURL         = "consent.php?ajax=1&consent_actual=1";
-    $.ajax({
-      url:  dataURL,
-      type:'POST',
-      success:function(result){
-      	console.log(result);
-      }
-    });
-});
+// 	//REDIRECT TO HOME WITH A MESSAGE
+//     var dataURL         = "consent.php?ajax=1&consent_actual=1";
+//     $.ajax({
+//       url:  dataURL,
+//       type:'POST',
+//       success:function(result){
+//       	console.log(result);
+//       }
+//     });
+// });
 
 
 //NEXT BUTTON

@@ -16,19 +16,18 @@ if(!isUserLoggedIn()) {
     $user_bucket = time() % 2 == 0 ? "A" : "B"; //THIS IS ASININE, BUT OK
     $data[] = array(
       "record"            => $loggedInUser->id,
-      "field_name"        => 'user_bucket',
+      "field_name"        => 'portal_user_bucket',
       "value"             => $user_bucket
     );
     $projects     = SurveysConfig::$projects;
     $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
     $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
     $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-  
     $_SESSION[SESSION_NAME]['user']->user_bucket = $user_bucket;
   }else{
     $user_bucket  = $loggedInUser->user_bucket;
   }
-  $user_bucket = "B";
+
   $variant = "A"; //THIS WILL DETERMINE THE BUCKETS I GUESS
 
   //if they are logged in and active

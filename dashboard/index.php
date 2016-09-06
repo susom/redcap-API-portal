@@ -27,7 +27,6 @@ if(!isUserLoggedIn()) {
   }else{
     $user_bucket  = $loggedInUser->user_bucket;
   }
-
   $variant = "A"; //THIS WILL DETERMINE THE BUCKETS I GUESS
 
   //if they are logged in and active
@@ -248,7 +247,7 @@ include("inc/gl_head.php");
                       $supp_part_1_complete = true;
                       if($user_bucket == $variant){
                         foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
-                          if($supp_instrument_id == "how_is_your_physical_mobility" 
+                          if($supp_instrument_id == "how_physically_mobile_are_you" 
                             || $supp_instrument_id == "how_fit_are_you"){
                             if(!$supp_instrument["survey_complete"]){
                               $supp_part_1_complete = false;
@@ -363,7 +362,7 @@ include("inc/gl_head.php");
                             $slides = array(
                                "slide_welcome" => "<a href='$next_survey'>$welcome_back</a>"
                               ,"slide_ffq"     => $a_nutrilink                                     
-                              ,"slide_mat"     => !isset($survey_alinks["how_is_your_physical_mobility"])   ? null : $survey_alinks["how_is_your_physical_mobility"] 
+                              ,"slide_mat"     => !isset($survey_alinks["how_physically_mobile_are_you"])   ? null : $survey_alinks["how_physically_mobile_are_you"] 
                               ,"slide_pa"      => !isset($survey_alinks["how_fit_are_you"])                 ? null : $survey_alinks["how_fit_are_you"]                
                               ,"slide_grit"    => !isset($survey_alinks["how_resilient_are_you_to_stress"]) ? null : $survey_alinks["how_resilient_are_you_to_stress"]
                               ,"slide_sleep"   => !isset($survey_alinks["how_well_do_you_sleep"])           ? null : $survey_alinks["how_well_do_you_sleep"]          

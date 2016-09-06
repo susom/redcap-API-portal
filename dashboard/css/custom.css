@@ -1696,11 +1696,11 @@ input[readonly] {
     transition: .8s top ease-in-out;
 }
 
-#customform[data-instrument="how_is_your_physical_mobility"] .q_label{
+#customform[data-instrument="how_physically_mobile_are_you"] .q_label{
     font-size:140%;
     font-weight:normal;
 }
-#customform[data-instrument="how_is_your_physical_mobility"] label{
+#customform[data-instrument="how_physically_mobile_are_you"] label{
     font-size:130%;
 }
 

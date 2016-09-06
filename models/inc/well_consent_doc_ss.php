@@ -2,7 +2,7 @@
 	<h2>PURPOSE OF RESEARCH</h2>
 	<p>The WELL for Life Initiative aims to identify factors that contribute to wellbeing and health. The WELL for Life Initiative has been created by the Stanford Prevention Research Center in the Stanford University School of Medicine.</p> 
 	<p>You are being invited to enter the WELL for Life Registry, which is gathering information on people’s health and wellbeing. As a WELL for Life Registry participant you will be invited to take part in future WELL for Life Projects. Our goal is to enroll 10,000 people living in the San Francisco Bay Area. In the future, we hope to enroll participants from all across the US.</p>
-	<p>Your participation in this study is voluntary. If you decide to end your participation in this study, you should notify Sandra Winter at 650-723-8513.</p> 
+	<p>Your participation in this study is voluntary. If you decide to end your participation in this study, you should notify John Ioannidis at (650) 725-5465 or Sandra Winter at 650-723-8513.</p> 
 </section>
 
 <section>
@@ -42,7 +42,7 @@
 
 <section>
 	<h2>FOR QUESTIONS ABOUT THE STUDY</h2>
-	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, Sandra Winter. You may contact her now or later at 650-723-8513.</p>
+	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.</p>
 	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB at:
 
 	<br><br>

@@ -48,7 +48,7 @@ include("models/inc/gl_header.php");
 					<li>We will check back in with you every few months</li>
 					<li>We will add new surveys, materials, and content and invite you to participate over time</li>
 				</ul>
-				<p>FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, Sandra Winter at 650-723-8513.</p>
+				<p>FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.</p>
 			</section>
 			<?php
 				include("models/inc/well_consent_doc_ss.php");

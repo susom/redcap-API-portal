@@ -84,32 +84,39 @@ h2.weather,
     min-height:150px; 
     position:absolute;
     top:0; left:40px;
-    background:url(../images/bg_nutrition.jpg) no-repeat;
+    background:url(../images/bg_nutrition.jpg) 0 50% no-repeat;
     background-size:cover; 
     transition: .4s left ease-in-out, .5s opacity ease-in-out;
     opacity:0;
     z-index:2;
     border-radius:5px;
 }
+#slide_banner #slide_welcome{
+    background:url(../images/bg_welcome.jpg) 0px 50% no-repeat;
+    background-size:cover;
+}
 #slide_banner #slide_pa{
-    background:url(../images/bg_physical_activity.jpg) 0px -110px no-repeat;
+    background:url(../images/bg_physical_activity.jpg) 0px 50% no-repeat;
     background-size:cover;
 }
 #slide_banner #slide_mat{
-    background:url(../images/bg_mobility.jpg) 0px -60px no-repeat;
+    background:url(../images/bg_mobility.jpg) 0px 25% no-repeat;
     background-size:cover;
 }
 #slide_banner #slide_grit{
-    background:url(../images/bg_grit.jpg) 0px -260px no-repeat;
+    background:url(../images/bg_grit.jpg) 0px 80% no-repeat;
     background-size:cover;
 }
 #slide_banner #slide_sleep{
-    background:url(../images/bg_sleep.jpg) 0px -110px no-repeat;
+    background:url(../images/bg_sleep.jpg) 0px 50% no-repeat;
     background-size:cover;
 }
-#slide_banner #slide_welcome{
-    background:url(../images/bg_welcome.jpg) 0px -170px no-repeat;
+#slide_banner #slide_tcm{
+    background:url(../images/bg_tcm.jpg) 0px 50% no-repeat;
     background-size:cover;
+}
+#slide_banner #slide_tcm a:after{
+    height:88px;
 }
 #slide_welcome a {
     display:block; 

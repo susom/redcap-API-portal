@@ -359,12 +359,13 @@ include("inc/gl_head.php");
                             } 
 
                             $slides = array(
-                               "slide_welcome" => "<a href='$next_survey'>$welcome_back</a>"
-                              ,"slide_ffq"     => $a_nutrilink                                     
-                              ,"slide_mat"     => !isset($survey_alinks["how_physically_mobile_are_you"])   ? null : $survey_alinks["how_physically_mobile_are_you"] 
-                              ,"slide_pa"      => !isset($survey_alinks["how_fit_are_you"])                 ? null : $survey_alinks["how_fit_are_you"]                
-                              ,"slide_grit"    => !isset($survey_alinks["how_resilient_are_you_to_stress"]) ? null : $survey_alinks["how_resilient_are_you_to_stress"]
-                              ,"slide_sleep"   => !isset($survey_alinks["how_well_do_you_sleep"])           ? null : $survey_alinks["how_well_do_you_sleep"]          
+                               "slide_welcome"  => "<a href='$next_survey'>$welcome_back</a>" 
+                              ,"slide_ffq"      => $a_nutrilink                                     
+                              ,"slide_mat"      => !isset($survey_alinks["how_physically_mobile_are_you"])   ? null : $survey_alinks["how_physically_mobile_are_you"] 
+                              ,"slide_pa"       => !isset($survey_alinks["how_fit_are_you"])                 ? null : $survey_alinks["how_fit_are_you"]                
+                              ,"slide_grit"     => !isset($survey_alinks["how_resilient_are_you_to_stress"]) ? null : $survey_alinks["how_resilient_are_you_to_stress"]
+                              ,"slide_sleep"    => !isset($survey_alinks["how_well_do_you_sleep"])           ? null : $survey_alinks["how_well_do_you_sleep"]
+                              ,"slide_tcm"      => !isset($survey_alinks["find_out_your_body_type_according_to_chinese_medic"])           ? null : $survey_alinks["find_out_your_body_type_according_to_chinese_medic"]          
                             );
 
                             foreach($slides as $slideid => $link){

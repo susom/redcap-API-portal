@@ -13,7 +13,7 @@ $tcm_reqs[2] = array('tcm_handsfeet_cold','tcm_cold_aversion','tcm_sensitive_col
 $tcm_reqs[3] = array('tcm_handsfeet_hot','tcm_face_hot','tcm_dryskin','tcm_dryeyes','tcm_constipated','tcm_drylips');
 $tcm_reqs[4] = array('tcm_sleepy','tcm_sweat','tcm_oily_forehead','tcm_eyelid','tcm_bodyframe','tcm_snore');
 $tcm_reqs[5] = array('tcm_frustrated','tcm_nose','tcm_acne','tcm_bitter','tcm_stickystool','tcm_scrotum','tcm_discharge');
-$tcm_reqs[6] = array('tcm_forget','bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_tongue');
+$tcm_reqs[6] = array('tcm_forget','tcm_bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_tongue');
 $tcm_reqs[7] = array('tcm_depressed','tcm_anxious','tcm_melancholy','tcm_scared','tcm_suspicious','tcm_ribcage','tcm_breastpain');
 $tcm_reqs[8] = array('tcm_sneeze','tcm_cough','tcm_allergies','tcm_hives','tcm_skin_red');
 
@@ -28,6 +28,23 @@ $tcm_types 		= array(
 	,"Qi Stagnant Constitution"
 	,"Inherited Special Constitution"
 );
+
+//WTF IS UP WITH THE GENDER THING 
+if(isset($tcm_answers["tcm_scrotum"]) && isset($tcm_answers["tcm_ribcage"])){
+	$tcm_answers["tcm_gender"] = 5;
+}
+if(isset($tcm_answers["tcm_discharge"]) && isset($tcm_answers["tcm_breastpain"])){
+	$tcm_answers["tcm_gender"] = 4;
+}
+
+if( $tcm_answers["tcm_gender"] == 5 ){
+	unset($tcm_reqs[5][6]);
+	unset($tcm_reqs[7][6]);
+}
+if( $tcm_answers["tcm_gender"] == 4 ){
+	unset($tcm_reqs[5][5]);
+	unset($tcm_reqs[7][5]);
+}
 
 $tcm_map = array();
 foreach($tcm_reqs as $key => $reqset){
@@ -68,6 +85,10 @@ function getBodyConstitution($constitutions,$type){
 		$oratio_less_than_5 = true;
 		$oratio_less_than_6 = true;
 		foreach($constitutions as $i => $other){
+			if($i == "Balanced Constitution"){
+				continue;
+			}
+
 			$sum 				= array_sum($other);
 			$total_possible 	= count($other) * 5;
 			$constitution_ratio = $sum/$total_possible;
@@ -81,6 +102,8 @@ function getBodyConstitution($constitutions,$type){
 			}
 
 			// echo "<pre>";
+			// print_r($i);
+			// print_r($other);
 			// print_r($constitution_ratio);
 			// echo "</pre>";
 		}
@@ -90,6 +113,11 @@ function getBodyConstitution($constitutions,$type){
 		}else if($theratio >= .7 && $oratio_less_than_6){
 			$determination = 1;
 		}
+
+		// echo "<pre>";
+		// print_r($theratio);
+		// print_r($determination);
+		// echo "</pre>";
 	}else{
 		if($theratio >= .6){
 			$determination = 2;

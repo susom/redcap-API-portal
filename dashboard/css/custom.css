@@ -1691,7 +1691,6 @@ input[readonly] {
     width:134px;
     height:134px;
 }
-
 #customform {
     transition: .8s top ease-in-out;
 }
@@ -2034,7 +2033,7 @@ a.closeparent {
 #tcm_results td div {
     height:200px;
     margin:0 2px;
-    background:forestgreen;
+    background:green;
 }
 #tcm_results td .neg {
     height:5px;
@@ -2042,7 +2041,7 @@ a.closeparent {
 }
 #tcm_results td .mayb {
     height:100px;
-    background:lightseagreen;
+    background:goldenrod;
 }
 
 #tcm_results .type td {
@@ -2544,7 +2543,7 @@ a.closeparent {
 .constitutions dl {
     padding: 20px;
     border-radius: 5px;
-    background: lightseagreen;
+    background: goldenrod;
 }
 .constitutions dt {
     cursor:pointer; 
@@ -2560,7 +2559,7 @@ a.closeparent {
     display:none;
 }
 .constitutions dl.positive{
-    background:forestgreen;
+    background:green;
 }
 .constitutions dl.tendency{
     

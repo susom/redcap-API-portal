@@ -556,6 +556,7 @@ function showTCMScoring(){
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
   
+  console.log(difference);
   // if(!difference.length) {
     var nextSection = $("#customform section:last").prev();
     var dataURL     = "TCM_bodytype.php";

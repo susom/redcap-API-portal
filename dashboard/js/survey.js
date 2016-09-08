@@ -555,9 +555,8 @@ function showTCMScoring(){
   var user_ans_flat = _.pluck(user_answers,"name");
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
-  
-  console.log(difference);
-  // if(!difference.length) {
+
+  if($("#customform input[name='tcm_gender']:checked").val() !== "") {
     var nextSection = $("#customform section:last").prev();
     var dataURL     = "TCM_bodytype.php";
     $.ajax({
@@ -580,9 +579,7 @@ function showTCMScoring(){
         });
       }
     });
-  // }else{
-  //   console.log(difference);
-  // }
+  }
 }
 
 function showGRITScoring(){

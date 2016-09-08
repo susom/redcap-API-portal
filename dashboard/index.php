@@ -272,8 +272,8 @@ include("inc/gl_head.php");
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $surveyname   = $supp_instrument["label"];
                         
-                        $titletext    = $projnotes[$supp_instrument_id];
-                        $surveylink   = "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"];
+                        $titletext    = $core_surveys_complete ? $projnotes[$supp_instrument_id] : "Please complete the Core Surveys first";
+                        $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = " icon_update";
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
                     
@@ -289,19 +289,15 @@ include("inc/gl_head.php");
                       echo "<ul class='dash_fruits'>\n";
                       foreach($surveys as $surveyid => $survey){
                         $index          = array_search($surveyid, $all_survey_keys);
-                        $surveylink     = "survey.php?sid=". $surveyid;
-                        $surveyname     = $survey["label"];
+                        $surveylink     = $core_surveys_complete ? "survey.php?sid=". $surveyid : "#";
+                        $surveyname     = $core_surveys_complete ? $survey["label"] : "Please complete the Core Surveys first";
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 
                         //NEWS AND REMINDERS JUNK
                         if(!$surveycomplete){
                           $crap = ($firstonly ? $surveylink : "#");
-                          if($core_surveys_complete){
-                            // $news[]       = "<li class='list-group-item'>
-                            //     Please take <a href='$crap'>$surveyname</a> survey
-                            // </li>";
-                          }else{
+                          if(!$core_surveys_complete){
                             if(in_array($surveyid,SurveysConfig::$core_surveys)){
                               $reminders[]  = "<li class='list-group-item'>
                                   Please complete <a href='$crap'>$surveyname</a> survey
@@ -320,8 +316,8 @@ include("inc/gl_head.php");
 
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         $index          = array_search($supp_instrument_id, $supp_surveys_keys);
-                        $surveyname     = $supp_instrument["label"];
-                        $surveylink     = "survey.php?sid=". $supp_instrument_id;
+                        $surveyname     = $core_surveys_complete ? $supp_instrument["label"] : "Please complete the Core Surveys first";
+                        $surveylink     = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id : "#";
                         $completeclass  = ($supp_instrument["survey_complete"] ? "completed":"");
                         $showfruit[]    = "<li class='nav'>
                             <a href='$surveylink' class='fitness ".SurveysConfig::$fitness[$index]." $completeclass' title='$surveyname'>                                                        

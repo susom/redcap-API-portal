@@ -49,7 +49,7 @@ if(isset($_GET["survey_complete"])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
         $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of the survey.</a>";
       }else{
-        $success_msg .= "Congratulations, you got all the fruits! <br/><br/> Check out some of the new modules under 'Learn More'. <br><br/> In the meantime we invite you to watch this video from our WELL for life director. <br/><br/> <iframe width='560' height='315' src='https://www.youtube.com/embed/usbDut69Y-E' frameborder='0' allowfullscreen></iframe>";
+        $success_msg .= "Congratulations, you got all the fruits! <br/><br/> Check out some of the new modules under 'Learn More'. <br><br/> In the meantime we invite you to watch this video from our WELL for life director. <br/><br/> <iframe width='560' height='315' src='https://www.youtube.com/embed/uuVr7xkvf1k' frameborder='0' allowfullscreen></iframe>";
       }
       addSessionMessage( $success_msg , "success");
   }

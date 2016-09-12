@@ -134,7 +134,7 @@ function getBodyConstitution($constitutions,$type){
 		<td>
 			<table>
 				<tr><td >Positive</td></tr>
-				<tr><td style="height:100px; vertical-align:bottom">Essentially/Tendency Positive</td></tr>
+				<tr><td style="height:100px; vertical-align:bottom">Tendency (Essentially) Positive</td></tr>
 				<tr><td style="height:80px; vertical-align:bottom">Negative</td></tr>
 			</table>	
 		</td>

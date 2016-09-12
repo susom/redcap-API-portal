@@ -2543,6 +2543,7 @@ a.closeparent {
     padding: 20px;
     border-radius: 5px;
     color:#fff;
+    font-size:120%;
 }
 .constitutions h3{
     color:#333;
@@ -2617,12 +2618,18 @@ a.closeparent {
         max-width:490px;
     }
     #survey_progress{
-        width: 420px;
+        width: 430px;
         top: 70px;
+        position:static;
+        margin-bottom:0;
     }
     .surveyHeader{
         padding-right:0;
-        padding-bottom: 50px;
+        padding-bottom: 10px;
+    }
+
+    #tcm_results .type span {
+        transform: rotate(180deg);
     }
 }
 

@@ -75,7 +75,6 @@ if($gender == "men"){
 		$animtime 	= 10;
 	}
 }
-$animtime = 7;
 //DO SOME PROCESSING
 $grit_score 	= $gritscore . "/5.0";
 $grit_perc 		= $animtime*10;

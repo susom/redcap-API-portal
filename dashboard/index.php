@@ -101,8 +101,56 @@ $ALL_TIME_PA_VIG_IN_HOURS   = array();
 $ALL_TIME_WALKING_IN_HOURS  = array();
 $ALL_TIME_SITTING_IN_HOURS  = array();
 $ALL_TIME_SLEEP_HOURS       = array();
+$sitting_count              = 0;
 
-$sitting_count = 0;
+if(isset($_GET["irvin"])){
+  foreach($all_answers as $users_answers){
+    $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
+    foreach($u_ans as $fieldname => $hhmm){
+      if(!empty($hhmm)){
+        if(strpos($fieldname,"hh") > -1){
+          $answer_value = (int) $hhmm;
+        }else if(strpos($fieldname,"mm") > -1){
+          $answer_value = (float) $hhmm/60;
+        }
+
+        if($answer_value <= 0 && strpos($fieldname,"sleep") > -1){
+          continue;
+        }
+
+        if(strpos($fieldname,"core_pa_mod") > -1){
+          $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
+        }
+
+        if(strpos($fieldname,"core_pa_vig") > -1){
+          $ALL_TIME_PA_VIG_IN_HOURS[]  = $answer_value;
+        }
+
+        if(strpos($fieldname,"walking") > -1){
+          $ALL_TIME_WALKING_IN_HOURS[] = $answer_value;
+        }
+
+        if(strpos($fieldname,"sitting") > -1){
+          $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
+          $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
+
+          if(strpos($fieldname,"nowrk") > -1){
+            $sitting_count = $sitting_count  + 1;
+          }else{
+            $sitting_count = $sitting_count  +  .5;
+          }
+        }
+
+        if(strpos($fieldname,"sleep") > -1){
+          $ALL_TIME_SLEEP_HOURS[] = $answer_value;
+        }
+      }
+    }
+  }
+  print_rr(round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) );
+  exit;
+}
+
 foreach($all_answers as $users_answers){
   $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
   foreach($u_ans as $fieldname => $hhmm){

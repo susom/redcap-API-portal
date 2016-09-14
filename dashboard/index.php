@@ -185,6 +185,9 @@ foreach($all_answers as $users_answers){
       }
 
       if(strpos($fieldname,"sleep") > -1){
+        if($answer_value <= 0){
+          continue;
+        }
         $ALL_TIME_SLEEP_HOURS[] = $answer_value;
       }
     }
@@ -230,9 +233,6 @@ foreach($user_answers as $fieldname => $hhmm){
     }
 
     if(strpos($fieldname,"sleep") > -1){
-      if($answer_value <= 0){
-        continue;
-      }
       $USER_TIME_SLEEP_HOURS += $answer_value;
     }
   }

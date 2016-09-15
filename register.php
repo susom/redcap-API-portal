@@ -35,6 +35,7 @@ if(!empty($_POST['submit_new_user'])){
 	$state 		= (isset($_POST["state"]) 		? $_POST["state"]: null) ;
 
 	$nextyear 	= (isset($_POST["nextyear"]) 	? $_POST["nextyear"] 	:null ) ;
+	$in_usa 	= (isset($_POST["in_usa"]) 		? $_POST["in_usa"] 		:null ) ;
 	$oldenough 	= (isset($_POST["oldenough"]) 	? $_POST["oldenough"] 	: null) ;
 	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
@@ -93,7 +94,7 @@ if(!empty($_POST['submit_new_user'])){
 		}else{
 			//IF THEY DONT PASS ELIGIBILITY THEN THEY GET A THANK YOU , BUT NO ACCOUNT CREATION 
 			//BUT NEED TO STORE THEIR STUFF FOR CONTACT
-			if($oldenough && $optin && $actualage >= 18){
+			if($in_usa && $oldenough && $optin && $actualage >= 18){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
@@ -113,7 +114,11 @@ if(!empty($_POST['submit_new_user'])){
 					$reason = lang("ACCOUNT_TOO_YOUNG");
 				}
 
-				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array("")), "notice" );
+				if(!$in_usa){
+					$reason = lang("ACCOUNT_NOT_IN_USA");
+				}
+				
+				addSessionMessage( lang("ACCOUNT_NOT_YET_ELIGIBLE",array($reason)), "notice" );
 			}
 
 			//CLEAN UP

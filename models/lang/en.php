@@ -42,6 +42,7 @@
 		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "Thank you for you interest in the WELL for Life initiative!  You are not eligible to participate at this time. %m1% We will contact you about WELL for Life related studies and information as we expand.",
 		"ACCOUNT_NEED_LOCATION"					=> "Please enter your Zip Code or City",
 		"ACCOUNT_TOO_YOUNG"						=> "You are not yet 18 years of age.",
+		"ACCOUNT_NOT_IN_USA"					=> "This study is only for participants living in the USA.",
 		"ACCOUNT_NOT_IN_GEO"					=> "You do not live in a participating County.",
 		"ACCOUNT_TOO_NEW_GEO"					=> "You have lived in the participating County for less than one year.",
 

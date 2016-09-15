@@ -92,18 +92,18 @@
     </div>
 
     <aside class="eligibility">
-      <!-- <fieldset class="eli_one">
+      <fieldset class="eli_one">
         <div class="form-group">
-          <label class="control-label col-sm-6">Do you plan to continue living in Santa Clara County for the next 12 months or longer?</label>
+          <label class="control-label col-sm-6">Are you currently living in the USA?</label>
           <div class="col-sm-2"> 
-            <label><input name="nextyear" type="radio" value="1"> Yes</label>
+            <label><input name="in_usa" type="radio" value="1"> Yes</label>
           </div>
 
           <div class="col-sm-2"> 
-            <label><input name="nextyear" type="radio" value="0"> No</label>
+            <label><input name="in_usa" type="radio" value="0"> No</label>
           </div>
         </div>
-      </fieldset> -->
+      </fieldset>
 
       <fieldset class="eli_two">
         <div class="form-group">
@@ -120,9 +120,9 @@
           <div class="col-sm-4"> 
             <select name="birthyear" class="form-control" id="birthyear">
             <?php
-              $thisyear = date("Y");
+              $thisyear = date("Y") - 18;
               for($i=0; $i < 100 ; $i++){
-                $cutoff = ($i == 18 ? "selected" : "");
+                $cutoff = ($i == 0 ? "selected" : "");
                 echo "<option $cutoff>".($thisyear - $i)."</option>";
               }
             ?>
@@ -226,11 +226,13 @@
       $("#zip").val($(this).val()).removeClass("goaway");
     });
 
-    // $("input[name='nextyear']").click(function(){
-    //   if($(this).val() == 1) {
-    //     $(".eli_two").slideDown("medium");
-    //   }
-    // });
+    $("input[name='in_usa']").click(function(){
+      if($(this).val() == 1) {
+        $(".eli_two").slideDown("medium");
+      }else{
+        $(".eli_two").slideUp("fast");
+      }
+    });
 
     $('#getstarted').validate({
       rules: {

@@ -106,6 +106,7 @@ $sitting_count              = 0;
 if(isset($_GET["irvin"])){
   foreach($all_answers as $users_answers){
     $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
+    print_rr($u_ans);
     foreach($u_ans as $fieldname => $hhmm){
       if(!empty($hhmm)){
         if(strpos($fieldname,"hh") > -1){

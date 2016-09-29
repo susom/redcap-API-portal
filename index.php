@@ -10,8 +10,8 @@ include("models/inc/gl_header.php");
     <div id="main-content" class="col-md-8 col-md-offset-2" role="main">
       <div class="well">
         <p class="login_reg">
-          <a href="login.php" class="btn btn-success">Login Page</a>  
-          <a href="register.php" class="btn btn-success">Register Page</a>
+          <a href="login.php" class="btn btn-success"><?php echo lang("ACCOUNT_LOGIN_PAGE") ?></a>  
+          <a href="register.php" class="btn btn-success"><?php echo lang("ACCOUNT_REGISTER_PAGE") ?></a>
         </p>
       </div>  
     </div>

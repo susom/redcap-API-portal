@@ -36,7 +36,7 @@ if( isset($_POST['account_update']) ) {
 		if ($valid) {
 			//This function will update the hash_pw property.
 			$loggedInUser->updatePassword($entered_pass_new);
-			addSessionMessage("Password Updated","success");
+			addSessionMessage(lang("FORGOTPASS_UPDATED"),"success");
 		}
 	} else {
 		logIt("Change Password: Invalid Request", "INFO");
@@ -53,7 +53,7 @@ if( isset($_POST['account_update']) ) {
 	
 		if (empty($q) || empty($a)) {
 			// Invalid responses
-			addSessionAlert("Invalid password reset values for question $i");
+			addSessionAlert(lang("FORGOTPASS_INVALID_VALUE") . " " . $i);
 			$all_valid = false;
 		} else {
 			$a = hashSecurityAnswer($a);
@@ -61,7 +61,7 @@ if( isset($_POST['account_update']) ) {
 		}
 	}
 	if ($all_valid) {
-		addSessionMessage("Password recovery questions updated!",'success');
+		addSessionMessage(lang("FORGOTPASS_Q_UPDATED"),'success');
 	}
 
 	if( $valid && $all_valid ) {
@@ -80,7 +80,7 @@ if( isset($_POST['account_update']) ) {
 			$_SESSION["elite_users"] 	= $elite;
 		}
 		if(in_array($loggedInUser->id, $elite)){
-			addSessionMessage("Thank you for being one of our first 500 participants. The data we collect will help us improve all our wellbeing!  Display your ribbon proudly! <br><br><img src='images/ribbon_heart.png'>","success");
+			addSessionMessage(lang("ACCOUNT_ELITE_THANKS") . "<br><br><img src='images/ribbon_heart.png'>","success");
 		}
 		header("Location: dashboard/survey.php?sid=" . SurveysConfig::$core_surveys[0]); //survey link of first survey
 		exit;
@@ -103,7 +103,7 @@ include("models/inc/gl_header.php");
 	<div id="main-content" class="col-md-8 col-md-offset-2 accountSetup" role="main">
 		<div class="well row">
 			<form role="form" class="form-horizontal" action="account_setup.php" method="POST" id="accountSetupForm" name="accountSetupForm">
-				<h2>Please setup your password and security questions:</h2>
+				<h2><?php echo lang("FORGOTPASS_SEC_Q_SETUP") ?>:</h2>
 				<?php 
 					include("models/inc/set_pw.php");
 				?>
@@ -111,11 +111,11 @@ include("models/inc/gl_header.php");
 				<div class="form-group">
 					<span class="control-label col-sm-3"></span>
 					<div class="col-sm-8">
-					<p>So that we can help you recover a lost or forgotten password, please provide answers to the following security questions.</p>
+					<p><?php echo lang("FORGOTPASS_SEC_Q_ANSWERS") ?></p>
 					</div>
 				</div>
 				<?php 
-				$options = '<option>Choose a question from the list</option>\n';
+				$options = '<option>'.lang("FORGOTPASS_CHOSE_QUESTION").'</option>\n';
 				foreach ($template_security_questions as $k => $v){
 					if(!empty($v)){
 						$options .= "<option value=\"$k\">$v</option>\n";
@@ -126,12 +126,12 @@ include("models/inc/gl_header.php");
 				foreach ($password_reset_pairs as $i => $pair){
 				?>
 					<div class="form-group">
-						<label for="sec_q<?php echo $i ?>" class="control-label col-sm-3">Security Question <?php echo $i ?>:</label>
+						<label for="sec_q<?php echo $i ?>" class="control-label col-sm-3"><?php echo lang("FORGOTPASS_SEC_Q") ?> <?php echo $i ?>:</label>
 						<div class="col-sm-8">
 							<?php 
 								if($i == 3){
 							?>
-									<input type="text" name="<?php echo $pair['question'] ?>" class="form-control" id="<?php echo $pair['question'] ?>" placeholder="Write a custom security question"/>
+									<input type="text" name="<?php echo $pair['question'] ?>" class="form-control" id="<?php echo $pair['question'] ?>" placeholder="<?php echo lang("FORGOTPASS_WRITE_CUSTOM_Q") ?>"/>
 							<?php
 								}else{
 							?>
@@ -141,7 +141,7 @@ include("models/inc/gl_header.php");
 							<?php 
 								}
 							?>
-							<input type="text" placeholder="Password Recovery Answer" class="form-control" aria-label="password recovery answer" name="<?php echo $pair['answer'] ?>" id="<?php echo $pair['answer'] ?>" value="<?php echo $loggedInUser->$pair['answer'] ?>">
+							<input type="text" placeholder="<?php echo lang("FORGOTPASS_RECOVERY_ANSWER") ?>" class="form-control" aria-label="password recovery answer" name="<?php echo $pair['answer'] ?>" id="<?php echo $pair['answer'] ?>" value="<?php echo $loggedInUser->$pair['answer'] ?>">
 						</div><!-- /input-group -->
 					</div>
 					<?php
@@ -151,7 +151,7 @@ include("models/inc/gl_header.php");
 				<div class="form-group">
 			      <span class="control-label col-sm-3"></span>
 			      <div class="col-sm-8"> 
-			        <button type="submit" class="btn btn-success" value="true">Submit</button>
+			        <button type="submit" class="btn btn-success" value="true"><?php echo lang("GENERAL_SUBMIT") ?></button>
 			        <input type="hidden" name="account_update" value="true"/>
 			      </div>
 			    </div>

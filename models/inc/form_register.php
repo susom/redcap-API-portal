@@ -1,33 +1,33 @@
   <form id="getstarted" action="register.php" class="form-horizontal" method="POST" role="form">
-    <h2>Register for this Study</h2>
+    <h2><?php echo lang("ACCOUNT_REGISTER") ?></h2>
     <div class="form-group">
       <label for="email" class="control-label col-sm-3">Your Name:</label>
       <div class="col-sm-4"> 
-        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" value="<?php echo (isset($fname) ? $fname : "") ?>">
+        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="<?php echo lang("ACCOUNT_FIRST_NAME") ?>" value="<?php echo (isset($fname) ? $fname : "") ?>">
       </div>
       <div class="col-sm-4"> 
-        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" value="<?php echo (isset($lname) ? $lname : "") ?>">
+        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="<?php echo lang("ACCOUNT_LAST_NAME") ?>" value="<?php echo (isset($lname) ? $lname : "") ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="username" class="control-label col-sm-3">Your Email:</label>
+      <label for="username" class="control-label col-sm-3"><?php echo lang("ACCOUNT_YOUR_EMAIL") ?>:</label>
       <div class="col-sm-8"> 
-        <input type="email" class="form-control" name="username" id="username" placeholder="Email Address" value="<?php echo (isset($email) ? $email : "") ?>">
+        <input type="email" class="form-control" name="username" id="username" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?>" value="<?php echo (isset($email) ? $email : "") ?>">
       </div>
     </div>
     <div class="form-group">
-      <label for="usernametoo" class="control-label col-sm-3">Re-enter Email:</label>
+      <label for="usernametoo" class="control-label col-sm-3"><?php echo lang("ACCOUNT_REENTER_EMAIL") ?>:</label>
       <div class="col-sm-8"> 
-        <input type="email" class="form-control" name="usernametoo" id="usernametoo" placeholder="Email Address" >
+        <input type="email" class="form-control" name="usernametoo" id="usernametoo" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?>" >
       </div>
     </div>
 
     <div class="form-group">
-      <label for="zip" class="control-label col-sm-3">Your Location:</label>
+      <label for="zip" class="control-label col-sm-3"><?php echo lang("ACCOUNT_YOUR_LOCATION") ?>:</label>
       
 
       <div class="col-sm-4"> 
-        <input type="text" class="form-control city" name="city" id="city" placeholder="City">
+        <input type="text" class="form-control city" name="city" id="city" placeholder="<?php echo lang("ACCOUNT_CITY") ?>">
       </div>
       <div class="col-sm-2"> 
         <select name="state" class="form-control state" id="state">
@@ -86,7 +86,7 @@
       </div>
       
       <div class="col-sm-2"> 
-        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="Zip" min="0">
+        <input type="number" class="form-control zip" name="zip" id="zip" placeholder="<?php echo lang("ACCOUNT_ZIP") ?>" min="0">
         <select id="zipset"></select>
       </div>
     </div>
@@ -94,29 +94,29 @@
     <aside class="eligibility">
       <fieldset class="eli_one">
         <div class="form-group">
-          <label class="control-label col-sm-6">Are you currently living in the USA?</label>
+          <label class="control-label col-sm-6"><?php echo lang("ACCOUNT_USA_CURRENT") ?></label>
           <div class="col-sm-2"> 
-            <label><input name="in_usa" type="radio" value="1"> Yes</label>
+            <label><input name="in_usa" type="radio" value="1"> <?php echo lang("GENERAL_YES") ?></label>
           </div>
 
           <div class="col-sm-2"> 
-            <label><input name="in_usa" type="radio" value="0"> No</label>
+            <label><input name="in_usa" type="radio" value="0"> <?php echo lang("GENERAL_NO") ?></label>
           </div>
         </div>
       </fieldset>
 
       <fieldset class="eli_two">
         <div class="form-group">
-          <label class="control-label col-sm-6">Are you 18 years old or older?</label>
+          <label class="control-label col-sm-6"><?php echo lang("ACCOUNT_18_PLUS") ?></label>
           <div class="col-sm-2"> 
-            <label><input name="oldenough" type="radio" value="1"> Yes</label>
+            <label><input name="oldenough" type="radio" value="1"> <?php echo lang("GENERAL_YES") ?></label>
           </div>
           <div class="col-sm-2"> 
-            <label><input name="oldenough" type="radio" value="0"> No</label>
+            <label><input name="oldenough" type="radio" value="0"> <?php echo lang("GENERAL_NO") ?></label>
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-sm-6">What is your birth year?</label>
+          <label class="control-label col-sm-6"><?php echo lang("ACCOUNT_BIRTH_YEAR") ?></label>
           <div class="col-sm-4"> 
             <select name="birthyear" class="form-control" id="birthyear">
             <?php
@@ -135,7 +135,7 @@
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-        <em>By clicking the Submit button I agree to be contacted about WELL for Life related studies and information.</em>
+        <em><?php echo lang("ACCOUNT_AGREE") ?></em>
       </div>
     </div>
     <div class="form-group">
@@ -150,7 +150,7 @@
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-      <a href="login.php" class="showlogin">Already Registered?</a>
+      <a href="login.php" class="showlogin"><?php echo lang("ACCOUNT_ALREADY_REGISTERED") ?>/a>
       </div>
     </div>
   </form>

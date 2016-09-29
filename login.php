@@ -89,19 +89,19 @@ include("models/inc/gl_header.php");
     <div id="main-content" class="col-md-8 col-md-offset-2 logpass" role="main">
 		<div class="well row">
 			<form id="loginForm" name="loginForm" class="form-horizontal loginForm col-md-6 " action="login.php" method="post" novalidate="novalidate">
-				<h2>Please Login to continue</h2>
+				<h2><?php echo lang("ACCOUNT_LOGIN_CONTINUE") ?></h2>
 				<div class="form-group">
-					<label for="username" class="control-label">Email Address</label>
-					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="Enter Email Address" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
+					<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?></label>
+					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?>" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
 				</div>
 				<div class="form-group">
-					<label for="password" class="control-label">Password</label>
-					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="Enter Password" autocomplete="off" >
+					<label for="password" class="control-label"><?php echo lang("ACCOUNT_PASSWORD") ?></label>
+					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang("ACCOUNT_PASSWORD") ?>" autocomplete="off" >
 				</div>
 				<div class="form-group">
 					<div class="pull-left">
-						<a class="showrecover" href="#">Forgot Password?</a> <br>
-						<a class="showregister" href="register.php">Register for Study</a>  
+						<a class="showrecover" href="#"><?php echo lang("FORGOTPASS") ?></a> <br>
+						<a class="showregister" href="register.php"><?php echo lang("REGISTER_STUDY") ?></a>  
 					</div>   
 					<div class="pull-right"> 
 						<input <?php echo $disabled?> type="submit" class="btn btn-success" name="new_login" id="newfeedform" value="Log In"/>     
@@ -112,35 +112,35 @@ include("models/inc/gl_header.php");
 
 	        <form id="pwresetForm" name="newLostPass" class="form-horizontal lostPass  col-md-6 " action="forgot_password.php" method="post">
 				<aside class="stepone">
-					<h2>Enter email to begin password reset</h2>
+					<h2><?php echo lang("FORGOTPASS_BEGIN_RESET") ?></h2>
 					<div class="form-group">
-						<label for="username" class="control-label">Email Address</label>
-						<input type="text" class="form-control" name="forgotemail" id="forgotemail" placeholder="Enter Email Address" autofocus value="<?php echo $badlogin?>"/>
+						<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?></label>
+						<input type="text" class="form-control" name="forgotemail" id="forgotemail" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?>" autofocus value="<?php echo $badlogin?>"/>
 					</div>
 					<div class="form-group">
-						<a class="showlogin pull-left" href="#">Login Now</a>       
-						<button type='submit' class="btn btn-success pull-right nextstep" title="Forgot Password" >Next Step</button>
+						<a class="showlogin pull-left" href="#"><?php echo lang("ACCOUNT_LOGIN_NOW") ?></a>       
+						<button type='submit' class="btn btn-success pull-right nextstep" title="Forgot Password" ><?php echo lang("ACCOUNT_NEXT_STEP") ?></button>
 					</div>
 				</aside>
 
 				<aside class="steptwo">
-					<h2>Chose recovery method</h2>
+					<h2><?php echo lang("FORGOTPASS_RECOVERY_METHOD") ?></h2>
 					<div class="form-group">
 						<label for="emailme" class="control-label">
 							<input type="radio" name="resetlink" id="emailme" checked value="emailme"/>
-							Email me a password reset link
+							<?php echo lang("FORGOTPASS_EMAIL_ME") ?>
 						</label>
 						
 					</div>
 					<div class="form-group">
 						<label for="secquestions" class="control-label">
 							<input type="radio" name="resetlink" id="secquestions" value="secquestions"/>
-							Answer my security questions
+							<?php echo lang("FORGOTPASS_ANSWER_QS") ?>
 						</label>
 					</div>
 					<div class="form-group">
-						<a class="showlogin pull-left" href="#">Login Now</a>       
-						<input type="submit" class="btn btn-success pull-right " name="new_pass_reset_request" id="newfeedform" value="Forgot Password" />
+						<a class="showlogin pull-left" href="#"><?php echo lang("ACCOUNT_LOGIN_NOW") ?></a>       
+						<input type="submit" class="btn btn-success pull-right " name="new_pass_reset_request" id="newfeedform" value="<?php echo lang("FORGOTPASS") ?>" />
 					</div>
 				</aside>
 			</form>

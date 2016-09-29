@@ -198,6 +198,7 @@ if(array_key_exists($surveyid, $surveys)){
 //SOME PAGE SET UP
 $shownavsmore   = false;
 $survey_active  = ' class="active"';
+$studies_active = '';
 $profile_active = '';
 $game_active    = '';
 $assesments     = '';

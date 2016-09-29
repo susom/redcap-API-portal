@@ -52,6 +52,7 @@ if(!isUserLoggedIn()) {
 $shownavsmore   = true;
 $survey_active  = ' ';
 $profile_active = ' class="active"';
+$studies_active = '';
 $game_active    = '';
 $assesments     = '';
 $pg_title       = "Profile : $websiteName";

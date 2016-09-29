@@ -106,7 +106,6 @@ $sitting_count              = 0;
 if(isset($_GET["irvin"])){
   foreach($all_answers as $users_answers){
     $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
-    print_rr($u_ans);
     foreach($u_ans as $fieldname => $hhmm){
       if(!empty($hhmm)){
         if(strpos($fieldname,"hh") > -1){
@@ -148,6 +147,7 @@ if(isset($_GET["irvin"])){
       }
     }
   }
+  print_rr($ALL_TIME_SLEEP_HOURS);
   print_rr(round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) );
   exit;
 }
@@ -245,6 +245,7 @@ $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
 $profile_active = '';
+$studies_active = '';
 $game_active    = '';
 $assesments     = '';
 $pg_title 		  = "Dashboard : $websiteName";

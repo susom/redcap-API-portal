@@ -41,14 +41,14 @@ include("models/inc/gl_header.php");
 		<div class="well row">
 			<div class="consent_slides">
 			<section  class="consent_disclaim">
-				<h2>WELCOME!</h2> 
+				<h2><?php echo lang("CONSENT_WELCOME") ?></h2> 
 				<ul>
-					<li>We need your permission before we can ask you any questions, so please read the following Informed Consent Document</li>
-					<li>The initial survey will take 20-30 minutes to complete – but you don't need to fill it all out at one time</li>
-					<li>We will check back in with you every few months</li>
-					<li>We will add new surveys, materials, and content and invite you to participate over time</li>
+					<li><?php echo lang("CONSENT_BULLET_1") ?></li>
+					<li><?php echo lang("CONSENT_BULLET_2") ?></li>
+					<li><?php echo lang("CONSENT_BULLET_3") ?></li>
+					<li><?php echo lang("CONSENT_BULLET_4") ?></li>
 				</ul>
-				<p>FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.</p>
+				<p><?php echo lang("CONSENT_CONTACT") ?></p>
 			</section>
 			<?php
 				include("models/inc/well_consent_doc_ss.php");
@@ -57,9 +57,9 @@ include("models/inc/gl_header.php");
 			<div class="submits">
 				<form method="POST" action="account_setup.php" class="submits">
 					<input type="hidden" name="consented" value="true"/>
-					<button class="btn btn-info" role="back">Back</button>
-					<button class="btn btn-info" role="next">Next</button>
-					<button type="submit" role="consent" class="btn btn-info agree">I Agree</button>
+					<button class="btn btn-info" role="back"><?php echo lang("GENERAL_BACK") ?></button>
+					<button class="btn btn-info" role="next"><?php echo lang("GENERAL_NEXT") ?></button>
+					<button type="submit" role="consent" class="btn btn-info agree"><?php echo lang("CONSENT_I_AGREE") ?></button>
 				</form>
 			</div>
 	  	</div>

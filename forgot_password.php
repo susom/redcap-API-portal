@@ -240,7 +240,7 @@ if(!empty($_POST['saveResetPassword'])){
 }
 
 
-$pg_title 		= "Password Reset | $websiteName";
+$pg_title 		= lang("FORGOTPASS_RESET"). " | $websiteName";
 $body_classes 	= "login register reset";
 include("models/inc/gl_header.php");
 ?>
@@ -249,7 +249,7 @@ include("models/inc/gl_header.php");
 	<div id="main-content" class="col-md-8 col-md-offset-2 pwreset" role="main">
 		<div class="well row">
 			<form role="form" class="form-horizontal" action="forgot_password.php" method="POST" id="pwResetForm" name="pwResetForm">
-				<h2>Password Reset Form <?php echo ($pass_reset_form ? "" : ": Please answer your security questions.")?></h2>
+				<h2><?php echo lang("FORGOTPASS_RESET_FORM") ?> <?php echo ($pass_reset_form ? "" : ": " . lang("FORGOTPASS_PLEASE_ANSWER") )?></h2>
 				<?php 
 
 				if($pass_reset_form){
@@ -265,10 +265,10 @@ include("models/inc/gl_header.php");
 					foreach ($password_reset_pairs as $i => $pair){
 					?>
 						<div class="form-group">
-							<label for="<?php echo $pair["question"] ?>" class="control-label col-sm-3">Security Question <?php echo $i  ?>:</label>
+							<label for="<?php echo $pair["question"] ?>" class="control-label col-sm-3"><?php echo lang("FORGOTPASS_SEC_Q") ?> <?php echo $i  ?>:</label>
 							<div class="col-sm-8">
 								<p><?php echo ($i == 3 ? $user_qs[$i] : $template_security_questions[$user_qs[$i]]); ?></p>
-								<input type="text" placeholder="Password Recovery Answer" class="form-control" aria-label="password recovery answer" name="<?php echo $pair["answer"] ?>" id="<?php echo $pair["answer"] ?>">
+								<input type="text" placeholder="<?php echo lang("FORGOTPASS_RECOVERY_ANSWER") ?>" class="form-control" aria-label="password recovery answer" name="<?php echo $pair["answer"] ?>" id="<?php echo $pair["answer"] ?>">
 							</div>
 						</div>
 					<?php
@@ -279,7 +279,7 @@ include("models/inc/gl_header.php");
 				<div class="form-group">
 			      <span class="control-label col-sm-3"></span>
 			      <div class="col-sm-8"> 
-			        <button type="submit" class="btn btn-success" value="true">Submit</button>
+			        <button type="submit" class="btn btn-success" value="true"><?php echo lang("GENERAL_SUBMIT") ?></button>
 			      </div>
 			    </div>
 			</form>

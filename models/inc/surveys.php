@@ -41,7 +41,7 @@ if(isset($_SESSION["supplemental_surveys"])){
 	$supp_surveys = array();
 	$supp_proj    = SurveysConfig::$projects;
 	foreach($supp_proj as $proj_name => $project){
-	  if($proj_name == $_CFG->SESSION_NAME){
+	  if($proj_name == $_CFG->SESSION_NAME || $proj_name == "Studies"){
 	    continue;
 	  }
 

@@ -49,7 +49,7 @@ if(isset($loggedInUser->lang)){
 				display:inline-block !important;
 			}
 		</style>
-		<?
+		<?php
 	}
 }
 

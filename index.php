@@ -1,9 +1,7 @@
 <?php
 require_once("models/config.php");
 
-if(isset($_GET["lang"])){
-  $lang_req = "?lang=".$_GET["lang"];
-}
+$lang_req = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 
 $pg_title     = "$websiteName";
 $body_classes = "index signinup";

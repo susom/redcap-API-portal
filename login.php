@@ -48,10 +48,10 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 		      "value"             => $lang
 		    );
 		    $projects     = SurveysConfig::$projects;
-		    $API_TOKEN    = $projects[SESSION_NAME]["TOKEN"];
-		    $API_URL      = $projects[SESSION_NAME]["URL"];
+		    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
+		    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
 		    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-		    $_SESSION[SESSION_NAME]['user']->lang = $lang;
+		    $_SESSION["REDCAP_PORTAL"]['user']->lang = $lang;
 
 			//CHECK THIS ON EVERY LOGIN? SURE
 			$supp_proj 		= SurveysConfig::$projects;

@@ -37,4 +37,21 @@ if( !empty($loggedInUser) ){
 	}
 }
 
+if(isset($loggedInUser->lang)){
+
+	if($loggedInUser->lang == "sp"){
+		?>
+		<style>
+			.lang.en {
+				display:none;
+			}
+			.lang.sp {
+				display:inline-block !important;
+			}
+		</style>
+		<?
+	}
+}
+
+
 $PAGE = basename($_SERVER["SCRIPT_FILENAME"]);

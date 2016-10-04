@@ -1,6 +1,8 @@
 <?php
 require_once("models/config.php");
 
+$lang_req = isset($_GET["lang"]) && $_GET["lang"] == "sp" ? "sp" : "en";
+
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
 	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");
@@ -40,6 +42,7 @@ if(!empty($_POST['submit_new_user'])){
 	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
 	$actualage 	= (!$birthyear ? null : date("Y") - $birthyear);
+	$lang 		= $_POST["lang"];
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
 	if(is_null($fname) || is_null($lname)){
@@ -79,7 +82,9 @@ if(!empty($_POST['submit_new_user'])){
 						getRF("zip") 	=> $zip,
 				        getRF("city") 	=> $city,
 				        getRF("state") 	=> $state,
-				        getRF("age") 	=> $actualage
+				        getRF("age") 	=> $actualage,
+				        getRF("lang") 	=> $lang
+
 				      ));
 		            $olduser->createEmailToken();
 		            $olduser->emailEmailToken();

@@ -45,7 +45,7 @@
 		"ACCOUNT_18_PLUS" 						=> "Are you 18 years old or older?",
 		"ACCOUNT_USA_CURRENT" 					=> "Are you currently living in the USA?",
 		"ACCOUNT_AGREE" 						=> "By clicking the Submit button I agree to be contacted about WELL for Life related studies and information.",
-		"ACCOUNT_ELITE_THANKS" 					=> "Thank you for being one of our first 500 participants. The data we collect will help us improve all our wellbeing!  Display your ribbon proudly! "
+		"ACCOUNT_ELITE_THANKS" 					=> "Thank you for being one of our first 500 participants. The data we collect will help us improve all our wellbeing!  Display your ribbon proudly! ",
 
 		"ACCOUNT_NEW_PASSWORD" 					=> "New Password",
 		"ACCOUNT_PASSWORD" 						=> "Password",
@@ -88,12 +88,12 @@
 		"FORGOTPASS_REQUEST_EXISTS"				=> "A forgotten password authorization email was sent %m1% min ago.<br>Please check your email or try again later.",
 		"FORGOTPASS_REQUEST_SUCCESS"			=> "Password reset process initiated.<br>Please check your email for further instructions.",
 		"FORGOTPASS_UPDATED" 					=> "Password Updated",
-		"FORGOTPASS_INVALID_VALUE" 				=> "Invalid password reset values for question"
-		"FORGOTPASS_Q_UPDATED" 					=> "Password recovery questions updated!"
-		"FORGOTPASS_SEC_Q_SETUP" 				=> "Please setup your password and security questions"
-		"FORGOTPASS_SEC_Q_ANSWERS" 				=> "So that we can help you recover a lost or forgotten password, please provide answers to the following security questions."
-		"FORGOTPASS_CHOSE_QUESTION" 			=> "Choose a question from the list"
-		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "Write a custom security question"
+		"FORGOTPASS_INVALID_VALUE" 				=> "Invalid password reset values for question",
+		"FORGOTPASS_Q_UPDATED" 					=> "Password recovery questions updated!",
+		"FORGOTPASS_SEC_Q_SETUP" 				=> "Please setup your password and security questions",
+		"FORGOTPASS_SEC_Q_ANSWERS" 				=> "So that we can help you recover a lost or forgotten password, please provide answers to the following security questions.",
+		"FORGOTPASS_CHOSE_QUESTION" 			=> "Choose a question from the list",
+		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "Write a custom security question",
 
 
 

@@ -1,6 +1,8 @@
 <?php
 require_once("models/config.php");
 
+$lang_req = isset($_GET["lang"]) && $_GET["lang"] == "sp" ? "sp" : "en";
+
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
 	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");
@@ -23,6 +25,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 	$username 	= trim($_POST["username"]);
 	$password 	= trim($_POST["password"]);
 	$badlogin 	= $username;
+	$lang 		= $_POST["lang"];
 
 	//Perform some basic validation
 	if($username == "") $errors[] = lang("ACCOUNT_SPECIFY_USERNAME");
@@ -37,6 +40,18 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 		if($auth->authenticated_user_id != Null) {
 			// Log user in
 			$loggedInUser 		= new RedcapPortalUser($auth->authenticated_user_id);
+
+			//ADD IN LANGUAGE OPTION TO SESSION
+			$data[] = array(
+		      "record"            => $loggedInUser->id,
+		      "field_name"        => 'portal_lang',
+		      "value"             => $lang
+		    );
+		    $projects     = SurveysConfig::$projects;
+		    $API_TOKEN    = $projects[SESSION_NAME]["TOKEN"];
+		    $API_URL      = $projects[SESSION_NAME]["URL"];
+		    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+		    $_SESSION[SESSION_NAME]['user']->lang = $lang;
 
 			//CHECK THIS ON EVERY LOGIN? SURE
 			$supp_proj 		= SurveysConfig::$projects;
@@ -89,6 +104,7 @@ include("models/inc/gl_header.php");
     <div id="main-content" class="col-md-8 col-md-offset-2 logpass" role="main">
 		<div class="well row">
 			<form id="loginForm" name="loginForm" class="form-horizontal loginForm col-md-6 " action="login.php" method="post" novalidate="novalidate">
+				<input type="hidden" name="lang" value="<?php echo $lang_req ?>"/>
 				<h2><?php echo lang("ACCOUNT_LOGIN_CONTINUE") ?></h2>
 				<div class="form-group">
 					<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?></label>

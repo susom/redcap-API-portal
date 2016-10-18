@@ -1,8 +1,6 @@
 <?php
 require_once("models/config.php");
 
-$lang_req = isset($_GET["lang"]) && $_GET["lang"] == "sp" ? "sp" : "en";
-
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
 	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");

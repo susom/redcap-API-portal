@@ -95,10 +95,6 @@
 		"FORGOTPASS_CHOSE_QUESTION" 			=> "Choose a question from the list",
 		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "Write a custom security question",
 
-
-
-
-
 		//MAIL
 		"MAIL_ERROR"							=> "Fatal error attempting mail, contact your server administrator",
 		"MAIL_TEMPLATE_BUILD_ERROR"				=> "Error building email template",

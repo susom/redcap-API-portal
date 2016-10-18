@@ -14,7 +14,6 @@ $requires 	= array(
 foreach($requires as $required){
 	require_once( dirname(__FILE__) . $required);
 }
-require_once( dirname(__FILE__) . "/lang/".$_CFG->WEBSITE["language"] .".php");
 
 $start_time	= microtime(true);
 // $end_time 	= microtime(true) - $start_time; //measure script time somewhere
@@ -37,9 +36,16 @@ if( !empty($loggedInUser) ){
 	}
 }
 
-if(isset($loggedInUser->lang)){
 
+if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] .".php" )){
+	$_SESSION["use_lang"] = $_GET["lang"];
+}
+if(!isset($_SESSION["use_lang"])){
+	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];
+}
+if(isset($loggedInUser->lang)){
 	if($loggedInUser->lang == "sp"){
+		$_SESSION["use_lang"] = "sp";
 		?>
 		<style>
 			.lang.en {
@@ -52,6 +58,7 @@ if(isset($loggedInUser->lang)){
 		<?php
 	}
 }
+require_once( dirname(__FILE__) . "/lang/".$_SESSION["use_lang"].".php");
 
 
 $PAGE = basename($_SERVER["SCRIPT_FILENAME"]);

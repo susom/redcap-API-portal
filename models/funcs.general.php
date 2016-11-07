@@ -585,8 +585,8 @@ function generateHash($plainText, $salt = null) {
 // Used to pull from languge file
 function lang($key,$markers = NULL) {
 	global $lang;
-	
 	$str = $lang[$key];
+
 	if($markers != NULL) {
 		//Replace any dyamic markers
 		$iteration 	= 1;

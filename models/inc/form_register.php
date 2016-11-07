@@ -1,5 +1,5 @@
   <form id="getstarted" action="register.php" class="form-horizontal" method="POST" role="form">
-    <input type="hidden" name="lang" value="<?php echo $lang_req ?>"/>
+    <input type="hidden" name="lang_req" value="<?php echo $lang_req ?>"/>
     <h2><?php echo lang("ACCOUNT_REGISTER") ?></h2>
     <div class="form-group">
       <label for="email" class="control-label col-sm-3">Your Name:</label>

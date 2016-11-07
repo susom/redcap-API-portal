@@ -109,6 +109,7 @@ class RedcapPortalUser
       } else {
          // Send the mail. Specify users email here and subject.
          // SendMail can have a third parementer for message if you do not wish to build a template.
+
          if(!$mail->sendMail($this->email,"$websiteName Email Verification"))
          {
             logIt("Error sending email: " . print_r($mail,true), "ERROR");

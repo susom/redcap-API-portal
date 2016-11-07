@@ -18,6 +18,9 @@ foreach($city_zips as $city => $zips){
 }
 $eligible_map		= json_encode($city_zips);
 
+$lang_req 		= $_SESSION["use_lang"];
+$step_one_on	= "on";
+$step_two_on 	= "";
 // PROCESS NEW USER
 if(!empty($_POST['submit_new_user'])){
 	$errors 	= array();
@@ -40,7 +43,7 @@ if(!empty($_POST['submit_new_user'])){
 	$birthyear 	= (isset($_POST["birthyear"]))  ? intval($_POST["birthyear"]) : null;
 	$optin 		= (isset($_POST["optin"]) 		? $_POST["optin"] 		:null ) ;
 	$actualage 	= (!$birthyear ? null : date("Y") - $birthyear);
-	$lang 		= $_POST["lang"];
+	$lang_req 	= $_POST["lang_req"];
 
 	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
 	if(is_null($fname) || is_null($lname)){
@@ -81,7 +84,7 @@ if(!empty($_POST['submit_new_user'])){
 				        getRF("city") 	=> $city,
 				        getRF("state") 	=> $state,
 				        getRF("age") 	=> $actualage,
-				        getRF("lang") 	=> $lang
+				        getRF("lang") 	=> $lang_req
 
 				      ));
 		            $olduser->createEmailToken();
@@ -101,7 +104,9 @@ if(!empty($_POST['submit_new_user'])){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
-					header("Location: login.php");
+					$step_one_on	= "";
+					$step_two_on 	= "on";
+					header("Location: register.php");
 					exit;
 					// // THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
 					// $loggedInUser = new RedcapPortalUser($auth->new_user_id);
@@ -176,9 +181,15 @@ $body_classes 	= "login register";
 include("models/inc/gl_header.php");
 ?>
 <div id="content" class="container" role="main" tabindex="0">
-  <div class="row"> 
+  <div class="row">
 	<div id="main-content" class="col-md-8 col-md-offset-2 registerAccount" role="main">
 		<div class="well row">
+		  <ul id="register_steps">
+		  	<li class='<?php echo $step_one_on ?>'><span>1</span> Register</li>
+		  	<li class='<?php echo $step_two_on ?>'><span>2</span> Verify Email</li>
+		  	<li><span>3</span> Consent</li>
+		  	<li><span>4</span> Security</li>
+		  </ul>
 		  <?php
 		  	include("models/inc/form_register.php");
 		  ?>
@@ -186,6 +197,43 @@ include("models/inc/gl_header.php");
 	</div>
   </div>
 </div>
+<style>
+#main-content .well {
+   padding-top: 190px;
+   background-position:11% 50px;
+   position:relative;
+}
+#register_steps{
+	margin:0; padding:0;
+	list-style:none;
+	position:absolute;
+	top:100px;
+	right:80px;
+	border-top:1px solid #ccc;
+	text-align:right;
+	width:502px;
+}
+.well #register_steps li{
+	display:inline-block;
+	text-align:Center; 
+	width:100px;
+	color:#B63234;
+	margin-top:-17px;
+}
+#register_steps li span{
+	display:block; 
+	color:#fff;
+	background:#ccc;
+	border-radius:35px;
+	width:30px;
+	height:30px;
+	margin:0 auto;
+	line-height:180%;
+}
+#register_steps li.on span{
+	background:#B63234;
+}
+</style>
 <?php 
 include("models/inc/gl_footer.php");
 ?>

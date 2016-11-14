@@ -43,13 +43,13 @@ if(isset($_GET["survey_complete"])){
   if(array_key_exists($surveyid,$surveys)){
     $index  = array_search($surveyid, $all_survey_keys);
     $survey = $surveys[$surveyid];
-    $success_msg  = "You've been awarded a : <span class='fruit " . $fruits[$index] . "'></span> " ;
+    $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
       
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= "Get the whole fruit basket!<br> <a class='takenext' href='$nextlink'>Continue the rest of the survey.</a>";
+        $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
       }else{
-        $success_msg .= "Congratulations, you got all the fruits! <br/><br/> Check out some of the new modules under 'Learn More'. <br><br/> In the meantime we invite you to watch this video from our WELL for life director. <br/><br/> <iframe width='560' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+        $success_msg .= $lang["CONGRATS_FRUITS"] . " <iframe width='560' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
       }
       addSessionMessage( $success_msg , "success");
   }
@@ -57,12 +57,12 @@ if(isset($_GET["survey_complete"])){
   if(array_key_exists($surveyid,$supp_surveys)){
     $index  = array_search($surveyid, $supp_surveys_keys);
     $survey = $supp_surveys[$surveyid];
-    $success_msg  = "You've been awarded a fitness badge: <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
+    $success_msg  = $lang["FITNESS_BADGE"]. ": <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
       
       if(isset($all_survey_keys[$index+1])){
-        $success_msg .= "Get all the fitness badges!<br> ";
+        $success_msg .= $lang["GET_ALL_BADGES"]. "<br> ";
       }else{
-        $success_msg .= "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards! ";
+        $success_msg .= $lang["CONGRATS_ALL_FITNESS_BADGES"];
       }
       
       addSessionMessage( $success_msg , "success");
@@ -248,7 +248,7 @@ $profile_active = '';
 $studies_active = '';
 $game_active    = '';
 $assesments     = '';
-$pg_title 		  = "Dashboard : $websiteName";
+$pg_title 		  = $lang["DASHBOARD"]. " : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
 ?>
@@ -268,8 +268,8 @@ include("inc/gl_head.php");
                 <section class="scrollable padder">              
                   <section class="row m-b-md">
                     <div class="col-sm-3 col_ipad_port col_ipad_land">
-                      <h3 class="m-b-xs text-black">Dashboard</h3>
-                      <small>Welcome back, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
+                      <h3 class="m-b-xs text-black"><?php echo  $lang["DASHBOARD"] ?></h3>
+                      <small><?php echo  $lang["WELCOME_BACK"] ?>, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
                     </div>
                     <div class="col-sm-8 col_ipad_port col_ipad_land">
                       <?php
@@ -277,7 +277,7 @@ include("inc/gl_head.php");
                       $news         = array();
                       $reminders    = array();
                       if($core_surveys_complete){
-                        $reminders[]  = "<li class='list-group-item'>All done with core surveys!</li>";
+                        $reminders[]  = "<li class='list-group-item'>".$lang["DONE_CORE"]."</li>";
                       }else{
                         // $news[]       = "<li class='list-group-item'>No news yet.</li>";
                       }
@@ -289,7 +289,7 @@ include("inc/gl_head.php");
                       $ffq = $ffq_project->getAccount();
                       if(!array_key_exists("error",$ffq)){
                         $nutrilink      = isset($portal_test) ? "#" : "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
-                        $a_nutrilink    = "<a href='$nutrilink' class='nutrilink' title='Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback.' target='_blank'>How well do you eat? &#128150 </a>";
+                        $a_nutrilink    = "<a href='$nutrilink' class='nutrilink' title='".$lang["TAKE_BLOCK_DIET"]."' target='_blank'>".$lang["HOW_WELL_EAT"]." &#128150 </a>";
                         $news[]         = "<li class='list-group-item icon_update'>".$a_nutrilink."</li>";
                       }
                       
@@ -323,9 +323,11 @@ include("inc/gl_head.php");
                         }
                         //if bucket is A make sure that three other ones are complete before showing.
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
-                        $surveyname   = $supp_instrument["label"];
+                        $title_trans  = $projnotes["translations"];
+                        $tooltips     = $projnotes["tooltips"];
+                        $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
                         
-                        $titletext    = $core_surveys_complete ? $projnotes[$supp_instrument_id] : "Please complete Core Survyes first";
+                        $titletext    = $core_surveys_complete ? $tooltips[$supp_instrument_id] : $lang["COMPLETE_CORE_FIRST"];
                         $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                         $icon_update  = " icon_update";
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
@@ -353,7 +355,7 @@ include("inc/gl_head.php");
                           if(!$core_surveys_complete){
                             if(in_array($surveyid,SurveysConfig::$core_surveys)){
                               $reminders[]  = "<li class='list-group-item'>
-                                  Please complete <a href='$crap'>$surveyname</a> survey
+                                  ".$lang["PLEASE_COMPLETE"]." <a href='$crap'>$surveyname</a>
                               </li>";
                             }
                           }
@@ -402,7 +404,7 @@ include("inc/gl_head.php");
                         <div id="slide_banner">
                           <ul>
                           <?php
-                            $welcome_back = !$first_survey["survey_complete"] ? "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>" : "<b>Wellcome Back</b> to WELL for Life!</a>";
+                            $welcome_back = !$first_survey["survey_complete"] ? $lang["WELCOME_TO_WELL"] : $lang["WELCOME_BACK_TO"];
                             if( !isset($next_survey) ){
                               $next_survey = $nutrilink;
                             } 
@@ -504,9 +506,9 @@ include("inc/gl_head.php");
                               html += '</li>';
                               html += '<li class="weatherimg" style="background-image:url('+weather.image+')"></li>';
                               html += '<li>';
-                              html += '<b class="wind"> wind: '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</b>';
-                              html += '<b>Sunrise : ' + weather.sunrise + '</b>';
-                              html += '<b>Sunset  : ' + weather.sunset + '</b></li>';
+                              html += '<b class="wind"> <?php $lang["WIND"] ?>: '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</b>';
+                              html += '<b><?php $lang["SUNRISE"] ?> : ' + weather.sunrise + '</b>';
+                              html += '<b><?php $lang["SUNSET"] ?> : ' + weather.sunset + '</b></li>';
                               html += '</ul>';
                               $("#weather").html(html);
                             },
@@ -523,7 +525,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div class="panel panel-info portlet-item">
                           <header class="panel-heading">
-                            <i class="fa fa-list-ul"></i> Reminders
+                            <i class="fa fa-list-ul"></i> <?php echo $lang["REMINDERS"] ?>
                           </header>
                           <ul class="list-group alt">
                             <?php
@@ -535,7 +537,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-6 col_ipad_port col_ipad_land">
                         <div class="panel panel-success portlet-item">
                           <header class="panel-heading">
-                            <i class="glyphicon glyphicon-star-empty"></i> Additional Surveys
+                            <i class="glyphicon glyphicon-star-empty"></i> <?php echo $lang["ADDITIONAL_SURVEYS"] ?>
                           </header>
                           <ul class="list-group alt">
                             <?php
@@ -564,14 +566,14 @@ include("inc/gl_head.php");
                           if ($health_behaviors_complete) { 
                             echo '<div id="pieChart"></div>';
                           }else{
-                            echo "<h6>Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!</h4>";
+                            echo "<h6>".$lang["SEE_PA_DATA"]."</h4>";
                           }
                         ?>
                       </section>
                     </div>
                     <div class="col-md-6 dker datacharts charttoo col_ipad_port col_ipad_land">
                       <section>
-                        <h3>How Do You Compare With Other Survey Takers?</h3>
+                        <h3><?php echo $lang["HOW_DO_YOU_COMPARE"] ?></h3>
                         <p></p>
                         <canvas id="youvsall" ></canvas>
                       </section>
@@ -612,7 +614,12 @@ var ctx = $("#youvsall");
 var myBarChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Sitting", "Walking", "Moderate Activity", "Vigorous Activity", "Light/No Activity" , "Sleep"],
+        labels: [ "<?php echo $lang["SITTING"] ?>"
+                , "<?php echo $lang["WALKING"] ?>"
+                , "<?php echo $lang["MODACT"] ?>"
+                , "<?php echo $lang["VIGACT"] ?>"
+                , "<?php echo $lang["NOACT"] ?>"
+                , "<?php echo $lang["SLEEP"] ?>"],
         datasets: [{
             label: 'You (Hours/Day)',
             data: [
@@ -626,7 +633,7 @@ var myBarChart = new Chart(ctx, {
             backgroundColor: "rgba(78, 163, 42, .9)",
             hoverBackgroundColor: "rgba(78, 163, 42, 1)",
           },{
-            label: 'Average All Users (Hours/Day)',
+            label: '<?php echo $lang["AVG_ALL_USERS"] ?>',
             data: [
                <?php echo $ALL_TIME_SITTING_IN_HOURS ?>
               ,<?php echo $ALL_TIME_WALKING_IN_HOURS ?>
@@ -671,32 +678,32 @@ setInterval(function(){
 
 var pieData = [
       {
-        "label": "Light/No Activity",
+        "label": "<?php echo $lang["NOACT"] ?>",
         "value": <?php echo $USER_NO_ACTIVITY ?>,
         "color": "#cccccc"
       },
       {
-        "label": "Moderate Activity",
+        "label": "<?php echo $lang["MODACT"] ?>",
         "value": <?php echo $USER_TIME_PA_MOD_IN_HOURS ?>,
         "color": "#009966"
       },
       {
-        "label": "Vigorous Activity",
+        "label": "<?php echo $lang["VIGACT"] ?>",
         "value": <?php echo $USER_TIME_PA_VIG_IN_HOURS ?>,
         "color": "#006600"
       },
       {
-        "label": "Walking",
+        "label": "<?php echo $lang["WALKING"] ?>",
         "value": <?php echo $USER_TIME_WALKING_IN_HOURS ?>,
         "color": "#66CC33"
       },
       {
-        "label": "Sitting",
+        "label": "<?php echo $lang["SITTING"] ?>",
         "value": <?php echo $USER_TIME_SITTING_IN_HOURS ?>,
         "color": "#ff3300"
       },
       {
-        "label": "Sleeping",
+        "label": "<?php echo $lang["SLEEP"] ?>",
         "value": <?php echo $USER_TIME_SLEEP_HOURS ?>,
         "color": "#C8A0D8"
       },
@@ -705,7 +712,7 @@ var pieData = [
 var pie = new d3pie("pieChart", {
   "header": {
     "title": {
-      "text": "How You Spend Your Time Each Day",
+      "text": "<?php echo $lang["HOW_YOU_SPEND_TIME"] ?>",
       "fontSize": 24,
       "font": "open sans"
     },

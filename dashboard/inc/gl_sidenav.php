@@ -63,7 +63,7 @@
               <li>
                 <a href="index.php" class="auto">
                   <i class="i i-statistics icon"></i>
-                  <span class="font-bold">My Dashboard</span>
+                  <span class="font-bold"><?php echo $lang["MY_DASHBOARD"]; ?></span>
                 </a>
               </li>
               <script>
@@ -83,17 +83,21 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-stack icon"></i>
-                <span class="font-bold">Core Surveys</span>
+                <span class="font-bold"><?php echo $lang["CORE_SURVEYS"] ?></span>
               </a>
               <ul class="nav dk">
                 <?php
                 $new = null;
-                $core_surveys     = array();
+                $core_surveys   = array();
                 // $supp_surveys     = array();
                 foreach($surveys as $surveyid => $survey){
+                  $projnotes      = json_decode($survey["project_notes"],1);
+                  $title_trans    = $projnotes["translations"];
+                   
                   $index          = array_search($surveyid, $all_survey_keys);
                   $surveylink     = "survey.php?sid=" . $surveyid;
-                  $surveyname     = $survey["label"];
+                  $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
+                  
                   $surveycomplete = $survey["survey_complete"];
 
                   $completeclass  = ($surveycomplete ? "completed":"");
@@ -140,7 +144,7 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-docs icon"></i>
-                <span class="font-bold">My Studies</span>
+                <span class="font-bold"><?php echo $lang["MY_STUDIES"] ?></span>
               </a>
             </li>
             
@@ -151,7 +155,7 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-docs icon"></i>
-                <span class="font-bold">My Profile</span>
+                <span class="font-bold"><?php echo $lang["MY_PROFILE"] ?></span>
               </a>
             </li>
 
@@ -171,13 +175,13 @@
             ?>
             
             <li>
-              <a href="mailto:wellforlife@stanford.edu?subject=Question for WELL" class="nav dk">
+              <a href="mailto:wellforlife@stanford.edu?subject=<?php echo $lang["QUESTION_FOR_WELL"] ?>" class="nav dk">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-mail icon"></i>
-                <span class="font-bold">Contact Us</span>
+                <span class="font-bold"><?php echo $lang["CONTACT_US"] ?></span>
               </a>
             </li>
             <!-- <li >
@@ -210,9 +214,8 @@
             ?>
             <li class="get_help">
               <div>
-                <h3>Where to get help</h3>
-                <p>For a medical emergency, call 911 or your healtcare provider.</p>
-                <p>For mental health, please visit <a href="https://www.mentalhealth.gov/get-help/" class="offsite">MentalHealth.gov</a>.</p>
+                <h3><?php echo $lang["GET_HELP"] ?></h3>
+                <?php echo $lang["GET_HELP_TEXT"] ?>
               </div>
             </li>
           </ul>

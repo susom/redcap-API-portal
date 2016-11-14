@@ -30,6 +30,8 @@ class Survey {
 
 //name, project(connection stuff), 
   public function __construct( $survey_data ){
+    $projnotes            = json_decode($survey_data["project_notes"],1);                        
+    $this->title_trans    = isset($projnotes["translations"]) ? $projnotes["translations"] : null;
     $this->surveyname     = $survey_data["label"];
     $this->surveyid       = $survey_data["instrument_name"];
     $this->surveytotal    = $survey_data["total_questions"];
@@ -323,10 +325,10 @@ class Survey {
 
   public function printHTML(){
     global $MAT_videos;
-
     $theHTML      = array();
     $yourAnswers  = (!$this->surveycomplete ? "" : " : Your Answers");
-    $theHTML[]    =  "<h2 class='surveyHeader'>".$this->surveyname."</h2>";
+    $surveyname   = isset($this->title_trans[$_SESSION["use_lang"]][$this->surveyid]) ?  $this->title_trans[$_SESSION["use_lang"]][$this->surveyid] : $this->surveyname;
+    $theHTML[]    =  "<h2 class='surveyHeader'>".$surveyname."</h2>";
     
     if($this->surveycomplete){
       //IF THE SURVEY HAS ALREADY BEEN COMPLETED JUST DUMP OUT THE ANSWERED BITS ON SCREEN

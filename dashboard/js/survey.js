@@ -87,6 +87,9 @@ $(document).ready(function(){
     if(isGRIT){
       showGRITScoring();
     }
+    if(isSleep){
+      showSleepScoring();
+    }
 
     //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
     var completed_count = 0;
@@ -179,6 +182,9 @@ $(document).ready(function(){
   }
   if(isGRIT){
     showGRITScoring();
+  }
+  if(isSleep){
+    showSleepScoring();
   }
 
   //BMI POPUP
@@ -598,4 +604,25 @@ function showGRITScoring(){
       nextSection.find("h2").after(result);
     }
   });
+}
+
+function showSleepScoring(){
+  var all_answers = $("#customform").serializeArray();
+  var nextSection = $("#customform section:last").prev();
+  var dataURL     = "SLEEP_PSQI.php";
+
+  console.log(all_answers);
+
+
+  // $.ajax({
+  //   url:  dataURL,
+  //   type:'POST',
+  //   data: "&grit=" + JSON.stringify($("#customform").serializeArray()) + "&gender=" +  all_completed["core_gender"],
+  //   success:function(result){
+  //     if($("#grit_results").length > 0){
+  //       $("#grit_results").remove();
+  //     }
+  //     nextSection.find("h2").after(result);
+  //   }
+  // });
 }

@@ -19,8 +19,9 @@ foreach($city_zips as $city => $zips){
 $eligible_map		= json_encode($city_zips);
 
 $lang_req 		= $_SESSION["use_lang"];
-$step_one_on	= "on";
-$step_two_on 	= "";
+
+$step_one_on	= empty($_GET['step']) ? "on" : "";
+$step_two_on 	= !empty($_GET['step']) ? "on" : "";
 // PROCESS NEW USER
 if(!empty($_POST['submit_new_user'])){
 	$errors 	= array();
@@ -104,9 +105,7 @@ if(!empty($_POST['submit_new_user'])){
 				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 				if($auth->createNewUser($password)){
 					addSessionMessage( lang("ACCOUNT_NEW_ACTIVATION_SENT"), "success");
-					$step_one_on	= "";
-					$step_two_on 	= "on";
-					header("Location: register.php");
+					header("Location: register.php?step=2");
 					exit;
 					// // THEY WILL NOW NEED TO VERIFY THEIR EMAIL LINK
 					// $loggedInUser = new RedcapPortalUser($auth->new_user_id);
@@ -199,7 +198,7 @@ include("models/inc/gl_header.php");
 </div>
 <style>
 #main-content .well {
-   padding-top: 190px;
+   padding-top: 188px;
    background-position:11% 50px;
    position:relative;
 }

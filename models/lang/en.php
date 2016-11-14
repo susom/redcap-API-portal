@@ -90,7 +90,7 @@
 		"FORGOTPASS_UPDATED" 					=> "Password Updated",
 		"FORGOTPASS_INVALID_VALUE" 				=> "Invalid password reset values for question",
 		"FORGOTPASS_Q_UPDATED" 					=> "Password recovery questions updated!",
-		"FORGOTPASS_SEC_Q_SETUP" 				=> "Please setup your password and security questions",
+		"FORGOTPASS_SEC_Q_SETUP" 				=> "Password setup and security questions",
 		"FORGOTPASS_SEC_Q_ANSWERS" 				=> "So that we can help you recover a lost or forgotten password, please provide answers to the following security questions.",
 		"FORGOTPASS_CHOSE_QUESTION" 			=> "Choose a question from the list",
 		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "Write a custom security question",
@@ -109,5 +109,51 @@
 		"GENERAL_SUBMIT" 						=> "Submit",
 		"CONFIRM"								=> "Confirm",
 		"ERROR"									=> "Error",
+	));
+	
+
+	//DASHBOARD TRANSLATIONS
+	$lang = array_merge($lang, array(
+		 "WELL_FOR_LIFE" 							=> "WELL for Life"
+		,"MY_DASHBOARD" 							=> "My Dashboard"
+		,"CORE_SURVEYS" 							=> "Core Surveys"
+		,"LOGOUT" 									=> "Logout"
+		,"MY_STUDIES"								=> "My Studies"
+		,"MY_PROFILE" 								=> "My Profile"
+		,"CONTACT_US" 								=> "Contact Us"
+		,"GET_HELP" 								=> "Where to get help"
+		,"GET_HELP_TEXT" 							=> "<p>For a medical emergency, call 911 or your healtcare provider.</p><p>For mental health, please visit <a href=\"https://www.mentalhealth.gov/get-help/\" class='offsite'>MentalHealth.gov</a>.</p>"
+		,"QUESTION_FOR_WELL" 						=> "Question for WELL"
+		,"YOUVE_BEEN_AWARDED" 						=> "You've been awarded a"
+		,"GET_WHOLE_BASKET" 						=> "Get the whole fruit basket!"
+		,"CONTINUE_SURVEY" 							=> "Continue the rest of the survey."
+		,"CONGRATS_FRUITS" 							=> "Congratulations, you got all the fruits! <br/><br/> Check out some of the new modules under 'Learn More'. <br><br/> In the meantime we invite you to watch this video from our WELL for life director. <br/><br/>"
+		,"FITNESS_BADGE" 							=> "You've been awarded a fitness badge"
+		,"GET_ALL_BADGES" 							=> "Get all the fitness badges!"
+		,"CONGRATS_ALL_FITNESS_BADGES"				=> "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards!"
+		,"DONE_CORE" 								=> "All done with core surveys!"
+		,"TAKE_BLOCK_DIET" 							=> "Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback."
+		,"HOW_WELL_EAT" 							=> "How well do you eat?"
+		,"COMPLETE_CORE_FIRST" 						=> "Please complete Core Survyes first"
+		,"PLEASE_COMPLETE" 							=> "Please complete "
+		,"WELCOME_TO_WELL" 							=> "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>"
+		,"WELCOME_BACK" 							=> "<b>Wellcome Back</b> to WELL for Life!</a>"
+		,"REMINDERS" 								=> "Reminders"
+		,"ADDITIONAL_SURVEYS" 						=> "Additional Surveys"
+		,"SEE_PA_DATA" 								=> "Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!"
+		,"HOW_DO_YOU_COMPARE" 						=> "How Do You Compare With Other Survey Takers?"
+		,"SITTING" 									=> "Sitting"
+		,"WALKING" 									=> "Walking"
+		,"MODACT" 									=> "Moderate Activity"
+		,"VIGACT" 									=> "Vigorous Activity"
+		,"NOACT" 									=> "Light/No Activity"
+		,"SLEEP" 									=> "Sleep"
+		,"AVG_ALL_USERS" 							=> "Average All Users (Hours/Day)"
+		,"HOW_YOU_SPEND_TIME" 						=> "How You Spend Your Time Each Day"
+		,"SUNRISE" 									=> "Sunrise"
+		,"SUNSET" 									=> "Sunset"
+		,"WIND" 									=> "wind"
+		,"DASHBOARD"								=> "Dashboard"
+		,"WELCOME_BACK"								=> "Welcome Back"
 	));
 ?>

@@ -611,16 +611,13 @@ function showSleepScoring(){
   var nextSection = $("#customform section:last").prev();
   var dataURL     = "SLEEP_PSQI.php";
 
-  console.log(all_answers);
-
   $.ajax({
     url:  dataURL,
     type:'POST',
     data: "&sleep=" + JSON.stringify(all_answers),
     success:function(result){
-      console.log("sleep results");
       console.log(result);
-      // nextSection.find("h2").after(result);
+      nextSection.find("h2").after(result);
     }
   });
 }

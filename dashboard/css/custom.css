@@ -1986,6 +1986,56 @@ a.closeparent {
     color: #000;
 }
 
+
+/*SLEEP */
+.psqi_desc {
+    border-radius: 10px;
+    padding: 20px;
+    padding: 20px 0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background:#FFF1CE;
+}
+    
+.psqi_desc div{
+    display:none;
+    margin:0 20px;
+}
+.psqi_desc a {
+    color: #369;
+    text-decoration: underline;
+}
+#psqi_results{
+    padding-top:20px;
+}
+#psqi_results p {
+    font-size:115%;
+    margin:0 20px 20px;
+}
+#psqi_results h3 {
+    font-size: 24px;
+    margin: 0 20px 10px;
+}
+
+#PSQIDISTB{
+    background:#DAE3F2;
+}
+#PSQILATEN{
+    background:#E2F0DA;
+}
+#PSQIDAYDYS{
+}
+#PSQIHSE{
+    background:#FAE5D7;
+}
+#PSQISLPQUAL{
+    background:#DAE3F2;
+}
+#PSQIMEDS{
+    background:#E2F0DA;
+}
+
+
 .labellink:active,
 .labellink:visited,
 .labellink {

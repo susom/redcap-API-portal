@@ -131,22 +131,70 @@ if($time_phase >= 85){
 $results["PSQISLPQUAL"] = $qs["psqi_sleep_overall"];
 $results["PSQIMEDS"] 	= $qs["psqi_sleep_medicine"];
 
-print_r($results);
-
 //FINAL SCORE
 //MIN = 0 BEST
 //MAX = 21 WORST
 //I AM 11
 
 $PSQI = array_sum($results);
-
-
-
-if($PSQI <= 5){
-	//good quality sleep
-}else{
-	//poor quality sleep
+?>
+<style>
+.psqi_desc { display:none; }
+#PSQI div { display:none; }
+<?php
+foreach($results as $datapoint => $value){
+	if($value >= 1){
+		echo "#".$datapoint . " { display:block; }\n";
+	}
 }
 
-print_r( $PSQI ) ;
+if($PSQI < 5){
+	echo "#PSQI div.less_than_5 { display:block; }\n";
+}else{
+	echo "#PSQI div.greater_than_5 { display:block; }\n";
+}
 ?>
+</style>
+<div id="psqi_results">
+	<div id="met_score"></div>
+	<h3>Thank you for your participation! Your PSQI is : <b><?php echo $PSQI ?></b></h3>
+	
+	<div id="PSQI">
+		<div class="less_than_5">
+			<p>Nice job! Your sleep survey score is associated with good quality sleep.  You understand the importance of sleep to your health and wellbeing and have made it a priority in your daily routine.  Good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Keep it up!</p>
+			<p>Check out our <a href="x" target="blank">sleep resources</a> page to learn more about sleep, including tools for improving, maintaining, and tracking your excellent sleep quality.  While there, you can also access our <a href="x" target="blank">interview with a sleep expert</a>, where many common sleep questions from other study participants like you were answered.</p>
+		</div>
+		<div class="greater_than_5">
+			<p>Your answers to the sleep survey are associated with poor quality sleep.  Sleep is a very important component to our health and wellbeing, and good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Poor quality sleep has been associated with reduced immunity, and health problems related to metabolism, appetite regulation, and stress response.</p>
+			<p>Based on your personal sleep survey answers, the factors contributing to your poor quality sleep include the following:</p>
+		</div>
+	</div>
+	<div id="PSQIDURAT" class="psqi_desc">
+		<h3>Short Duration of Sleep</h3>
+		<p>The National Sleep Foundation recommends that adults between the ages of 18 and 64 receive between 7 and 9 hours of sleep every night, and between 7-8 hours for adults 65 or older.  If you are routinely getting less than 7 hours of sleep at night, it may be affecting your sleep quality.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQIDISTB" class="psqi_desc">
+		<h3>Sleep Disturbance</h3>
+		<p>Creating a sleep environment that is free of night time disturbance is critical to good quality sleep.  A sleep disturbance includes anything that wakes you during the night, including the need to use the bathroom, coughing or loud snoring, not being able to breath comfortably, feeling too hot or too cold, experiencing pain, bad dreams, or anything else that can cause you to wake in the night.  These sleep disturbances interrupt natural sleep cycles.  If you frequently awake in the night, take steps to create a better sleep environment by checking out our Sleep Tips page.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQILATEN" class="psqi_desc">
+		<h3>Sleep Latency</h3>
+		<p>Sleep latency refers to the amount of time that it takes you to fall asleep at night.  Good quality sleep is characterized by falling asleep within 15 minutes of your head hitting the pillow.  If you have difficulty falling asleep at night, there are steps you can take to prepare yourself and your environment for falling asleep faster.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQIDAYDYS" class="psqi_desc">
+		<h3>Day Dysfunction due to Sleepiness</h3>
+		<p>Day dysfunction is defined as having trouble staying awake while driving, eating, or engaging in social activities, or with maintaining enthusiasm for daily tasks due to lack of sleep.  One episode of day dysfunction within the past month is a characteristic of poor quality sleep and requires that one address the underlying problem, which is whatever is contributing to the poor quality sleep.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQIHSE" class="psqi_desc">
+		<h3>Sleep Efficiency</h3>
+		<p>Sleep efficiency refers to the amount of time spent in bed versus the amount of time actually asleep.  If you spend less than 85% of your time in bed actually sleeping, this is an indication of poor quality sleep.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQISLPQUAL" class="psqi_desc">
+		<h3>Overall Sleep Quality</h3>
+		<p>We all deserve very good quality sleep and require it in order to thrive.  If you feel that your sleep quality is not as good as it could be, check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+	<div id="PSQIMEDS" class="psqi_desc">
+		<h3>Use of Sleep Medication</h3>
+		<p>Taking prescription or over the counter medications within the past month to help you sleep, is an indication of poor quality sleep.  Medications can be useful for acute cases of insomnia, but are not recommended for long-term use.  There more natural treatments for insomnia that don’t involve taking medication, including various relaxation techniques, such as meditation, breathing exercises, and guided imagery.  Cognitive behavioral therapy has also been shown to be an effective treatment for insomnia.  Check out our Sleep Tips page for recommendations for non-medical methods of addressing insomnia.  If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
+	</div>
+</div>

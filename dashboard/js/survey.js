@@ -613,16 +613,14 @@ function showSleepScoring(){
 
   console.log(all_answers);
 
-
-  // $.ajax({
-  //   url:  dataURL,
-  //   type:'POST',
-  //   data: "&grit=" + JSON.stringify($("#customform").serializeArray()) + "&gender=" +  all_completed["core_gender"],
-  //   success:function(result){
-  //     if($("#grit_results").length > 0){
-  //       $("#grit_results").remove();
-  //     }
-  //     nextSection.find("h2").after(result);
-  //   }
-  // });
+  $.ajax({
+    url:  dataURL,
+    type:'POST',
+    data: "&sleep=" + JSON.stringify(all_answers),
+    success:function(result){
+      console.log("sleep results");
+      console.log(result);
+      // nextSection.find("h2").after(result);
+    }
+  });
 }

@@ -157,6 +157,11 @@ class Survey {
     $section_html[]   = "<option></option>";
     $options          = self::getAnswerOptions($select_choices_or_calculations);
     foreach($options as $val => $value){
+      $translation_pattern  = "/<span class=\"lang ".$_SESSION["use_lang"]."\">(.*?)<\/span>/s";
+      $success              = preg_match( $translation_pattern, $value, $match);
+      if($success){
+        $value = $match[1];
+      }
       $selected       = (array_key_exists($field_name, $this->completed) && $this->completed[$field_name] == $val ? "selected" : "");
       $section_html[] = "<option $selected value='$val'>$value</option>";
     }

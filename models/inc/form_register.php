@@ -151,7 +151,7 @@
     <div class="form-group">
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
-      <a href="login.php" class="showlogin"><?php echo lang("ACCOUNT_ALREADY_REGISTERED") ?>/a>
+      <a href="login.php" class="showlogin"><?php echo lang("ACCOUNT_ALREADY_REGISTERED") ?></a>
       </div>
     </div>
   </form>

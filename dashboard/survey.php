@@ -99,6 +99,34 @@ if(isset($_REQUEST["met"])){
   exit;
 }
 
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["sleep"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'psqi_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
   $project_name = $_REQUEST["project"] ?: null;

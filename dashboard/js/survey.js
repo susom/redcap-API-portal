@@ -609,15 +609,28 @@ function showGRITScoring(){
 function showSleepScoring(){
   var all_answers = $("#customform").serializeArray();
   var nextSection = $("#customform section:last").prev();
-  var dataURL     = "SLEEP_PSQI.php";
 
+  var dataURL     = "SLEEP_PSQI.php";
   $.ajax({
     url:  dataURL,
     type:'POST',
     data: "&sleep=" + JSON.stringify(all_answers),
     success:function(result){
-      console.log(result);
+      // console.log(result);
       nextSection.find("h2").after(result);
+
+      var PSQI_SCORE      = $("#psqi_score").text();
+      var dataURL         = "survey.php?sleep=1";
+      var instrument_name = $("#customform").attr("name");
+      var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+      $.ajax({
+        url:  dataURL,
+        type:'POST',
+        data: project + "&psqi_score=" + PSQI_SCORE,
+        success:function(result){
+          // console.log(result);
+        }
+      });
     }
   });
 }

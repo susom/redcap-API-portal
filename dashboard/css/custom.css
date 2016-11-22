@@ -267,7 +267,10 @@ h2.weather,
 
 
 /*DASHBOARD*/
-
+.navbar-brand{
+    position:absolute;
+    width:300px;   
+}
 @media (min-width: 768px) {
     .header-md .navbar-brand img {
         max-height: 52px;

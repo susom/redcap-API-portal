@@ -32,6 +32,7 @@
 		
 		//REGISTER
 		"ACCOUNT_REGISTER" 						=> "Register for this Study",
+		"ACCOUNT_YOUR_NAME"						=> "Your Name",
 		"ACCOUNT_FIRST_NAME" 					=> "First Name",
 		"ACCOUNT_LAST_NAME" 					=> "Last Name",
 		"ACCOUNT_YOUR_EMAIL" 					=> "Your Email",
@@ -148,6 +149,7 @@
 		,"VIGACT" 									=> "Vigorous Activity"
 		,"NOACT" 									=> "Light/No Activity"
 		,"SLEEP" 									=> "Sleep"
+		,"YOU_HOURS_DAY"							=> "You (Hours/Day)"
 		,"AVG_ALL_USERS" 							=> "Average All Users (Hours/Day)"
 		,"HOW_YOU_SPEND_TIME" 						=> "How You Spend Your Time Each Day"
 		,"SUNRISE" 									=> "Sunrise"
@@ -155,5 +157,6 @@
 		,"WIND" 									=> "wind"
 		,"DASHBOARD"								=> "Dashboard"
 		,"WELCOME_BACK"								=> "Welcome Back"
+		,"SUBMIT"									=> "Submit"
 	));
 ?>

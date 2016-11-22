@@ -2,7 +2,7 @@
     <input type="hidden" name="lang_req" value="<?php echo $lang_req ?>"/>
     <h2><?php echo lang("ACCOUNT_REGISTER") ?></h2>
     <div class="form-group">
-      <label for="email" class="control-label col-sm-3">Your Name:</label>
+      <label for="email" class="control-label col-sm-3"><?php echo lang("ACCOUNT_YOUR_NAME") ?>:</label>
       <div class="col-sm-4"> 
         <input type="text" class="form-control" name="firstname" id="firstname" placeholder="<?php echo lang("ACCOUNT_FIRST_NAME") ?>" value="<?php echo (isset($fname) ? $fname : "") ?>">
       </div>
@@ -143,7 +143,7 @@
       <span class="control-label col-sm-3"></span>
       <div class="col-sm-8"> 
         <!-- <div class="g-recaptcha" data-sitekey="6LcEIQoTAAAAAE5Nnibe4NGQHTNXzgd3tWYz8dlP"></div> -->
-        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true">Submit</button>
+        <button type="submit" class="btn btn-primary" name="submit_new_user"  value="true"><?php echo lang("SUBMIT") ?></button>
         <input type="hidden" name="submit_new_user" value="true"/>
         <input type="hidden" name="optin" value="true"/>
       </div>

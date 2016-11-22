@@ -32,6 +32,7 @@
 		
 		//REGISTER
 		"ACCOUNT_REGISTER" 						=> "Regístrese para este estudio", 
+		"ACCOUNT_YOUR_NAME"						=> "Su Nombre",
 		"ACCOUNT_FIRST_NAME" 					=> "Nombre",
 		"ACCOUNT_LAST_NAME" 					=> "Apellido",
 		"ACCOUNT_YOUR_EMAIL" 					=> "Email / Correo electrónico",
@@ -113,8 +114,8 @@
 
 	//DASHBOARD TRANSLATIONS
 	$lang = array_merge($lang, array(
-		 "WELL_FOR_LIFE" 							=> "WELL por Vida"
-		,"MY_DASHBOARD" 							=> "Mi Tablero"
+		 "WELL_FOR_LIFE" 							=> "WELL Bien Para Vida"
+		,"MY_DASHBOARD" 							=> "Mis Cuestionarios"
 		,"CORE_SURVEYS" 							=> "Encuestas principales"
 		,"LOGOUT" 									=> "Cerrar sesión"
 		,"MY_STUDIES"								=> "Mis estudios"
@@ -132,27 +133,29 @@
 		,"CONGRATS_ALL_FITNESS_BADGES"				=> "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards!"
 		,"DONE_CORE" 								=> "Todo hecho con encuestas básicas!"
 		,"TAKE_BLOCK_DIET" 							=> "Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback."
-		,"HOW_WELL_EAT" 							=> "Que tan bien comes?"
+		,"HOW_WELL_EAT" 							=> "¿Qué también come usted?"
 		,"COMPLETE_CORE_FIRST" 						=> "Por favor complete las encuestas básicas primero"
-		,"PLEASE_COMPLETE" 							=> "Por favor complete "
+		,"PLEASE_COMPLETE" 							=> "Por favor complete la encuesta sobre "
 		,"WELCOME_TO_WELL" 							=> "<b>Bienvenido</b> to WELL por Vida! <u>Haga clic aquí</u> Para comenzar su aventura aquí…</a>"
 		,"WELCOME_BACK_TO" 							=> "<b>Dar una buena acogida</b> to WELL por Vida!</a>"
 		,"REMINDERS" 								=> "Recordatorios"
 		,"ADDITIONAL_SURVEYS" 						=> "Encuestas adicionales"
 		,"SEE_PA_DATA" 								=> "Rellene la parte 'Su actividad física' de la encuesta para ver sus datos graficados aquí!"
-		,"HOW_DO_YOU_COMPARE" 						=> "¿Cómo se compara con otros encuestadores"
-		,"SITTING" 									=> "Sentado"
-		,"WALKING" 									=> "Para caminar"
+		,"HOW_DO_YOU_COMPARE" 						=> "¿Cómo se compara con otros participantes?"
+		,"SITTING" 									=> "Sentado(a)"
+		,"WALKING" 									=> "Caminando"
 		,"MODACT" 									=> "Actividad moderada"
 		,"VIGACT" 									=> "Actividad vigorosa"
-		,"NOACT" 									=> "Liviano/Ninguna actividad"
-		,"SLEEP" 									=> "Dormir"
+		,"NOACT" 									=> "Actividad Liviana o Ninguna Actividad"
+		,"SLEEP" 									=> "Durmiendo"
+		,"YOU_HOURS_DAY"							=> "Usted (Horas/Día)"
 		,"AVG_ALL_USERS" 							=> "Promedio de todos los usuarios (Horas/Día)"
-		,"HOW_YOU_SPEND_TIME" 						=> "Cómo usted pasa su tiempo cada día"
+		,"HOW_YOU_SPEND_TIME" 						=> "Descripción de cómo usted pasa su tiempo cada día"
 		,"SUNRISE" 									=> "Amanecer"
 		,"SUNSET" 									=> "La puesta del sol"
 		,"WIND" 									=> "viento"
-		,"DASHBOARD"								=> "Tablero"
-		,"WELCOME_BACK"								=> "Dar una buena acogida"
+		,"DASHBOARD"								=> "PÁGINA PRINCIPAL"
+		,"WELCOME_BACK"								=> "¡Bienvenidos nuevamente!"
+		,"SUBMIT"									=> "Entregar"
 	));
 ?>

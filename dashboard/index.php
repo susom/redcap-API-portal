@@ -621,7 +621,7 @@ var myBarChart = new Chart(ctx, {
                 , "<?php echo $lang["NOACT"] ?>"
                 , "<?php echo $lang["SLEEP"] ?>"],
         datasets: [{
-            label: 'You (Hours/Day)',
+            label: '<?php echo $lang["YOU_HOURS_DAY"] ?>',
             data: [
                <?php echo $USER_TIME_SITTING_IN_HOURS ?>
               ,<?php echo $USER_TIME_WALKING_IN_HOURS ?>

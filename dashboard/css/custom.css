@@ -11,6 +11,60 @@ a[href="#"] {
 }
 
 
+.blur{
+    /*filter: blur(3px);
+    -webkit-filter: blur(3px);*/
+}
+section.vbox:after{
+    content:"";
+    z-index:1002;
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+section.vbox.blur:before{
+    content:"";
+    z-index:1001;
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#333;
+    opacity:.5;
+}
+section.vbox.blur:after{
+    background: none;
+    font-family: Androgyne;
+    background-image: url(../images/snow1.png), url(../images/snow2.png), url(../images/snow3.png);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    -webkit-animation: snow 10s linear infinite;
+    -moz-animation: snow 10s linear infinite;
+    -ms-animation: snow 10s linear infinite;
+    animation: snow 10s linear infinite;
+}
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-moz-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
+}
+@-webkit-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-ms-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}   
 /*WEATHER WIDGET*/
 
 h2.weather,

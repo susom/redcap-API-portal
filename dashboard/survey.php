@@ -373,5 +373,17 @@ include("inc/gl_foot.php");
   function isEmpty(v){
     return v == null || v == undefined;
   }
+
+  var breaklength = 6000; //100000 = 10 minutes
+  var takeBreak = setTimeout(SessionExpireEvent, 6000);
+  function SessionExpireEvent() {
+      var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>We recommend taking a periodic breaks from looking at the computer screen to reduce eye strain and fatigue.  <br>Click 'Close' to continue survey.<li></ul>");
+      reqmsg.append($("<button>").addClass("btn btn-alert takebreak").text("Close").click(function(){
+        $("section.vbox").removeClass("blur");
+        var takeBreak = setTimeout(SessionExpireEvent, 6000);
+      }));
+      $("body").append(reqmsg);
+      $("section.vbox").addClass("blur");
+  }
 </script>
 <script src="js/survey.js"></script>

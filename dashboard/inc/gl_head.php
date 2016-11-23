@@ -23,6 +23,7 @@ $location   = $city . "," . $state;
 
   <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css"/>
   <link rel="stylesheet" href="css/weather.css" />
+  <link rel="stylesheet" href="css/roundslider.css" />
   <link rel="stylesheet" type="text/css" href="css/custom.css"/>
   
   <script src="js/jquery.min.js"></script>

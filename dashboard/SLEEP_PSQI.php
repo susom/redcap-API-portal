@@ -156,8 +156,8 @@ if($PSQI < 5){
 ?>
 </style>
 <div id="psqi_results">
-	<div id="met_score"></div>
 	<h3>Thank you for your participation! Your PSQI is : <b id="psqi_score"><?php echo $PSQI ?></b></h3>
+	<div id="psqi_slider"></div>
 	
 	<div id="PSQI">
 		<div class="less_than_5">

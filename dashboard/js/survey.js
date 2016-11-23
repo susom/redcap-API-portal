@@ -217,6 +217,61 @@ $(document).ready(function(){
 
     return false;
   });
+
+  // this is core functionality to generate the numbers
+  $.fn.roundSlider.prototype.defaults.create = function () {
+    var o = this.options;
+    for (var i = o.min; i <= o.max; i += o.step) {
+      var allValues = ["0 Best", "", "", "","", "", "","", "", "", "", "Average", "", "", "","", "", "","", "", "", "21 Worst"], val = allValues[i];
+      var angle = this._valueToAngle(i);
+      var numberTag = this._addSeperator(angle, "rs-custom");
+      var number = numberTag.children();
+      number.clone().css({ "width": o.width + this._border(), "margin-top": this._border(true) / -2 }).appendTo(numberTag);
+      number.removeClass().addClass("rs-number").html(val).rsRotate(-angle);
+
+      if (i == o.min) number.css("margin-left", "-35px");
+      else if (i == o.max) number.css("margin-left", "-25px");
+    }
+  }
+
+  //for fFS
+  $("#psqi_slider").ready(function(){
+    // // select the target node
+    var target = document.querySelector('#checkmutation');
+     
+    // create an observer instance
+    var observer = new MutationObserver(function(mutations) {
+        for(var i in mutations){
+          var mutation = mutations[i];
+          if(mutation.attributeName == "class"){
+            var psqi_score = parseInt($("#psqi_score").text());
+            setTimeout(function(){
+              $("#psqi_slider").roundSlider({
+                sliderType: "min-range",
+                handleShape: "square",
+                circleShape: "half-top",
+                showTooltip: false,
+                handleSize: 0,
+                radius: 120,
+                width: 14,
+                min: 0,
+                max: 21,
+                value: psqi_score
+              });
+            },1000);
+              
+            // later, you can stop observing
+            observer.disconnect();
+            break;
+          }
+        }
+    });
+    // configuration of the observer:
+    var config = { attributes: true, childList: true, characterData: true }
+     
+    // pass in the target node, as well as the observer options
+    observer.observe(target, config);
+  });
 });
 
 function openNewWindow(_this,offsite){
@@ -609,6 +664,7 @@ function showGRITScoring(){
 function showSleepScoring(){
   var all_answers = $("#customform").serializeArray();
   var nextSection = $("#customform section:last").prev();
+  nextSection.attr("id","checkmutation");
 
   var dataURL     = "SLEEP_PSQI.php";
   $.ajax({
@@ -634,3 +690,4 @@ function showSleepScoring(){
     }
   });
 }
+

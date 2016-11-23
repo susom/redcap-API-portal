@@ -16,9 +16,11 @@
   <script src="js/calendar/demo.js"></script>
   <script src="js/sortable/jquery.sortable.js"></script>
   <script src="js/app.plugin.js"></script>
+  <script src="js/jquery.visible.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="js/jquery.simpleWeather.js"></script>
   <script src="js/weather.js"></script>
+  <script src="js/roundslider.js"></script>
   <script src="js/verify.notify.min.js"></script>
   <script src="js/jquery.maskedinput.min.js"></script>
   <script src="js/underscore-min.js"></script>

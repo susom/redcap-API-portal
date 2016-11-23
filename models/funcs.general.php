@@ -352,6 +352,9 @@ function redirectToProfile($message = Null) {
 function logout($message, $timeout = false) {
 	//logIt("Logout called: $message / ".(int)$timeout, "DEBUG");
 	global $loggedInUser,$websiteUrl;
+
+	$lang_query = "?lang=".$_SESSION["use_lang"];
+	
 	if( isUserLoggedIn() ) {
 		$loggedInUser->log_entry[] = "Logged out";
 		$loggedInUser->updateUser();
@@ -362,7 +365,7 @@ function logout($message, $timeout = false) {
 	if ($timeout == true) setSessionRedirect($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
 	
 	// Goto Login page but redirect back to original page after authentication
-	$destination = $websiteUrl."login.php";
+	$destination = $websiteUrl."login.php".$lang_query;
 	header("Location: $destination");
 	exit;
 }

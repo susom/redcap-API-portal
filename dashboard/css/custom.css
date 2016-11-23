@@ -15,13 +15,7 @@ a[href="#"] {
     /*filter: blur(3px);
     -webkit-filter: blur(3px);*/
 }
-section.vbox:after{
-    content:"";
-    z-index:1002;
-    position:absolute;
-    width:100%;
-    height:100%;
-}
+
 section.vbox.blur:before{
     content:"";
     z-index:1001;
@@ -32,14 +26,16 @@ section.vbox.blur:before{
     opacity:.5;
 }
 section.vbox.blur:after{
+    content:"";
+    z-index:1002;
+    position:absolute;
+    width:100%;
+    height:100%;
     background: none;
     font-family: Androgyne;
     background-image: url(../images/snow1.png), url(../images/snow2.png), url(../images/snow3.png);
-    height: 100%;
     left: 0;
-    position: absolute;
     top: 0;
-    width: 100%;
     -webkit-animation: snow 10s linear infinite;
     -moz-animation: snow 10s linear infinite;
     -ms-animation: snow 10s linear infinite;

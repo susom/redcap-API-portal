@@ -182,6 +182,9 @@ include("models/inc/gl_header.php");
 <div id="content" class="container" role="main" tabindex="0">
   <div class="row">
 	<div id="main-content" class="col-md-8 col-md-offset-2 registerAccount" role="main">
+		<?php
+			include("models/inc/language_select.php");
+		?>
 		<div class="well row">
 		  <ul id="register_steps">
 		  	<li class='<?php echo $step_one_on ?>'><span>1</span> Register</li>

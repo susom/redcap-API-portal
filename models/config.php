@@ -39,6 +39,11 @@ if( !empty($loggedInUser) ){
 
 if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] .".php" )){
 	$_SESSION["use_lang"] = $_GET["lang"];
+	if(isset($loggedInUser->lang)){
+		$loggedInUser->updateUser(array(
+				        getRF("lang") 	=> $_GET["lang"]
+				      ));
+	}
 }
 if(!isset($_SESSION["use_lang"])){
 	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];

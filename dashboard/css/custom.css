@@ -6,6 +6,10 @@ a[href="#"] {
     cursor: default
 }
 
+#language_select{
+    margin-top:20px;
+}
+
 
 /*WEATHER WIDGET*/
 

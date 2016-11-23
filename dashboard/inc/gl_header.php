@@ -47,6 +47,11 @@
         </section>
       </section>
     </li> -->
+    <li>
+      <?php
+        include("../models/inc/language_select.php");
+      ?>
+    </li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <span class="thumb-sm avatar pull-left">

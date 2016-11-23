@@ -41,7 +41,7 @@
 		"ACCOUNT_YOUR_LOCATION" 				=> "Your Location",
 		"ACCOUNT_CITY" 							=> "City",
 		"ACCOUNT_ZIP" 							=> "ZIP",
-		"ACCOUNT_ALREADY_REGISTERED" 			=> "Already Registered?<",
+		"ACCOUNT_ALREADY_REGISTERED" 			=> "Already Registered?",
 		"ACCOUNT_BIRTH_YEAR" 					=> "What is your birth year?",
 		"ACCOUNT_18_PLUS" 						=> "Are you 18 years old or older?",
 		"ACCOUNT_USA_CURRENT" 					=> "Are you currently living in the USA?",

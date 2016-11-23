@@ -10,6 +10,9 @@ include("models/inc/gl_header.php");
 <div id="content" class="container" role="main" tabindex="0">
   <div class="row"> 
     <div id="main-content" class="col-md-8 col-md-offset-2" role="main">
+      <?php
+        include("models/inc/language_select.php");
+      ?>
       <div class="well">
         <p class="login_reg">
           <a href="login.php<?php echo $lang_req ?>" class="btn btn-success"><?php echo lang("ACCOUNT_LOGIN_PAGE") ?></a>  

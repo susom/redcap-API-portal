@@ -24,12 +24,19 @@ a:hover { text-decoration:underline; }
     text-align: center; 
     margin:10px 0 30px;
 }
-
+#main-content{
+	position:relative;
+}
 #main-content .well { 
 	padding-top:250px;
 }
 #main-content .login_reg { 
 	padding-top:17px;
+}
+#language_select{
+	position:absolute;
+	top:20px;
+	right:20px;
 }
 
 /*SESSION ALERT*/

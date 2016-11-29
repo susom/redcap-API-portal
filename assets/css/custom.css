@@ -39,6 +39,46 @@ a:hover { text-decoration:underline; }
 	right:20px;
 }
 
+/*REGISTER*/
+#main-content .well {
+   padding-top: 188px;
+   background-position:11% 50px;
+   position:relative;
+}
+#register_steps{
+	margin:0; padding:0;
+	list-style:none;
+	position:absolute;
+	top:120px;
+	right:80px;
+	border-top:1px solid #ccc;
+	text-align:right;
+	width:502px;
+}
+.well #register_steps li{
+	display:inline-block;
+	text-align:Center; 
+	width:120px;
+	color:#B63234;
+	margin-top:-17px;
+}
+#register_steps li span{
+	display:block; 
+	color:#fff;
+	background:#ccc;
+	border-radius:35px;
+	width:30px;
+	height:30px;
+	margin:0 auto;
+	line-height:180%;
+}
+#register_steps li.on {
+	color:#B63234
+}
+#register_steps li.on span{
+	background:#B63234;
+}
+
 /*SESSION ALERT*/
 .alert-info { 
   background:#f0f8ff;

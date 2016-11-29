@@ -47,6 +47,10 @@
 		"ACCOUNT_USA_CURRENT" 					=> "Are you currently living in the USA?",
 		"ACCOUNT_AGREE" 						=> "By clicking the Submit button I agree to be contacted about WELL for Life related studies and information.",
 		"ACCOUNT_ELITE_THANKS" 					=> "Thank you for being one of our first 500 participants. The data we collect will help us improve all our wellbeing!  Display your ribbon proudly! ",
+		"STEP_REGISTER"							=> "Register",
+		"STEP_VERIFY"							=> "Verify Email",
+		"STEP_CONSENT"							=> "Consent",
+		"STEP_SECURITY"							=> "Security",
 
 		"ACCOUNT_NEW_PASSWORD" 					=> "New Password",
 		"ACCOUNT_PASSWORD" 						=> "Password",
@@ -158,5 +162,21 @@
 		,"DASHBOARD"								=> "Dashboard"
 		,"WELCOME_BACK"								=> "Welcome Back"
 		,"SUBMIT"									=> "Submit"
+		,"SAVE_EXIT"								=> "Save and Exit"
+		,"SUBMIT_NEXT"								=> "Submit/Next"
 	));
+
+	$template_security_questions = array(
+			'concert'	=> 'What was the first concert you attended?',
+			'cartoon'	=> 'What was your favorite cartoon series as a child?',
+			'reception'	=> 'What was the name of the place your wedding reception was held?',
+			'sib_nick'	=> 'What was the nickname of your oldest sibling as a child?',
+			'street'	=> 'What street did you live in on 3rd grade?',
+			'pet'		=> 'What was the name of your first pet?',
+			'parents'	=> 'In what town did your mother and father meet?',
+			'grammie'	=> 'What is your maternal grandmother\'s Nickname?',
+			'boss'		=> 'What was the name of your first boss at work?',
+			'sib_mid'	=> 'What is your oldest sibling\'s middle name?',
+			'custom'	=> ''
+		);
 ?>

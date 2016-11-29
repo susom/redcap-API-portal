@@ -16,6 +16,10 @@ a[href="#"] {
     -webkit-filter: blur(3px);*/
 }
 
+.fullname,
+.dropdown{
+    text-transform:capitalize;
+}
 section.vbox.blur:before{
     content:"";
     z-index:1001;

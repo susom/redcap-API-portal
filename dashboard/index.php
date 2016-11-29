@@ -269,7 +269,7 @@ include("inc/gl_head.php");
                   <section class="row m-b-md">
                     <div class="col-sm-3 col_ipad_port col_ipad_land">
                       <h3 class="m-b-xs text-black"><?php echo  $lang["DASHBOARD"] ?></h3>
-                      <small><?php echo  $lang["WELCOME_BACK"] ?>, <?php echo $firstname . " " . $lastname; ?>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
+                      <small><?php echo  $lang["WELCOME_BACK"] ?>, <span class="fullname"><?php echo $firstname . " " . $lastname; ?></span>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
                     </div>
                     <div class="col-sm-8 col_ipad_port col_ipad_land">
                       <?php
@@ -342,10 +342,14 @@ include("inc/gl_head.php");
                       $showfruit      = array();
 
                       echo "<ul class='dash_fruits'>\n";
+                      $projnotes      = json_decode($survey["project_notes"],1);
+                      $title_trans    = $projnotes["translations"];
+                       
+                      
                       foreach($surveys as $surveyid => $survey){
                         $index          = array_search($surveyid, $all_survey_keys);
                         $surveylink     = "survey.php?sid=". $surveyid;
-                        $surveyname     = $survey["label"];
+                        $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
                         $surveycomplete = $survey["survey_complete"];
                         $completeclass  = ($surveycomplete ? "completed":"");
 

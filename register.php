@@ -187,10 +187,10 @@ include("models/inc/gl_header.php");
 		?>
 		<div class="well row">
 		  <ul id="register_steps">
-		  	<li class='<?php echo $step_one_on ?>'><span>1</span> Register</li>
-		  	<li class='<?php echo $step_two_on ?>'><span>2</span> Verify Email</li>
-		  	<li><span>3</span> Consent</li>
-		  	<li><span>4</span> Security</li>
+		  	<li class='<?php echo $step_one_on ?>'><span>1</span> <?php echo lang("STEP_REGISTER") ?></li>
+		  	<li class='<?php echo $step_two_on ?>'><span>2</span> <?php echo lang("STEP_VERIFY") ?></li>
+		  	<li><span>3</span> <?php echo lang("STEP_CONSENT") ?></li>
+		  	<li><span>4</span> <?php echo lang("STEP_SECURITY") ?></li>
 		  </ul>
 		  <?php
 		  	include("models/inc/form_register.php");
@@ -199,43 +199,6 @@ include("models/inc/gl_header.php");
 	</div>
   </div>
 </div>
-<style>
-#main-content .well {
-   padding-top: 188px;
-   background-position:11% 50px;
-   position:relative;
-}
-#register_steps{
-	margin:0; padding:0;
-	list-style:none;
-	position:absolute;
-	top:100px;
-	right:80px;
-	border-top:1px solid #ccc;
-	text-align:right;
-	width:502px;
-}
-.well #register_steps li{
-	display:inline-block;
-	text-align:Center; 
-	width:100px;
-	color:#B63234;
-	margin-top:-17px;
-}
-#register_steps li span{
-	display:block; 
-	color:#fff;
-	background:#ccc;
-	border-radius:35px;
-	width:30px;
-	height:30px;
-	margin:0 auto;
-	line-height:180%;
-}
-#register_steps li.on span{
-	background:#B63234;
-}
-</style>
 <?php 
 include("models/inc/gl_footer.php");
 ?>

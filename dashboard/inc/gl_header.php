@@ -49,8 +49,8 @@
     </li> -->
     <li>
       <?php
-        include("../models/inc/language_select.php");
-        $lang_query = "&lang=".$_SESSION["use_lang"];
+        // include("../models/inc/language_select.php");
+        // $lang_query = "&lang=".$_SESSION["use_lang"];
       ?>
     </li>
     <li class="dropdown">

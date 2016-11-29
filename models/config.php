@@ -47,6 +47,19 @@ if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] ."
 }
 if(!isset($_SESSION["use_lang"])){
 	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];
+}else{
+	if($_SESSION["use_lang"] == "sp"){
+		?>
+		<style>
+			.lang.en {
+				display:none;
+			}
+			.lang.sp {
+				display:inline-block !important;
+			}
+		</style>
+		<?php
+	}
 }
 if(isset($loggedInUser->lang)){
 	if($loggedInUser->lang == "sp"){

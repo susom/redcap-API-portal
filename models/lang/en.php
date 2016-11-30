@@ -142,7 +142,7 @@
 		,"COMPLETE_CORE_FIRST" 						=> "Please complete Core Survyes first"
 		,"PLEASE_COMPLETE" 							=> "Please complete "
 		,"WELCOME_TO_WELL" 							=> "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>"
-		,"WELCOME_BACK" 							=> "<b>Wellcome Back</b> to WELL for Life!</a>"
+		,"WELCOME_BACK_TO" 							=> "<b>Wellcome Back</b> to WELL for Life!</a>"
 		,"REMINDERS" 								=> "Reminders"
 		,"ADDITIONAL_SURVEYS" 						=> "Additional Surveys"
 		,"SEE_PA_DATA" 								=> "Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!"

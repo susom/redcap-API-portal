@@ -337,7 +337,9 @@ include("inc/gl_foot.php");
   echo "var surveyhash          = '".http_build_query($active_survey->hash)."';\n";
   echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
 
-  // echo "console.log(".json_encode($all_completed).");";
+
+  echo "var MET_DATA_DISCLAIM   = '".lang("MAT_DATA_DISCLAIM")."';";
+    // echo "console.log(".json_encode($all_completed).");";
 ?>
   //LAUNCH IT INITIALLY TO CHECK IF PAGE HAS BRANCHING
   // checkGeneralBranching();

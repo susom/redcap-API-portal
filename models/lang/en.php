@@ -167,6 +167,7 @@
 		,"SUBMIT"									=> "Submit"
 		,"SAVE_EXIT"								=> "Save and Exit"
 		,"SUBMIT_NEXT"								=> "Submit/Next"
+		,"MAT_DATA_DISCLAIM" 						=> "The following data has been prepared in part by utilizing information from previous studies on cardiorespiratory fitness and national standards for health. These results are not intended as a substitute for recommendations or advice from a healthcare provider. Talk to your doctor before making any changes that could affect your health."
 	));
 
 	$template_security_questions = array(

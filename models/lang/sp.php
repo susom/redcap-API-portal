@@ -21,8 +21,8 @@
 		"ACCOUNT_EMAIL_MISMATCH"				=> "Correos electrónicos no son idénticos",
 		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Correo electrónico y/o contraseña no reconocidos",
 		"ACCOUNT_PASS_MISMATCH"					=> "Contraseñas no son idénticas",
-		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "Correo electrónico %m1% ya está en uso. Si ha olvidado su contraseña, puede ingresar una nueva <a href='login.php'>Formulario para Entrar</a>",
-		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "¡Gracias por registrarse con la Iniciativa de WELL Bien Para Vida! Enviamos un link de activación a su correo electrónico. Por favor verifique su correo y siga las instrucciones para activar su cuenta. Si no recibe el mensaje dentro de una hora, contáctenos a wellforlife@stanford.edu", 
+		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "Correo electrónico %m1% ya está en uso. Sí ha olvidado su contraseña, puede ingresar una nueva <a href='login.php'>Formulario para Entrar</a>",
+		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "¡Gracias por registrarse con la Iniciativa de WELL Bien Para Vida! Enviamos un link de activación a su correo electrónico. Por favor verifique su correo y siga las instrucciones para activar su cuenta. Sí no recibe el mensaje dentro de una hora, contáctenos a wellforlife@stanford.edu", 
 		"ACCOUNT_SPECIFY_NEW_PASSWORD"			=> "Por favor entre su contraseña nueva",	
 		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "¡Gracias por su interés en WELL Bien Para Vida! No es elegible para participar en este momento. %m1% Estaremos en comunicación con usted sobre estudios relacionados a WELL Bien Para Vida y con más información al expandir nuestro proyecto.",
 		"ACCOUNT_NEED_LOCATION"					=> "Por favor entre su código postal o ciudad",
@@ -63,7 +63,7 @@
 		"ACCOUNT_REGISTER_PAGE" 				=> "Registrarse",
 		
 		"REGISTER_STUDY" 						=> "Regístrese para el estudio",
-		"REGISTER_TOKEN_INVALID_1" 				=> "El código de activación es inválido o ha expirado. Esto puede surgir si ha regenerado un código nuevo pero siguió el link de un mensaje antiguo.",		
+		"REGISTER_TOKEN_INVALID_1" 				=> "El código de activación es inválido o ha expirado. Esto puede surgir sí ha regenerado un código nuevo pero siguió el link de un mensaje antiguo.",		
 		"REGISTER_TOKEN_INVALID_2" 				=> "Código de activación inválido <br><a class='alink' href='login.php'>Oprima aquí</a> y seleccione 'Olvidé Contraseña’ para obtener un nuevo código.", 
 		
 		//LOGIN
@@ -129,11 +129,11 @@
 		,"MY_PROFILE" 								=> "Mi Perfil"
 		,"CONTACT_US" 								=> "Contáctenos"
 		,"GET_HELP" 								=> "Dónde obtener ayuda"
-		,"GET_HELP_TEXT" 							=> "<p>Para una emergencia médica, llame al 911 o a su médico o proveedor salud.</p><p>Para salud mental, por favor visite <a href='https://www.mentalhealth.gov/get-help/' class='offsite'>MentalHealth.gov</a>.</p>"
+		,"GET_HELP_TEXT" 							=> "<p>Para una emergencia médica, llame al 911 o a su médico o proveedor de salud.</p><p>Para salud mental, por favor visite <a href='https://www.mentalhealth.gov/get-help/' class='offsite'>MentalHealth.gov</a>.</p>"
 		,"QUESTION_FOR_WELL" 						=> "Pregunta para WELL"
-		,"YOUVE_BEEN_AWARDED" 						=> "Usted se ha ganado:"
+		,"YOUVE_BEEN_AWARDED" 						=> "Usted se ha ganado"
 		,"GET_WHOLE_BASKET" 						=> "¡Obtenga la canasta entera de frutas!"
-		,"CONTINUE_SURVEY" 							=> "Continuar con el resto de la encuesta."
+		,"CONTINUE_SURVEY" 							=> "Continúe con el resto de la encuesta."
 		,"CONGRATS_FRUITS" 							=> "¡Felicidades, usted ha recibido todas las frutas!  <br/><br/> Busque nuestras encuestas nuevas bajo 'Aprender Más'. <br><br/> Por ahora le invitamos a ver este video de la directora de WELL. <br/><br/>"
 		,"FITNESS_BADGE" 							=> "¡Usted se ha ganado una medalla de salud física!"
 		,"GET_ALL_BADGES" 							=> "Obtenga la canasta entera de frutas!"
@@ -166,6 +166,7 @@
 		,"SUBMIT"									=> "Entregar"
 		,"SAVE_EXIT"								=> "Guardar y Salir"
 		,"SUBMIT_NEXT"								=> "Entregar/Próximo"
+		,"MAT_DATA_DISCLAIM" 						=> "La siguiente data ha sido preparada en parte utilizando información de estudios previos sobre salud cardio-respiratoria y estándares nacionales de salud. Estos resultados no deberían sustituir recomendaciones o sugerencias de su médico. Hable con su doctor antes de hacer cualquier cambio que podría afectar su salud."
 	));
 
 	$template_security_questions = array(

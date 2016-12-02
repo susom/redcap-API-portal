@@ -504,7 +504,7 @@ function showMETScoring(){
 
 function customMET_BS(_this){
   if(_this.find("#met_results").length > 0){
-    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>The following data has been prepared in part by utilizing information from previous studies on cardiorespiratory fitness and national standards for health. These results are not intended as a substitute for recommendations or advice from a healthcare provider. Talk to your doctor before making any changes that could affect your health.<li></ul>");
+    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>"+MET_DATA_DISCLAIM+"<li></ul>");
     reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
     reqmsg.click(function(){
       $("#met_results").addClass("disclaimed");

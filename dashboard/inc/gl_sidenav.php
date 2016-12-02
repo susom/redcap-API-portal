@@ -137,16 +137,18 @@
             // </li>
             ?>
             
-            <li <?php echo $studies_active ?>>
-              <a href="studies.php">
-                <span class="pull-right text-muted">
-                  <i class="i i-circle-sm-o text"></i>
-                  <i class="i i-circle-sm text-active"></i>
-                </span>
-                <i class="i i-docs icon"></i>
-                <span class="font-bold"><?php echo $lang["MY_STUDIES"] ?></span>
-              </a>
-            </li>
+            <?php
+            // <li < ?php echo $studies_active ? >>
+            //   <a href="studies.php">
+            //     <span class="pull-right text-muted">
+            //       <i class="i i-circle-sm-o text"></i>
+            //       <i class="i i-circle-sm text-active"></i>
+            //     </span>
+            //     <i class="i i-docs icon"></i>
+            //     <span class="font-bold">< ?php echo $lang["MY_STUDIES"] ? ></span>
+            //   </a>
+            // </li>
+            ?>
             
             <li <?php echo $profile_active ?>>
               <a href="profile.php">

@@ -57,6 +57,9 @@ if(!isset($_SESSION["use_lang"])){
 			.lang.sp {
 				display:inline-block !important;
 			}
+			.well {
+				background-image:url(assets/img/well_logo_sp.png) !important;
+			}
 		</style>
 		<?php
 	}
@@ -71,6 +74,9 @@ if(isset($loggedInUser->lang)){
 			}
 			.lang.sp {
 				display:inline-block !important;
+			}
+			.well {
+				background-image:url(assets/img/well_logo_sp.png) !important;
 			}
 		</style>
 		<?php

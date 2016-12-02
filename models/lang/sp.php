@@ -22,13 +22,16 @@
 		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Correo electrónico y/o contraseña no reconocidos",
 		"ACCOUNT_PASS_MISMATCH"					=> "Contraseñas no son idénticas",
 		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "Correo electrónico %m1% ya está en uso. Si ha olvidado su contraseña, puede ingresar una nueva <a href='login.php'>Formulario para Entrar</a>",
-		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "Gracias por registrarse con la Iniciativa de WELL Bien Para Vida! Enviamos un link de activación a su correo electrónico. Por favor verifique su correo y siga las instrucciones para activar su cuenta. Si no recibe el mensaje dentro de una hora, contáctenos a wellforlife@stanford.edu", 
+		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "¡Gracias por registrarse con la Iniciativa de WELL Bien Para Vida! Enviamos un link de activación a su correo electrónico. Por favor verifique su correo y siga las instrucciones para activar su cuenta. Si no recibe el mensaje dentro de una hora, contáctenos a wellforlife@stanford.edu", 
 		"ACCOUNT_SPECIFY_NEW_PASSWORD"			=> "Por favor entre su contraseña nueva",	
-		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "Gracias por su interés en WELL Bien Para Vida! No es elegible para participar en este momento. %m1% Estaremos en comunicación con usted sobre estudios relacionados a WELL Bien Para Vida y con más información al expandir nuestro proyecto.",
+		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "¡Gracias por su interés en WELL Bien Para Vida! No es elegible para participar en este momento. %m1% Estaremos en comunicación con usted sobre estudios relacionados a WELL Bien Para Vida y con más información al expandir nuestro proyecto.",
 		"ACCOUNT_NEED_LOCATION"					=> "Por favor entre su código postal o ciudad",
 		"ACCOUNT_TOO_YOUNG"						=> "Todavía no tiene 18 años.", 
 		"ACCOUNT_NOT_IN_USA"					=> "Este estudio es sólo para participantes viviendo en los Estados Unidos.", 
 		"ACTIVATION_MESSAGE"					=> "Tiene que activar su cuenta para poder entrar. Siga la siguiente página para activar su cuenta. \n\n%m1%register.php?uid=%m3%&activation=%m2%",
+		"ACCOUNT_ERROR_TRY_AGAIN"				=> "Intente  otra vez…. Le queda ", 
+		"ACCOUNT_ERROR_ATTEMPTS"				=> " oportunidades.",
+		"ACCOUNT_ERROR_ATTEMPT"					=> " oportunidad.", 
 		
 		//REGISTER
 		"ACCOUNT_REGISTER" 						=> "Regístrese para este estudio", 
@@ -46,7 +49,7 @@
 		"ACCOUNT_18_PLUS" 						=> "¿Tiene 18 años o más?",
 		"ACCOUNT_USA_CURRENT" 					=> "¿Vive en los Estados Unidos?",
 		"ACCOUNT_AGREE" 						=> "Al oprimir el botón de Entregar, estoy de acuerdo a ser contactado sobre estudios relacionados a WELL Bien Para Vida y recibir más información.", 
-		"ACCOUNT_ELITE_THANKS" 					=> "Gracias por ser uno de los primeros 500 participantes. ¡La data que recolectamos nos ayudará a mejorar el bienestar de todos! ¡Demuestre su logro con orgullo! ",
+		"ACCOUNT_ELITE_THANKS" 					=> "¡Gracias por ser uno de los primeros 500 participantes. ¡La data que recolectamos nos ayudará a mejorar el bienestar de todos! ¡Demuestre su logro con orgullo! ",
 		"STEP_REGISTER"							=> "Registrarse",
 		"STEP_VERIFY"							=> "Verificar Email",
 		"STEP_CONSENT"							=> "Consentimiento",
@@ -137,7 +140,7 @@
 		,"CONGRATS_ALL_FITNESS_BADGES"				=> "¡Felicidades, used ha recibido todas las medallas de salud física! <br/> Regrese pronto para la oportunidad de ganarse más premios!"
 		,"DONE_CORE" 								=> "¡He terminado mi primera encuesta!"
 		,"TAKE_BLOCK_DIET" 							=> "Complete la encuesta de dieta de Block, gratis para todos los participantes de WELL. Esta encuesta toma típicamente 30-50 minutos y le provee sugerencias instantáneamente."
-		,"HOW_WELL_EAT" 							=> "¿Cuán bien come used?"
+		,"HOW_WELL_EAT" 							=> "¿Cuan bien come usted?"
 		,"COMPLETE_CORE_FIRST" 						=> "Por favor complete las encuestas básicas primero"
 		,"PLEASE_COMPLETE" 							=> "Por favor complete "
 		,"WELCOME_TO_WELL" 							=> "<b>Bienvenidos</b> a WELL Bien Para Vida! <u>Oprima aquí</u> para comenzar su aventura con WELL…</a>"
@@ -173,7 +176,7 @@
 			'street'	=> '¿En qué calle vivía usted en 3er grado?',
 			'pet'		=> '¿Cual era el nombre de su primera mascota?',
 			'parents'	=> '¿Cómo se llama la ciudad donde sus padres se conocieron?',
-			'grammie'	=> '¿Cual es el apodo de su abuela maternal?',
+			'grammie'	=> '¿Cual es el apodo de su abuela materna?',
 			'boss'		=> '¿Cómo se llamaba su primer supervisor o supervisora?',
 			'sib_mid'	=> '¿Cual es el segundo nombre de su hermano(a) mayor?',
 			'custom'	=> ''

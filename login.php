@@ -80,7 +80,7 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 			if($attempts_remaining < 1){
 				$errors[] = lang("FORGOTPASS_SUGGEST");
 			}else{
-				$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . "<br> Try again... " . $attempts_remaining . " attempts remaining.";
+				$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . "<br> ". $lang["ACCOUNT_ERROR_TRY_AGAIN"] . $attempts_remaining . " " . ($attempts_remaining > 1 ? $lang["ACCOUNT_ERROR_ATTEMPTS"] : $lang["ACCOUNT_ERROR_ATTEMPT"]);
 			}
 		}
 	} 

@@ -40,11 +40,21 @@ a:hover { text-decoration:underline; }
 }
 
 /*REGISTER*/
+
 #main-content .well {
    padding-top: 188px;
    background-position:11% 50px;
    position:relative;
 }
+.signinup #main-content .well {
+    padding-top: 258px;
+    background-position: 50% 50px;
+}
+.login #main-content .well {
+    padding-top: 165px;
+}
+
+
 #register_steps{
 	margin:0; padding:0;
 	list-style:none;

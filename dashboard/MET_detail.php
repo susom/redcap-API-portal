@@ -68,7 +68,8 @@ $suggest = $suggestion[$level];
 ?>
 <div id="met_results">
 	<div id="met_score"></div>
-	<h3>Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
+	<h3 class="lang en">Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
+	<h3 class="lang sp">¡Gracias por su participación! Descubra algunos factores que pueden impactar su salud cardiovascular aquí:</h3>
 	<div id="met_aging" class="met_desc">
 		<aside class="lang en">
 			<h3>Aging</h3>

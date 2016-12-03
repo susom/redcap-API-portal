@@ -117,7 +117,7 @@ include("inc/gl_head.php");
                           <span id="ppic" class="<?php echo $special_user ?>"></span>
                           <figcaption>
                             <b><?php echo $p_firstname . " " . $p_lastname ?></b>
-                            <em>Joined : <?php echo $p_joined ?></em>
+                            <em><?php echo lang("PROFILE_JOINED") ?> : <?php echo $p_joined ?></em>
                             <i><?php if($elite_order) echo "#" . $elite_order . " to sign up!" ?></i>
                           </figcaption>
                         </figure>
@@ -125,12 +125,19 @@ include("inc/gl_head.php");
                           <?php
                           $html         = "";
                           foreach($label_map as $item => $field_label){
+                            $temp_junk  = array( "Email" => "ACCOUNT_EMAIL_ADDRESS"
+                                                ,"Nickname" => "PROFILE_NICKNAME"
+                                                ,"Middle Name" => "ACCOUNT_MIDDLE_NAME"
+                                                ,"Contact Name" => "PROFILE_CONTACT_NAME"
+                                                ,"Contact Phone" => "PROFILE_CONTACT_PHONE"
+                                              );
+                            $placeholder= lang($temp_junk[$field_label]);
                             $field_name = $redcap_field_map[$item];
                             $value      = $_SESSION["REDCAP_PORTAL"]["user"]->{$item};
                             $validate   = ($item == "email" ? 'data-validate="email"' : '');
                             $validate   = ($item == "portal_contact_phone" ? 'data-validate="phone"' : $validate);
                             $html .= "<li class='$field_name'>\n";
-                            $html .= "<input $validate type='text' id='$field_name' name='$item' value='$value' placeholder='$field_label'/>\n";
+                            $html .= "<input $validate type='text' id='$field_name' name='$item' value='$value' placeholder='$placeholder'/>\n";
                             $html .= "</li>\n";
                             if($item == "portal_contact_phone"){
                               break;
@@ -140,17 +147,17 @@ include("inc/gl_head.php");
                           print $html;
                           ?>
                           <li>
-                          <input type="text" id="portal_mail_street" name="portal_mail_street" value="<?php echo $p_portal_mail_street ?>" placeholder="Street Address">
-                          / <input type="text" id="portal_apartment_no" name="portal_apartment_no" value="<?php echo $p_portal_apartment_no ?>" placeholder="Apt No.">
+                          <input type="text" id="portal_mail_street" name="portal_mail_street" value="<?php echo $p_portal_mail_street ?>" placeholder="<?php echo lang("PROFILE_STREET_ADDRESS"); ?>">
+                          / <input type="text" id="portal_apartment_no" name="portal_apartment_no" value="<?php echo $p_portal_apartment_no ?>" placeholder="<?php echo lang("PROFILE_APARTMENT"); ?>">
                           </li>
                           <li>
-                            <input type="text" id="city" name="city" value="<?php echo $p_city ?>" placeholder="City">
-                            , <input type="text" id="state" name="state" value="<?php echo $p_state ?>" placeholder="State">
-                            <input data-validate="number" type="text" id="zip" name="zip" value="<?php echo $p_zip ?>" placeholder="Zip Code">
+                            <input type="text" id="city" name="city" value="<?php echo $p_city ?>" placeholder="<?php echo lang("ACCOUNT_CITY"); ?>">
+                            , <input type="text" id="state" name="state" value="<?php echo $p_state ?>" placeholder="<?php echo lang("ACCOUNT_STATE"); ?>">
+                            <input data-validate="number" type="text" id="zip" name="zip" value="<?php echo $p_zip ?>" placeholder="<?php echo lang("ACCOUNT_ZIP"); ?>">
                           </li>
                         </ul>
 
-                        <a href="#" class="btn btn-large block btn-info editprofile"><span>Edit</span> Profile</a>
+                        <a href="#" class="btn btn-large block btn-info editprofile"><span><?php echo lang("EDIT_PROFILE"); ?></span> <?php echo lang("PROFILE_EDIT"); ?></a>
                         </div>
                       </form>
                     </div>

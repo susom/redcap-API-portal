@@ -171,6 +171,17 @@
 		,"MAT_SCORE_50"								=> "SPANISH In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
 		,"MAT_SCORE_60"								=> "SPANISH In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
 		,"MAT_SCORE_70"								=> "SPANISH People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
+	
+		,"PROFILE_JOINED"							=> "Miembro desde"
+		,"PROFILE_NICKNAME"							=> "Apodo"
+		,"ACCOUNT_MIDDLE_NAME"						=> "Segundo Nombre"
+		,"PROFILE_CONTACT_NAME"						=> "Nombre de Contacto"
+		,"PROFILE_CONTACT_PHONE"					=> "Número de Teléfono de Contacto"
+		,"PROFILE_STREET_ADDRESS"					=> "Dirección"
+		,"PROFILE_APARTMENT"						=> "Apt"
+		,"ACCOUNT_STATE"							=> "Estado"
+		,"EDIT_PROFILE"								=> "Editar"
+		,"PROFILE_EDIT"								=> "Perfil"
 	));
 
 	$template_security_questions = array(

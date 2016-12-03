@@ -157,7 +157,7 @@
                   <i class="i i-circle-sm text-active"></i>
                 </span>
                 <i class="i i-docs icon"></i>
-                <span class="font-bold"><?php echo $lang["MY_PROFILE"] ?></span>
+                <span class="font-bold"><?php echo lang("MY_PROFILE") ?></span>
               </a>
             </li>
 

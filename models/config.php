@@ -48,7 +48,7 @@ if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] ."
 if(!isset($_SESSION["use_lang"])){
 	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];
 }else{
-	if($_SESSION["use_lang"] == "sp"){
+	if($_SESSION["use_lang"] == "sp" && empty($_POST)){ //SO IT DONT PRINT FOR AJAX CALLS .. YIKES
 		?>
 		<style>
 			.lang.en {

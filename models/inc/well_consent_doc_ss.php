@@ -11,6 +11,7 @@
 	<p>We will test different strategies to make participation in the WELL for Life Registry engaging. For example, we may “gamify” the survey, provide you with varying types of feedback, change the order in which you answer the surveys or the messages and reminders that we send you, and provide you with informational content.</p>
 	<p>You may be asked if you would be interested in being interviewed about your experience as a WELL for Life participant. If you do NOT wish to be contacted about being interviewed, please indicate that on the first survey.</p>
 	<p>You may also be asked if you would be interested in being contacted about participating in other non-WELL related studies in the future.  If you do NOT wish to be contacted, please indicate that on the first survey.</p>
+	<p>You may be asked for your permission to include your name, contact details, and responses from the first survey you complete in the Stanford Research Registry.  This is a registry of individuals who agree to be contacted in the future to learn more about research studies being conducted at Stanford.  It does not obligate you to participate in these studies.  If you do NOT wish to be contacted, please indicate that on the first survey.</p>
 </section>
 
 <section class="lang en">

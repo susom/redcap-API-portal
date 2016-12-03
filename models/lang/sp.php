@@ -167,6 +167,10 @@
 		,"SAVE_EXIT"								=> "Guardar y Salir"
 		,"SUBMIT_NEXT"								=> "Entregar/Próximo"
 		,"MAT_DATA_DISCLAIM" 						=> "La siguiente data ha sido preparada en parte utilizando información de estudios previos sobre salud cardio-respiratoria y estándares nacionales de salud. Estos resultados no deberían sustituir recomendaciones o sugerencias de su médico. Hable con su doctor antes de hacer cualquier cambio que podría afectar su salud."
+		,"MAT_SCORE_40"								=> "SPANISH In the next 4 years, people with your score are very likely (6.6 out of 10) to lose the ability to do active things they enjoy or value.  However, there are many things you can do to improve your functional capacity."
+		,"MAT_SCORE_50"								=> "SPANISH In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
+		,"MAT_SCORE_60"								=> "SPANISH In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
+		,"MAT_SCORE_70"								=> "SPANISH People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
 	));
 
 	$template_security_questions = array(

@@ -295,7 +295,7 @@ include("inc/gl_foot.php");
   echo "var isTCM               = $isTCM ;\n";
   echo "var isGRIT              = $isGRIT ;\n";
   echo "var isSleep             = $isSleep ;\n";
-
+  echo "var useLang             = ".(isset($_SESSION["use_lang"]) ? "'".$_SESSION["use_lang"]."'" : "'en'").";\n";
   //THIS IS A CONFusINg FUNCTION
   //BUT SINCE THERE ARE CONDITiONALS THAT SPAN INSTRUMENTS OR EVEN PROJECTS, GOTTA TRACK EM  ALL
   //THE $all_branching is done in surveys.php
@@ -336,9 +336,13 @@ include("inc/gl_foot.php");
   echo "var completed_count     = " . count($active_survey->completed) . ";\n";
   echo "var surveyhash          = '".http_build_query($active_survey->hash)."';\n";
   echo "var form_metadata       = " . json_encode($active_survey->raw) . ";\n";
-
-
   echo "var MET_DATA_DISCLAIM   = '".lang("MAT_DATA_DISCLAIM")."';";
+  echo "var mat_score_desc = {
+           40  : '".lang("MAT_SCORE_40")."'
+          ,50  : '".lang("MAT_SCORE_50")."'
+          ,60  : '".lang("MAT_SCORE_60")."'
+          ,70  : '".lang("MAT_SCORE_70")."'
+        };";
     // echo "console.log(".json_encode($all_completed).");";
 ?>
   //LAUNCH IT INITIALLY TO CHECK IF PAGE HAS BRANCHING

@@ -134,10 +134,8 @@ $suggest = $suggestion[$level];
 			<h3>Índice de masa corporal (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
 			<div class="moreinfo" id="what_is_bmi">
 				<a href="#" class="closeparent">X</a>
-				<h3>Learn about BMI?</h3>
-				<p>Body Mass Index is calculated using your height and weight, and is commonly used by healthcare providers to screen for adults who may weigh more or less than the recommended weight for their height. BMI may not be as accurate if you are an athlete or very muscled (muscle weighs more than fat), and a fat percentage examination may be needed to more accurately assess if you are at a healthy weight. It is also not accurate for pregnant or breastfeeding women or people who are frail.</p>
-
-				<p>BMI is only one of many measures of your overall health. Waist measurement, body fat level, blood pressure, cholesterol, physical activity, not smoking, diet, and other measures are also important.</p>
+				<h3>Aprenda más sobre el IMC?</h3>
+				<p>El Índice de Masa Corporal (IMC) se calcula usando su altura y su peso, y es comúnmente utilizado por proveedores de salud médica para identificar adultos que pueden pesar más o menos que el peso recomendado para su estatura. Puede ser que el IMC no sea una herramienta precisa para su salud física si usted es un atleta o muy musculoso (el músculo pesa más que la grasa). Un examen de porcentaje de grasa puede ser necesario para evaluar con más precisión si tiene un peso saludable. El IMC tampoco es preciso para mujeres embarazadas o lactantes o personas frágiles.  El IMC es sólo una de muchas maneras de medir su salud general. La medida de la cintura, el nivel de grasa corporal, la presión arterial, el colesterol, la actividad física, el no fumar, la dieta y otras medidas también son importantes.</p>
 			</div>
 			<div class="funfact"><p><i>Sabía usted que no todas las grasas son malas? Comidas como los nueces, aguacate, aceites saludables y mantequilla de maní contienen “grasas buenas” que tiene muchos beneficios para la salud.</i></p></div>
 			<div class="bmi_b">

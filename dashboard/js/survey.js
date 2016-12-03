@@ -573,23 +573,27 @@ function showMATScoring(qinput){
       type:'POST',
       data: project + "&mat_answers=" + JSON.stringify(mat_map),
       success:function(result){
-        // console.log(result);
         var data      = JSON.parse(result);
         var matscore  = data.value;
-        
+
         if(matscore < 40){
             var picperc = 7;
-            var desc = "In the next 4 years, people with your score are very likely (6.6 out of 10) to lose the ability to do active things they enjoy or value.  However, there are many things you can do to improve your functional capacity."
+            var desc = mat_score_desc[40];
         }else if(matscore < 50){
             var picperc = 5;
-            var desc = "In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
+            var desc = mat_score_desc[50];
         }else if(matscore < 60){
             var picperc = 3;
-            var desc = "In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
+            var desc = mat_score_desc[60];
         }else{
             var picperc = 0;
-            var desc = "People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
+            var desc = mat_score_desc[70];
         }
+
+        if(useLang == "sp"){
+          $("#pa_info_sheet").attr("src","pa_info_sheet_sp.jpg");
+        }
+
 
         if($("#mat_results").length > 0){
           $("#mat_results").remove();
@@ -603,6 +607,9 @@ function showMATScoring(qinput){
         
         $("#mat_text").text(desc);
       }
+    },function(err){
+      console.log("ERRROR");
+      console.log(err);
     });
   }
 }

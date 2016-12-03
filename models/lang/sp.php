@@ -167,10 +167,9 @@
 		,"SAVE_EXIT"								=> "Guardar y Salir"
 		,"SUBMIT_NEXT"								=> "Entregar/Próximo"
 		,"MAT_DATA_DISCLAIM" 						=> "La siguiente data ha sido preparada en parte utilizando información de estudios previos sobre salud cardio-respiratoria y estándares nacionales de salud. Estos resultados no deberían sustituir recomendaciones o sugerencias de su médico. Hable con su doctor antes de hacer cualquier cambio que podría afectar su salud."
-		,"MAT_SCORE_40"								=> "SPANISH In the next 4 years, people with your score are very likely (6.6 out of 10) to lose the ability to do active things they enjoy or value.  However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_50"								=> "SPANISH In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_60"								=> "SPANISH In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_70"								=> "SPANISH People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
+		,"MAT_SCORE_40"								=> "En los próximos 4 años, personas con sus resultados tienen alta probabilidad (6.6 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que usted puede hacer para mejorar su habilidad física y capacidad funcional."
+		,"MAT_SCORE_50"								=> "En los próximos 4 años, personas con sus resultados tienen probabilidad (5.2 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que usted puede hacer para mejorar su habilidad física y capacidad funcional."
+		,"MAT_SCORE_60"								=> "En los próximos 4 años, personas con sus resultados tienen alguna probabilidad (3.5 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que puede hacer para mejorar su habilidad física y capacidad funcional.Las personas con sus resultados tienen baja probabilidad de perder la habilidad de poder hacer actividades físicas que disfrutan o valoran. ¡Siga con el buen trabajo e intente mantener su capacidad funcional!"
 	
 		,"PROFILE_JOINED"							=> "Miembro desde"
 		,"PROFILE_NICKNAME"							=> "Apodo"

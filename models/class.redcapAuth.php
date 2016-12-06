@@ -30,7 +30,7 @@ class RedcapAuth {
    public   $email_verified;
    
    // When launched, provide current credentails
-   public function __construct($user, $pass = NULL, $email = NULL, $first = NULL, $last = NULL, $zip = NULL, $city = NULL, $state = NULL, $age = NULL){
+   public function __construct($user, $pass = NULL, $email = NULL, $first = NULL, $last = NULL, $zip = NULL, $city = NULL, $state = NULL, $age = NULL, $lang = NULL){
       $this->username_raw  = trim($user);
       $this->username      = sanitize($user);
       $this->email         = sanitize($email);
@@ -40,6 +40,7 @@ class RedcapAuth {
       $this->city          = sanitize(trim($city));
       $this->state         = sanitize(trim($state));
       $this->age           = sanitize(trim($age));
+      $this->lang          = sanitize(trim($lang));
       
       // Load the record data from the API and get any username matches
       self::loadRecords();

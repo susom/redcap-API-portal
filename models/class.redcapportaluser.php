@@ -111,7 +111,9 @@ class RedcapPortalUser
          // Send the mail. Specify users email here and subject.
          // SendMail can have a third parementer for message if you do not wish to build a template.
          $mail_body = $_SESSION["use_lang"] == "sp" ? mb_convert_encoding($this->email,"utf-8","auto") : $this->email;
-         if(!$mail->sendMail($mail_body,"$websiteName Email Verification"))
+         $mail_subj = $_SESSION["use_lang"] == "sp" ? "$websiteName Verificación de su correo electrónico" : "$websiteName Email Verification";
+         $encoding  = $_SESSION["use_lang"] == "sp" ? "utf-8" : "iso-8859-1";
+         if(!$mail->sendMail($mail_body,$mail_subj,NULL,$encoding))
          {
             logIt("Error sending email: " . print_r($mail,true), "ERROR");
             $this->mail_failure = true;

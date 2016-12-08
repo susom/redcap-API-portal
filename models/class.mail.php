@@ -60,12 +60,12 @@ class userPieMail {
 		}
 	}
 	
-	public function sendMail($email,$subject,$msg = NULL)
+	public function sendMail($email,$subject,$msg = NULL,$encoding="iso-8859-1")
 	{
 		global $websiteName,$emailAddress;
 		
 		$header =  "MIME-Version: 1.0\r\n";
-		$header .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$header .= "Content-type: text/plain; charset=$encoding\r\n";
 		$header .= "From: ". $websiteName . " <" . $emailAddress . ">\r\n";
 		
 		 

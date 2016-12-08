@@ -1,6 +1,18 @@
 <?php
 require_once("models/config.php");
 
+
+
+$auth = new RedcapAuth("q@q.com",NULL,"q@q.com", "q", "q", "99999", "SF","CA", 19);
+if($auth->createNewUser("shithead")){
+	echo "user created";
+}else{
+	$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
+}
+
+
+exit;
+
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN TO THE PORTAL PAGE
 if(isUserLoggedIn()) { 
 	$destination = (isUserActive() ? $websiteUrl . "dashboard/index.php" : $websiteUrl . "consent.php");

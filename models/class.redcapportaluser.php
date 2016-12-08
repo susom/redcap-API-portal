@@ -110,8 +110,8 @@ class RedcapPortalUser
       } else {
          // Send the mail. Specify users email here and subject.
          // SendMail can have a third parementer for message if you do not wish to build a template.
-
-         if(!$mail->sendMail($this->email,"$websiteName Email Verification"))
+         $mail_body = $_SESSION["use_lang"] == "sp" ? mb_convert_encoding($this->email,"utf-8","auto") : $this->email;
+         if(!$mail->sendMail($mail_body,"$websiteName Email Verification"))
          {
             logIt("Error sending email: " . print_r($mail,true), "ERROR");
             $this->mail_failure = true;

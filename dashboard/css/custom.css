@@ -3208,6 +3208,8 @@ span.rs-number {
 }
 
 /*LANGUAGE*/
+.lang.cn,
+.lang.tw,
 .lang.sp{
     display:none;
 }

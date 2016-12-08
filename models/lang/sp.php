@@ -196,4 +196,6 @@
 			'sib_mid'	=> '¿Cual es el segundo nombre de su hermano(a) mayor?',
 			'custom'	=> ''
 		);
+
+	$websiteName = "WELL Bien Para Vida";
 ?>

@@ -61,8 +61,7 @@ class RedcapAuth {
       // The password contains 25 characters as a salt and then then generated password by SHA1 encrypting the salt+pass.
       foreach ($this->username_matches as $id => $record){
          // Trim the database-stored password
-         $record_salt_pass = $record[getRF('password')];
-         
+         $record_salt_pass = $record[getRF('password')];         
          // Take the first 25 characters as the salt
          $record_salt = substr($record_salt_pass,0,25);
          // Take the remaining characters as the password
@@ -77,17 +76,16 @@ class RedcapAuth {
             }
          }
       }
-
       return Null;
    }
    
    // Load all records from project to prepare to validate
    public function loadRecords(){
       $params = array(
-         'fields' => array(REDCAP_FIRST_FIELD, getRF('username'), getRF('password'), getRF('email'))
+         'fields' => array(REDCAP_FIRST_FIELD, getRF('username'), getRF('password'))
       );
       $result = RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
-      
+
       // Scan records for email and username matches and to set nextId
       $new_id = 1;
       $username_matches = $email_matches = array();
@@ -96,10 +94,9 @@ class RedcapAuth {
          $id = $record[REDCAP_FIRST_FIELD];
          if (is_numeric($id)  && $id >= $new_id)                        $new_id                 = $id+1; //GUESS THE NEXT AUTOINCREME
          
-         if (!$record[getRF('username')] || !$record[getRF('email')])   continue;
-         
-         if ($this->username  == sanitize($record[getRF('username')]))  $username_matches[$id]  = $record;
-         if ($this->email     == sanitize($record[getRF('email')]))     $email_matches[$id]     = $record;
+         if (empty($record[getRF('username')]) && empty($record[getRF('email')]))   continue;
+         if (!empty($record[getRF('username')]) && $this->username  == sanitize($record[getRF('username')]))   $username_matches[$id]  = $record;
+         if (!empty($record[getRF('email')]) && $this->email     == sanitize($record[getRF('email')]))         $email_matches[$id]     = $record;
       }
       $this->next_user_id     = $new_id;
       $this->username_matches = $username_matches;

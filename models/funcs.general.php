@@ -495,6 +495,46 @@ function getUserByEmail($email) {
 	}	
 }
 
+// Look up a user by email address - return false or user object
+function getUserByUsername($username) {
+	$params = array(
+		'fields' => array(
+			REDCAP_FIRST_FIELD, 
+			getRF('username')
+		)
+	);
+	$result = RC::callApi($params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
+	
+	$errors = array();
+	$matches = array();
+	foreach ($result as $idx => $record) {
+		$recordUsername = sanitize($record[getRF('username')]);
+		
+		logIt("username: $username / recordUsername: $recordUsername");
+		if( $username == $recordUsername ) {
+			$matches[$record[REDCAP_FIRST_FIELD]] = $record;
+
+			if (count($matches) > 1) {
+				// Found more than one match!
+				logIt("Found more than one match for email: $email", "ERROR");
+				break;
+				return false;
+			}
+		}
+	}
+	
+	if (count($matches) == 0) {
+		logIt("Found no matching users with email: $email", "DEBUG");
+		return false;
+	}
+
+	if (count($matches) == 1) {
+		$user_id = key($matches);
+		logIt("Found $user_id via username", "INFO");
+		$user = new RedcapPortalUser($user_id);
+		return $user;
+	}	
+}
 
 //------------------------------------------------------------------
 // OTHER METHODS

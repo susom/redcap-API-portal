@@ -12,7 +12,7 @@ if(isset($_GET["session_clear"])){
 	unset($_SESSION[$_CFG->SESSION_NAME]['login_attempts']);
 	header("Location: " . $websiteUrl . "login.php"); 
 }
-
+unset($_SESSION[SESSION_NAME]['login_attempts']);
 $attempts_remaining = (isset($_SESSION[$_CFG->SESSION_NAME]['login_attempts']) ? $_SESSION[$_CFG->SESSION_NAME]['login_attempts'] : 4);
 $username_label 	= "";
 $badlogin 			= "";
@@ -108,8 +108,8 @@ include("models/inc/gl_header.php");
 				<input type="hidden" name="use_lang" value="<?php echo $_SESSION["use_lang"] ?>"/>
 				<h2><?php echo lang("ACCOUNT_LOGIN_CONTINUE") ?></h2>
 				<div class="form-group">
-					<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?></label>
-					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS") ?>" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
+					<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS_OR_USERNAME") ?></label>
+					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS_OR_USERNAME") ?>" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
 				</div>
 				<div class="form-group">
 					<label for="password" class="control-label"><?php echo lang("ACCOUNT_PASSWORD") ?></label>

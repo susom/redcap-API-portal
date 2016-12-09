@@ -14,7 +14,7 @@ a:hover { text-decoration:underline; }
     border: 1px solid #ccc;
     border-bottom:20px solid #c42128;
     background:#fff url(../img/well_logo.png) 50% 50px no-repeat;
-    background-size:15%;
+    background-size:12%;
 }
 .well h2 {     
 	margin: 0;

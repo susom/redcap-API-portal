@@ -224,7 +224,7 @@ include("models/inc/gl_header.php");
 			<form id="loginForm" name="loginForm" class="form-horizontal loginForm col-md-6 " action="admin_login.php" method="post" novalidate="novalidate">
 				<input type="hidden" name="use_lang" value="<?php echo $_SESSION["use_lang"] ?>"/>
 
-				<h2><?php echo lang("ACCOUNT_LOGIN_CONTINUE") ?></h2>
+				<h2>Admin : <?php echo lang("ACCOUNT_LOGIN_CONTINUE") ?></h2>
 				<div class="form-group">
 					<label for="username" class="control-label"><?php echo lang("ACCOUNT_EMAIL_ADDRESS_OR_USERNAME") ?></label>
 					<input <?php echo $disabled?> type="text" class="form-control" name="username" id="username" placeholder="<?php echo lang("ACCOUNT_EMAIL_ADDRESS_OR_USERNAME") ?>" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">

@@ -679,7 +679,10 @@ function showSleepScoring(){
     type:'POST',
     data: "&sleep=" + JSON.stringify(all_answers),
     success:function(result){
-      // console.log(result);
+      console.log(result);
+      if($("#psqi_results").length > 0){
+        $("#psqi_results").remove();
+      }
       nextSection.find("h2").after(result);
 
       var PSQI_SCORE      = $("#psqi_score").text();

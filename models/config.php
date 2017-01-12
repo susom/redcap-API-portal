@@ -45,44 +45,62 @@ if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] ."
 	}
 }
 
+
+function languageSwitch($flag){
+	$lang_span 				= $flag; 
+	$lang_logo 				= "_".$lang_span;
+
+	switch($flag){
+		case "sp":
+			$_SESSION["use_lang"] 	= "sp";
+		break;
+
+		case "tw":
+			$_SESSION["use_lang"] 	= "tw";
+			$lang_logo = "";
+		break;
+
+		case "cn":
+			$_SESSION["use_lang"] 	= "cn";
+			$lang_logo = "";
+		break;
+
+		default:
+			$lang_span = "en";
+			$lang_logo = "";
+		break;
+	}
+
+	?>
+	<style>
+		.lang.en{
+			display:none;
+		}
+		.lang.<?php echo $lang_span ?> {
+			display:inline-block !important;
+		}
+		.well {
+			background-image:url(assets/img/well_logo<?php echo $lang_logo ?>.png) !important;
+		}
+	</style>
+	<?php
+	return;
+}
+
+
+
+
 if(!isset($_SESSION["use_lang"])){
 	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];
 }else{
-	if($_SESSION["use_lang"] == "sp" && empty($_POST)){ //SO IT DONT PRINT FOR AJAX CALLS .. YIKES
-		?>
-		<style>
-			.lang.en {
-				display:none;
-			}
-			.lang.sp {
-				display:inline-block !important;
-			}
-			.well {
-				background-image:url(assets/img/well_logo_sp.png) !important;
-			}
-		</style>
-		<?php
+	if(empty($_POST)){
+		languageSwitch($_SESSION["use_lang"]);
 	}
 }
+
 if(isset($loggedInUser->lang)){
-	if($loggedInUser->lang == "sp"){
-		$_SESSION["use_lang"] = "sp";
-		?>
-		<style>
-			.lang.en {
-				display:none;
-			}
-			.lang.sp {
-				display:inline-block !important;
-			}
-			.well {
-				background-image:url(assets/img/well_logo_sp.png) !important;
-			}
-		</style>
-		<?php
-	}
+	languageSwitch($loggedInUser->lang);
 }
+
 require_once( dirname(__FILE__) . "/lang/".$_SESSION["use_lang"].".php");
-
-
 $PAGE = basename($_SERVER["SCRIPT_FILENAME"]);

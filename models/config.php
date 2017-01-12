@@ -68,6 +68,7 @@ function languageSwitch($flag){
 		default:
 			$lang_span = "en";
 			$lang_logo = "";
+			return;
 		break;
 	}
 

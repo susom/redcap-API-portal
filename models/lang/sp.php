@@ -42,6 +42,7 @@
 		"ACCOUNT_EMAIL_ADDRESS" 				=> "Email / Correo electrónico",
 		"ACCOUNT_REENTER_EMAIL" 				=> "Nuevamente entre su correo electrónico",
 		"ACCOUNT_EMAIL_ADDRESS_OR_USERNAME" 	=> "Email Address or Username",
+		"ACCOUNT_PARTICIPANT_ID"				=> "Participant ID",
 		"ACCOUNT_USERNAME"						=> "Username",
 		"ACCOUNT_YOUR_LOCATION" 				=> "Lugar de vivienda",
 		"ACCOUNT_CITY" 							=> "Ciudad",

@@ -19,6 +19,7 @@ $badlogin 			= "";
 //--------------------------------------------------------------------
 // Login Posted
 if( !empty($_POST) && isset($_POST['new_login']) ) {
+
 	$errors 	= array();
 	$username 	= trim($_POST["username"]);
 	$password 	= trim($_POST["password"]);
@@ -28,6 +29,20 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 	//Perform some basic validation
 	if($username == "") $errors[] = lang("ACCOUNT_SPECIFY_USERNAME");
 	if($password == "") $errors[] = lang("ACCOUNT_SPECIFY_PASSWORD");
+
+	if(empty($_POST["username"]) && empty($_POST["password"]) && !empty($_POST["participant_id"])){
+		array_pop($errors);
+		array_pop($errors);
+		$participant_id = trim($_POST["participant_id"]);
+
+		$user 		= getUsernameByParticipantID($participant_id);
+		$username 	= $user->username;
+		$password = md5("somelongthingsurewhynot" + $username);
+
+		//use participant ID to get the username
+		//then use the username and the salt to do the password
+		//then sign in 
+	}
 
 	//End data validation
 	if(count($errors) == 0) {
@@ -115,6 +130,14 @@ include("models/inc/gl_header.php");
 					<label for="password" class="control-label"><?php echo lang("ACCOUNT_PASSWORD") ?></label>
 					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang("ACCOUNT_PASSWORD") ?>" autocomplete="off" >
 				</div>
+				
+				<div class="form-group">
+					<h3 class="or">OR</h3>
+					<label for="participant_id" class="control-label"><?php echo lang("ACCOUNT_PARTICIPANT_ID") ?></label>
+					<input <?php echo $disabled?> type="text" class="form-control" name="participant_id" id="participant_id" placeholder="Login with Participant ID" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
+				</div>
+	
+
 				<div class="form-group">
 					<div class="pull-left">
 						<a class="showrecover" href="#"><?php echo lang("FORGOTPASS") ?></a> <br>
@@ -222,10 +245,10 @@ $(document).ready(function(){
 	$('#loginForm').validate({
 		rules: {
 			username: {
-				required: true
+				required: false
 			},
 			password: {
-			  	required: true
+			  	required: false
 			}
 		},
 		highlight: function(element) {

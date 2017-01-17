@@ -41,6 +41,7 @@
 		"ACCOUNT_YOUR_EMAIL" 					=> "Your Email",
 		"ACCOUNT_EMAIL_ADDRESS" 				=> "Email Address",
 		"ACCOUNT_EMAIL_ADDRESS_OR_USERNAME" 	=> "Email Address or Username",
+		"ACCOUNT_PARTICIPANT_ID"				=> "Participant ID",
 		"ACCOUNT_USERNAME"						=> "Username",
 		"ACCOUNT_REENTER_EMAIL" 				=> "Re-enter Email",
 		"ACCOUNT_YOUR_LOCATION" 				=> "Your Location",

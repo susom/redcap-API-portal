@@ -3208,8 +3208,17 @@ span.rs-number {
 }
 
 /*LANGUAGE*/
+.lang.en + br,
 .lang.cn,
+.lang.cn + br,
 .lang.tw,
-.lang.sp{
+.lang.tw + br,
+.lang.sp,
+.lang.sp + br{
     display:none;
+}
+
+.lang.cn,
+.lang.tw {
+    font-size:140%;
 }

@@ -43,6 +43,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10">
                       <h2>My Assessments</h2>
+                      provide links that will link to appropritate results in a pop up?
                       
                       <?
                         $_REQUEST["gender"] = "female";

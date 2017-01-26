@@ -51,7 +51,7 @@
 		"ACCOUNT_BIRTH_YEAR" 					=> "你的出生年份是？",
 		"ACCOUNT_18_PLUS" 						=> "你满18岁吗？",
 		"ACCOUNT_USA_CURRENT" 					=> "你现在住在美国吗？",
-		"ACCOUNT_AGREE" 						=> "点击同意按钮我同意被联系有关WELL for Life相关研究和信息。",
+		"ACCOUNT_AGREE" 						=> "点击送出按钮,我同意被联系有关WELL for Life相关研究和信息。",
 		"ACCOUNT_ELITE_THANKS" 					=> "感谢您成为我们首批500名参与者之一。我们收集的数据将帮助我们改善我们的健康！自豪地展示你的丝带！",
 		"STEP_REGISTER"							=> "注册",
 		"STEP_VERIFY"							=> "验证邮件",

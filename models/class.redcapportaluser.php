@@ -103,7 +103,8 @@ class RedcapPortalUser
       //logIt("Hooks: " . print_r($hooks,true), "DEBUG");
 
       // Build the template - Optional, you can just use the sendMail function to message
-      $mail_templ = isset($_SESSION["use_lang"]) ? "new-registration-".$_SESSION["use_lang"].".txt" : "new-registration.txt" ;
+      $mail_templ = isset($_SESSION["use_lang"]) && file_exists("new-registration-".$_SESSION["use_lang"].".txt") ? "new-registration-".$_SESSION["use_lang"].".txt" : "new-registration.txt" ;
+      print_rr($mail_templ);
       if(!$mail->newTemplateMsg($mail_templ,$hooks)) {
          logIt("Error building rew-registration email template", "ERROR");
          $this->mail_failure = true;

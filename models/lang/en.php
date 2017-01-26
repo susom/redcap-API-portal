@@ -227,4 +227,48 @@
 // 		}
 // 	}
 // }
+// 
+// {
+// 	 "translations" : {
+// 		 "sp" : {
+// 		 		 "wellbeing_questions" 	      	: "Sobre Su Bienestar"
+// 				,"a_little_bit_about_you" 		: "Acerca de Usted"
+// 				,"your_physical_activity" 		: "Su actividad física"
+// 				,"your_sleep_habits" 			: "Sus hábitos de sueño"
+// 				,"your_tobacco_and_alcohol_use" : "Su uso de tabaco y alcohol"
+// 				,"your_diet" 					: "Su dieta"
+// 				,"your_health" 					: "Su salud"
+// 				,"about_you" 			: "Más sobre usted"
+// 				,"your_social_and_neighborhood_environment" : "Su entorno social y su comunidad"
+// 				,"contact_information" 					: "Información de contacto"
+// 				,"your_feedback" 	: "Sus sugerencias"
+// 		}
+// 		,"tw" : {
+// 		 		 "wellbeing_questions" 	      	: "身心健康問題"
+// 				,"a_little_bit_about_you" 		: "有些關於您"
+// 				,"your_physical_activity" 		: "你的身體活動量"
+// 				,"your_sleep_habits" 			: "你的睡眠習慣"
+// 				,"your_tobacco_and_alcohol_use" : "你的煙草和酒類使用量"
+// 				,"your_diet" 					: "你的飲食狀況"
+// 				,"your_health" 					: "你的健康狀況"
+// 				,"about_you" 					: "關於您"
+// 				,"your_social_and_neighborhood_environment" : "您的社交和鄰里環境"
+// 				,"contact_information" 			: "聯繫資料"
+// 				,"your_feedback" 				: "您的建議"
+// 		}
+// 		,"cn" : {
+// 		 		 "wellbeing_questions" 	      	: "身心健康问题"
+// 				,"a_little_bit_about_you" 		: "有些关于您"
+// 				,"your_physical_activity" 		: "你的身体活动量"
+// 				,"your_sleep_habits" 			: "你的睡眠習慣"
+// 				,"your_tobacco_and_alcohol_use" : "你的烟草和酒类使用量"
+// 				,"your_diet" 					: "你的饮食状况"
+// 				,"your_health" 					: "你的健康状况"
+// 				,"about_you" 					: "关于您"
+// 				,"your_social_and_neighborhood_environment" : "您的社交和邻里环境"
+// 				,"contact_information" 			: "联系资料"
+// 				,"your_feedback" 				: "您的建议"
+// 		}
+// 	}
+// }
 ?>

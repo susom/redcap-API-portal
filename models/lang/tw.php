@@ -51,7 +51,7 @@
 		"ACCOUNT_BIRTH_YEAR" 					=> "你的出生年份是?",
 		"ACCOUNT_18_PLUS" 						=> "你滿18歲嗎？",
 		"ACCOUNT_USA_CURRENT" 					=> "你現在住在美國嗎？",
-		"ACCOUNT_AGREE" 						=> "點擊同意按鈕我同意被聯繫有關WELL for Life相關研究和信息。",
+		"ACCOUNT_AGREE" 						=> "點擊送出按鈕,我同意被聯繫有關WELL for Life相關研究和信息。",
 		"ACCOUNT_ELITE_THANKS" 					=> "感謝您成為我們首批500名參與者之一。我們收集的數據將幫助我們改善我們的健康！",
 		"STEP_REGISTER"							=> "註冊",
 		"STEP_VERIFY"							=> "驗證郵件",

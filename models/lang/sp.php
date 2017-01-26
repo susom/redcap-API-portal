@@ -129,6 +129,7 @@
 		,"CORE_SURVEYS" 							=> "Encuestas principales"
 		,"LOGOUT" 									=> "Cerrar sesión"
 		,"MY_STUDIES"								=> "Mis estudios"
+		,"MY_ASSESSMENTS" 							=> "My Assessments"
 		,"MY_PROFILE" 								=> "Mi Perfil"
 		,"CONTACT_US" 								=> "Contáctenos"
 		,"GET_HELP" 								=> "Dónde obtener ayuda"

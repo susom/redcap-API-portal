@@ -724,6 +724,23 @@ input[readonly] {
 }
 
 
+/*MY ASSESMSMENTS*/
+.assessments{
+    margin:40px 0 60px; 
+    padding:0;
+    list-style:none;
+}
+
+.assessments li{
+    display:block; 
+    font-size:130%;
+    margin-bottom:10px;
+}
+
+.assessments a {
+    cursor:pointer; 
+}
+
 /*PROFILE PAGE*/
 
 .profile_card {
@@ -3221,4 +3238,5 @@ span.rs-number {
 .lang.cn,
 .lang.tw {
     font-size:140%;
+    line-height:140%;
 }

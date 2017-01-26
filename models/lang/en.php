@@ -130,6 +130,7 @@
 		,"CORE_SURVEYS" 							=> "Core Surveys"
 		,"LOGOUT" 									=> "Logout"
 		,"MY_STUDIES"								=> "My Studies"
+		,"MY_ASSESSMENTS"							=> "My Assessments"
 		,"MY_PROFILE" 								=> "My Profile"
 		,"CONTACT_US" 								=> "Contact Us"
 		,"GET_HELP" 								=> "Where to get help"
@@ -192,4 +193,38 @@
 		);
 
 	$websiteName = "WELL for Life initiative";
+
+//SUPPLEMENTAL TRANSLATIONS
+// {
+// 	"tooltips" : {
+// 			"how_physically_mobile_are_you" : "This test has been designed to determine mobility in adults aged 65 and older. You will receive feedback about your chances of being able to continue to do active things that matter to you as you age. It will take less than 10 minutes to complete."
+// 			,"how_fit_are_you" : "Learn about your cardiorespiratory fitness today! You will get your personal feedback after completing this survey. It will take 1 minute to complete."
+// 			,"how_resilient_are_you_to_stress" : "A survey about your grit resilience."
+// 			,"find_out_your_body_type_according_to_chinese_medic" : " Traditional Chinese Medicine is built on a foundation of more than 2,500 years of Chinese medical practice. You can assess your wellbeing by taking the TCM questionnaires."
+// 			,"how_well_do_you_sleep" : "This questionnaire is used to measure the quality and patterns of sleep in adults. It will take about 10 to 20 minutes to complete."
+// 		}
+// 	,"translations" : {
+// 		"sp" : {
+// 			"how_physically_mobile_are_you" : "Cómo físicamente móvil es usted?"
+// 			,"how_fit_are_you" : "¿Cuan en forma está usted?"
+// 			,"how_resilient_are_you_to_stress" : "¿Cuan resistente es usted al estrés?"
+// 			,"how_well_do_you_sleep" : "¿Qué tan bien duerme?"
+// 			,"find_out_your_body_type_according_to_chinese_medic" : "Descubra su tipo de cuerpo de acuerdo a la Medicina China"
+// 		}
+// 		"cn" : {
+// 			"how_physically_mobile_are_you" : "您的身体功能老化了吗？"
+// 			,"how_fit_are_you" : "您的体态标准吗？"
+// 			,"how_resilient_are_you_to_stress" : "您的抗压性如何？"
+// 			,"how_well_do_you_sleep" : "您睡得好吗？"
+// 			,"find_out_your_body_type_according_to_chinese_medic" : "依据中医理论找出你的身体类型"
+// 		}
+// 		"tw" : {
+// 			"how_physically_mobile_are_you" : "您的身體功能老化了嗎？"
+// 			,"how_fit_are_you" : "您的體態標準嗎？"
+// 			,"how_resilient_are_you_to_stress" : "您的抗壓性如何？"
+// 			,"how_well_do_you_sleep" : "您睡得好嗎？"
+// 			,"find_out_your_body_type_according_to_chinese_medic" : "依據中醫理論找出你的身體類型"
+// 		}
+// 	}
+// }
 ?>

@@ -13,183 +13,203 @@
 	//Account
 	$lang = array_merge($lang,array(
 		//ERROR AND POPUP
-		"ACCOUNT_SPECIFY_F_L_NAME" 				=> "Please enter your First and Last name",
-		"ACCOUNT_SPECIFY_USERNAME" 				=> "Please enter your username",
-		"ACCOUNT_SPECIFY_PASSWORD" 				=> "Please enter your password",
-		"ACCOUNT_SPECIFY_EMAIL"					=> "Please enter your email address",
-		"ACCOUNT_INVALID_EMAIL"					=> "Invalid email address",
-		"ACCOUNT_EMAIL_MISMATCH"				=> "Emails must match",
-		"ACCOUNT_USER_OR_PASS_INVALID"			=> "Email and/or Password Not Recognized.",
-		"ACCOUNT_PASS_MISMATCH"					=> "passwords must match",
-		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "Email %m1% is already in use. If you have forgotten your password, you may reset it from the <a href='login.php'>Login Form</a>",
-		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "Thank you for registering with the WELL for Life initiative!  We have sent an account activation link to your email.  Please check your email and click the link inside. If you do not receive the email within 1 hour, contact us at wellforlife@stanford.edu",
-		"ACCOUNT_SPECIFY_NEW_PASSWORD"			=> "Please enter your new password",	
-		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "Thank you for you interest in the WELL for Life initiative!  You are not eligible to participate at this time. %m1% We will contact you about WELL for Life related studies and information as we expand.",
-		"ACCOUNT_NEED_LOCATION"					=> "Please enter your Zip Code or City",
-		"ACCOUNT_TOO_YOUNG"						=> "You are not yet 18 years of age.",
-		"ACCOUNT_NOT_IN_USA"					=> "This study is only for participants living in the USA.",
-		"ACTIVATION_MESSAGE"					=> "You will need to first activate your account before you can login.  Follow the link below to activate your account. \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
-		"ACCOUNT_ERROR_TRY_AGAIN"				=> "Try again... ", 
-		"ACCOUNT_ERROR_ATTEMPTS"				=> " attempts remaining.",
-		"ACCOUNT_ERROR_ATTEMPT"					=> " attempt remaining.", 
+		"ACCOUNT_SPECIFY_F_L_NAME" 				=> "请输入您的名字和姓氏",
+		"ACCOUNT_SPECIFY_USERNAME" 				=> "请输入您的用户帐号",
+		"ACCOUNT_SPECIFY_PASSWORD" 				=> "请输入您的密码",
+		"ACCOUNT_SPECIFY_EMAIL"					=> "请输入您的电子邮件地址",
+		"ACCOUNT_INVALID_EMAIL"					=> "无效的电子邮件地址。",
+		"ACCOUNT_EMAIL_MISMATCH"				=> "电子邮件必须符合。",
+		"ACCOUNT_USER_OR_PASS_INVALID"			=> "电子邮件和/或密码不被识别。",
+		"ACCOUNT_PASS_MISMATCH"					=> "密码必须符合。",
+		"ACCOUNT_EMAIL_IN_USE_ACTIVE"			=> "电子邮件 %m1% 已在使用中。如果您忘记了密码，您可以重新设定于 <a href='login.php'>登录表单</a>",
+		"ACCOUNT_NEW_ACTIVATION_SENT"			=> "感谢您注册WELL for Life计划！我们已向您的电子邮件发送了帐户激活链接。请检查您的电子邮件，并点击里面的链接。如果您在1小时内没有收到电子邮件，请通过wellforlife@stanford.edu与我们联系。",
+		"ACCOUNT_SPECIFY_NEW_PASSWORD"			=> "请输入您的新密码",	
+		"ACCOUNT_NOT_YET_ELIGIBLE"				=> "感谢您对WELL for Life计划的关注！您目前没有资格参加。%m1% 当计划扩大时，我们将与您联系关于WELL for Life相关研究和信息。",
+		"ACCOUNT_NEED_LOCATION"					=> "请输入您的邮政编码或城市。",
+		"ACCOUNT_TOO_YOUNG"						=> "您尚未年满18岁。",
+		"ACCOUNT_NOT_IN_USA"					=> "本研究计划仅适用于居住在美国的参与者。",
+		"ACTIVATION_MESSAGE"					=> "您需要首先激活您的帐户，然后才能登录。请按照以下链接激活您的帐户。 \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
+		"ACCOUNT_ERROR_TRY_AGAIN"				=> "再试一次... ", 
+		"ACCOUNT_ERROR_ATTEMPTS"				=> " 剩余尝试次数。",
+		"ACCOUNT_ERROR_ATTEMPT"					=> " 剩余尝试次数。", 
 
 		//REGISTER
-		"ACCOUNT_REGISTER" 						=> "Register for this Study",
-		"ACCOUNT_YOUR_NAME"						=> "Your Name",
-		"ACCOUNT_FIRST_NAME" 					=> "First Name",
-		"ACCOUNT_LAST_NAME" 					=> "Last Name",
-		"ACCOUNT_YOUR_EMAIL" 					=> "Your Email",
-		"ACCOUNT_EMAIL_ADDRESS" 				=> "Email Address",
-		"ACCOUNT_EMAIL_ADDRESS_OR_USERNAME" 	=> "Email Address or Username",
-		"ACCOUNT_PARTICIPANT_ID"				=> "Participant ID",
+		"ACCOUNT_REGISTER" 						=> "注册本研究计划",
+		"ACCOUNT_YOUR_NAME"						=> "您的姓名",
+		"ACCOUNT_FIRST_NAME" 					=> "名字",
+		"ACCOUNT_LAST_NAME" 					=> "姓氏",
+		"ACCOUNT_YOUR_EMAIL" 					=> "电子邮件",
+		"ACCOUNT_EMAIL_ADDRESS" 				=> "电子邮件地址",
+		"ACCOUNT_EMAIL_ADDRESS_OR_USERNAME" 	=> "电子邮件地址或用户帐号",
 		"ACCOUNT_USERNAME"						=> "Username",
-		"ACCOUNT_REENTER_EMAIL" 				=> "Re-enter Email",
-		"ACCOUNT_YOUR_LOCATION" 				=> "Your Location",
-		"ACCOUNT_CITY" 							=> "City",
-		"ACCOUNT_ZIP" 							=> "ZIP",
-		"ACCOUNT_ALREADY_REGISTERED" 			=> "Already Registered?",
-		"ACCOUNT_BIRTH_YEAR" 					=> "What is your birth year?",
-		"ACCOUNT_18_PLUS" 						=> "Are you 18 years old or older?",
-		"ACCOUNT_USA_CURRENT" 					=> "Are you currently living in the USA?",
-		"ACCOUNT_AGREE" 						=> "By clicking the Submit button I agree to be contacted about WELL for Life related studies and information.",
-		"ACCOUNT_ELITE_THANKS" 					=> "Thank you for being one of our first 500 participants. The data we collect will help us improve all our wellbeing!  Display your ribbon proudly! ",
-		"STEP_REGISTER"							=> "Register",
-		"STEP_VERIFY"							=> "Verify Email",
-		"STEP_CONSENT"							=> "Consent",
-		"STEP_SECURITY"							=> "Security",
+		"ACCOUNT_PARTICIPANT_ID"				=> "参与者编号",
+		"ACCOUNT_REENTER_EMAIL" 				=> "重新输入电子邮件",
+		"ACCOUNT_YOUR_LOCATION" 				=> "您居住的地区",
+		"ACCOUNT_CITY" 							=> "城市",
+		"ACCOUNT_ZIP" 							=> "邮政编码",
+		"ACCOUNT_ALREADY_REGISTERED" 			=> "已经注册过？",
+		"ACCOUNT_BIRTH_YEAR" 					=> "你的出生年份是？",
+		"ACCOUNT_18_PLUS" 						=> "你满18岁吗？",
+		"ACCOUNT_USA_CURRENT" 					=> "你现在住在美国吗？",
+		"ACCOUNT_AGREE" 						=> "点击同意按钮我同意被联系有关WELL for Life相关研究和信息。",
+		"ACCOUNT_ELITE_THANKS" 					=> "感谢您成为我们首批500名参与者之一。我们收集的数据将帮助我们改善我们的健康！自豪地展示你的丝带！",
+		"STEP_REGISTER"							=> "注册",
+		"STEP_VERIFY"							=> "验证邮件",
+		"STEP_CONSENT"							=> "同意",
+		"STEP_SECURITY"							=> "安全性",
 
-		"ACCOUNT_NEW_PASSWORD" 					=> "New Password",
-		"ACCOUNT_PASSWORD" 						=> "Password",
-		"ACCOUNT_PASSWORD_AGAIN" 				=> "Password Again",
+		"ACCOUNT_NEW_PASSWORD" 					=> "新密码",
+		"ACCOUNT_PASSWORD" 						=> "密码",
+		"ACCOUNT_PASSWORD_AGAIN" 				=> "密码再一次",
 
-		"ACCOUNT_LOGIN_PAGE" 					=> "Login Page",
-		"ACCOUNT_REGISTER_PAGE" 				=> "Register Page",
+		"ACCOUNT_LOGIN_PAGE" 					=> "登录页面",
+		"ACCOUNT_REGISTER_PAGE" 				=> "注册页面",
 		
-		"REGISTER_STUDY" 						=> "Register for Study",
-		"REGISTER_TOKEN_INVALID_1" 				=> "The supplied email activation token is invalid or expired.  This can happen if you regenerated a new token but followed the link from an older request.",
-		"REGISTER_TOKEN_INVALID_2" 				=> "Invalid email activation token <br><a class='alink' href='login.php'>Click Here</a> and chose 'Forgot Password' to get a new token.",
+		"REGISTER_STUDY" 						=> "注册本研究计划",
+		"REGISTER_TOKEN_INVALID_1" 				=> "提供的电子邮件激活链接无效或已过期。",
+		"REGISTER_TOKEN_INVALID_2" 				=> "电子邮件激活链接无效 <br><a class='alink' href='login.php'>点击此处</a> 并选择“忘记密码”获取新的链接。",
 
 		//LOGIN
-		"ACCOUNT_LOGIN_CONTINUE" 				=> "Please Login to continue",
-		"ACCOUNT_LOGIN_NOW" 					=> "Login Now",
-		"ACCOUNT_NEXT_STEP" 					=> "Next Step",
+		"ACCOUNT_LOGIN_CONTINUE" 				=> "请登录完再继续",
+		"ACCOUNT_LOGIN_NOW" 					=> "登录",
+		"ACCOUNT_NEXT_STEP" 					=> "下一步",
 		
 		//CONSENT
-		"CONSENT_BULLET_1" 						=> "We need your permission before we can ask you any questions, so please read the following Informed Consent Document",
-		"CONSENT_BULLET_2" 						=> "The initial survey will take 20-30 minutes to complete – but you don't need to fill it all out at one time",
-		"CONSENT_BULLET_3" 						=> "We will check back in with you every few months",
-		"CONSENT_BULLET_4" 						=> "We will add new surveys, materials, and content and invite you to participate over time",
-		"CONSENT_WELCOME" 						=> "WELCOME!",
-		"CONSENT_CONTACT" 						=> "FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.",
-		"CONSENT_I_AGREE" 						=> "I Agree",
+		"CONSENT_BULLET_1" 						=> "我们需要您的许可，我们才能向您提出任何问题，因此请阅读以下同意文件",
+		"CONSENT_BULLET_2" 						=> "初步问卷需时20-30分钟完成。但你不需要一次性填写完。",
+		"CONSENT_BULLET_3" 						=> "每隔几个月我们会联系您。",
+		"CONSENT_BULLET_4" 						=> "我们将会持续加入新的问卷，材料和内容，并邀请您参与。",
+		"CONSENT_WELCOME" 						=> "欢迎加入!",
+		"CONSENT_CONTACT" 						=> "如您对本研究有任何问题，请联系总监 John Ioannidis 650-725-5465 或Sandra Winter 副总监650-723-8513。",
+		"CONSENT_I_AGREE" 						=> "我同意",
 		
 		//FORGOT PASSWORD AND ACCOUNT SETUP
-		"FORGOTPASS" 							=> "Forgot Password?",
-		"FORGOTPASS_RESET" 						=> "Password Reset",
-		"FORGOTPASS_RESET_FORM" 				=> "Password Reset Form",
-		"FORGOTPASS_PLEASE_ANSWER" 				=> "Please answer your security questions.",
-		"FORGOTPASS_RECOVERY_ANSWER" 			=> "Password Recovery Answer",
-		"FORGOTPASS_SEC_Q" 						=> "Security Question",
-		"FORGOTPASS_ANSWER_QS" 					=> "Answer my security questions",
-		"FORGOTPASS_EMAIL_ME" 					=> "Email me a password reset link",
-		"FORGOTPASS_RECOVERY_METHOD" 			=> "Chose recovery method",
-		"FORGOTPASS_BEGIN_RESET" 				=> "Enter email to begin password reset",
-		"FORGOTPASS_SUGGEST"					=> "Click on the 'Forgot Password?' to reset your password.  Or <a href=\"register.php\">register here</a>.",
-		"FORGOTPASS_INVALID_TOKEN"				=> "Invalid token.",
-		"FORGOTPASS_REQUEST_EXISTS"				=> "A forgotten password authorization email was sent %m1% min ago.<br>Please check your email or try again later.",
-		"FORGOTPASS_REQUEST_SUCCESS"			=> "Password reset process initiated.<br>Please check your email for further instructions.",
-		"FORGOTPASS_UPDATED" 					=> "Password Updated",
-		"FORGOTPASS_INVALID_VALUE" 				=> "Invalid password reset values for question",
-		"FORGOTPASS_Q_UPDATED" 					=> "Password recovery questions updated!",
-		"FORGOTPASS_SEC_Q_SETUP" 				=> "Password setup and security questions",
-		"FORGOTPASS_SEC_Q_ANSWERS" 				=> "So that we can help you recover a lost or forgotten password, please provide answers to the following security questions.",
-		"FORGOTPASS_CHOSE_QUESTION" 			=> "Choose a question from the list",
-		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "Write a custom security question",
+		"FORGOTPASS" 							=> "忘记密码？",
+		"FORGOTPASS_RESET" 						=> "重设密码",
+		"FORGOTPASS_RESET_FORM" 				=> "密码重新设定表单",
+		"FORGOTPASS_PLEASE_ANSWER" 				=> "請回答您设定的安全問題。",
+		"FORGOTPASS_RECOVERY_ANSWER" 			=> "恢復原密码的答案。",
+		"FORGOTPASS_SEC_Q" 						=> "安全性问题。",
+		"FORGOTPASS_ANSWER_QS" 					=> "回答设订的安全性问题。",
+		"FORGOTPASS_EMAIL_ME" 					=> "請送我密碼重新设定的電子郵件。",
+		"FORGOTPASS_RECOVERY_METHOD" 			=> "选择回复方法",
+		"FORGOTPASS_BEGIN_RESET" 				=> "输入电子邮件以开始密码重新设置",
+		"FORGOTPASS_SUGGEST"					=> "点击 “忘记密码？” 来重新设置密码。 或<a href=\"register.php\">注册加入</a>.",
+		"FORGOTPASS_INVALID_TOKEN"				=> "无效链接",
+		"FORGOTPASS_REQUEST_EXISTS"				=> "忘记的密码授权电子邮件已于 %m1% 分钟前发送。<br>请检查您的电子邮件或稍后再试。",
+		"FORGOTPASS_REQUEST_SUCCESS"			=> "已启动密码重设程序。<br>已啟動密碼重設程序。 <br>請查看您的電子郵件以了解後續步驟。",
+		"FORGOTPASS_UPDATED" 					=> "密码更新",
+		"FORGOTPASS_INVALID_VALUE" 				=> "密码重置值无效",
+		"FORGOTPASS_Q_UPDATED" 					=> "恢复密码问题更新！",
+		"FORGOTPASS_SEC_Q_SETUP" 				=> "密码设置和安全性问题",
+		"FORGOTPASS_SEC_Q_ANSWERS" 				=> "为了帮助您恢复丢失或忘记的密码，请提供以下安全问题的答案。",
+		"FORGOTPASS_CHOSE_QUESTION" 			=> " 
+请从列表中选择一个问题",
+		"FORGOTPASS_WRITE_CUSTOM_Q" 			=> "编写自定安全性问题",
 
 		//MAIL
-		"MAIL_ERROR"							=> "Fatal error attempting mail, contact your server administrator",
-		"MAIL_TEMPLATE_BUILD_ERROR"				=> "Error building email template",
-		"MAIL_TEMPLATE_DIRECTORY_ERROR"			=> "Unable to open mail-templates directory. Perhaps try setting the mail directory to %m1%",
-		"MAIL_TEMPLATE_FILE_EMPTY"				=> "Template file is empty... nothing to send",
+		"MAIL_ERROR"							=> "尝试邮件时出错，请与网站管理员联系",
+		"MAIL_TEMPLATE_BUILD_ERROR"				=> "建构电子邮件范本时出错",
+		"MAIL_TEMPLATE_DIRECTORY_ERROR"			=> "无法打开邮件范本目录。也许尝试设置邮件目录于 %m1%",
+		"MAIL_TEMPLATE_FILE_EMPTY"				=> "范本文件是空的...没有发送任何文件",
 
 		//Miscellaneous
-		"GENERAL_YES" 							=> "Yes",
-		"GENERAL_NO" 							=> "No",
-		"GENERAL_BACK" 							=> "Back",
-		"GENERAL_NEXT" 							=> "Next",
-		"GENERAL_SUBMIT" 						=> "Submit",
-		"CONFIRM"								=> "Confirm",
-		"ERROR"									=> "Error",
+		"GENERAL_YES" 							=> "是",
+		"GENERAL_NO" 							=> "否",
+		"GENERAL_BACK" 							=> "回上一步",
+		"GENERAL_NEXT" 							=> "下一步",
+		"GENERAL_SUBMIT" 						=> "送出",
+		"CONFIRM"								=> "确认",
+		"ERROR"									=> "错误",
 	));
 	
 
 	//DASHBOARD TRANSLATIONS
 	$lang = array_merge($lang, array(
-		 "WELL_FOR_LIFE" 							=> "WELL for Life"
-		,"MY_DASHBOARD" 							=> "My Dashboard"
-		,"CORE_SURVEYS" 							=> "Core Surveys"
-		,"LOGOUT" 									=> "Logout"
-		,"MY_STUDIES"								=> "My Studies"
-		,"MY_PROFILE" 								=> "My Profile"
-		,"CONTACT_US" 								=> "Contact Us"
-		,"GET_HELP" 								=> "Where to get help"
-		,"GET_HELP_TEXT" 							=> "<p>For a medical emergency, call 911 or your healtcare provider.</p><p>For mental health, please visit <a href=\"https://www.mentalhealth.gov/get-help/\" class='offsite'>MentalHealth.gov</a>.</p>"
-		,"QUESTION_FOR_WELL" 						=> "Question for WELL"
-		,"YOUVE_BEEN_AWARDED" 						=> "You've been awarded a"
-		,"GET_WHOLE_BASKET" 						=> "Get the whole fruit basket!"
-		,"CONTINUE_SURVEY" 							=> "Continue the rest of the survey."
-		,"CONGRATS_FRUITS" 							=> "Congratulations, you got all the fruits! <br/><br/> Check out some of the new modules under 'Learn More'. <br><br/> In the meantime we invite you to watch this video from our WELL for life director. <br/><br/>"
-		,"FITNESS_BADGE" 							=> "You've been awarded a fitness badge"
-		,"GET_ALL_BADGES" 							=> "Get all the fitness badges!"
-		,"CONGRATS_ALL_FITNESS_BADGES"				=> "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards!"
-		,"DONE_CORE" 								=> "All done with core surveys!"
-		,"TAKE_BLOCK_DIET" 							=> "Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback."
-		,"HOW_WELL_EAT" 							=> "How well do you eat?"
-		,"COMPLETE_CORE_FIRST" 						=> "Please complete Core Survyes first"
-		,"PLEASE_COMPLETE" 							=> "Please complete "
-		,"WELCOME_TO_WELL" 							=> "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>"
-		,"WELCOME_BACK_TO" 							=> "<b>Wellcome Back</b> to WELL for Life!</a>"
-		,"REMINDERS" 								=> "Reminders"
-		,"ADDITIONAL_SURVEYS" 						=> "Additional Surveys"
-		,"SEE_PA_DATA" 								=> "Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!"
-		,"HOW_DO_YOU_COMPARE" 						=> "How Do You Compare With Other Survey Takers?"
-		,"SITTING" 									=> "Sitting"
-		,"WALKING" 									=> "Walking"
-		,"MODACT" 									=> "Moderate Activity"
-		,"VIGACT" 									=> "Vigorous Activity"
-		,"NOACT" 									=> "Light/No Activity"
-		,"SLEEP" 									=> "Sleep"
-		,"YOU_HOURS_DAY"							=> "You (Hours/Day)"
-		,"AVG_ALL_USERS" 							=> "Average All Users (Hours/Day)"
-		,"HOW_YOU_SPEND_TIME" 						=> "How You Spend Your Time Each Day"
-		,"SUNRISE" 									=> "Sunrise"
-		,"SUNSET" 									=> "Sunset"
-		,"WIND" 									=> "wind"
-		,"DASHBOARD"								=> "Dashboard"
-		,"WELCOME_BACK"								=> "Welcome Back"
-		,"SUBMIT"									=> "Submit"
-		,"SAVE_EXIT"								=> "Save and Exit"
-		,"SUBMIT_NEXT"								=> "Submit/Next"
-		,"MAT_DATA_DISCLAIM" 						=> "The following data has been prepared in part by utilizing information from previous studies on cardiorespiratory fitness and national standards for health. These results are not intended as a substitute for recommendations or advice from a healthcare provider. Talk to your doctor before making any changes that could affect your health."
-		,"MAT_SCORE_40"								=> "In the next 4 years, people with your score are very likely (6.6 out of 10) to lose the ability to do active things they enjoy or value.  However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_50"								=> "In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_60"								=> "In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
-		,"MAT_SCORE_70"								=> "People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
+		 "WELL_FOR_LIFE" 							=> "幸福安康"
+		,"MY_DASHBOARD" 							=> "信息中心"
+		,"CORE_SURVEYS" 							=> "主要问卷"
+		,"LOGOUT" 									=> "登出"
+		,"MY_STUDIES"								=> "参与研究"
+		,"MY_ASSESSMENTS" 							=> "我的报告"
+        ,"MY_PROFILE" 								=> "个人资料"
+		,"CONTACT_US" 								=> "联系我们"
+		,"GET_HELP" 								=> "需要帮助"
+		,"GET_HELP_TEXT" 							=> "<p>对于医疗紧急情况，请致电911或您的医疗保健提供者。</p><p>对于精神健康问题，请参考 <a href=\"https://www.mentalhealth.gov/get-help/\" class='offsite'>MentalHealth.gov</a>.</p>"
+		,"QUESTION_FOR_WELL" 						=> "对我们有疑问"
+		,"YOUVE_BEEN_AWARDED" 						=> "你已经获得了"
+		,"GET_WHOLE_BASKET" 						=> "获得整篮水果！"
+		,"CONTINUE_SURVEY" 							=> "继续完成剩下的问卷。"
+		,"CONGRATS_FRUITS" 							=> "恭喜，你得到了所有的水果！ <br/><br/>查看 “了解更多” 下的一些新问卷。 <br><br/>同时，我们邀请您观看我们总监给您的视频。 <br/><br/>"
+		,"FITNESS_BADGE" 							=> "您已获得健身徽章"
+		,"GET_ALL_BADGES" 							=> "获得所有的健身徽章！"
+		,"CONGRATS_ALL_FITNESS_BADGES"				=> "恭喜，你已获得所有的健身徽章！ <br/>请稍后再回来取得新的奖励！"
+		,"DONE_CORE" 								=> "完成所有主要问卷！"
+		,"TAKE_BLOCK_DIET" 							=> "所有WELL参与者可免费参与饮食评估。此问卷通常需要30-50分钟完成，并提供即时评估报告。"
+		,"HOW_WELL_EAT" 							=> "您吃得好吗？"
+		,"COMPLETE_CORE_FIRST" 						=> "请先完成主要问卷"
+		,"PLEASE_COMPLETE" 							=> "请完成 "
+		,"WELCOME_TO_WELL" 							=> "<b>欢迎</b>参与幸福安康研究计划！<u>点击此处</u>开始您的幸福旅程！</a>"
+		,"WELCOME_BACK_TO" 							=> "<b>欢迎回到</b>幸福安康!</a>"
+		,"REMINDERS" 								=> "溫馨提醒"
+		,"ADDITIONAL_SURVEYS" 						=> "附加问卷"
+		,"SEE_PA_DATA" 								=> "填写问卷的 “您的身体活动” 部分，可看到您与其他参与者的数据比较图表！"
+		,"HOW_DO_YOU_COMPARE" 						=> "你与其他参与者比较图表"
+		,"SITTING" 									=> "坐着"
+		,"WALKING" 									=> "走路"
+		,"MODACT" 									=> "中度身体活动"
+		,"VIGACT" 									=> "重度身体活动"
+		,"NOACT" 									=> "轻度/无活动"
+		,"SLEEP" 									=> "睡眠"
+		,"YOU_HOURS_DAY"							      =>  "您（小时/天）"
+		,"AVG_ALL_USERS" 							=> "平均所有参与者（小时/天）"
+		,"HOW_YOU_SPEND_TIME" 						=> "您每天如何分配你的时间"
+		,"SUNRISE" 									=> "日出"
+		,"SUNSET" 									=> "日落"
+		,"WIND" 									=> "有风"
+		,"DASHBOARD"								=> "信息中心"
+		,"WELCOME_BACK"								=> "欢迎回来"
+		,"SUBMIT"									=> "送出"
+		,"SAVE_EXIT"								=> "储存并退出"
+		,"SUBMIT_NEXT"								=> "送出/下一步"
+		,"MAT_DATA_DISCLAIM" 						=> "以下数据部分是参考心肺健康和国家健康标准的研究而准备的。这些结果不能替代医疗保健提供者的建议。在做出任何可能影响您健康的改变之前，请咨询您的医生。"
+		,"MAT_SCORE_40"								=> "在接下来的4年中，和你的分数相同的人（10分中有6.6分）可能失去做他们喜欢或珍惜的活动的能力。然而，有很多方法你可以做，以提高你的功能性能力。"
+		,"MAT_SCORE_50"								=> "在接下来的4年中，和你的分数相同的人（10分中有5.2分）可能失去做他们喜欢或珍惜的活动的能力。然而，有很多方法你可以做，以提高你的功能性能力。"
+		,"MAT_SCORE_60"								=> "在接下来的4年中，和你的分数相同的人（10分中有3.5分）可能失去做他们喜欢或珍惜的活动的能力。然而，有很多方法你可以做，以提高你的功能性能力。"
+		,"MAT_SCORE_70"								=> "在接下来的4年中，和你的分数相同的人应该不会失去做他们喜欢或珍惜的活动的能力。继续您的努力，并尝试保持您的功能性能力！"
 	));
 
 	$template_security_questions = array(
-			'concert'	=> 'What was the first concert you attended?',
-			'cartoon'	=> 'What was your favorite cartoon series as a child?',
-			'reception'	=> 'What was the name of the place your wedding reception was held?',
-			'sib_nick'	=> 'What was the nickname of your oldest sibling as a child?',
-			'street'	=> 'What street did you live in on 3rd grade?',
-			'pet'		=> 'What was the name of your first pet?',
-			'parents'	=> 'In what town did your mother and father meet?',
-			'grammie'	=> 'What is your maternal grandmother\'s Nickname?',
-			'boss'		=> 'What was the name of your first boss at work?',
-			'sib_mid'	=> 'What is your oldest sibling\'s middle name?',
+			'concert'	=> '你参加的第一场音乐会是？',
+			'cartoon'	=> '你小时候最喜欢的卡通是？',
+			'reception'	=> '你婚礼招待的地点是？',
+			'sib_nick'	=> '你年纪最大的兄弟姐妹的昵称是？',
+			'street'	=> '你三年级时住的街道名是？',
+			'pet'		=> '你的第一只宠物的名字是？',
+			'parents'	=> '你的母亲和父亲在哪个城镇第一次遇见？',
+			'grammie'	=> '你的祖母的昵称是？',
+			'boss'		=> '你的第一个老板的名字是？',
+			'sib_mid'	=> '你年纪最大的兄弟姐妹的名字是？',
 			'custom'	=> ''
 		);
 
-	$websiteName = "WELL for Life initiative";
+	$websiteName = "幸福安康计划";
+	
+// {
+// 	 "translations" : {
+// 		 "cn" : {
+// 		 		 "wellbeing_questions" 	      	: "身心健康问题"
+// 				,"a_little_bit_about_you" 		: "有些关于您"
+// 				,"your_physical_activity" 		: "你的身体活动量"
+// 				,"your_sleep_habits" 			: "你的睡眠習慣"
+// 				,"your_tobacco_and_alcohol_use" : "你的烟草和酒类使用量"
+// 				,"your_diet" 					: "你的饮食状况"
+// 				,"your_health" 					: "你的健康状况"
+// 				,"about_you" 					: "关于您"
+// 				,"your_social_and_neighborhood_environment" : "您的社交和邻里环境"
+// 				,"contact_information" 			: "联系资料"
+// 				,"your_feedback" 				: "您的建议"
+// 		}
+// 	}
+// }
 ?>

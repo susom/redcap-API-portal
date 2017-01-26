@@ -116,14 +116,14 @@ $(document).ready(function(){
     }
 
     //IF THERES A NEXT QUESTION SCROLL DOWN TO IT!
-    var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
-    if(nextEl && !nextEl.is(".submits") && !nextEl.hasClass("LH")){
-      var nextpos = nextEl.position();
-      if(nextpos !== undefined && nextpos.top){
-        var nexttop       = nextpos.top;
-        $("#customform").animate({ scrollTop :  nexttop},350);
-      }
-    }
+    // var nextEl  = $(this).closest(".inputwrap").nextAll(':visible:first');
+    // if(nextEl && !nextEl.is(".submits") && !nextEl.hasClass("LH")){
+    //   var nextpos = nextEl.position();
+    //   if(nextpos !== undefined && nextpos.top){
+    //     var nexttop       = nextpos.top;
+    //     $("#customform").animate({ scrollTop :  nexttop},350);
+    //   }
+    // }
 
     //UPDATE THE PROGRESS BAR 
     var pbar              = $(".progress-bar");

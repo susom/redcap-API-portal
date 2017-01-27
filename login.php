@@ -131,11 +131,11 @@ include("models/inc/gl_header.php");
 					<input <?php echo $disabled?> type="password" class="form-control" name="password" id="password" placeholder="<?php echo lang("ACCOUNT_PASSWORD") ?>" autocomplete="off" >
 				</div>
 				
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<h3 class="or">OR</h3>
 					<label for="participant_id" class="control-label"><?php echo lang("ACCOUNT_PARTICIPANT_ID") ?></label>
 					<input <?php echo $disabled?> type="text" class="form-control" name="participant_id" id="participant_id" placeholder="Login with Participant ID" autofocus="true" aria-required="true" aria-invalid="true" aria-describedby="username-error" value="<?php echo $badlogin?>">
-				</div>
+				</div> -->
 	
 
 				<div class="form-group">

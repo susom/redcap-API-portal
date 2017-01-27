@@ -311,6 +311,7 @@ include("inc/gl_head.php");
                           }
                         }
                       }
+
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         if($supp_instrument["survey_complete"]){
                           continue;

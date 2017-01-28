@@ -1,0 +1,14 @@
+﻿亲愛的 #USERNAME#
+
+感谢您注册WELL for Life计划(斯坦福大学幸福安康计划)!
+
+幸福安康主要是一個幫助我們了解和提高全人幸福的計畫。
+#ACTIVATION-MESSAGE
+
+以后请您点击此链接以登录幸福安康计划：
+http://wellforlife.stanford.edu
+
+在任何阶段您可选择参与或取消继续参与此计划。如果您有任何问题，请随时联系 Matthew Grason，电话：650-725-9682 或 mgrason1@stanford.edu.
+
+
+#INC-FOOTER#

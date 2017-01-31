@@ -5,9 +5,9 @@ $age 		= isset($_REQUEST["age"]) 		? $_REQUEST["age"] : NULL;
 $metscore 	= isset($_REQUEST["metscore"]) 	? $_REQUEST["metscore"] : NULL;
 
 $suggestion = array(
-	 array("Needs Improvement" , "Your current level of fitness indicates that you could improve, consider engaging in physical activity more regularly.")
-	,array("Healthy Zone" , "Your current level of fitness is associated with good health, nice work!")
-	,array("Excellent Zone" , "Your current level of fitness is associated with excellent health, great job!")
+	 array("Needs Improvement" , "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。") "依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
+	,array("Healthy Zone" , "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！") "根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
+	,array("Excellent Zone" , "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！") "根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
 );
 
 if($gender == "male"){
@@ -70,6 +70,8 @@ $suggest = $suggestion[$level];
 	<div id="met_score"></div>
 	<h3 class="lang en">Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
 	<h3 class="lang sp">¡Gracias por su participación! Descubra algunos factores que pueden impactar su salud cardiovascular aquí:</h3>
+    <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
+    <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
 	<div id="met_aging" class="met_desc">
 		<aside class="lang en">
 			<h3>Aging</h3>
@@ -96,6 +98,32 @@ $suggest = $suggestion[$level];
 				<p>Nuestra salud cardio-respiratoria disminuye naturalmente mientras envejecemos.  Mientras no podemos prevenir el envejecimiento, podemos ayudar a combatir algunos de los efectos negativos que vemos durante envejecimiento comiendo saludablemente y manteniéndonos activos. Para más información sobre envejecimiento saludable y activo, visite: <a class="offsite" href='http://www.consumer.es/web/es/solidaridad/proyectos_y_campanas/2012/01/24/206397.php'>http://www.consumer.es</a>.</p>
 				<p>Tomando pasos ahora para preservar su salud cardio-respiratoria puede ayudar a reducir el riesgo de enfermedad del corazón.</p>
 				<p>Asegúrese que la actividad física es apropiada para usted, antes de comenzar, tome este cuestionario para evaluarse a sí mismo o consulte con un profesional de salud.</p>
+			</div>
+		</aside>
+		<aside class="lang cn">
+			<h3>Envejecimiento</h3>
+			<div class="funfact"><p><i>你知道美国心理学协会发现，智慧和创造力是常常延续到我们晚年的特征吗？</i></p></div>
+			<div class="old">
+				<p>我们的心肺适应性随着年龄的增长自然下降。在接下来的几年，你的身体将会开始体验到限制你的身体能力的变化。虽然我们不能防止衰老，但我们可以为衰老做准备，预防那些负面的影响。</p>
+				<p>重要的是要区分正常的老化和你的健康的异常下降。您可参考 <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">本指南</a> 由美国心理学协会提供， 来了解更多关于老化的事实与相关的话题。</p>
+				<p>在确保任何身体活动适合你之前，请先参与此测试 <a target="blank" href='pa_readiness_questionaire.pdf'>自我评估问卷</a> 或先与医务人员交谈。</p>
+			</div>
+			<div class="really_old">
+				<p>我们的心肺适应性随着年龄的增长自然下降。虽然我们不能防止衰老，但我们可以透过饮食来消除一些老龄化所带来的负面影响，請參考： <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>饮食健康</a> 和 <a class="offsite" href='https://go4life.nia.nih.gov/'>保持活力</a>.</p>
+				<p>在确保任何身体活动适合你之前，请先参与此测试 <a target="blank" href='pa_readiness_questionaire.pdf'>自我评估问卷</a> 或先与医务人员交谈。</p>
+			</div>
+		</aside>
+		<aside class="lang tw">
+			<h3>Envejecimiento</h3>
+			<div class="funfact"><p><i>你知道美國心理學協會發現，智慧和創造力是常常延續到我們晚年的特徵嗎？</i></p></div>
+			<div class="old">
+				<p>我們的心肺適應性隨著年齡的增長自然下降。在接下來的幾年，你的身體將會開始體驗到限制你的身體能力的變化。雖然我們不能防止衰老，但我們可以為衰老做準備，預防那些負面的影響。</p>
+				<p>重要的是要區分正常的老化和你的健康的異常下降。您可參考 <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">本指南</a> 由美國心理學協會提供，來了解更多關於老化的事實與相關的話題。</p>
+				<p>在確保任何身體活動適合你之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
+			</div>
+			<div class="really_old">
+				<p>我們的心肺適應性隨著年齡的增長自然下降。雖然我們不能防止衰老，但我們可以透過飲食來消除一些老齡化所帶來的負面影響，請參考： <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>飲食健康</a> 和 <a class="offsite" href='https://go4life.nia.nih.gov/'>保持活力</a>.</a>.</p>
+				<p>在確保任何身體活動適合你之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
 			</div>
 		</aside>
 	</div>
@@ -157,6 +185,68 @@ $suggest = $suggestion[$level];
 				<p>Para la mayoría de adultos tratando de perder peso, la CDC recomienda bajar 1-2 libras a la semana. Perdiendo al menos <span class='lose_weight'></span> libras convertirán su índice de masa corporal a una categoría saludable.</p>
 				<p>La obesidad está conectada a un aumento en riesgos a salud, incluyendo enfermedades cardiovasculares, diabetes tipo 2, ataque de corazón, y derrame cerebral. Trabajando para reducir su BMI a través de cambios a sus hábitos de estilo de vida, tal como comiendo saludablemente y manteniéndose activo(a) pueden ayudar a reducir las probabilidades de tener tales complicaciones, y le ayudará a vivar una vida mas saludable.</p>
 				<p>Existen muchas opciones para ayudarle a reducir peso y regresar a un BMI saludable. Para más información, incluyendo un calculador de BMI y herramientas para ayudarle a comenzar, puede visitar a <a class="offsite" href='https://www.cdc.gov/healthyweight/spanish/assessing/bmi/index.html'>https://www.cdc.gov/healthyweight/spanish/assessing/bmi/index.html</a> para aprender más.</p>
+			</div>
+		</aside>
+		<aside class="lang cn">
+			<h3>BMI 身体质量指数 (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
+			<div class="moreinfo" id="what_is_bmi">
+				<a href="#" class="closeparent">X</a>
+				<h3>了解BMI？</h3>
+				<p>身体质量指数是使用您的身高和体重来计算，通常由医疗保健提供者用于筛检体重可能高于或低于建议体重的成人。如果你是一个运动员或肌肉非常肌肉（肌肉比脂肪重），BMI可能不准确，可能需要进行脂肪含量检查，以更准确地评估你是否处于健康体重。这对于怀孕或哺乳的妇女或身体虚弱的人也不准确。</p>
+
+				<p>BMI只是您整体健康的许多衡量标准之一。腰部测量，身体脂肪，血压，胆固醇，身体活动量，不吸烟，饮食和其他措施也很重要。</p>
+			</div>
+			<div class="funfact"><p><i>你知道很多果汁和苏打一样有同等的卡路里吗？水，咖啡和茶（不加糖）是非常棒的低热量替代品。</i></p></div>
+			<div class="bmi_b">
+				<p>用您的身高 <span class='your_height'></span> 和体重 <span class='your_weight'></span>, 来计算您的 BMI to be <span class='your_bmi'></span>, 您是属于低于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。 對於你的身高而言，您的体重应介于 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅。</p>
+				<p>体重不足可导致许多健康问题，包括脱发，减弱免疫系统，丧失骨密度和降低生育力。通过吃营养，高热量的食物，如鳄梨，奶酪和坚果，增加体重可以帮助你安全地达到健康的BMI。请查看 <a class="offsite" href='http://www.nhs.uk/Livewell/Goodfood/Pages/Underweightadults.aspx'>此网页</a> 由英国国家卫生服务部提供，给低于体重成人参考与学习。</p>
+			</div>
+			<div class="bmi_c">
+				<p>用您的身高 <span class='your_height'></span>, 和体重 <span class='your_weight'></span>, 来计算您的 BMI to be <span class='your_bmi'></span>, 您是属于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。</p>
+				<p>做得好！保持健康的体重是保持身体健康和全人健康非常重要的一部分。继续保持体重可透过 <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>健康饮食</a> 和 <a class="offsite" href='http://health.gov/paguidelines/'>保持体能活动</a>.</p>
+			</div>
+			<div class="bmi_d">
+				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OVERWEIGHT BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
+				<p>For most adults trying to lose weight, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
+				<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
+				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+			</div>
+			<div class="bmi_e">
+				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
+				<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
+				<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes like eating healthy and by remaining active can help to reduce your risk for these complications, and help you live a healthier life.</p>
+				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+			</div>
+		</aside>
+		<aside class="lang tw">
+			<h3>BMI 身體質量指數 (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
+			<div class="moreinfo" id="what_is_bmi">
+				<a href="#" class="closeparent">X</a>
+				<h3>了解BMI？</h3>
+				<p>身體質量指數是使用您的身高和體重來計算，通常由醫療保健提供者用於篩檢體重可能高於或低於建議體重的成人。如果您是一個運動員或肌肉非常肌肉（肌肉比脂肪重），BMI可能不准確，可能需要進行脂肪含量檢查，以更準確地評估你是否處於健康體重。這對於懷孕或哺乳的婦女或身體虛弱的人也不准確。</p>
+
+				<p>BMI只是您整體健康的許多衡量標準之一。腰部測量，身體脂肪，血壓，膽固醇，身體活動量，不吸煙，飲食和其他措施也很重要。</p>
+			</div>
+			<div class="funfact"><p><i>你知道很多果汁和蘇打一樣有同等的卡路里嗎？水，咖啡和茶（不加糖）是非常棒的低熱量替代品。</i></p></div>
+			<div class="bmi_b">
+				<p>用您的身高 <span class='your_height'></span> 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於低於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅。</p>
+				<p>體重不足可導致許多健康問題，包括掉髮，減弱免疫系統，喪失骨密度和降低生育力。通過吃營養，高熱量的食物，如鱷梨，起司和堅果，增加體重可以幫助你安全地達到健康的BMI。請查看 <a class="offsite" href='http://www.nhs.uk/Livewell/Goodfood/Pages/Underweightadults.aspx'>this page</a> 由英國國家衛生服務部提供，給低於體重成人參考與學習。</p>
+			</div>
+			<div class="bmi_c">
+				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。</p>
+				<p>做得好！保持健康的體重是保持身體健康和全人健康非常重要的一部分。繼續保持體重可透過 <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>健康飲食</a> 和 <a class="offsite" href='http://health.gov/paguidelines/'>保持體能活動</a>.</p>
+			</div>
+			<div class="bmi_d">
+				<p>Using your height of <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, placing you in the OVERWEIGHT BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
+				<p>For most adults trying to lose weight, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
+				<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
+				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+			</div>
+			<div class="bmi_e">
+				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
+				<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
+				<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes like eating healthy and by remaining active can help to reduce your risk for these complications, and help you live a healthier life.</p>
+				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
 			</div>
 		</aside>
 	</div>

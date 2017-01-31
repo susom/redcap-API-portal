@@ -258,6 +258,7 @@ function showMATScoring(all_answers,cb){
       type:'POST',
       data: "&mat_answers=" + JSON.stringify(mat_map),
       success:function(result){
+        console.log(result);
         var data = JSON.parse(result);
         cb(data);
       }
@@ -265,7 +266,7 @@ function showMATScoring(all_answers,cb){
 }
 
 function customMAT_BS(_this){
-  var time = 1500;
+  var time = 2500;
   _this.find(".dead").each(function(){
     var closure_this = $(this);
     setTimeout( function(){ 

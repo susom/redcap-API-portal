@@ -107,11 +107,11 @@ class RedcapAuth {
    // Create a new user in the REDCap project
    public function createNewUser($pass, $verifymail = true) {
       if (self::usernameExists()) {
-         $this->error = "Error creating user (CODE 001)"; // Don't create a user if they already exist!
+         $this->error = "Username already exists."; // Don't create a user if they already exist!
          return false;
       }
       if (empty($pass)) {
-         $this->error = "Error creating user (CODE 002)"; // Missing password 
+         $this->error = "Password is required."; // Missing password 
          return false;
       }
       

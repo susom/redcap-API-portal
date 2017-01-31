@@ -89,7 +89,7 @@ class RedcapPortalUser
 
    // Send email with link for token
    function emailEmailToken() {
-      global $websiteUrl, $websiteName;
+      global $websiteUrl, $websiteName, $mail_templates_dir;
       $mail = new userPieMail();
 
       //Build the activation message
@@ -103,17 +103,17 @@ class RedcapPortalUser
       //logIt("Hooks: " . print_r($hooks,true), "DEBUG");
 
       // Build the template - Optional, you can just use the sendMail function to message
-      $mail_templ = isset($_SESSION["use_lang"]) && file_exists("new-registration-".$_SESSION["use_lang"].".txt") ? "new-registration-".$_SESSION["use_lang"].".txt" : "new-registration.txt" ;
-      print_rr($mail_templ);
+      $mail_templ = isset($_SESSION["use_lang"]) && file_exists($mail_templates_dir . "new-registration-".$_SESSION["use_lang"].".txt") ? "new-registration-".$_SESSION["use_lang"].".txt" : "new-registration-en.txt" ;
+      
       if(!$mail->newTemplateMsg($mail_templ,$hooks)) {
          logIt("Error building rew-registration email template", "ERROR");
          $this->mail_failure = true;
       } else {
          // Send the mail. Specify users email here and subject.
          // SendMail can have a third parementer for message if you do not wish to build a template.
-         $mail_body = $_SESSION["use_lang"] == "sp" ? mb_convert_encoding($this->email,"utf-8","auto") : $this->email;
          $mail_subj = $_SESSION["use_lang"] == "sp" ? "$websiteName Verificación de su correo electrónico" : "$websiteName Email Verification";
-         $encoding  = $_SESSION["use_lang"] == "sp" ? "utf-8" : "iso-8859-1";
+         $mail_body = $_SESSION["use_lang"] !== "en" ? mb_convert_encoding($this->email,"utf-8","auto") : $this->email;
+         $encoding  = $_SESSION["use_lang"] !== "en" ? "utf-8" : "iso-8859-1";
          if(!$mail->sendMail($mail_body,$mail_subj,NULL,$encoding))
          {
             logIt("Error sending email: " . print_r($mail,true), "ERROR");

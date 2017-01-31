@@ -28,7 +28,7 @@
 		"ACCOUNT_NEED_LOCATION"					=> "請輸入您的郵政編碼或城市。",
 		"ACCOUNT_TOO_YOUNG"						=> "您尚未年滿18歲。",
 		"ACCOUNT_NOT_IN_USA"					=> "本研究計劃僅適用於居住在美國的參與者。",
-		"ACTIVATION_MESSAGE"					=> "您需要首先激活您的帳戶，然後才能登錄。請按照以下鏈接激活您的帳戶。 \ n \ n％m1％register.php？uid =％m3％＆activation =％m2％ \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
+		"ACTIVATION_MESSAGE"					=> "您需要首先激活您的帳戶，然後才能登錄。請按照以下鏈接激活您的帳戶。 \n\n％m1％register.php？uid =％m3％＆activation =％m2％ \n\n%m1%register.php?uid=%m3%&activation=%m2%",							
 		"ACCOUNT_ERROR_TRY_AGAIN"				=> "再試一次...", 
 		"ACCOUNT_ERROR_ATTEMPTS"				=> " 剩餘嘗試次數。",
 		"ACCOUNT_ERROR_ATTEMPT"					=> " 剩餘嘗試次數。", 

@@ -470,6 +470,7 @@ h2.weather,
     overflow-y: auto;
     width: calc(100% + 0);
     min-height: 100%;
+    border:1px solid red;
     /*height: 70vh;*/
     margin: 0 0 0 0;
     padding: 15px 0 0;

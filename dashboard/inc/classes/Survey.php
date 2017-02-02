@@ -163,7 +163,7 @@ class Survey {
         $value = $match[1];
       }
       $selected       = (array_key_exists($field_name, $this->completed) && $this->completed[$field_name] == $val ? "selected" : "");
-      $section_html[] = "<option $selected value='$val'>$value</option>";
+      $section_html[] = "<option $selected value='$val'>$value ".$_SESSION["use_lang"]."</option>";
     }
     $section_html[]   = "</select>";
     return $section_html;

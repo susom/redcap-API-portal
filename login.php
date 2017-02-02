@@ -144,7 +144,7 @@ include("models/inc/gl_header.php");
 						<a class="showregister" href="register.php"><?php echo lang("REGISTER_STUDY") ?></a>  
 					</div>   
 					<div class="pull-right"> 
-						<input <?php echo $disabled?> type="submit" class="btn btn-success" name="new_login" id="newfeedform" value="Log In"/>     
+						<input <?php echo $disabled?> type="submit" class="btn btn-success" name="new_login" id="newfeedform" value="<?php echo lang("ACCOUNT_LOGIN_NOW") ?>"/>     
 						<span></span>
 					</div>
 				</div>

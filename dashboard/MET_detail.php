@@ -4,10 +4,26 @@ $gender 	= isset($_REQUEST["gender"]) 	? $_REQUEST["gender"] : NULL;
 $age 		= isset($_REQUEST["age"]) 		? $_REQUEST["age"] : NULL;
 $metscore 	= isset($_REQUEST["metscore"]) 	? $_REQUEST["metscore"] : NULL;
 
+
 $suggestion = array(
-	 array("Needs Improvement" , "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。") 		//"依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
-	,array("Healthy Zone" , "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！") 		//"根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
-	,array("Excellent Zone" , "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！") 	//"根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
+	 array(
+	 	 array("en" => "Needs Improvement") 
+	 	,array("cn" => "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。")
+	 	,array("tw" => "依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。")
+	 	,array("sp" => "Needs Improvement") 
+	 )
+	,array(
+		 array("en" => "Healthy Zone" )
+		,array("cn" => "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！")
+		,array("tw" => "根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！")
+		,array("sp" => "Healthy Zone") 
+	)
+	,array(
+		 array("en" => "Excellent Zone" )
+		,array("cn" => "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！")
+		,array("tw" => "根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！")
+		,array("sp" => "Excellent Zone") 
+	)
 );
 
 if($gender == "male"){
@@ -64,7 +80,8 @@ if($gender == "male"){
 	}
 }
 
-$suggest = $suggestion[$level];
+$uselang = isset($_SESSION["lang"]) && isset($suggestion[$level][$_SESSION["lang"]]) ? $_SESSION["lang"] : "en";
+$suggest = $suggestion[$level][$uselang];
 ?>
 <div id="met_results">
 	<div id="met_score"></div>

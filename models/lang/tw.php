@@ -70,7 +70,7 @@
 		"REGISTER_TOKEN_INVALID_2" 				=> "電子郵件激活鏈接無效 <br><a class='alink' href='login.php'>點擊此處</a> 並選擇“忘記密碼”獲取新的鏈接。",
 
 		//LOGIN
-		"ACCOUNT_LOGIN_CONTINUE" 				=> "請登入完再繼續",
+		"ACCOUNT_LOGIN_CONTINUE" 				=> "請登入完後再繼續",
 		"ACCOUNT_LOGIN_NOW" 					=> "登入",
 		"ACCOUNT_NEXT_STEP" 					=> "下一步",
 		

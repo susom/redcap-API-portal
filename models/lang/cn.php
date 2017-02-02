@@ -140,7 +140,7 @@
 		,"YOUVE_BEEN_AWARDED" 						=> "你已经获得了"
 		,"GET_WHOLE_BASKET" 						=> "获得整篮水果！"
 		,"CONTINUE_SURVEY" 							=> "继续完成剩下的问卷。"
-		,"CONGRATS_FRUITS" 							=> "恭喜，你得到了所有的水果！ <br/><br/>查看 “了解更多” 下的一些新问卷。 <br><br/>同时，我们邀请您观看我们总监给您的视频。 <br/><br/>"
+		,"CONGRATS_FRUITS" 							=> "恭喜，你得到了所有的水果！ <br/><br/>查看 “附加问卷” 下的一些新问卷。 <br><br/>同时，我们邀请您观看我们总监给您的视频。 <br/><br/>"
 		,"FITNESS_BADGE" 							=> "您已获得健身徽章"
 		,"GET_ALL_BADGES" 							=> "获得所有的健身徽章！"
 		,"CONGRATS_ALL_FITNESS_BADGES"				=> "恭喜，你已获得所有的健身徽章！ <br/>请稍后再回来取得新的奖励！"

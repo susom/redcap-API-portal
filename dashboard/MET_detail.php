@@ -5,9 +5,9 @@ $age 		= isset($_REQUEST["age"]) 		? $_REQUEST["age"] : NULL;
 $metscore 	= isset($_REQUEST["metscore"]) 	? $_REQUEST["metscore"] : NULL;
 
 $suggestion = array(
-	 array("Needs Improvement" , "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。") //"依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
-	,array("Healthy Zone" , "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！") //"根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
-	,array("Excellent Zone" , "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！") //"根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
+	 array("Needs Improvement" , "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。") 		//"依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
+	,array("Healthy Zone" , "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！") 		//"根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
+	,array("Excellent Zone" , "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！") 	//"根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
 );
 
 if($gender == "male"){
@@ -70,8 +70,8 @@ $suggest = $suggestion[$level];
 	<div id="met_score"></div>
 	<h3 class="lang en">Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
 	<h3 class="lang sp">¡Gracias por su participación! Descubra algunos factores que pueden impactar su salud cardiovascular aquí:</h3>
-    <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
-    <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
+        <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
+        <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
 	<div id="met_aging" class="met_desc">
 		<aside class="lang en">
 			<h3>Aging</h3>
@@ -101,10 +101,10 @@ $suggest = $suggestion[$level];
 			</div>
 		</aside>
 		<aside class="lang cn">
-			<h3>Envejecimiento</h3>
+			<h3>老化</h3>
 			<div class="funfact"><p><i>你知道美国心理学协会发现，智慧和创造力是常常延续到我们晚年的特征吗？</i></p></div>
 			<div class="old">
-				<p>我们的心肺适应性随着年龄的增长自然下降。在接下来的几年，你的身体将会开始体验到限制你的身体能力的变化。虽然我们不能防止衰老，但我们可以为衰老做准备，预防那些负面的影响。</p>
+				<p>我们的心肺适应性随着年龄的增长自然下降。在接下来的几年，你的身体将会开始体验到限制你的身体功能的变化。虽然我们不能防止衰老，但我们可以为衰老做准备，预防那些负面的影响。</p>
 				<p>重要的是要区分正常的老化和你的健康的异常下降。您可参考 <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">本指南</a> 由美国心理学协会提供， 来了解更多关于老化的事实与相关的话题。</p>
 				<p>在确保任何身体活动适合你之前，请先参与此测试 <a target="blank" href='pa_readiness_questionaire.pdf'>自我评估问卷</a> 或先与医务人员交谈。</p>
 			</div>
@@ -114,10 +114,10 @@ $suggest = $suggestion[$level];
 			</div>
 		</aside>
 		<aside class="lang tw">
-			<h3>Envejecimiento</h3>
+			<h3>老化</h3>
 			<div class="funfact"><p><i>你知道美國心理學協會發現，智慧和創造力是常常延續到我們晚年的特徵嗎？</i></p></div>
 			<div class="old">
-				<p>我們的心肺適應性隨著年齡的增長自然下降。在接下來的幾年，你的身體將會開始體驗到限制你的身體能力的變化。雖然我們不能防止衰老，但我們可以為衰老做準備，預防那些負面的影響。</p>
+				<p>我們的心肺適應性隨著年齡的增長自然下降。在接下來的幾年，你的身體將會開始體驗到限制你的身體功能的變化。雖然我們不能防止衰老，但我們可以為衰老做準備，預防那些負面的影響。</p>
 				<p>重要的是要區分正常的老化和你的健康的異常下降。您可參考 <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">本指南</a> 由美國心理學協會提供，來了解更多關於老化的事實與相關的話題。</p>
 				<p>在確保任何身體活動適合你之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
 			</div>
@@ -198,24 +198,24 @@ $suggest = $suggestion[$level];
 			</div>
 			<div class="funfact"><p><i>你知道很多果汁和苏打一样有同等的卡路里吗？水，咖啡和茶（不加糖）是非常棒的低热量替代品。</i></p></div>
 			<div class="bmi_b">
-				<p>用您的身高 <span class='your_height'></span> 和体重 <span class='your_weight'></span>, 来计算您的 BMI to be <span class='your_bmi'></span>, 您是属于低于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。 對於你的身高而言，您的体重应介于 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅。</p>
+				<p>用您的身高 <span class='your_height'></span> 和体重 <span class='your_weight'></span>, 来计算您的 BMI <span class='your_bmi'></span>, 您是属于低于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。 對於你的身高而言，您的体重应介于 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
 				<p>体重不足可导致许多健康问题，包括脱发，减弱免疫系统，丧失骨密度和降低生育力。通过吃营养，高热量的食物，如鳄梨，奶酪和坚果，增加体重可以帮助你安全地达到健康的BMI。请查看 <a class="offsite" href='http://www.nhs.uk/Livewell/Goodfood/Pages/Underweightadults.aspx'>此网页</a> 由英国国家卫生服务部提供，给低于体重成人参考与学习。</p>
 			</div>
 			<div class="bmi_c">
-				<p>用您的身高 <span class='your_height'></span>, 和体重 <span class='your_weight'></span>, 来计算您的 BMI to be <span class='your_bmi'></span>, 您是属于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。</p>
+				<p>用您的身高 <span class='your_height'></span>, 和体重 <span class='your_weight'></span>, 来计算您的 BMI <span class='your_bmi'></span>, 您是属于正常 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。</p>
 				<p>做得好！保持健康的体重是保持身体健康和全人健康非常重要的一部分。继续保持体重可透过 <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>健康饮食</a> 和 <a class="offsite" href='http://health.gov/paguidelines/'>保持体能活动</a>.</p>
 			</div>
 			<div class="bmi_d">
-				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OVERWEIGHT BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
-				<p>For most adults trying to lose weight, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
-				<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
-				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+				<p>用您的身高 <span class='your_height'></span>, 和体重 <span class='your_weight'></span>, 来计算您的 BMI <span class='your_bmi'></span>, 您是属于过重 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。 對於你的身高而言，您的体重应介于 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
+				<p>对于大多数试图减重的成年人，CDC建议每周减重1-2磅。 至少减重 <span class='lose_weight'></span> 磅，您的体重将会回到健康的BMI类别。</p> 
+				<p>超重与增高许多健康问题的风险有关，包括心血管疾病，2型糖尿病，心肌梗塞和中风。通过改变生活方式减重来降低体重指数，有助于降低这些并发症的风险，并帮助您有更健康的生活。</p>
+				<p>有很多选项可以帮助你减肥，和恢复健康的BMI。包括BMI计算器和工具。以下有更多信息可供您参考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
 			</div>
 			<div class="bmi_e">
-				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
-				<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
-				<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes like eating healthy and by remaining active can help to reduce your risk for these complications, and help you live a healthier life.</p>
-				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+				<p>用您的身高 <span class='your_height'></span>, 和体重 <span class='your_weight'></span>, 来计算您的 BMI <span class='your_bmi'></span>, 您是属于肥胖 BMI 的类别。 BMI值 18.5-24.9 是被视为是健康的。 對於你的身高而言，您的体重应介于 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
+				<p>对于大多数试图减重的成年人，CDC建议每周减重1-2磅。 至少减重 <span class='lose_weight'></span> 磅，您的体重将会回到健康的BMI类别。</p>
+				<p>肥胖与增高许多健康问题的风险有关，包括心血管疾病，2型糖尿病，心肌梗塞和中风。 通过生活方式的改变来减肥，如吃健康和保持体能活动，有助于降低这些并发症的风险，帮助你拥有更健康的生活。</p>
+				<p>有很多选项可以帮助你减肥，和恢复健康的BMI。包括BMI计算器和工具。以下有更多信息可供您参考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
 			</div>
 		</aside>
 		<aside class="lang tw">
@@ -229,7 +229,7 @@ $suggest = $suggestion[$level];
 			</div>
 			<div class="funfact"><p><i>你知道很多果汁和蘇打一樣有同等的卡路里嗎？水，咖啡和茶（不加糖）是非常棒的低熱量替代品。</i></p></div>
 			<div class="bmi_b">
-				<p>用您的身高 <span class='your_height'></span> 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於低於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅。</p>
+				<p>用您的身高 <span class='your_height'></span> 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於低於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
 				<p>體重不足可導致許多健康問題，包括掉髮，減弱免疫系統，喪失骨密度和降低生育力。通過吃營養，高熱量的食物，如鱷梨，起司和堅果，增加體重可以幫助你安全地達到健康的BMI。請查看 <a class="offsite" href='http://www.nhs.uk/Livewell/Goodfood/Pages/Underweightadults.aspx'>this page</a> 由英國國家衛生服務部提供，給低於體重成人參考與學習。</p>
 			</div>
 			<div class="bmi_c">
@@ -237,16 +237,16 @@ $suggest = $suggestion[$level];
 				<p>做得好！保持健康的體重是保持身體健康和全人健康非常重要的一部分。繼續保持體重可透過 <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>健康飲食</a> 和 <a class="offsite" href='http://health.gov/paguidelines/'>保持體能活動</a>.</p>
 			</div>
 			<div class="bmi_d">
-				<p>Using your height of <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, placing you in the OVERWEIGHT BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
-				<p>For most adults trying to lose weight, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p> 
-				<p>Being overweight has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes can help to reduce your risk for these complications, and help you live a healthier life.</p>
-				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於過重 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
+				<p>對於大多數試圖減重的成年人，CDC建議每週減重1-2磅。 至少減重 <span class='lose_weight'></span> 磅，您的體重將會回到健康的BMI類別。</p> 
+				<p>超重與增高許多健康問題的風險有關，包括心血管疾病，2型糖尿病，心肌梗塞和中風。通過改變生活方式減重來降低體重指數，有助於降低這些並發症的風險，並幫助您有更健康的生活。</p>
+				<p>有很多選項可以幫助你減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
 			</div>
 			<div class="bmi_e">
-				<p>Using your height of <span class='your_height'></span>, and weight of <span class='your_weight'></span>, we calculated your BMI to be <span class='your_bmi'></span>, placing you in the OBESE BMI category. A BMI of 18.5-24.9 is considered healthy. For your height, that would be a weight of <span class='healthy_weight_min'></span> to <span class='healthy_weight_max'></span> pounds.</p>
-				<p>For most adults, the CDC recommends a weight decrease of 1-2 pounds per week. Losing at least <span class='lose_weight'></span> pounds would move your score into the healthy BMI category.</p>
-				<p>Obesity has been linked to an increased risk for many health issues, including cardiovascular disease, Type 2 diabetes, heart attack, and stroke. Working to lower your BMI by losing weight through lifestyle changes like eating healthy and by remaining active can help to reduce your risk for these complications, and help you live a healthier life.</p>
-				<p>There are many options to help you lose weight and return to a healthy BMI. For more information, including a BMI calculator and tools to help you get started, you can visit <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> to learn more.</p>
+				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>,  來計算您的 BMI <span class='your_bmi'></span>, 您是屬於肥胖 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
+				<p>對於大多數試圖減重的成年人，CDC建議每週減重1-2磅。 至少減重 <span class='lose_weight'></span> 磅，您的體重將會回到健康的BMI類別。</p>
+				<p>肥胖與增高許多健康問題的風險有關，包括心血管疾病，2型糖尿病，心肌梗塞和中風。 通過生活方式的改變來減肥，如吃健康和保持體能活動，有助於降低這些並發症的風險，幫助你擁有更健康的生活。</p>
+				<p>有很多選項可以幫助你減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
 			</div>
 		</aside>
 	</div>
@@ -292,6 +292,46 @@ $suggest = $suggestion[$level];
 				<p>Buen trabajo! Actividad física es una de muchas maneras que puede mantener su salud y bienestar, al igual que su salud cardiorespiratoria. Continúe participando en actividades físicas que usted disfruta y comprométase a mantenerse activo(a).</p>
 			</div>
 		</aside>
+		<aside class="lang cn">
+			<h3>体能活动</h3>
+			<div class="funfact"><p><i>你知道常作体能活动可以帮助改善你的心理健康和心情吗？</i></p></div>
+			<div class="pa_1">
+				<p>体能活动是您可以帮助改善你的健康和你的心肺健康的许多方法之一。找到你喜欢的体能活动，并保持活跃，是增加你的体能活动力的重要的第一步。</p>
+				<p>您可以参考出2008年美国的体能活动准则 <a class="offsite" href='pa_fact_sheet_adults.pdf'>请点击这里</a>, 或参考这完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
+				<p>在确保任何身体活动适合你之前，请先参与此测试 <a taret="blank"  href='pa_readiness_questionaire.pdf'>自我评估问卷</a> 或先与医务人员交谈。</p>
+			</div>
+			<div class="pa_2 pa_3">
+				<p>体能活动是您可以帮助改善你的健康和你的心肺健康的许多方法之一。找到你喜欢的体能活动，并保持活跃，是增加你的体能活动力的重要的第一步。</p> 
+				<p>您可以参考出2008年美国的体能活动准则 <a target="blank"  href='pa_fact_sheet_adults.pdf'>请点击这里</a>, 或参考这完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
+			</div>
+			<div class="pa_4">
+				<p>体能活动是您可以帮助改善你的健康和你的心肺健康的许多方法之一。 继续你喜欢的体能活动，并保持活跃，是维持你身体健康及全人幸福非常重要的一步。</p>
+				<p>您可以参考出2008年美国的体能活动准则 <a target="blank"  href='pa_fact_sheet_adults.pdf'>请点击这里</a>, 或参考这完整指南 <a class="offsite"  href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a> 可能增加你的体能活动的小提示。</p>
+			</div>
+			<div class="pa_5">
+				<p>做得好！体能活动是保持你的健康和你的心肺健康的许多方式之一。继续参与你喜欢的体能活动并持续下去。 <a class="offsite"  href='http://health.gov/paguidelines/'>参考这里。</a>.</p>
+			</div>
+		</aside>
+		<aside class="lang tw">
+			<h3>體能活動</h3>
+			<div class="funfact"><p><i>你知道常作體能活動可以幫助改善你的心理健康和心情嗎？</i></p></div>
+			<div class="pa_1">
+				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。找到你喜歡的體能活動，並保持活躍，是增加你的體能活動力的重要的第一步。</p>
+				<p>您可以參考出2008年美國的體能活動準則 <a class="offsite" href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
+				<p>在確保任何體能活動適合你之前，請先參與此測試 <a taret="blank"  href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
+			</div>
+			<div class="pa_2 pa_3">
+				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。找到你喜歡的體能活動，並保持活躍，是增加你的體能活動力的重要的第一步。</p> 
+				<p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
+			</div>
+			<div class="pa_4">
+				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。 繼續你喜歡的體能活動，並保持活躍，是維持你身體健康及全人幸福非常重要的一步。</p>
+                                <p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite"  href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a> 可能增加你的體能活動的小提示。</p>
+			</div>
+			<div class="pa_5">
+				<p>做得好！體能活動是保持你的健康和你的心肺健康的許多方式之一。繼續參與你喜歡的體能活動並持續下去。<a class="offsite"  href='http://health.gov/paguidelines/'>參考這裡。</a></p>
+			</div>
+		</aside>
 	</div>
 	<div id="met_smoking" class="met_desc">
 		<aside class="lang en">
@@ -314,6 +354,28 @@ $suggest = $suggestion[$level];
 			</div>
 			<div class="no">
 				<p>Usted indicó que no fuma cigarrillos. Excelente! El no fumar es importante para mantearse saludable y mantener su bienestar.</p>
+			</div>
+		</aside>
+		<aside class="lang cn">
+			<h3>抽烟</h3>
+			<div class="funfact"><p><i>你知道烟草烟雾会危害我们的动物吗？二手烟不只是对人类有害，对宠物也是。</i></p></div>
+			<div class="yes">
+				<p>吸烟与增加许多健康问题的风险有关，包括心血管疾病，高胆固醇和许多类型的癌症。二手烟也可以影响你周围的人的心脏，肺和健康。戒烟已被证明可以降低这些问题和其他问题的风险。</p>
+				<p>戒烟它很难，但是是可能的。美国的数百万人在过去几年中已经能够戒烟成功。当考虑戒烟时，有一个计划是很重要的。考虑和你的医生或医疗保健提供者谈谈，可参考 <a class="offsite" href='https://smokefree.gov/'>https://smokefree.gov/</a>, 或播电话1-800-QUIT-NOW 开始。</p>
+			</div>
+			<div class="no">
+				<p>你表示你不抽烟。非常好！避免吸烟在保持身体和全人健康方面扮演者重要的角色。</p>
+			</div>
+		</aside>
+		<aside class="lang tw">
+			<h3>抽煙</h3>
+			<div class="funfact"><p><i>你知道煙草煙霧會危害我們的動物嗎？二手煙不只是對人類有害，對寵物也是。</i></p></div>
+			<div class="yes">
+				<p>吸煙與增加許多健康問題的風險有關，包括心血管疾病，高膽固醇和許多類型的癌症。二手煙也可以影響你周圍的人的心臟，肺和健康。戒菸已被證明可以降低這些問題和其他問題的風險。</p>
+				<p>戒菸它很難，但是是可能的。美國的數百萬人在過去幾年中已經能夠戒菸成功。當考慮戒菸時，有一個計劃是很重要的。考慮和你的醫生或醫療保健提供者談談，可參考 <a class="offsite" href='https://smokefree.gov/'>https://smokefree.gov/</a>, 或播電話1-800-QUIT-NOW 開始。</p>
+			</div>
+			<div class="no">
+				<p>你表示你不抽煙。非常好！避免吸煙在保持身體和全人健康方面扮演者重要的角色。</p>
 			</div>
 		</aside>
 	</div>

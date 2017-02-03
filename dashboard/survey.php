@@ -221,8 +221,6 @@ if(array_key_exists($surveyid, $surveys)){
   exit; 
 }
 
-// print_rr($survey_data,1);
-
 //SOME PAGE SET UP
 $shownavsmore   = false;
 $survey_active  = ' class="active"';
@@ -329,6 +327,7 @@ include("inc/gl_foot.php");
 
   $all_completed = array_merge($all_completed, $active_survey->completed);
   // //PASS FORMS METADATA 
+  echo "var uselang             = '" . $loggedInUser->lang . "';\n";
   echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
   echo "var user_completed      = " . json_encode($active_survey->completed) . ";\n";
   echo "var all_completed       = " . json_encode($all_completed) .";\n";

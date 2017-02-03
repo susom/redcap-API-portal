@@ -3,26 +3,26 @@
 $gender 	= isset($_REQUEST["gender"]) 	? $_REQUEST["gender"] : NULL;
 $age 		= isset($_REQUEST["age"]) 		? $_REQUEST["age"] : NULL;
 $metscore 	= isset($_REQUEST["metscore"]) 	? $_REQUEST["metscore"] : NULL;
-
+$uselang 	= isset($_REQUEST["uselang"])  	? $_REQUEST["uselang"] : "en";
 
 $suggestion = array(
 	 array(
-	 	 array("en" => "Needs Improvement") 
-	 	,array("cn" => "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。")
-	 	,array("tw" => "依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。")
-	 	,array("sp" => "Needs Improvement") 
+	 	 "en" => "Needs Improvement"
+	 	,"cn" => "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。"
+	 	,"tw" => "依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
+	 	,"sp" => "Needs Improvement"
 	 )
 	,array(
-		 array("en" => "Healthy Zone" )
-		,array("cn" => "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！")
-		,array("tw" => "根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！")
-		,array("sp" => "Healthy Zone") 
+		 "en" => "Healthy Zone" 
+		,"cn" => "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！"
+		,"tw" => "根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
+		,"sp" => "Healthy Zone"
 	)
 	,array(
-		 array("en" => "Excellent Zone" )
-		,array("cn" => "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！")
-		,array("tw" => "根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！")
-		,array("sp" => "Excellent Zone") 
+		 "en" => "Excellent Zone" 
+		,"cn" => "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！"
+		,"tw" => "根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
+		,"sp" => "Excellent Zone"
 	)
 );
 
@@ -79,8 +79,6 @@ if($gender == "male"){
 		}
 	}
 }
-
-$uselang = isset($_SESSION["lang"]) && isset($suggestion[$level][$_SESSION["lang"]]) ? $_SESSION["lang"] : "en";
 $suggest = $suggestion[$level][$uselang];
 ?>
 <div id="met_results">
@@ -147,7 +145,7 @@ $suggest = $suggestion[$level][$uselang];
 	<div id="met_bmi" class="met_desc">
 		<aside class="lang en">
 			<h3>Body Mass Index (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
-			<div class="moreinfo" id="what_is_bmi">
+			<div class="moreinfo">
 				<a href="#" class="closeparent">X</a>
 				<h3>Learn about BMI?</h3>
 				<p>Body Mass Index is calculated using your height and weight, and is commonly used by healthcare providers to screen for adults who may weigh more or less than the recommended weight for their height. BMI may not be as accurate if you are an athlete or very muscled (muscle weighs more than fat), and a fat percentage examination may be needed to more accurately assess if you are at a healthy weight. It is also not accurate for pregnant or breastfeeding women or people who are frail.</p>
@@ -178,7 +176,7 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang sp">
 			<h3>Índice de masa corporal (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
-			<div class="moreinfo" id="what_is_bmi">
+			<div class="moreinfo">
 				<a href="#" class="closeparent">X</a>
 				<h3>Aprenda más sobre el IMC?</h3>
 				<p>El Índice de Masa Corporal (IMC) se calcula usando su altura y su peso, y es comúnmente utilizado por proveedores de salud médica para identificar adultos que pueden pesar más o menos que el peso recomendado para su estatura. Puede ser que el IMC no sea una herramienta precisa para su salud física si usted es un atleta o muy musculoso (el músculo pesa más que la grasa). Un examen de porcentaje de grasa puede ser necesario para evaluar con más precisión si tiene un peso saludable. El IMC tampoco es preciso para mujeres embarazadas o lactantes o personas frágiles.  El IMC es sólo una de muchas maneras de medir su salud general. La medida de la cintura, el nivel de grasa corporal, la presión arterial, el colesterol, la actividad física, el no fumar, la dieta y otras medidas también son importantes.</p>
@@ -206,7 +204,7 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang cn">
 			<h3>BMI 身体质量指数 (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
-			<div class="moreinfo" id="what_is_bmi">
+			<div class="moreinfo">
 				<a href="#" class="closeparent">X</a>
 				<h3>了解BMI？</h3>
 				<p>身体质量指数是使用您的身高和体重来计算，通常由医疗保健提供者用于筛检体重可能高于或低于建议体重的成人。如果你是一个运动员或肌肉非常肌肉（肌肉比脂肪重），BMI可能不准确，可能需要进行脂肪含量检查，以更准确地评估你是否处于健康体重。这对于怀孕或哺乳的妇女或身体虚弱的人也不准确。</p>
@@ -237,7 +235,7 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang tw">
 			<h3>BMI 身體質量指數 (BMI <a href="#" class="moreinfo" title="What is BMI?" data-content="what_is_bmi">?</a>)</h3>
-			<div class="moreinfo" id="what_is_bmi">
+			<div class="moreinfo">
 				<a href="#" class="closeparent">X</a>
 				<h3>了解BMI？</h3>
 				<p>身體質量指數是使用您的身高和體重來計算，通常由醫療保健提供者用於篩檢體重可能高於或低於建議體重的成人。如果您是一個運動員或肌肉非常肌肉（肌肉比脂肪重），BMI可能不准確，可能需要進行脂肪含量檢查，以更準確地評估你是否處於健康體重。這對於懷孕或哺乳的婦女或身體虛弱的人也不准確。</p>

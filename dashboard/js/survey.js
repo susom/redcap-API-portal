@@ -190,7 +190,8 @@ $(document).ready(function(){
   //BMI POPUP
   $("body").on("click","a.moreinfo",function(){
     var contentid = $(this).data("content");
-    var content   = $("#"+contentid);
+    // var content   = $("#"+contentid);
+    var content   = $(this).parent().next();
     content.slideDown("medium");
   });
 
@@ -441,12 +442,12 @@ function showMETScoring(){
       type:'POST',
       data: project + "&met_score=" + METScore,
       success:function(result){
-        console.log(result);
+        // console.log(result);
       }
     });
 
     var nextSection = $("#customform section:eq(1)");
-    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
+    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age+"&lang="+uselang;
     $.ajax({
       url:  dataURL,
       type:'POST',
@@ -563,17 +564,16 @@ function showMATScoring(qinput){
   }
 
   if(mat_complete) {
-    // then ajax to compute the score
-    var dataURL         = "survey.php?mat=1";
-    var instrument_name = $("#customform").attr("name");
-    var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
     var nextSection = $("#customform section").last().prev().prev();
+    
+    // then ajax to compute the score
+    var dataURL = "MAT_assessment.php";
     $.ajax({
       url:  dataURL,
       type:'POST',
-      data: project + "&mat_answers=" + JSON.stringify(mat_map),
+      data: "&mat_answers=" + JSON.stringify(mat_map),
       success:function(result){
-        var data      = JSON.parse(result);
+        var data = JSON.parse(result);
         var matscore  = data.value;
 
         if(matscore < 40){
@@ -600,12 +600,24 @@ function showMATScoring(qinput){
         }
         var results     = $("<div id='mat_results'><div id='matscore'></div><div id='mat_pic'><ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul></div><div id='mat_text'></div>");
         nextSection.find("h2").after(results);
-
         for(var i = 0;i < picperc; i++){
           $("#mat_pic li:eq("+i+")").addClass("dead");          
         }
         
         $("#mat_text").text(desc);
+      }
+    });
+
+    // then ajax to compute the score
+    var dataURL         = "survey.php?mat=1";
+    var instrument_name = $("#customform").attr("name");
+    var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+    $.ajax({
+      url:  dataURL,
+      type:'POST',
+      data: project + "&mat_answers=" + JSON.stringify(mat_map),
+      success:function(result){        
+        //THIS JUST STORES IS 
       }
     },function(err){
       console.log("ERRROR");

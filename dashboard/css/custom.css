@@ -547,6 +547,7 @@ h2.weather,
 
 .customform label {
     display: block;
+    margin-bottom:5px;
 }
 
 .customform .q_label {
@@ -608,6 +609,11 @@ h2.weather,
 .customform .inputwrap {
     margin-bottom: 10px;
     padding: 10px 0;
+}
+
+.customform .inputwrap span.lang {
+    max-width:98%; 
+    vertical-align: top;
 }
 
 .customform .LV {

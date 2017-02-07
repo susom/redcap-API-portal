@@ -261,12 +261,12 @@ include("models/inc/gl_header.php");
 			        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo (isset($email) ? $email : "") ?>">
 			      </div>
 			    </div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 			      <label for="partid" class="control-label col-sm-3">Participant Id:</label>
 			      <div class="col-sm-8"> 
 			        <input type="text" class="form-control" name="partid" id="partid" placeholder="Particiapant Id" value="">
 			      </div>
-			    </div>
+			    </div> -->
 			    <div class="form-group">
 			      <label for="zip" class="control-label col-sm-3">User Location:</label>
 			      

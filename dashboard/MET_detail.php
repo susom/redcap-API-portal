@@ -400,6 +400,6 @@ $suggest = $suggestion[$level][$uselang];
 	display:none;
 }
 .lang.<?php echo $uselang ?> {
-	display:block !important;
+	display:inline-block !important;
 }
 </style>

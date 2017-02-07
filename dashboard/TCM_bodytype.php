@@ -1,4 +1,5 @@
 <?php
+require_once( dirname(__FILE__) . "/../models/config.php");
 $tcmanswers 	= isset($_REQUEST["tcm_answers"]) ? $_REQUEST["tcm_answers"] : NULL;
 $tcmanswers 	= json_decode($tcmanswers,1);
 $tcm_answers 	= array();
@@ -170,9 +171,11 @@ function getBodyConstitution($constitutions,$type){
 	<tr>
 		<td>
 			<table>
-				<tr><td >Positive</td></tr>
-				<tr><td style="height:100px; vertical-align:bottom">Tendency (Essentially) Positive</td></tr>
-				<tr><td style="height:80px; vertical-align:bottom">Negative</td></tr>
+				<tr><td >
+					<?php echo lang("TCM_POSITIVE"); ?>
+				</td></tr>
+				<tr><td style="height:100px; vertical-align:bottom"><?php echo lang("TCM_ESSENTIALLY_POS"); ?></td></tr>
+				<tr><td style="height:80px; vertical-align:bottom"><?php echo lang("TCM_NEGATIVE"); ?></td></tr>
 			</table>	
 		</td>
 		<?php

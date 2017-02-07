@@ -92,6 +92,7 @@ include("inc/gl_foot.php");
 <script>
 <?php 
 echo "var uselang   = '" . $loggedInUser->lang . "';\n";
+echo "var poptitle  = '".lang("YOUR_ASSESSMENT")."';\n";
 ?>
 
 function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
@@ -116,7 +117,7 @@ function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
   newwin.document.write('<style>#content { margin:20px; }</style>');
   newwin.document.write('</head><body>');
   newwin.document.write('<div id="content" style="color:#222">');
-  newwin.document.write('<h2 style="margin:0 0 40px; padding-bottom:10px; color:#333; border-bottom:1px solid #999">Your assessment for "'+title+'"</h2>');
+  newwin.document.write('<h2 style="margin:0 0 40px; padding-bottom:10px; color:#333; border-bottom:1px solid #999">'+poptitle+' : "'+title+'"</h2>');
   newwin.document.write(insertHTML);
   newwin.document.write('</div>');
   for(var i in scrips){

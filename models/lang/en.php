@@ -131,6 +131,7 @@
 		,"LOGOUT" 									=> "Logout"
 		,"MY_STUDIES"								=> "My Studies"
 		,"MY_ASSESSMENTS"							=> "My Assessments"
+		,"YOUR_ASSESSMENT"							=> "Your Assessment"
 		,"MY_PROFILE" 								=> "My Profile"
 		,"CONTACT_US" 								=> "Contact Us"
 		,"GET_HELP" 								=> "Where to get help"
@@ -176,6 +177,9 @@
 		,"MAT_SCORE_50"								=> "In the next 4 years, people with your score are likely (5.2 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
 		,"MAT_SCORE_60"								=> "In the next 4 years, people with your score are reasonably likely (3.5 out of 10) to lose the ability to do active things they enjoy or value. However, there are many things you can do to improve your functional capacity."
 		,"MAT_SCORE_70"								=> "People with your score are not very likely to lose the ability to do active things they enjoy or value! Keep up the good work and try to maintain your functional capacity!"
+		,"TCM_POSITIVE"								=> "Positive"
+		,"TCM_NEGATIVE"								=> "Negative"
+		,"TCM_ESSENTIALLY_POS"						=> "Tendency (Essentially) Positive"
 	));
 
 	$template_security_questions = array(

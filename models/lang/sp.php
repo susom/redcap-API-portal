@@ -130,6 +130,7 @@
 		,"LOGOUT" 									=> "Cerrar sesión"
 		,"MY_STUDIES"								=> "Mis estudios"
 		,"MY_ASSESSMENTS" 							=> "My Assessments"
+		,"YOUR_ASSESSMENT"							=> "Your Assessment"
 		,"MY_PROFILE" 								=> "Mi Perfil"
 		,"CONTACT_US" 								=> "Contáctenos"
 		,"GET_HELP" 								=> "Dónde obtener ayuda"
@@ -174,6 +175,9 @@
 		,"MAT_SCORE_40"								=> "En los próximos 4 años, personas con sus resultados tienen alta probabilidad (6.6 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que usted puede hacer para mejorar su habilidad física y capacidad funcional."
 		,"MAT_SCORE_50"								=> "En los próximos 4 años, personas con sus resultados tienen probabilidad (5.2 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que usted puede hacer para mejorar su habilidad física y capacidad funcional."
 		,"MAT_SCORE_60"								=> "En los próximos 4 años, personas con sus resultados tienen alguna probabilidad (3.5 de 10) de perder la habilidad de hacer las actividades físicas que disfrutan y valoran. Sin embargo, hay muchas cosas que puede hacer para mejorar su habilidad física y capacidad funcional.Las personas con sus resultados tienen baja probabilidad de perder la habilidad de poder hacer actividades físicas que disfrutan o valoran. ¡Siga con el buen trabajo e intente mantener su capacidad funcional!"
+		,"TCM_POSITIVE"								=> "Positive"
+		,"TCM_NEGATIVE"								=> "Negative"
+		,"TCM_ESSENTIALLY_POS"						=> "Tendency (Essentially) Positive"
 	
 		,"PROFILE_JOINED"							=> "Miembro desde"
 		,"PROFILE_NICKNAME"							=> "Apodo"

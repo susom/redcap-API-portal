@@ -2262,6 +2262,9 @@ span.rs-number {
     width:100%;
     margin-bottom:40px;
 }
+#tcm_results table{
+    width:100%;
+}
 #tcm_results td { 
     width:10%; 
     position:relative;

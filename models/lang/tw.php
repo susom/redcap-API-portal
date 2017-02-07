@@ -124,12 +124,13 @@
 
 	//DASHBOARD TRANSLATIONS
 	$lang = array_merge($lang, array(
-		 "WELL_FOR_LIFE" 							=> "幸福人生"
+		 "WELL_FOR_LIFE" 							=> "WELL人生"
 		,"MY_DASHBOARD" 							=> "信息中心"
 		,"CORE_SURVEYS" 							=> "主要問卷"
 		,"LOGOUT" 									=> "登出"
 		,"MY_STUDIES"								=> "參與研究"
 		,"MY_ASSESSMENTS" 							=> "我的報告"
+		,"YOUR_ASSESSMENT"							=> "您的評估報告"
         ,"MY_PROFILE" 								=> "個人資料"
 		,"CONTACT_US" 								=> "聯繫我們"
 		,"GET_HELP" 								=> "需要幫助"
@@ -147,8 +148,8 @@
 		,"HOW_WELL_EAT" 							=> "您吃得好嗎？"
 		,"COMPLETE_CORE_FIRST" 						=> "請先完成主要問卷"
 		,"PLEASE_COMPLETE" 							=> "請完成 "
-		,"WELCOME_TO_WELL" 							=> "<b>歡迎</b>參與幸福人生研究計劃！<u>點擊此處</u>開始您的幸福旅程！</a>"
-		,"WELCOME_BACK_TO" 							=> "<b>歡迎回到</b>幸福人生！</a>"
+		,"WELCOME_TO_WELL" 							=> "<b>歡迎</b>參與WELL人生研究計劃！<u>點擊此處</u>開始您的WELL旅程！</a>"
+		,"WELCOME_BACK_TO" 							=> "<b>歡迎回到</b>WELL人生！</a>"
 		,"REMINDERS" 								=> " 
 温馨提醒"
 		,"ADDITIONAL_SURVEYS" 						=> "附加問卷"
@@ -176,6 +177,9 @@
 		,"MAT_SCORE_50"								=> "在接下來的4年中，和你的分數相同的人（10分中有5.2分）可能失去做他們喜歡或珍惜的活動的能力。然而，有很多方法你可以做，以提高你的功能性能力。"
 		,"MAT_SCORE_60"								=> "在接下來的4年中，和你的分數相同的人（10分中有3.5分）可能失去做他們喜歡或珍惜的活動的能力。然而，有很多方法你可以做，以提高你的功能性能力。."
 		,"MAT_SCORE_70"								=> "在接下來的4年中，和你的分數相同的人應該不會失去做他們喜歡或珍惜的活動的能力。然而，有很多方法你可以做，以提高你的功能性能力。繼續您的努力，並嘗試保持您的功能性能力！"
+		,"TCM_POSITIVE"								=> "肯定"
+		,"TCM_NEGATIVE"								=> "没有"
+		,"TCM_ESSENTIALLY_POS"						=> "傾向肯定"
 	));
 
 	$template_security_questions = array(
@@ -192,7 +196,7 @@
 			'custom'	=> ''
 		);
 
-	$websiteName = "幸福人生計劃";
+	$websiteName = "WELL人生計劃";
 
 
 

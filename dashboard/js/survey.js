@@ -447,7 +447,7 @@ function showMETScoring(){
     });
 
     var nextSection = $("#customform section:eq(1)");
-    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age+"&lang="+uselang;
+    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age+"&uselang="+uselang;
     $.ajax({
       url:  dataURL,
       type:'POST',

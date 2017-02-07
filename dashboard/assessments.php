@@ -191,6 +191,17 @@ $(document).ready(function(){
           bottom_scrips += "<style>";
           bottom_scrips += "#met_results {opacity:1}";
           bottom_scrips += "<\/style>";
+
+          bottom_scrips += "<script>";
+          bottom_scrips += "$('a.moreinfo').click(function(){";
+          bottom_scrips += "  var content   = $(this).parent().next();";
+          bottom_scrips += "  content.slideDown('medium');";
+          bottom_scrips += "});";
+          bottom_scrips += "$('a.closeparent').click(function(){";
+          bottom_scrips += "  $(this).parent().slideUp('fast');";
+          bottom_scrips += "});";
+          bottom_scrips += "<\/script>";
+           
           centeredNewWindow(title,resultData,sheets,scrips,bottom_scrips);
         });
       break;

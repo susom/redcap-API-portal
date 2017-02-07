@@ -4,7 +4,6 @@ $gender 	= isset($_REQUEST["gender"]) 	? $_REQUEST["gender"] : NULL;
 $age 		= isset($_REQUEST["age"]) 		? $_REQUEST["age"] : NULL;
 $metscore 	= isset($_REQUEST["metscore"]) 	? $_REQUEST["metscore"] : NULL;
 $uselang 	= isset($_REQUEST["uselang"])  	? $_REQUEST["uselang"] : "en";
-
 $suggestion = array(
 	 array(
 	 	 "en" => "Needs Improvement"
@@ -81,12 +80,13 @@ if($gender == "male"){
 }
 $suggest = $suggestion[$level][$uselang];
 ?>
+
 <div id="met_results">
 	<div id="met_score"></div>
 	<h3 class="lang en">Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
 	<h3 class="lang sp">¡Gracias por su participación! Descubra algunos factores que pueden impactar su salud cardiovascular aquí:</h3>
-        <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
-        <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
+    <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
+    <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
 	<div id="met_aging" class="met_desc">
 		<aside class="lang en">
 			<h3>Aging</h3>
@@ -395,3 +395,11 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 	</div>
 </div>
+<style>
+.lang{
+	display:none;
+}
+.lang.<?php echo $uselang ?> {
+	display:block !important;
+}
+</style>

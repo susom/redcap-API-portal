@@ -124,7 +124,7 @@ function showMETScoring(all_answers, cb){
   if(age > 0 && bmi > 0 && !isEmpty(gender) && !isEmpty(isSmoker) && !isEmpty(PA_level)) {
     var METScore    =  getMETScore(ughgender,age,bmi,isSmoker,PA_level);
 
-    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age;
+    var dataURL         = "MET_detail.php?gender=" + ughgender + "&metscore=" + METScore + "&age=" + age +  "&uselang=" + uselang;
     $.ajax({
       url:  dataURL,
       type:'POST',

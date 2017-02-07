@@ -9,7 +9,7 @@ $cn_selected	= $lang_picked == "cn" ? "selected" : "";
 <select name="lang">
   <option value="en" <?php echo $en_selected ?>>English</option>
   <option value="sp" <?php echo $sp_selected ?>>Spanish</option>
-  <option value="cn" <?php echo $cn_selected ?>>Simplified Chinese</option>
-  <option value="tw" <?php echo $tw_selected ?>>Traditional Chinese</option>
+  <option value="cn" <?php echo $cn_selected ?>>中文简</option>
+  <option value="tw" <?php echo $tw_selected ?>>中文繁</option>
 </select>
 </form>

@@ -45,7 +45,7 @@ include("inc/gl_head.php");
                   <div class="row">
                     <div class="col-sm-1">&nbsp;</div>
                     <div class="col-sm-10">
-                      <h2>Custom WELLness assessments for you!</h2>
+                      <h2><?php echo lang("MY_ASSESSMENTS");?></h2>
                       <ul class="assessments">
                       <?php 
 
@@ -56,13 +56,12 @@ include("inc/gl_head.php");
                           //ONLY SHOW LINK IF THEY ARE COMPLETE
                           continue;
                         }
-
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $title_trans  = $projnotes["translations"];
                         $tooltips     = $projnotes["tooltips"];
                         $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
                         $completed    = json_encode($supp_instrument["completed_fields"]);
-                        $assesment_links[] = "<li><a href='#' data-sid='$supp_instrument_id' data-completed='$completed'>".$supp_instrument["label"]."</a></li>\r";
+                        $assesment_links[] = "<li><a href='#' data-sid='$supp_instrument_id' data-completed='$completed'>".$surveyname."</a></li>\r";
                       }
 
                       if(!count($assesment_links)){
@@ -91,6 +90,10 @@ include("inc/gl_foot.php");
 ?>
 <script src="js/custom_assessments.js"></script>
 <script>
+<?php 
+echo "var uselang   = '" . $loggedInUser->lang . "';\n";
+?>
+
 function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
   var winwidth        = Math.round(.85 * $( window ).width() );
   var winheight       = Math.round(.85 * $( window ).height() );

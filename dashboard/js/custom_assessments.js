@@ -28,8 +28,7 @@ function showTCMScoring(all_answers, cb){
   var user_ans_flat = _.pluck(user_answers,"name");
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
-
-  var dataURL       = "TCM_bodytype.php";
+  var dataURL       = "TCM_bodytype.php?&uselang="+uselang;
   $.ajax({
     url:  dataURL,
     type:'POST',

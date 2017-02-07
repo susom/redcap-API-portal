@@ -638,7 +638,7 @@ function showTCMScoring(){
 
   if($("#customform input[name='tcm_gender']:checked").val() !== "") {
     var nextSection = $("#customform section:last").prev();
-    var dataURL     = "TCM_bodytype.php";
+    var dataURL     = "TCM_bodytype.php?uselang="+uselang;
     $.ajax({
       url:  dataURL,
       type:'POST',

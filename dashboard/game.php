@@ -70,6 +70,7 @@ foreach($surveys as $survey){
 $shownavsmore   = true;
 $survey_active  = ' ';
 $profile_active = ' ';
+$studies_active = ' ';
 $game_active    = ' class="active"';
 $assesments     = '';
 $pg_title       = "Profile : $websiteName";
@@ -99,9 +100,9 @@ include("inc/gl_head.php");
                       <h1 class="title">Well Being Paradise!</h1>
                       
                       <?php
-                      if($active_survey){
+                      if($active_survey || 1){
                       ?>
-                      <div id="survey_series" class="col-sm-6">
+                      <!-- <div id="survey_series" class="col-sm-6">
                         <div id="current_survey">
                           <h3><?php echo $active_survey->surveyname ?></h3>
                           <?
@@ -121,10 +122,10 @@ include("inc/gl_head.php");
                         <div id="current_question" name="<?php echo $survey["instrument_name"];?>">
                           <?php
                             //PRINT OUT THE HTML FOR THIS SURVEY
-                            $active_survey->printGameHTML();
+                            // $active_survey->printGameHTML();
                           ?>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div id="gameboard" class="col-sm-6">
                         <div id="board">
@@ -168,7 +169,7 @@ include("inc/gl_head.php");
 include("inc/gl_foot.php");
 ?>
 <script>
-var surveyhash = '<?php echo $active_survey->hash["hash"] ?>';
+var surveyhash = '<?php echo !empty($active_survey) ? $active_survey->hash["hash"] : "" ?>';
 function saveFormData(elem){
   var dataDump = "game.php?ajax=1";
 
@@ -224,7 +225,7 @@ function makeGameBoard(secretmessage){
 
   $("#board").prepend(gameboard);
 
-  $("#guesscount b").text(0);
+  $("#guesscount b").text(1000);
   $("#guessvalue b").text(10);
   return;
 }
@@ -369,3 +370,9 @@ $(document).ready(function(){
   });
 });
 </script>
+<style>
+#gameboard{
+  float:none;
+  margin:0 auto 100px;
+}
+</style>

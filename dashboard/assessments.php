@@ -52,7 +52,7 @@ include("inc/gl_head.php");
                       $assesment_links = array();
                       foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                         //ONLY THE SUPP INSTRUMENTS HAVE CUSTOM FEEDBACK PAGES
-                        if($supp_instrument["survey_complete"]){
+                        if(!$supp_instrument["survey_complete"]){
                           //ONLY SHOW LINK IF THEY ARE COMPLETE
                           continue;
                         }

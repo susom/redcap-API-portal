@@ -159,7 +159,7 @@
               </a>
             </li>
             
-            <li $game_active >
+            <li <?php echo $game_active ?>>
               <a href="game.php" class="under_construction">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>

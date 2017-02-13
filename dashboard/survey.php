@@ -293,7 +293,8 @@ include("inc/gl_foot.php");
   echo "var isTCM               = $isTCM ;\n";
   echo "var isGRIT              = $isGRIT ;\n";
   echo "var isSleep             = $isSleep ;\n";
-  echo "var useLang             = ".(isset($_SESSION["use_lang"]) ? "'".$_SESSION["use_lang"]."'" : "'en'").";\n";
+  echo "var uselang             = ".(isset($_SESSION["use_lang"]) ? "'".$_SESSION["use_lang"]."'" : "'en'").";\n";
+  
   //THIS IS A CONFusINg FUNCTION
   //BUT SINCE THERE ARE CONDITiONALS THAT SPAN INSTRUMENTS OR EVEN PROJECTS, GOTTA TRACK EM  ALL
   //THE $all_branching is done in surveys.php
@@ -327,7 +328,6 @@ include("inc/gl_foot.php");
 
   $all_completed = array_merge($all_completed, $active_survey->completed);
   // //PASS FORMS METADATA 
-  echo "var uselang             = '" . $loggedInUser->lang . "';\n";
   echo "var total_questions     = " . $active_survey->surveytotal . ";\n";
   echo "var user_completed      = " . json_encode($active_survey->completed) . ";\n";
   echo "var all_completed       = " . json_encode($all_completed) .";\n";

@@ -91,7 +91,7 @@ include("inc/gl_foot.php");
 <script src="js/custom_assessments.js"></script>
 <script>
 <?php 
-echo "var uselang   = '" . $loggedInUser->lang . "';\n";
+echo "var uselang   = '" . $_SESSION["use_lang"] . "';\n";
 echo "var poptitle  = '".lang("YOUR_ASSESSMENT")."';\n";
 ?>
 

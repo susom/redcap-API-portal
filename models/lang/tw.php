@@ -180,6 +180,17 @@
 		,"TCM_POSITIVE"								=> "肯定"
 		,"TCM_NEGATIVE"								=> "没有"
 		,"TCM_ESSENTIALLY_POS"						=> "傾向肯定"
+
+		,"PROFILE_JOINED"							=> "已加入"
+		,"PROFILE_NICKNAME"							=> "暱稱"
+		,"ACCOUNT_MIDDLE_NAME"						=> "中間名字"
+		,"PROFILE_CONTACT_NAME"						=> "聯絡人姓名"
+		,"PROFILE_CONTACT_PHONE"					=> "聯絡電話"
+		,"PROFILE_STREET_ADDRESS"					=> "街道地址"
+		,"PROFILE_APARTMENT"						=> "公寓號碼"
+		,"ACCOUNT_STATE"							=> "州"
+		,"EDIT_PROFILE"								=> "編輯"
+		,"PROFILE_EDIT"								=> "個人資料"
 	));
 
 	$template_security_questions = array(

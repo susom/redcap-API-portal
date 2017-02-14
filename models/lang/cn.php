@@ -181,6 +181,17 @@
 		,"TCM_POSITIVE"								=> "肯定"
 		,"TCM_NEGATIVE"								=> "没有"
 		,"TCM_ESSENTIALLY_POS"						=> "倾向肯定"
+
+		,"PROFILE_JOINED"							=> "已加入"
+		,"PROFILE_NICKNAME"							=> "昵称"
+		,"ACCOUNT_MIDDLE_NAME"						=> "中间名字"
+		,"PROFILE_CONTACT_NAME"						=> "联络人姓名"
+		,"PROFILE_CONTACT_PHONE"					=> "联络电话"
+		,"PROFILE_STREET_ADDRESS"					=> "街道地址"
+		,"PROFILE_APARTMENT"						=> "公寓号码"
+		,"ACCOUNT_STATE"							=> "州"
+		,"EDIT_PROFILE"								=> "编辑"
+		,"PROFILE_EDIT"								=> "个人资料"
 	));
 
 	$template_security_questions = array(

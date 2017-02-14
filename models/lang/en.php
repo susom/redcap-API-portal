@@ -180,6 +180,17 @@
 		,"TCM_POSITIVE"								=> "Positive"
 		,"TCM_NEGATIVE"								=> "Negative"
 		,"TCM_ESSENTIALLY_POS"						=> "Tendency (Essentially) Positive"
+
+		,"PROFILE_JOINED"							=> "Joined"
+		,"PROFILE_NICKNAME"							=> "Nickname"
+		,"ACCOUNT_MIDDLE_NAME"						=> "Middle Name"
+		,"PROFILE_CONTACT_NAME"						=> "Contact Name"
+		,"PROFILE_CONTACT_PHONE"					=> "Contact Phone"
+		,"PROFILE_STREET_ADDRESS"					=> "Street Address"
+		,"PROFILE_APARTMENT"						=> "Apt"
+		,"ACCOUNT_STATE"							=> "State"
+		,"EDIT_PROFILE"								=> "Edit"
+		,"PROFILE_EDIT"								=> "Profile"
 	));
 
 	$template_security_questions = array(

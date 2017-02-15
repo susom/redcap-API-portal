@@ -75,7 +75,7 @@ function languageSwitch($flag){
 
 	?>
 	<style>
-		.lang.en{
+		.lang{
 			display:none;
 		}
 		.lang.<?php echo $lang_span ?> {

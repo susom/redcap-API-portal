@@ -20,44 +20,40 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 
 	//End data validation
 	if(count($errors) == 0) {
-		// Continue with authentication
-		$auth = new RedcapAuth($username,$password);
+		$API_TOKEN    = "2AC734BFA26EBF3618719A0B09EDAA0F";
+		$API_URL      = "http://redcap.irvins.loc/api/";
 
-		// Valid credentials
-		if($auth->authenticated_user_id != Null) {
-			// Log user in
-			$loggedInUser 		= new RedcapPortalUser($auth->authenticated_user_id);
+		//GET ALL THE ADMINS, COMPARE THEN GO FOR IT
+		$params = array(
+			'fields' => array("admin_id", "admin_username", "admin_password", "admin_role")
+		);
+		$result = RC::callApi($params, true, $API_URL, $API_TOKEN);
 
-			//ADD IN LANGUAGE OPTION TO SESSION
-			$data[] = array(
-		      "record"            => $loggedInUser->id,
-		      "field_name"        => 'portal_lang',
-		      "value"             => $use_lang
-		    );
-		    $projects     = SurveysConfig::$projects;
-		    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
-		    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
-		    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+		// Scan records for email and username matches and to set nextId
+		$new_id = 1;
+		$username_matches = array();
 
-			//CHECK THIS ON EVERY LOGIN? SURE
-			$supp_proj 		= SurveysConfig::$projects;
-			foreach($supp_proj as $proj_name => $project){
-				if($proj_name == $_CFG->SESSION_NAME){
-					continue;
-				}
-				$supp_id 					= linkSupplementalProject($project, $loggedInUser);
-				$loggedInUser->{$proj_name} = $supp_id;
+		foreach ($result as $idx => $record){
+			$id = $record["admin_id"];
+			if (is_numeric($id) && $id >= $new_id){
+				$new_id = $id+1; //GUESS THE NEXT AUTOINCREME
 			}
 
-			setSessionUser($loggedInUser);
-		    $_SESSION["REDCAP_PORTAL"]['user']->lang = $use_lang;
-
-			//CHECK IF USER AGREED TO CONSENT YET
-			if($loggedInUser->active){
+			if ( empty($record["admin_username"]) ){
+				continue;
+			}
+			if ( !empty($record["admin_username"]) 
+				&& $username == sanitize($record["admin_username"]) 
+				&& $password == sanitize($record["admin_password"])
+				&& $record["admin_role"] < 3
+				){
 				$logged_in = true;
 			}
-		} else { // Invalid credentials		
-			$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . "<br> ". $lang["ACCOUNT_ERROR_TRY_AGAIN"];
+		}
+
+		// Valid credentials
+		if(!$logged_in) { // Invalid credentials		
+			$errors[] = lang("ACCOUNT_USER_OR_PASS_INVALID") . " Or not boss enough.<br> ". $lang["ACCOUNT_ERROR_TRY_AGAIN"];
 		}
 	} 
 	

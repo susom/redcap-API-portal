@@ -137,7 +137,7 @@
               </a>
             </li>
 
-            <li <?php echo $studies_active ?>>
+            <!-- <li <?php echo $studies_active ?>>
               <a href="studies.php">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
@@ -146,7 +146,7 @@
                 <i class="i i-docs icon"></i>
                 <span class="font-bold"><?php echo $lang["MY_STUDIES"] ?></span>
               </a>
-            </li>
+            </li> -->
             
             <li <?php echo $profile_active ?>>
               <a href="profile.php">
@@ -159,7 +159,7 @@
               </a>
             </li>
             
-            <li <?php echo $game_active ?>>
+            <!-- <li <?php echo $game_active ?>>
               <a href="game.php" class="under_construction">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
@@ -168,7 +168,7 @@
                 <i class="i i-docs icon"></i>
                 <span class="font-bold">Play Game</span>
               </a>
-            </li>
+            </li> -->
             
             <li>
               <a href="mailto:wellforlife@stanford.edu?subject=<?php echo $lang["QUESTION_FOR_WELL"] ?>" class="nav dk">

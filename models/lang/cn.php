@@ -208,7 +208,7 @@
 			'custom'	=> ''
 		);
 
-	$websiteName = "WELL人生计划";
+	$websiteName = "WELL for Life";
 	
 // {
 // 	 "translations" : {

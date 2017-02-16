@@ -207,7 +207,7 @@
 			'custom'	=> ''
 		);
 
-	$websiteName = "WELL人生計劃";
+	$websiteName = "WELL for Life";
 
 
 

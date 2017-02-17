@@ -590,7 +590,7 @@ function showMATScoring(qinput){
             var desc = mat_score_desc[70];
         }
 
-        if(useLang == "sp"){
+        if(uselang == "sp"){
           $("#pa_info_sheet").attr("src","pa_info_sheet_sp.jpg");
         }
 

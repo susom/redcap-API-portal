@@ -89,9 +89,6 @@ function languageSwitch($flag){
 	return;
 }
 
-
-
-
 if(!isset($_SESSION["use_lang"])){
 	$_SESSION["use_lang"] = $_CFG->WEBSITE["language"];
 }else{

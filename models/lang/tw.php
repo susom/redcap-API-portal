@@ -130,6 +130,7 @@
 		,"LOGOUT" 									=> "登出"
 		,"MY_STUDIES"								=> "參與研究"
 		,"MY_ASSESSMENTS" 							=> "我的報告"
+		,"NO_ASSESSMENTS"							=> "請先完成附加問卷，即可查看您的評估報告"
 		,"YOUR_ASSESSMENT"							=> "您的評估報告"
         ,"MY_PROFILE" 								=> "個人資料"
 		,"CONTACT_US" 								=> "聯繫我們"

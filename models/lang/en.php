@@ -131,6 +131,7 @@
 		,"LOGOUT" 									=> "Logout"
 		,"MY_STUDIES"								=> "My Studies"
 		,"MY_ASSESSMENTS"							=> "My Assessments"
+		,"NO_ASSESSMENTS"							=> "No feedback available yet.<br>Please complete the Supplemental Surveys to see your custom WELLness feedback."
 		,"YOUR_ASSESSMENT"							=> "Your Assessment"
 		,"MY_PROFILE" 								=> "My Profile"
 		,"CONTACT_US" 								=> "Contact Us"

@@ -480,3 +480,21 @@ a:hover { text-decoration:underline; }
 	text-align:center;
 	margin:0px auto 20px;
 }
+
+
+/*LANGUAGE*/
+.lang.en + br,
+.lang.cn,
+.lang.cn + br,
+.lang.tw,
+.lang.tw + br,
+.lang.sp,
+.lang.sp + br{
+    display:none;
+}
+
+.lang.cn,
+.lang.tw {
+    font-size:140%;
+    line-height:140%;
+}

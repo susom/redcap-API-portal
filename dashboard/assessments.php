@@ -65,7 +65,7 @@ include("inc/gl_head.php");
                       }
 
                       if(!count($assesment_links)){
-                        $assesment_links[] = "<li>No feedback available yet.<br>Please complete the Supplemental Surveys to see your custom WELLness feedback.</li>";
+                        $assesment_links[] = "<li>".lang("NO_ASSESSMENTS")."</li>";
                       }
 
                       echo implode("",$assesment_links);

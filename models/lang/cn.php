@@ -132,6 +132,7 @@
 		,"LOGOUT" 									=> "登出"
 		,"MY_STUDIES"								=> "参与研究"
 		,"MY_ASSESSMENTS" 							=> "我的报告"
+		,"NO_ASSESSMENTS"							=> "请先完成附加问卷，即可查看您的评估报告"
 		,"YOUR_ASSESSMENT"							=> "您的评估报告"
         ,"MY_PROFILE" 								=> "个人资料"
 		,"CONTACT_US" 								=> "联系我们"

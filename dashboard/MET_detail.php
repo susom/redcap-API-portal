@@ -309,7 +309,7 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang cn">
 			<h3>体能活动</h3>
-			<div class="funfact"><p><i>你知道常作体能活动可以帮助改善你的心理健康和心情吗？</i></p></div>
+			<div class="funfact"><p><i>你知道常做体能活动可以帮助改善你的心理健康和心情吗？</i></p></div>
 			<div class="pa_1">
 				<p>体能活动是您可以帮助改善你的健康和你的心肺健康的许多方法之一。找到你喜欢的体能活动，并保持活跃，是增加你的体能活动力的重要的第一步。</p>
 				<p>您可以参考出2008年美国的体能活动准则 <a class="offsite" href='pa_fact_sheet_adults.pdf'>请点击这里</a>, 或参考这完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
@@ -329,7 +329,7 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang tw">
 			<h3>體能活動</h3>
-			<div class="funfact"><p><i>你知道常作體能活動可以幫助改善你的心理健康和心情嗎？</i></p></div>
+			<div class="funfact"><p><i>你知道常做體能活動可以幫助改善你的心理健康和心情嗎？</i></p></div>
 			<div class="pa_1">
 				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。找到你喜歡的體能活動，並保持活躍，是增加你的體能活動力的重要的第一步。</p>
 				<p>您可以參考出2008年美國的體能活動準則 <a class="offsite" href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>

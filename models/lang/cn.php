@@ -148,7 +148,7 @@
 		,"CONGRATS_ALL_FITNESS_BADGES"				=> "恭喜，你已获得所有的健身徽章！ <br/>请稍后再回来取得新的奖励！"
 		,"DONE_CORE" 								=> "完成所有主要问卷！"
 		,"TAKE_BLOCK_DIET" 							=> "所有WELL参与者可免费参与饮食评估。此问卷通常需要30-50分钟完成，并提供即时评估报告。"
-		,"HOW_WELL_EAT" 							=> "您吃得好吗？"
+		,"HOW_WELL_EAT" 							=> "您吃得健康吗？"
 		,"COMPLETE_CORE_FIRST" 						=> "请先完成主要问卷"
 		,"PLEASE_COMPLETE" 							=> "请完成 "
 		,"WELCOME_TO_WELL" 							=> "<b>欢迎</b>参与WELL人生研究计划！<u>点击此处</u>开始您的幸福旅程！</a>"

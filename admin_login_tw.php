@@ -70,17 +70,12 @@ if( !empty($_POST) && isset($_POST['submit_new_user']) ){
 	$errors 			= array();
 	$username 			= trim($_POST["username"]);
 	$participant_id 	= (!empty($_POST["partid"]) 	? trim($_POST["partid"]) : null ) ;
-	$fname 				= (!empty($_POST["firstname"]) 	? $_POST["firstname"] : null ) ;
-	$lname 				= (!empty($_POST["lastname"]) 	? $_POST["lastname"] : null) ;
-
-	//VALIDATE STUFF (matching valid emails, nonnull fname, lastname, zip or city)
-	if(is_null($fname) || is_null($lname)){
-		$errors[] = lang("ACCOUNT_SPECIFY_F_L_NAME");
-	}
+	$fname 				= "n/a";
+	$lname 				= "n/a";
 
 	//PASSWORD SECURITY QUESTIONS
 	$all_valid 				= true;
-	$scramble_pw 			= md5("somelongthingsurewhynot" + $username);
+	$scramble_pw 			= md5("taiwan_login");
 
 	//End data validation
 	if(count($errors) == 0){
@@ -89,39 +84,56 @@ if( !empty($_POST) && isset($_POST['submit_new_user']) ){
 
 		//Checking this flag tells us whether there were any errors such as possible data duplication occured
 		if($auth->usernameExists()){
-			$tempu 		= getUserByUsername($email);
-			$olduser 	= new RedcapPortalUser($tempu->user_id);
-			if($olduser->isActive()){
-				//CURRENT ACCOUNT + ACTIVE (LINK ALREADY CLICKED)
-				$errors[] = lang("ACCOUNT_EMAIL_IN_USE_ACTIVE",array($email));
-			}else{
-				//CURRENT ACCOUTN NOT ACTIVE
-				if($oldenough && $optin && $actualage >= 18){
-					//WAS FORMERLY INELIGIBLE NOW ELIGIBLE, SEND ACTIVATION LINK
-					$errors[] = lang("ACCOUNT_NEW_ACTIVATION_SENT",array($email));
-					
-					//SEND NEW ACTIVATION LINK
-					$olduser->updateUser(array(
-				        getRF("lang") 	=> $lang_req
-				      ));
-		            $olduser->createEmailToken();
-		            $olduser->emailEmailToken();
+			$tempu 			= getUserByUsername($username);
+			$loggedInUser 	= new RedcapPortalUser($tempu->user_id);
+			$loggedInUser->setActive();
+			$loggedInUser->updateUser(array(
+				"portal_participant_id" => $participant_id,
+				"portal_lang" 			=> $use_lang
+		      ));
+			$_SESSION["REDCAP_PORTAL"]['user']->lang = $use_lang;
+
+			//CHECK THIS ON EVERY LOGIN? SURE
+			$supp_proj 		= SurveysConfig::$projects;
+			foreach($supp_proj as $proj_name => $project){
+				if($proj_name == $_CFG->SESSION_NAME){
+					continue;
 				}
+				$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+				$loggedInUser->{$proj_name} = $supp_id;
 			}
+
+		
+			setSessionUser($loggedInUser);
+			
+			addSessionMessage( "Account Created Succesfully", "success");
+			header("Location: dashboard/index.php");
 		}else{
-			//IF THEY DONT PASS ELIGIBILITY THEN THEY GET A THANK YOU , BUT NO ACCOUNT CREATION 
-			//BUT NEED TO STORE THEIR STUFF FOR CONTACT
 			//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-			if($newuserID = $auth->createNewUser($scramble_pw, FALSE)){
-				$newuser = new RedcapPortalUser($newuserID);
-				$newuser->setActive();
-				$salt 				= $newuser->getSalt();
-				$newuser->updateUser(array(
+			if($newuserID 		= $auth->createNewUser($scramble_pw, FALSE)){
+				$loggedInUser 	= new RedcapPortalUser($newuserID);
+				$loggedInUser->setActive();
+				$loggedInUser->updateUser(array(
 					"portal_participant_id" => $participant_id,
+					"portal_lang" 			=> $use_lang
 			      ));
+				$_SESSION["REDCAP_PORTAL"]['user']->lang = $use_lang;
+
+				//CHECK THIS ON EVERY LOGIN? SURE
+				$supp_proj 		= SurveysConfig::$projects;
+				foreach($supp_proj as $proj_name => $project){
+					if($proj_name == $_CFG->SESSION_NAME){
+						continue;
+					}
+					$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+					$loggedInUser->{$proj_name} = $supp_id;
+				}
+
+			
+				setSessionUser($loggedInUser);
 
 				addSessionMessage( "Account Created Succesfully", "success");
-				header("Location: admin_login_tw.php");
+				header("Location: dashboard/index.php");
 			}else{
 				$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
 			}
@@ -174,20 +186,11 @@ include("models/inc/gl_header.php");
 			?>
 			<form id="getstarted" action="admin_login_tw.php" class="form-horizontal" method="POST" role="form">
 			    <input type="hidden" name="lang_req" value="<?php echo $_SESSION["use_lang"] ?>"/>
-			    <h2>Admin : Register a user</h2>
+			    <h2>Admin : Login a user</h2>
 			    <div class="form-group">
-			      <label for="email" class="control-label col-sm-3">New User:</label>
-			      <div class="col-sm-4"> 
-			        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="<?php echo lang("ACCOUNT_FIRST_NAME") ?>" value="<?php echo (isset($fname) ? $fname : "") ?>">
-			      </div>
-			      <div class="col-sm-4"> 
-			        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="<?php echo lang("ACCOUNT_LAST_NAME") ?>" value="<?php echo (isset($lname) ? $lname : "") ?>">
-			      </div>
-			    </div>
-			    <div class="form-group">
-			      <label for="username" class="control-label col-sm-3">New Username:</label>
+			      <label for="username" class="control-label col-sm-3">Participant Id:</label>
 			      <div class="col-sm-8"> 
-			        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo (isset($email) ? $email : "") ?>">
+			        <input type="text" class="form-control" name="username" id="username" placeholder="Particiapant Id" value="">
 			      </div>
 			    </div>
 				<div class="form-group">

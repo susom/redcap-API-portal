@@ -3,18 +3,21 @@ function initDrawingCanvas() {
     drawingCanvas.height  = viewHeight;
     ctx                   = drawingCanvas.getContext('2d');
 
-    drawingCanvas.addEventListener('mousemove', updateMouseBodyPosition);
-    drawingCanvas.addEventListener('mousedown', checkStartDrag);
-    drawingCanvas.addEventListener('mouseup',   checkEndDrag);
+    // drawingCanvas.addEventListener('mousemove', updateMouseBodyPosition);
+    // drawingCanvas.addEventListener('mousedown', checkStartDrag);
+    // drawingCanvas.addEventListener('mouseup',   checkEndDrag);
     // drawingCanvas.addEventListener('mouseout',  checkEndDrag);
     drawingCanvas.addEventListener('click',  function(){
-        wheel.body.angularVelocity = 164;
+        var x = 150, y=190;
+        var random_velo = Math.floor(Math.random() * ((y-x) + 1) + x);
+        console.log(random_velo);
+        wheel.body.angularVelocity = random_velo;
         PlaySound("wheel_of_fortune.mp3");
         if (wheelSpinning === false && wheelStopped === true) {
             if ( Math.abs(wheel.body.angularVelocity) > 7.5) {
                 wheelSpinning = true;
                 wheelStopped  = false;
-                statusLabel.innerHTML = 'Big Money!  Big Money! Big Money!';
+                statusLabel.innerHTML = 'Big Money! Big Money! Big Money!';
             } else {
                 statusLabel.innerHTML = 'Spin Harder!';
             }
@@ -54,7 +57,7 @@ function checkEndDrag(e) {
             if ( Math.abs(wheel.body.angularVelocity) > 7.5) {
                 wheelSpinning = true;
                 wheelStopped  = false;
-                statusLabel.innerHTML = 'Big Money!  Big Money! Big Money!';
+                statusLabel.innerHTML = 'Big Money! Big Money! Big Money!';
             } else {
                 statusLabel.innerHTML = 'Spin Harder!';
             }
@@ -207,7 +210,16 @@ Wheel.prototype = {
         var currentRotation = wheel.body.angle % TWO_PI,
             normalangle     = normalizeAngle(wheel.body.angle),
             currentSegment  = Math.floor(currentRotation / this.deltaPI);
-        return points[currentSegment];
+
+        var i = this.segments - Math.floor((currentRotation / (Math.PI * 2)) * this.segments) - 1;
+        
+        //WIERD BUT NECESSARY I GUESS
+        var temp_arr = points.slice();
+        temp_arr.unshift(temp_arr.pop());
+        temp_arr.unshift(temp_arr.pop());
+        temp_arr.unshift(temp_arr.pop());
+
+        return temp_arr[currentSegment];
     },
     resolveSpin:function(curpoints) {
         window.wheelSpun = true;

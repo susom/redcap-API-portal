@@ -99,6 +99,7 @@ include("inc/gl_head.php");
                     <div class="col-sm-1">&nbsp;</div>
                     <div id="wof_game" class="col-sm-10">
                       <h1 class="title" title="Well Being Paradise!">
+                        <span></span>
                         <div class="stats">
                           <div id="guesscount">
                             <h4>Spins</h4>
@@ -490,20 +491,20 @@ var colors    = [ "#000000"
                 , "#FF80E0"
                 , "#00FF00"
                 , "#FFC000"
-                , "#C080FF"
                 , "#DFDFDF"
+                , "#C080FF"
                 , "#00FF00"
                 , "#FFFF00"
                 , "#FF0000"
                 , "#00C0FF"
                 , "#FFC000"
                 , "#C080FF"
-                // , "#FFFF00"
-                // , "#FF80E0"
-                // , "#FF0000"
-                // , "#00C0FF"
-                // , "#00FF00"
-                // , "#FF80E0"
+                , "#FFFF00"
+                , "#FF80E0"
+                , "#FF0000"
+                , "#00C0FF"
+                , "#00FF00"
+                , "#FF80E0"
                 ];
 
 var points    = [ "Bankrupt"
@@ -516,13 +517,12 @@ var points    = [ "Bankrupt"
                 , 700
                 , 800
                 , 900
-                // , 100
-                // , "Lose Turn"
-                // , 120
-                // , 130
-                // , 140
-                // , 150
-                // , 160
+                , 1000
+                // , 1100
+                // , 1200
+                // , 1300
+                // , 1400
+                // , 1500
                 // , 170
                 // , 18
                 // , 19

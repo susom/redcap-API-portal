@@ -148,15 +148,21 @@
     width:100%;
     margin:0 auto 100px;
   }
-
-  h1.title{
+  
+  h1.title {
     height:120px;
     min-width:700px;
     margin:0 auto 25px;
-    background:url(../images/well_of_fortune.png) 20px 0 no-repeat;
-    background-size:30%;
     overflow:hidden;
     position:relative;
+  }
+
+  h1.title span{
+    float:left;
+    width:340px;
+    height:120px;
+    background:url(../images/well_of_fortune.png) 20px 0 no-repeat;
+    background-size:contain;
   }
   
   h1 .stats {

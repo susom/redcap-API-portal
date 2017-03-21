@@ -149,6 +149,7 @@ include("inc/gl_head.php");
                         <div id="board">
                           <i>A clue about the puzzle?</i>
                           <a href="#" id="solveit" class="btn btn-success">I'd like to solve the puzzle!</a>
+                          <a href="#" id="newgame" class="btn btn-success">Start New Game</a>
                         </div>
                         <div id="bigwheel" class="centered">
                           <div id="status_label">loading...</div>
@@ -208,9 +209,12 @@ include("inc/gl_foot.php");
   function makeGameBoard(secretmessage){
     window.activepuzzle = secretmessage;
     var letters_per_row = 10;
-    var msglen  = secretmessage.length;
-    var rows    = Math.ceil(msglen/letters_per_row);
-    var filler  = (rows*letters_per_row) - msglen;
+    var msglen          = secretmessage.length;
+    var rows            = Math.ceil(msglen/letters_per_row);
+    var filler          = (rows*letters_per_row) - msglen;
+
+    //remove old gameboard if there
+    $("#flipboard").remove();
 
     var gameboard = $("<div id='flipboard'></div>");
     for(var i = 0; i < msglen; i++){
@@ -247,6 +251,10 @@ include("inc/gl_foot.php");
   function makeLetterTray(){
     var runes   = ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"];
     var vowels  = ["A","E","I","O","U"];
+    
+    //remove existing old trays.
+    $("#lettertray,#voweltray").remove();
+
     var tray    = $("<div id='lettertray'><h4>Pick a Letter and press the 'Guess Letter' Button</h4><h5 id='guessvalue'>Each matching letter will be worth <b>10</b> points</h5></div>");
     for(var i in runes){
       var label   = $("<label>"+runes[i]+"</label>");
@@ -314,6 +322,38 @@ include("inc/gl_foot.php");
     $("#letterpicker").append(tray);
     tray.append($("<button id='buyit' class='btn btn-info'>Buy a Vowel</button>"));
     return;
+  }
+
+  function resetLetters(){
+    $(".picked").each(function(){
+      var el      = $(this);
+      var letter  = el.text();
+      el.append($("<input type='checkbox' name='letters' value='"+letter+"'/>"));
+      el.removeClass("picked");
+    });
+
+    return;
+  }
+
+  function revealPuzzle(_cb){
+    var elems = count = $(".flip-container").length;
+
+    $(".flip-container").each(function(){
+      var el = $(this);
+      setTimeout(function(){
+        el.addClass("rotate");
+      },500);
+
+      if (!--count){
+        setTimeout(_cb,3000);
+      };
+    });
+    
+  }
+
+  function newGame(phrase){
+    makeGameBoard(phrase);
+    makeLetterTray();
   }
 
   $(document).ready(function(){
@@ -387,8 +427,10 @@ include("inc/gl_foot.php");
        "An apple a day keeps the doctor away"
       ,"Laughter is the best medicine"
     ];
-    makeGameBoard(phrasing[Math.floor(Math.random() * phrasing.length)]);
-    makeLetterTray();
+    
+    var rando    = Math.floor(Math.random() * phrasing.length);
+    newGame(phrasing[rando]);
+    phrasing.splice(rando,1);
 
     $("#letterpicker button.btn").click(function() {
         $("#letterpicker button.btn").removeAttr("clicked");
@@ -435,7 +477,11 @@ include("inc/gl_foot.php");
                 alert("Spin the Wheel First!");
                 return false;
               }
-              PlaySound("Ding.mp3");
+              if(letters_matched){
+                PlaySound("Ding.mp3");
+              }else{
+                PlaySound("Buzzer.mp3");
+              }
               var points_earned = letters_matched * pointmult;
             }
 
@@ -467,10 +513,25 @@ include("inc/gl_foot.php");
           PlaySound("solved.mp3");
           spawnPartices();
           statusLabel.innerHTML = 'You\'ve Solved the Puzzle!';
+
+          var solved = parseInt($("#solved b").text() );
+          solved++;
+          $("#solved b").text(solved);
+
+          revealPuzzle(function(){
+            resetLetters();
+          });
       }else{
           PlaySound("Buzzer.mp3");
           statusLabel.innerHTML = 'Sorry, that is not the right answer.';
       }
+      return false;
+    });
+
+    $("#newgame").click(function(){
+      var rando    = Math.floor(Math.random() * phrasing.length);
+      newGame(phrasing[rando]);
+      phrasing.splice(rando,1);
       return false;
     });
   });

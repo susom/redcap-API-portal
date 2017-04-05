@@ -68,8 +68,8 @@ if( isset($_POST['account_update']) ) {
 		//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
 		$loggedInUser->setActive();
 
-
-		//TODO
+echo " lnked project";
+		//LINKED PROJECTS
 		if(isset($_SESSION["linked_project"])){
 			//SAVE LINKED PROJECT TO user
 			$data = array(
@@ -96,8 +96,14 @@ if( isset($_POST['account_update']) ) {
 			    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
 			     
 				//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
+				echo "<pre>";
+				print_r($loggedInUser);
+				$mail 		= new userPieMail();
+				$mailsent 	= $mail->sendMail($loggedInUser->email
+					,"Welcome to the WELL Mini-Intervention: One Week Sugar Detox"
+					,"You are now registered for this 'mini-intervention'.  \n\r Keep an eye out for a reminder notification on your selected start date for a link to the survey.");
 		    ///////////CUSTOM MINI INTERVENTION CODE
-			    
+
 			//SAVE VIA API 
 			unset($_SESSION["linked_project"]);
 		}

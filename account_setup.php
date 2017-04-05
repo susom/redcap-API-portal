@@ -68,7 +68,6 @@ if( isset($_POST['account_update']) ) {
 		//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
 		$loggedInUser->setActive();
 
-echo " lnked project";
 		//LINKED PROJECTS
 		if(isset($_SESSION["linked_project"])){
 			//SAVE LINKED PROJECT TO user

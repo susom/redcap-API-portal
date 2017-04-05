@@ -68,10 +68,42 @@ if( isset($_POST['account_update']) ) {
 		//THEY ARE CONSENTED, SET ACCOUNT ACTIVE
 		$loggedInUser->setActive();
 
+
+		//TODO
+		if(isset($_SESSION["linked_project"])){
+			//SAVE LINKED PROJECT TO user
+			$data = array(
+				 "record" 		=> $loggedInUser->id
+				,"field_name" 	=> "linked_projects"
+				,"value" 		=> json_encode($_SESSION["linked_project"])
+			);
+			//UPDATE REDCAP VIA API, THIS WORKS
+		    $projects     = SurveysConfig::$projects;
+		    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
+		    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
+		    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
+
+		    ///////////CUSTOM MINI INTERVENTION CODE
+				//SAVE web_portal_id TO linked PROJECT , THIS WORKS
+				$data = array(
+					 "record" 		=> $_SESSION["linked_project"]["linked_record_id"]
+					,"field_name" 	=> "well_portal_id"
+					,"value" 		=> $loggedInUser->id
+				);
+				//UPDATE REDCAP VIA API
+				$API_TOKEN    = $projects["miniintervention"]["TOKEN"];
+				$API_URL      = $projects["miniintervention"]["URL"];
+			    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
+			     
+				//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
+		    ///////////CUSTOM MINI INTERVENTION CODE
+			    
+			//SAVE VIA API 
+			unset($_SESSION["linked_project"]);
+		}
+
 		//REDIRECT TO THE DASHBOARD
 		include("models/inc/surveys.php");
-
-	
 
 		if(isset($_SESSION["elite_users"])){
 			$elite 				= $_SESSION["elite_users"];

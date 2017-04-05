@@ -426,6 +426,7 @@ include("inc/gl_foot.php");
     var phrasing = [
        "An apple a day keeps the doctor away"
       ,"Laughter is the best medicine"
+      ,"Let food be thy medicine, and medicine be thy food"
     ];
     
     var rando    = Math.floor(Math.random() * phrasing.length);

@@ -17,11 +17,21 @@ foreach($city_zips as $city => $zips){
 	$eligible_zips 	= array_merge($eligible_zips, $zips);
 }
 $eligible_map		= json_encode($city_zips);
+$lang_req 			= $_SESSION["use_lang"];
 
-$lang_req 		= $_SESSION["use_lang"];
+$step_one_on		= empty($_GET['step']) ? "on" : "";
+$step_two_on 		= !empty($_GET['step']) ? "on" : "";
 
-$step_one_on	= empty($_GET['step']) ? "on" : "";
-$step_two_on 	= !empty($_GET['step']) ? "on" : "";
+if(!empty($_GET["msg"])){
+	addSessionAlert( $_GET["msg"] );
+}
+
+if(isset($_GET["ref"])){
+	$linked_proj = base64_decode($_GET["ref"]);
+	$_SESSION["linked_project"] = json_decode($linked_proj,1);
+	print_r($_SESSION["linked_project"]);
+}
+
 // PROCESS NEW USER
 if(!empty($_POST['submit_new_user'])){
 	$errors 	= array();

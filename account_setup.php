@@ -95,8 +95,6 @@ if( isset($_POST['account_update']) ) {
 			    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
 			     
 				//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
-				echo "<pre>";
-				print_r($loggedInUser);
 				$mail 		= new userPieMail();
 				$mailsent 	= $mail->sendMail($loggedInUser->email
 					,"Welcome to the WELL Mini-Intervention: One Week Sugar Detox"

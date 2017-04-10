@@ -97,8 +97,8 @@ if( isset($_POST['account_update']) ) {
 				//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
 				$mail 		= new userPieMail();
 				$mailsent 	= $mail->sendMail($loggedInUser->email
-					,"Welcome to the WELL Mini-Intervention: One Week Sugar Detox"
-					,"You are now registered for this 'mini-intervention'.  \n\r Keep an eye out for a reminder notification on your selected start date for a link to the survey.");
+					,"Welcome to the WELL Mini-Intervention: 7-Day No Added Sugar Challenge"
+					,"Thank you for completing the online screening survey to participate in our 7-Day No Added Sugar Challenge, here at Stanford..  \n\r Best regards, The WELL for Life Team");
 		    ///////////CUSTOM MINI INTERVENTION CODE
 
 			//SAVE VIA API 

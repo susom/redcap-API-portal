@@ -265,6 +265,13 @@ class Survey {
         continue;
       }
 
+      if(strpos($tag,"@DEFAULT") > -1){
+        //DO SOME WORK
+        // $actions["field_type"] = "hidden";
+
+        continue;
+      }
+
       if(strpos($tag,"@TODAY") > -1){
         $actions["field_value"] = Date("Y-m-d");
         continue;

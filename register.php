@@ -29,7 +29,6 @@ if(!empty($_GET["msg"])){
 if(isset($_GET["ref"])){
 	$linked_proj = base64_decode($_GET["ref"]);
 	$_SESSION["linked_project"] = json_decode($linked_proj,1);
-	print_r($_SESSION["linked_project"]);
 }
 
 // PROCESS NEW USER

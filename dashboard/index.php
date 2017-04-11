@@ -295,6 +295,9 @@ include("inc/gl_head.php");
                         }
                       }
                       
+                      $news[] = "<li class='list-group-item icon_update'><a href='https://redcap.stanford.edu/surveys/?s=MKYD7XMHXK' title='Mini-Intervention : One Week Sugar Detox' target='_blank'>Mini-Intervention : One Week Sugar Detox</a></li>";
+
+
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
                       $survey_alinks  = array();

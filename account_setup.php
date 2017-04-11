@@ -70,39 +70,39 @@ if( isset($_POST['account_update']) ) {
 
 		//LINKED PROJECTS
 		if(isset($_SESSION["linked_project"])){
-			//SAVE LINKED PROJECT TO user
-			$data = array(
-				 "record" 		=> $loggedInUser->id
-				,"field_name" 	=> "linked_projects"
-				,"value" 		=> json_encode($_SESSION["linked_project"])
-			);
-			//UPDATE REDCAP VIA API, THIS WORKS
-		    $projects     = SurveysConfig::$projects;
-		    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
-		    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
-		    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
+			// //SAVE LINKED PROJECT TO user
+			// $data = array(
+			// 	 "record" 		=> $loggedInUser->id
+			// 	,"field_name" 	=> "linked_projects"
+			// 	,"value" 		=> json_encode($_SESSION["linked_project"])
+			// );
+			// //UPDATE REDCAP VIA API, THIS WORKS
+		 //    $projects     = SurveysConfig::$projects;
+		 //    $API_TOKEN    = $projects["REDCAP_PORTAL"]["TOKEN"];
+		 //    $API_URL      = $projects["REDCAP_PORTAL"]["URL"];
+		 //    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
 
-		    ///////////CUSTOM MINI INTERVENTION CODE
-				//SAVE web_portal_id TO linked PROJECT , THIS WORKS
-				$data = array(
-					 "record" 		=> $_SESSION["linked_project"]["linked_record_id"]
-					,"field_name" 	=> "well_portal_id"
-					,"value" 		=> $loggedInUser->id
-				);
-				//UPDATE REDCAP VIA API
-				$API_TOKEN    = $projects["miniintervention"]["TOKEN"];
-				$API_URL      = $projects["miniintervention"]["URL"];
-			    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
-			     
-				//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
-				$mail 		= new userPieMail();
-				$mailsent 	= $mail->sendMail($loggedInUser->email
-					,"Welcome to the WELL Mini-Intervention: 7-Day No Added Sugar Challenge"
-					,"Thank you for completing the online screening survey to participate in our 7-Day No Added Sugar Challenge, here at Stanford..  \n\r Best regards, The WELL for Life Team");
+		 //    ///////////CUSTOM MINI INTERVENTION CODE
+			// //SAVE web_portal_id TO linked PROJECT , THIS WORKS
+			// $data = array(
+			// 	 "record" 		=> $_SESSION["linked_project"]["linked_record_id"]
+			// 	,"field_name" 	=> "well_portal_id"
+			// 	,"value" 		=> $loggedInUser->id
+			// );
+			// //UPDATE REDCAP VIA API
+			// $API_TOKEN    = $projects["miniintervention"]["TOKEN"];
+			// $API_URL      = $projects["miniintervention"]["URL"];
+		 //    $result       = RC::writeToApi($data, array("overwriteBehavior" => "overwrite", "type" => "eav"), $API_URL, $API_TOKEN);
+		     
+			//TODO CUSTOM MINI INTERVENTION EMAIL ALERT
+			// $mail 		= new userPieMail();
+			// $mailsent 	= $mail->sendMail($loggedInUser->email
+			// 	,"Welcome to the WELL Mini-Intervention: 7-Day No Added Sugar Challenge"
+			// 	,"Thank you for completing the online screening survey to participate in our 7-Day No Added Sugar Challenge, here at Stanford..  \n\r Best regards, The WELL for Life Team");
 		    ///////////CUSTOM MINI INTERVENTION CODE
 
 			//SAVE VIA API 
-			unset($_SESSION["linked_project"]);
+			// unset($_SESSION["linked_project"]);
 		}
 
 		//REDIRECT TO THE DASHBOARD

@@ -295,7 +295,7 @@ include("inc/gl_head.php");
                         }
                       }
                       
-                      $news[] = "<li class='list-group-item icon_update'><a href='https://redcap.stanford.edu/surveys/?s=MKYD7XMHXK' title='Mini-Intervention : One Week Sugar Detox' target='_blank'>Mini-Intervention : One Week Sugar Detox</a></li>";
+                      $news[] = "<li class='list-group-item icon_update'><a href='https://redcap.stanford.edu/surveys/?s=MKYD7XMHXK' title='One Week Challenge : No Added Sugar' target='_blank'>One Week Challenge : No Added Sugar</a></li>";
 
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF

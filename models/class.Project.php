@@ -37,18 +37,22 @@ class Project {
 			$all_instruments 		= array_map(function($event){
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
-				return array(
-					 "arm_num" 				=> $event["arm_num"]
-					,"unique_event_name" 	=> $event["unique_event_name"]
-					,"instrument_name"		=> $instrument_id
-					,"instrument_label"		=> ucwords($instrument_label)
 
-				);
+				$user_current_event = $this->LOGGED_IN_USER->user_event_arm ? $this->LOGGED_IN_USER->user_event_arm  : REDCAP_PORTAL_EVENT ;
+				if($event["unique_event_name"] == $user_current_event){
+					return array(
+						 "arm_num" 				=> $event["arm_num"]
+						,"unique_event_name" 	=> $event["unique_event_name"]
+						,"instrument_name"		=> $instrument_id
+						,"instrument_label"		=> ucwords($instrument_label)
+
+					);
+				}
 			}, $all_events);
 		}
 
 		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
-		$this->ALL_INSTRUMENTS 	= $all_instruments;
+		$this->ALL_INSTRUMENTS 	= array_filter($all_instruments);
 
 		$surveylinks 	= array();
 		$metadata 		= array(); 
@@ -160,8 +164,17 @@ class Project {
 			list($junk,$survey_hash) 	= explode("s=",$check_survey_link);
 
 			//SURVEY COMPLETE
+			$user_arm_answers = array();
+			foreach($this->ALL_USER_ANSWERS as $i => $answers){
+				if(empty($answers["redcap_event_name"]) || $answers["redcap_event_name"] !== $unique_event_name){
+					continue;
+				}
+				$user_arm_answers  = $this->ALL_USER_ANSWERS[$i];
+				break;
+			}
+			
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
-			$user_actually_completed 	= isset($this->ALL_USER_ANSWERS[$proper_completed_timestamp]) ? $this->ALL_USER_ANSWERS[$proper_completed_timestamp] : null; //= "[not completed]"
+			$user_actually_completed 	= isset($user_arm_answers[$proper_completed_timestamp]) ? $user_arm_answers[$proper_completed_timestamp] : null; //= "[not completed]"
 			$instrument_complete 		= $user_actually_completed == "[not completed]" || $user_actually_completed == ""   ? 0 : 1;
 			if(!$instrument_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
 				$this->active_surveys_complete = false;
@@ -187,14 +200,14 @@ class Project {
 										return $item["field_name"];
 									},$actual_questions);
 				$just_formnames 	= array_flip($just_formnames);
-				$just_form_ans 		= array_intersect_key($this->ALL_USER_ANSWERS,$just_formnames);
+				$just_form_ans 		= array_intersect_key($user_arm_answers,$just_formnames);
 				$answers_only 		= array_filter($just_form_ans, function($var){
 									  return ($var !== NULL && $var !== FALSE && $var !== '');
 									});
 
 				foreach($metadata as $idx => $item){
 					$fieldname 						= $item["field_name"];
-					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $this->ALL_USER_ANSWERS) ? $this->ALL_USER_ANSWERS[$fieldname] : "");
+					$metadata[$idx]["user_answer"] 	= (array_key_exists($fieldname, $user_arm_answers) ? $user_arm_answers[$fieldname] : "");
 				}
 				$user_branched 		= array_intersect_key($branched_fields, $answers_only) ;
 			}
@@ -358,7 +371,7 @@ class Project {
 		//REFRESH DATA THAT FEEDS THESE
 		$this->active_surveys_complete = true;
 		$user_answers 				= self::getUserAnswers($this->LOGGED_IN_USER->id);
-		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers[0] : array(); 
+		$this->ALL_USER_ANSWERS 	= !empty($user_answers) ? $user_answers : array(); 
 		return;
 	}
 }

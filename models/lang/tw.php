@@ -36,8 +36,8 @@
 		//REGISTER
 		"ACCOUNT_REGISTER" 						=> "註冊本研究計劃",
 		"ACCOUNT_YOUR_NAME"						=> "您的姓名",
-		"ACCOUNT_FIRST_NAME" 					=> "名字",
-		"ACCOUNT_LAST_NAME" 					=> "姓氏",
+		"ACCOUNT_FIRST_NAME" 					=> "英文名字",
+		"ACCOUNT_LAST_NAME" 					=> "英文姓氏",
 		"ACCOUNT_YOUR_EMAIL" 					=> "電子郵件",
 		"ACCOUNT_EMAIL_ADDRESS" 				=> "電子郵件地址",
 		"ACCOUNT_EMAIL_ADDRESS_OR_USERNAME"		=> "電子郵件或用戶帳號",
@@ -45,7 +45,7 @@
 		"ACCOUNT_PARTICIPANT_ID"				=> "參與者編號",
 		"ACCOUNT_REENTER_EMAIL" 				=> "重新輸入電子郵件",
 		"ACCOUNT_YOUR_LOCATION" 				=> "您居住的地區",
-		"ACCOUNT_CITY" 							=> "城市",
+		"ACCOUNT_CITY" 							=> "英文城市",
 		"ACCOUNT_ZIP" 							=> "郵政編碼",
 		"ACCOUNT_ALREADY_REGISTERED" 			=> "已經註冊過？",
 		"ACCOUNT_BIRTH_YEAR" 					=> "你的出生年份是?",
@@ -77,7 +77,7 @@
 		//CONSENT
 		"CONSENT_BULLET_1" 						=> "我們需要您的許可，我們才能向您提出任何問題，因此請閱讀以下同意文件",
 		"CONSENT_BULLET_2" 						=> "初步問卷需時20-30分鐘完成。但你不需要一次性填寫完。",
-		"CONSENT_BULLET_3" 						=> "每隔幾個月我們會联系您。",
+		"CONSENT_BULLET_3" 						=> "每隔幾個月我們會联系您有關WELL的最新資訊。",
 		"CONSENT_BULLET_4" 						=> "我們將會持續加入新的問卷，材料和內容，並邀請您參與。",
 		"CONSENT_WELCOME" 						=> "歡迎加入!",
 		"CONSENT_CONTACT" 						=> "如您對本研究有任何問題，請聯繫總監 John Ioannidis 650-725-5465 或Sandra Winter 副總監650-723-8513。",
@@ -164,7 +164,7 @@
 		,"SLEEP" 									=> "睡眠"
 		,"YOU_HOURS_DAY"						             => "您（小時/天）"
 		,"AVG_ALL_USERS" 							=> "平均所有參與者（小時/天）"
-		,"HOW_YOU_SPEND_TIME" 						=> "您每天如何分配你的時間"
+		,"HOW_YOU_SPEND_TIME" 						=> "您每天如何分配時間"
 		,"SUNRISE" 									=> "日出"
 		,"SUNSET" 									=> "日落"
 		,"WIND" 									=> "有風"

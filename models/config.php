@@ -28,7 +28,14 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 // Authenticated means user+pass has matched, but does NOT mean the account is active
 session_start();
 $loggedInUser = getSessionUser($_CFG->SESSION_NAME);
+
+
 if( !empty($loggedInUser) ){
+	//DETERMINE WHICH ARM TO BE IN
+	$consent_date = strToTime($loggedInUser->consent_ts);
+	$datediff     = time() - $consent_date;
+	$days_active  = floor($datediff / (60 * 60 * 24));
+
 	// Check for logout
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){
 		unset($_SESSION[SESSION_NAME]);
@@ -45,7 +52,6 @@ if(isset($_GET["lang"]) && is_file(dirname(__FILE__) . "/lang/".$_GET["lang"] ."
 				      ));
 	}
 }
-
 
 function languageSwitch($flag){
 	$lang_span 				= $flag; 

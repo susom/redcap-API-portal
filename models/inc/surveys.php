@@ -1,11 +1,32 @@
 <?php
 //DEFINITION IN class.Project.php
-// unset($_SESSION["user_survey_data"]);
+unset($_SESSION["user_survey_data"]);
 // exit;
+
+//DETERMINE WHICH ARM TO BE IN
+$consent_date = strToTime($loggedInUser->consent_ts);
+$datediff     = time() - $consent_date;
+$days_active  = floor($datediff / (60 * 60 * 24));
+$user_event_arm = $loggedInUser->user_event_arm;
+
+//ON ANNIVERSARY UPDATE THEIR EVENT ARM
+if( $days_active > 364 && $user_event_arm !== REDCAP_PORTAL_EVENT_1) {
+	unset($_SESSION["user_survey_data"]);
+	$loggedInUser->updateUser(array(
+				"user_event_arm" => REDCAP_PORTAL_EVENT_1,
+	));
+	$loggedInUser->user_event_arm = REDCAP_PORTAL_EVENT_1;
+}else if($days_active > 729 && $user_event_arm !== REDCAP_PORTAL_EVENT_2){
+	unset($_SESSION["user_survey_data"]);
+	$loggedInUser->updateUser(array(
+				"user_event_arm" => REDCAP_PORTAL_EVENT_2,
+	));
+	$loggedInUser->user_event_arm = REDCAP_PORTAL_EVENT_2;
+}
+
 if(isset($_SESSION["user_survey_data"])){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
 	$user_survey_data 				= $_SESSION["user_survey_data"];
-
 	//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
 	$user_survey_data->refreshData();
 }else{
@@ -17,7 +38,8 @@ if(isset($_SESSION["user_survey_data"])){
 
 //THIS DATA NEEDS TO BE REFRESHED EVERYTIME OR RISK BEING STALE 
 $surveys 				= $user_survey_data->getActiveAll();	
-$all_completed 			= $user_survey_data->getAllComplete();  
+$all_completed 			= $user_survey_data->getAllComplete(); 
+ 
 $first_survey 			= reset($surveys);
 
 //THESE ONLY NEED DATA CALL ONCE PER SESSION

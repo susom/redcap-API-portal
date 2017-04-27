@@ -7,7 +7,7 @@ unset($_SESSION["user_survey_data"]);
 $consent_date = strToTime($loggedInUser->consent_ts);
 $datediff     = time() - $consent_date;
 $days_active  = floor($datediff / (60 * 60 * 24));
-$user_event_arm = $loggedInUser->user_event_arm;
+$user_event_arm = isset($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
 
 //ON ANNIVERSARY UPDATE THEIR EVENT ARM
 if( $days_active > 364 && $user_event_arm !== REDCAP_PORTAL_EVENT_1) {

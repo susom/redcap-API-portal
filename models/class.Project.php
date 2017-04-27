@@ -166,7 +166,7 @@ class Project {
 			//SURVEY COMPLETE
 			$user_arm_answers = array();
 			foreach($this->ALL_USER_ANSWERS as $i => $answers){
-				if(empty($answers["redcap_event_name"]) || $answers["redcap_event_name"] !== $unique_event_name){
+				if(isset($answers["redcap_event_name"]) && $answers["redcap_event_name"] !== $unique_event_name){
 					continue;
 				}
 				$user_arm_answers  = $this->ALL_USER_ANSWERS[$i];

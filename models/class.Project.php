@@ -38,7 +38,7 @@ class Project {
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 
-				$user_current_event = isset($this->LOGGED_IN_USER->user_event_arm) ? $this->LOGGED_IN_USER->user_event_arm  : REDCAP_PORTAL_EVENT ;
+				$user_current_event = isset($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
 						 "arm_num" 				=> $event["arm_num"]

@@ -29,12 +29,12 @@ class Project {
 
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
-
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
 			//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
 			$all_instruments 		= array_map(function($event){
+				global $loggedInUser;
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 

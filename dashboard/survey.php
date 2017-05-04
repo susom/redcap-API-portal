@@ -138,7 +138,7 @@ if(isset($_REQUEST["ajax"])){
   $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
   $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
 
-  $survey_id    = $_REQUEST["sid"] ?: null;
+  $survey_id    = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : null;
   
   //IF DOING A END OF SURVEY FINAL SUBMIT
   if(isset($_REQUEST["surveycomplete"])){
@@ -150,7 +150,6 @@ if(isset($_REQUEST["ajax"])){
 
   //WRITE TO API
   //ADD OVERIDE PARAMETER 
-  
   unset($_POST["project"]);
   foreach($_POST as $field_name => $value){
     if($value === 0){
@@ -159,8 +158,8 @@ if(isset($_REQUEST["ajax"])){
       $value = NULL;
     }
 
-    $record_id  = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
-    $event_name = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+    $record_id  = $loggedInUser->id;
+    $event_name = $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
 
     $is_date    = preg_match('/^\d{2}-\d{2}\-\d{4}$/', $value);
     if($is_date){

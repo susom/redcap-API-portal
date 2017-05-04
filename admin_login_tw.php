@@ -79,39 +79,16 @@ if( !empty($_POST) && isset($_POST['submit_new_user']) ){
 
 	//End data validation
 	if(count($errors) == 0){
-		//Construct a user auth object
-		$auth = new RedcapAuth($username, NULL, NULL, $fname, $lname, NULL, NULL, NULL, NULL);
-
-		//Checking this flag tells us whether there were any errors such as possible data duplication occured
-		if($auth->usernameExists()){
-			$tempu 			= getUserByUsername($username);
-			$loggedInUser 	= new RedcapPortalUser($tempu->user_id);
-			$loggedInUser->setActive();
-			$loggedInUser->updateUser(array(
-				"portal_participant_id" => $participant_id,
-				"portal_lang" 			=> $use_lang
-		      ));
-			$_SESSION["REDCAP_PORTAL"]['user']->lang = $use_lang;
-
-			//CHECK THIS ON EVERY LOGIN? SURE
-			$supp_proj 		= SurveysConfig::$projects;
-			foreach($supp_proj as $proj_name => $project){
-				if($proj_name == $_CFG->SESSION_NAME){
-					continue;
-				}
-				$supp_id 					= linkSupplementalProject($project, $loggedInUser);
-				$loggedInUser->{$proj_name} = $supp_id;
-			}
-
-		
-			setSessionUser($loggedInUser);
-			
-			addSessionMessage( "Account Created Succesfully", "success");
-			header("Location: dashboard/index.php");
+		if($username !== $participant_id){
+			$errors[] = "The two participant ID fields do not match.";
 		}else{
-			//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-			if($newuserID 		= $auth->createNewUser($scramble_pw, FALSE)){
-				$loggedInUser 	= new RedcapPortalUser($newuserID);
+			//Construct a user auth object
+			$auth = new RedcapAuth($username, NULL, NULL, $fname, $lname, NULL, NULL, NULL, NULL);
+
+			//Checking this flag tells us whether there were any errors such as possible data duplication occured
+			if($auth->usernameExists()){
+				$tempu 			= getUserByUsername($username);
+				$loggedInUser 	= new RedcapPortalUser($tempu->user_id);
 				$loggedInUser->setActive();
 				$loggedInUser->updateUser(array(
 					"portal_participant_id" => $participant_id,
@@ -131,11 +108,38 @@ if( !empty($_POST) && isset($_POST['submit_new_user']) ){
 
 			
 				setSessionUser($loggedInUser);
-
+				
 				addSessionMessage( "Account Created Succesfully", "success");
 				header("Location: dashboard/index.php");
 			}else{
-				$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
+				//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
+				if($newuserID 		= $auth->createNewUser($scramble_pw, FALSE)){
+					$loggedInUser 	= new RedcapPortalUser($newuserID);
+					$loggedInUser->setActive();
+					$loggedInUser->updateUser(array(
+						"portal_participant_id" => $participant_id,
+						"portal_lang" 			=> $use_lang
+				      ));
+					$_SESSION["REDCAP_PORTAL"]['user']->lang = $use_lang;
+
+					//CHECK THIS ON EVERY LOGIN? SURE
+					$supp_proj 		= SurveysConfig::$projects;
+					foreach($supp_proj as $proj_name => $project){
+						if($proj_name == $_CFG->SESSION_NAME){
+							continue;
+						}
+						$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+						$loggedInUser->{$proj_name} = $supp_id;
+					}
+
+				
+					setSessionUser($loggedInUser);
+
+					addSessionMessage( "Account Created Succesfully", "success");
+					header("Location: dashboard/index.php");
+				}else{
+					$errors[] = !empty($auth->error) ? $auth->error : 'Unknown error creating user';
+				}
 			}
 		}
 	}

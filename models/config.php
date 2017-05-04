@@ -29,13 +29,7 @@ $default_replace 			= array( $_CFG->WEBSITE["Name"]
 session_start();
 $loggedInUser = getSessionUser($_CFG->SESSION_NAME);
 
-
 if( !empty($loggedInUser) ){
-	//DETERMINE WHICH ARM TO BE IN
-	$consent_date = strToTime($loggedInUser->consent_ts);
-	$datediff     = time() - $consent_date;
-	$days_active  = floor($datediff / (60 * 60 * 24));
-
 	// Check for logout
 	if ( isset($_GET['logout']) && $_GET['logout'] == 1 ){
 		unset($_SESSION[SESSION_NAME]);

@@ -18,7 +18,7 @@ class RC {
 
 		// logIt(json_encode($params,1),"DEBUG");
 		$raw = self::http_post($api_url, $params);
-		logIt('call API Raw result: ' . print_r($raw, true), "DEBUG");	
+		// logIt('call API Raw result: ' . print_r($raw, true), "DEBUG");	
 		
 		if ( $json_expected ) {
 			$result = json_decode($raw,true);

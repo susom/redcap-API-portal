@@ -9,15 +9,7 @@ foreach($sleepar as $i => $q){
 $results 		= array();
 
 // DURATION OF SLEEP
-if($qs["psqi_actual_sleep"] >= 7){
-	$results["PSQIDURAT"] = 0;
-}else if($qs["psqi_actual_sleep"] < 7 && $qs["psqi_actual_sleep"] >= 6){
-	$results["PSQIDURAT"] = 1;
-}else if($qs["psqi_actual_sleep"] < 6  && $qs["psqi_actual_sleep"] >= 5){
-	$results["PSQIDURAT"] = 2;
-}else{
-	$results["PSQIDURAT"] = 0;
-}
+$results["PSQIDURAT"] = $qs["psqi_actual_sleep"];
 
 //SLEEP DISTURBANCE
 $disturbance 	= array();
@@ -42,15 +34,8 @@ if($total_disturb == 0){
 }
 
 //SLEEP LATENCY
-if($qs["psqi_fall_asleep"] >= 0 && $qs["psqi_fall_asleep"] <= 15 ){
-	$Q2_NEW = 0;
-}else if($qs["psqi_fall_asleep"] >15 && $qs["psqi_fall_asleep"] <=30){
-	$Q2_NEW = 1;
-}else if($qs["psqi_fall_asleep"] >30  && $qs["psqi_fall_asleep"] <= 60){
-	$Q2_NEW = 2;
-}else{
-	$Q2_NEW = 3;
-}
+$Q2_NEW = $qs["psqi_fall_asleep"];
+
 
 //COMBINE Q5 + Q2NEW
 $COMBO_LATENCY = $qs["psqi_sleep_30"] + $Q2_NEW;

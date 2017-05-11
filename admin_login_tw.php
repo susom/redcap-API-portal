@@ -20,8 +20,9 @@ if( !empty($_POST) && isset($_POST['new_login']) ) {
 
 	//End data validation
 	if(count($errors) == 0) {
-		$API_TOKEN    = "2AC734BFA26EBF3618719A0B09EDAA0F";
-		$API_URL      = "http://redcap.irvins.loc/api/";
+		$projects     = SurveysConfig::$projects;
+	    $API_TOKEN    = $projects["taiwan_admin"]["TOKEN"];
+	    $API_URL      = $projects["taiwan_admin"]["URL"];
 
 		//GET ALL THE ADMINS, COMPARE THEN GO FOR IT
 		$params = array(

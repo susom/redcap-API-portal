@@ -8,19 +8,19 @@ $suggestion = array(
 	 array(
 	 	 "en" => "Needs Improvement"
 	 	,"cn" => "依据评量结果，您目前的体能素质可以改善，考虑更规律地参与体能活动。"
-	 	,"tw" => "依據評量結果，您目前的體能素質可以改善，考慮更規律地參與體能活動。"
+	 	,"tw" => "依據評量結果，您目前的體能素質需要改善，請考慮更規律地參與體能活動。"
 	 	,"sp" => "Needs Improvement"
 	 )
 	,array(
 		 "en" => "Healthy Zone" 
 		,"cn" => "根據評量結果，您目前的體能素質显示您在良好的健康状态中，继续保持下去！"
-		,"tw" => "根據評量結果，您目前的體能素質顯示您在良好的健康狀態中，繼續保持下去！"
+		,"tw" => "根據評量結果，您目前的體能素質顯示您的健康狀態良好，繼續保持下去！"
 		,"sp" => "Healthy Zone"
 	)
 	,array(
 		 "en" => "Excellent Zone" 
 		,"cn" => "根據評量結果，您目前的體能素質显示您在非常良好的健康状态中，继续保持下去！"
-		,"tw" => "根據評量結果，您目前的體能素質顯示您在非常良好的健康狀態中，繼續保持下去！"
+		,"tw" => "根據評量結果，您目前的體能素質顯示您的健康狀態非常良好，繼續保持下去！"
 		,"sp" => "Excellent Zone"
 	)
 );
@@ -86,7 +86,7 @@ $suggest = $suggestion[$level][$uselang];
 	<h3 class="lang en">Thank you for your participation! Find out about some of the factors that can impact your cardiorespiratory fitness below:</h3>
 	<h3 class="lang sp">¡Gracias por su participación! Descubra algunos factores que pueden impactar su salud cardiovascular aquí:</h3>
     <h3 class="lang cn">感谢您的参与！想了解一些可能影响你的心肺健康的因素，请参考以下：</h3>
-    <h3 class="lang tw">感謝您的參與！想了解一些可能影響你的心肺健康的因素，請參考以下：</h3>
+    <h3 class="lang tw">感謝您的參與！想了解一些可能影響您心肺功能健康的因素，請參考以下：</h3>
 	<div id="met_aging" class="met_desc">
 		<aside class="lang en">
 			<h3>Aging</h3>
@@ -130,15 +130,15 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang tw">
 			<h3>老化</h3>
-			<div class="funfact"><p><i>你知道美國心理學協會發現，智慧和創造力是常常延續到我們晚年的特徵嗎？</i></p></div>
+			<div class="funfact"><p><i>您知道美國心理學協會發現，智慧和創造力常常延續到我們晚年嗎？</i></p></div>
 			<div class="old">
-				<p>我們的心肺適應性隨著年齡的增長自然下降。在接下來的幾年，你的身體將會開始體驗到限制你的身體功能的變化。雖然我們不能防止衰老，但我們可以為衰老做準備，預防那些負面的影響。</p>
-				<p>重要的是要區分正常的老化和你的健康的異常下降。您可參考 <a class="offsite" href="http://www.apa.org/pi/aging/resources/guides/older.aspx">本指南</a> 由美國心理學協會提供，來了解更多關於老化的事實與相關的話題。</p>
-				<p>在確保任何身體活動適合你之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
+				<p>我們的心肺適應性隨著年齡的增長自然下降。在接下來的幾年，您的身體將會開始體驗到限制您身體功能的變化。雖然我們不能防止衰老，但我們可以為衰老做準備，預防那些負面的影響。</p>
+				<p>重要的是要區分正常的老化和您的健康異常下降。您可參考 <a class="offsite" href="http://health99.hpa.gov.tw/educZone/edu_detail.aspx?CatId=21808">本指南</a> 由美國心理學協會提供，來了解更多關於老化的事實與相關的話題。</p>
+				<p>在確保任何身體活動適合您之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
 			</div>
 			<div class="really_old">
-				<p>我們的心肺適應性隨著年齡的增長自然下降。雖然我們不能防止衰老，但我們可以透過飲食來消除一些老齡化所帶來的負面影響，請參考： <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>飲食健康</a> 和 <a class="offsite" href='https://go4life.nia.nih.gov/'>保持活力</a>.</a>.</p>
-				<p>在確保任何身體活動適合你之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
+				<p>我們的心肺適應性隨著年齡的增長自然下降。雖然我們不能防止衰老，但我們可以透過飲食來消除一些老化所帶來的負面影響，請參考： <a class="offsite" href='http://health99.hpa.gov.tw/educZone/edu_detail.aspx?CatId=21498'>飲食健康</a> 和 <a class="offsite" href='http://health99.hpa.gov.tw/educZone/edu_detail.aspx?CatId=50246'>保持活力</a>.</a>.</p>
+				<p>在確保任何身體活動適合您之前，請先參與此測試 <a target="blank" href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
 			</div>
 		</aside>
 	</div>
@@ -238,30 +238,30 @@ $suggest = $suggestion[$level][$uselang];
 			<div class="moreinfo">
 				<a href="#" class="closeparent">X</a>
 				<h3>了解BMI？</h3>
-				<p>身體質量指數是使用您的身高和體重來計算，通常由醫療保健提供者用於篩檢體重可能高於或低於建議體重的成人。如果您是一個運動員或肌肉非常肌肉（肌肉比脂肪重），BMI可能不准確，可能需要進行脂肪含量檢查，以更準確地評估你是否處於健康體重。這對於懷孕或哺乳的婦女或身體虛弱的人也不准確。</p>
+				<p>身體質量指數是使用您的身高和體重來計算，通常由醫療保健提供者用於篩檢體重可能高於或低於建議體重的成人。如果您是一個運動員或肌肉發達（肌肉比脂肪重），BMI可能不準確，可能需要進行脂肪含量檢查，以更準確地評估您是否處於健康體重。這對於懷孕或哺乳的婦女或身體虛弱的人也不準確。</p>
 
 				<p>BMI只是您整體健康的許多衡量標準之一。腰部測量，身體脂肪，血壓，膽固醇，身體活動量，不吸煙，飲食和其他措施也很重要。</p>
 			</div>
-			<div class="funfact"><p><i>你知道很多果汁和蘇打一樣有同等的卡路里嗎？水，咖啡和茶（不加糖）是非常棒的低熱量替代品。</i></p></div>
+			<div class="funfact"><p><i>您知道很多果汁和蘇打一樣有同等的卡路里嗎？水，咖啡和茶（不加糖）是非常棒的低熱量替代品。</i></p></div>
 			<div class="bmi_b">
-				<p>用您的身高 <span class='your_height'></span> 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於低於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
-				<p>體重不足可導致許多健康問題，包括掉髮，減弱免疫系統，喪失骨密度和降低生育力。通過吃營養，高熱量的食物，如鱷梨，起司和堅果，增加體重可以幫助你安全地達到健康的BMI。請查看 <a class="offsite" href='http://www.nhs.uk/Livewell/Goodfood/Pages/Underweightadults.aspx'>this page</a> 由英國國家衛生服務部提供，給低於體重成人參考與學習。</p>
+				<p>用您的身高 <span class='your_height'></span> 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於低於正常 BMI 的類別。 BMI值 18.5-24 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 公斤。</p>
+				<p>體重不足可導致許多健康問題，包括掉髮，免疫系統減弱，骨密度流失和降低生育力。通過吃營養，高熱量的食物，如酪梨，起司和堅果，增加體重可以幫助您安全地達到健康的BMI。請查看 <a class="offsite" href='http://health99.hpa.gov.tw/Default.aspx'>this page</a> 由臺灣衛生福利部國民健康署的健康九九網站提供，給低於體重成人參考與學習。</p>
 			</div>
 			<div class="bmi_c">
-				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於正常 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。</p>
-				<p>做得好！保持健康的體重是保持身體健康和全人健康非常重要的一部分。繼續保持體重可透過 <a class="offsite" href='https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/'>健康飲食</a> 和 <a class="offsite" href='http://health.gov/paguidelines/'>保持體能活動</a>.</p>
+				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於正常 BMI 的類別。 BMI值 18.5-24 是被視為是健康的。</p>
+				<p>很好！保持健康的體重是保持身體健康和整體健康非常重要的一部分。繼續保持體重可透過 <a class="offsite" href='http://health99.hpa.gov.tw/educZone/edu_detail.aspx?CatId=30385/'>健康飲食</a> 和 <a class="offsite" href='http://health99.hpa.gov.tw/educZone/edu_detail.aspx?CatId=21752/'>保持體能活動</a>.</p>
 			</div>
 			<div class="bmi_d">
-				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於過重 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
-				<p>對於大多數試圖減重的成年人，CDC建議每週減重1-2磅。 至少減重 <span class='lose_weight'></span> 磅，您的體重將會回到健康的BMI類別。</p> 
+				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>, 來計算您的 BMI <span class='your_bmi'></span>, 您是屬於過重 BMI 的類別。 BMI值 18.5-24 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 公斤。</p>
+				<p>對於大多數試圖減重的成年人，衛生福利部國民健康署建議每週減重0.5-1公斤。 至少減重 <span class='lose_weight'></span> 公斤，您的體重將會回到健康的BMI類別。</p> 
 				<p>超重與增高許多健康問題的風險有關，包括心血管疾病，2型糖尿病，心肌梗塞和中風。通過改變生活方式減重來降低體重指數，有助於降低這些並發症的風險，並幫助您有更健康的生活。</p>
-				<p>有很多選項可以幫助你減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
+				<p>有很多選項可以幫助您減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://health99.hpa.gov.tw/Default.aspx'>http://health99.hpa.gov.tw/Default.aspx</a> 想了解更多。</p>
 			</div>
 			<div class="bmi_e">
 				<p>用您的身高 <span class='your_height'></span>, 和體重 <span class='your_weight'></span>,  來計算您的 BMI <span class='your_bmi'></span>, 您是屬於肥胖 BMI 的類別。 BMI值 18.5-24.9 是被視為是健康的。 對於你的身高而言，您的體重應介於 <span class='healthy_weight_min'></span> 到 <span class='healthy_weight_max'></span> 磅重。</p>
-				<p>對於大多數試圖減重的成年人，CDC建議每週減重1-2磅。 至少減重 <span class='lose_weight'></span> 磅，您的體重將會回到健康的BMI類別。</p>
-				<p>肥胖與增高許多健康問題的風險有關，包括心血管疾病，2型糖尿病，心肌梗塞和中風。 通過生活方式的改變來減肥，如吃健康和保持體能活動，有助於降低這些並發症的風險，幫助你擁有更健康的生活。</p>
-				<p>有很多選項可以幫助你減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://www.cdc.gov/healthyweight/index.html'>http://www.cdc.gov/healthyweight/index.html</a> 想了解更多。</p>
+				<p>對於大多數試圖減重的成年人，衛生福利部國民健康署建議每週減重0.5-1公斤。 至少減重 <span class='lose_weight'></span> 公斤，您的體重將會回到健康的BMI類別。</p>
+				<p>肥胖與增高許多健康問題的風險有關，包括心血管疾病，2型糖尿病，心肌梗塞和中風。 通過改變生活方式減肥，如吃的健康和保持體能活動，有助於降低這些並發症的風險，幫助您擁有更健康的生活。</p>
+				<p>有很多選項可以幫助您減肥，和恢復健康的BMI。包括BMI計算器和工具。以下有更多信息可供您參考： <a class="offsite" href='http://health99.hpa.gov.tw/Default.aspx'>http://health99.hpa.gov.tw/Default.aspx</a> 想了解更多。</p>
 			</div>
 		</aside>
 	</div>
@@ -329,22 +329,22 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang tw">
 			<h3>體能活動</h3>
-			<div class="funfact"><p><i>你知道常做體能活動可以幫助改善你的心理健康和心情嗎？</i></p></div>
+			<div class="funfact"><p><i>您知道常做體能活動可以幫助改善您的心理健康和心情嗎？</i></p></div>
 			<div class="pa_1">
-				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。找到你喜歡的體能活動，並保持活躍，是增加你的體能活動力的重要的第一步。</p>
-				<p>您可以參考出2008年美國的體能活動準則 <a class="offsite" href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
-				<p>在確保任何體能活動適合你之前，請先參與此測試 <a taret="blank"  href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
+				<p>體能活動是您可以幫助改善您健康和您心肺健康的許多方法之一。找到您喜歡的體能活動，並保持活躍，是增加您的體能活動力重要的第一步。</p>
+				<p>您可以參考出2008年美國的體能活動準則 <a class="offsite" href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health99.hpa.gov.tw/Default.aspx'>http://health99.hpa.gov.tw/Default.aspx</a>.</p>
+				<p>在確保任何體能活動適合您之前，請先參與此測試 <a taret="blank"  href='pa_readiness_questionaire.pdf'>自我評估問卷</a> 或先與醫務人員交談。</p>
 			</div>
 			<div class="pa_2 pa_3">
-				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。找到你喜歡的體能活動，並保持活躍，是增加你的體能活動力的重要的第一步。</p> 
-				<p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a>.</p>
+				<p>體能活動是您可以幫助改善您健康和您心肺健康的許多方法之一。找到您喜歡的體能活動，並保持活躍，是增加您的體能活動力重要的第一步。</p> 
+				<p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite" href='http://health99.hpa.gov.tw/Default.aspx'>http://health99.hpa.gov.tw/Default.aspx</a>.</p>
 			</div>
 			<div class="pa_4">
-				<p>體能活動是您可以幫助改善你的健康和你的心肺健康的許多方法之一。 繼續你喜歡的體能活動，並保持活躍，是維持你身體健康及全人幸福非常重要的一步。</p>
-                                <p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite"  href='http://health.gov/paguidelines/'>http://health.gov/paguidelines/</a> 可能增加你的體能活動的小提示。</p>
+				<p>體能活動是您可以幫助改善您健康和您心肺健康的許多方法之一。 繼續您喜歡的體能活動，並保持活躍，是維持您身體健康及整體幸福非常重要的一步。</p>
+                                <p>您可以參考出2008年美國的體能活動準則 <a target="blank"  href='pa_fact_sheet_adults.pdf'>請點擊這裡</a>, 或參考這完整指南 <a class="offsite"  href='http://health99.hpa.gov.tw/Default.aspx'>http://health99.hpa.gov.tw/Default.aspx</a> 可能增加您體能活動的小提示。</p>
 			</div>
 			<div class="pa_5">
-				<p>做得好！體能活動是保持你的健康和你的心肺健康的許多方式之一。繼續參與你喜歡的體能活動並持續下去。<a class="offsite"  href='http://health.gov/paguidelines/'>參考這裡。</a></p>
+				<p>很好！體能活動是保持您健康和您心肺健康的許多方式之一。繼續參與您喜歡的體能活動並持續下去。<a class="offsite"  href='http://health99.hpa.gov.tw/Default.aspx'>參考這裡。</a></p>
 			</div>
 		</aside>
 	</div>
@@ -384,13 +384,13 @@ $suggest = $suggestion[$level][$uselang];
 		</aside>
 		<aside class="lang tw">
 			<h3>抽煙</h3>
-			<div class="funfact"><p><i>你知道煙草煙霧會危害我們的動物嗎？二手煙不只是對人類有害，對寵物也是。</i></p></div>
+			<div class="funfact"><p><i>您知道煙草煙霧會危害我們的動物嗎？二手煙不只是對人類有害，對寵物也是。</i></p></div>
 			<div class="yes">
-				<p>吸煙與增加許多健康問題的風險有關，包括心血管疾病，高膽固醇和許多類型的癌症。二手煙也可以影響你周圍的人的心臟，肺和健康。戒菸已被證明可以降低這些問題和其他問題的風險。</p>
-				<p>戒菸它很難，但是是可能的。美國的數百萬人在過去幾年中已經能夠戒菸成功。當考慮戒菸時，有一個計劃是很重要的。考慮和你的醫生或醫療保健提供者談談，可參考 <a class="offsite" href='https://smokefree.gov/'>https://smokefree.gov/</a>, 或播電話1-800-QUIT-NOW 開始。</p>
+				<p>吸煙與增加許多健康問題的風險有關，包括心血管疾病，高膽固醇和許多類型的癌症。二手煙也可以影響您周圍的人的心臟，肺和健康。戒菸已被證明可以降低這些問題和其他問題的風險。</p>
+				<p>戒菸它很難，但是是可以達成的。美國的數百萬人在過去幾年中已經能夠戒菸成功。當考慮戒菸時，有一個計劃是很重要的。考慮和您的醫生或醫療保健提供者談談，可參考 <a class="offsite" href='http://www.e-quit.org/'>http://www.e-quit.org/</a>, 或播電話0800-63-63-63 開始。</p>
 			</div>
 			<div class="no">
-				<p>你表示你不抽煙。非常好！避免吸煙在保持身體和全人健康方面扮演者重要的角色。</p>
+				<p>您表示您不抽煙。非常好！避免吸煙在保持身體和整體健康方面扮演者重要的角色。</p>
 			</div>
 		</aside>
 	</div>

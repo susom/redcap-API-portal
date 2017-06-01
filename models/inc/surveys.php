@@ -7,10 +7,34 @@ unset($_SESSION["user_survey_data"]);
 $consent_date = strToTime($loggedInUser->consent_ts);
 $datediff     = time() - $consent_date;
 $days_active  = floor($datediff / (60 * 60 * 24));
-$user_event_arm = isset($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
+$user_event_arm = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
+
+
+// OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?
+// FIRST GET META DATA FOR FIRST SURVEY - wellbeing_questions
+$extra_params = array(
+	'content' 	=> 'metadata',
+	'forms'		=> array("wellbeing_questions")
+);
+$result = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+$fields = array_map(function($item){
+	return $item["field_name"];
+},$result);
+//THEN GET USER ANSWERS ONLY NEED 1
+$extra_params = array(
+  'content'   	=> 'record',
+  'records' 	=> array($loggedInUser->id) ,
+  'type'      	=> "flat",
+  'fields'    	=> $fields,
+  'events'		=> array(REDCAP_PORTAL_EVENT),
+  'exportSurveyFields' => true
+);
+$result 		= RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
 
 //ON ANNIVERSARY UPDATE THEIR EVENT ARM
-if( $days_active > 364 && $user_event_arm !== REDCAP_PORTAL_EVENT_1) {
+if( $days_active > 364 && $user_event_arm !== REDCAP_PORTAL_EVENT_1
+	&& !empty($result[0]["well_q_2_start_ts"]) 
+) {
 	unset($_SESSION["user_survey_data"]);
 	$loggedInUser->updateUser(array(
 				"user_event_arm" => REDCAP_PORTAL_EVENT_1,

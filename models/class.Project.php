@@ -1,4 +1,4 @@
-<?php
+ <?php
 class Project {
 	protected $LOGGED_IN_USER;
 	protected $API_URL;
@@ -26,9 +26,11 @@ class Project {
 		$this->API_TOKEN 		= $api_token;
 		$this->LOGGED_IN_USER 	= $loggedInUser;
 		$this->name 			= $projectName;
+		$this->current_arm 		= $loggedInUser->user_event_arm;
 
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
+
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
@@ -38,7 +40,7 @@ class Project {
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 
-				$user_current_event = isset($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
+				$user_current_event = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
 						 "arm_num" 				=> $event["arm_num"]
@@ -50,6 +52,7 @@ class Project {
 				}
 			}, $all_events);
 		}
+		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 
 		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
 		$this->ALL_INSTRUMENTS 	= array_filter($all_instruments);
@@ -185,11 +188,53 @@ class Project {
 				$metadata 			= $this->METADATA[$instrument_id];
 				$projectInfo 		= $this->PROJECT_INFO;
 				$project_notes	 	= $projectInfo["project_notes"];
+				
+				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM"
+				if($this->current_arm !== REDCAP_PORTAL_EVENT){ //DEFAULT ARM
+					$filter_meta 	= $metadata;
+					$new_meta 		= array();
+					$new_new_meta 	= array();
+					$prev_sechdr 	= null;
+
+					$filter_meta 	= array_filter($metadata, function($item){
+									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) ;
+									});
+
+					$recent_sec_header = "";
+					foreach($filter_meta as $key => $item){
+						//IF NEW SECTION HEADER ENCOUNTERED BEFORE @CUSTOM, THEN DISCARD PREVIOUS SECTION HEADER
+						if(strpos($item["field_annotation"],"CUSTOM") < 0 && $item["section_header"] == ""){
+							array_push($new_new_meta,$item);
+						}else if(!empty($item["section_header"])){
+							$recent_sec_header = $item["field_name"];
+							$new_meta[$recent_sec_header] = array();
+
+							//PUSH THIS HEADER
+							array_push($new_meta[$recent_sec_header],$item);
+						}else if(strpos($item["field_annotation"],"CUSTOM") > -1){
+							//PUSH ITEM INTO HEADER GROUP
+							array_push($new_meta[$recent_sec_header],$item);
+						}
+					}
+
+					//NOW PUT THEM ALL IN ORDER
+					foreach($new_meta as $key => $group){
+						if(count($group) > 1){
+							foreach($group as $item){
+								array_push($new_new_meta,$item);
+							}
+						}
+					}
+
+					$metadata = $new_new_meta;
+				}
+
 
 				//SOME QUESTION ACCOUNTING
 				$actual_questions 	= array_filter($metadata, function($item){
 									  return $item["field_type"] != "descriptive";
 									});
+
 				$has_branches 		= array_filter($actual_questions, function($item){
 									  return !empty($item["branching_logic"]);
 									});

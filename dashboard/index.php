@@ -294,18 +294,14 @@ include("inc/gl_head.php");
                           $news[]         = "<li class='list-group-item icon_update'>".$a_nutrilink."</li>";
                         }
                       }
-                      
-                      // $news[] = "<li class='list-group-item icon_update'><a class='nutrilink' href='https://redcap.stanford.edu/surveys/?s=MKYD7XMHXK' title='One Week Challenge : No Added Sugar' target='_blank'>One Week Challenge : No Added Sugar</a></li>";
-
 
                       //FIGURE OUT WHERE TO PUT THIS "NEWS" STUFF
                       //THIS COMES FROM THE models/inc/surveys.php file
-                      $survey_alinks  = array();
+                      $survey_alinks        = array();
                       $supp_part_1_complete = true;
                       if($user_bucket == $variant){
                         foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
-                          if($supp_instrument_id == "how_physically_mobile_are_you" 
-                            || $supp_instrument_id == "how_fit_are_you"){
+                          if($supp_instrument_id == "how_physically_mobile_are_you" || $supp_instrument_id == "how_fit_are_you"){
                             if(!$supp_instrument["survey_complete"]){
                               $supp_part_1_complete = false;
                             }
@@ -321,12 +317,13 @@ include("inc/gl_head.php");
                         }
 
                         if(!$supp_part_1_complete && (
-                            $supp_instrument_id == "how_resilient_are_you_to_stress" 
+                               $supp_instrument_id == "how_resilient_are_you_to_stress" 
                             || $supp_instrument_id == "how_well_do_you_sleep" 
                             || $supp_instrument_id == "find_out_your_body_type_according_to_chinese_medic" 
                           )){
                           continue;
                         }
+
                         //if bucket is A make sure that three other ones are complete before showing.
                         $projnotes    = json_decode($supp_instrument["project_notes"],1);
                         $title_trans  = $projnotes["translations"];
@@ -339,7 +336,7 @@ include("inc/gl_head.php");
                         $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
                     
                         $news[]       = "<li class='list-group-item $icon_update'>
-                                            ".$survey_alinks[$supp_instrument_id]." survey
+                                            ".$survey_alinks[$supp_instrument_id]." survey 
                                         </li>";
                       }
                       
@@ -351,7 +348,6 @@ include("inc/gl_head.php");
                       $projnotes      = json_decode($survey["project_notes"],1);
                       $title_trans    = $projnotes["translations"];
                        
-                      
                       foreach($surveys as $surveyid => $survey){
                         $index          = array_search($surveyid, $all_survey_keys);
                         $surveylink     = "survey.php?sid=". $surveyid;

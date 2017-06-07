@@ -27,7 +27,6 @@ class Project {
 		$this->LOGGED_IN_USER 	= $loggedInUser;
 		$this->name 			= $projectName;
 		$this->current_arm 		= $loggedInUser->user_event_arm;
-
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
 
@@ -39,8 +38,8 @@ class Project {
 				global $loggedInUser;
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
-
 				$user_current_event = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
+
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
 						 "arm_num" 				=> $event["arm_num"]
@@ -52,11 +51,11 @@ class Project {
 				}
 			}, $all_events);
 		}
+		
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 
 		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
 		$this->ALL_INSTRUMENTS 	= array_filter($all_instruments);
-
 		$surveylinks 	= array();
 		$metadata 		= array(); 
 		foreach($all_instruments as $index => $instrument){
@@ -157,7 +156,7 @@ class Project {
 			$unique_event_name 	= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
-
+			
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(strpos($check_survey_link,"error") > -1){
 				continue;
@@ -190,7 +189,7 @@ class Project {
 				$project_notes	 	= $projectInfo["project_notes"];
 				
 				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM"
-				if($this->current_arm !== REDCAP_PORTAL_EVENT){ //DEFAULT ARM
+				if($this->current_arm !== REDCAP_PORTAL_EVENT && in_array($instrument_id,SurveysConfig::$core_surveys)){ //DEFAULT ARM
 					$filter_meta 	= $metadata;
 					$new_meta 		= array();
 					$new_new_meta 	= array();
@@ -228,7 +227,6 @@ class Project {
 
 					$metadata = $new_new_meta;
 				}
-
 
 				//SOME QUESTION ACCOUNTING
 				$actual_questions 	= array_filter($metadata, function($item){

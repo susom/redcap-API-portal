@@ -63,7 +63,6 @@ if(isset($_SESSION["user_survey_data"])){
 //THIS DATA NEEDS TO BE REFRESHED EVERYTIME OR RISK BEING STALE 
 $surveys 				= $user_survey_data->getActiveAll();	
 $all_completed 			= $user_survey_data->getAllComplete(); 
- 
 $first_survey 			= reset($surveys);
 
 //THESE ONLY NEED DATA CALL ONCE PER SESSION
@@ -72,8 +71,6 @@ $core_surveys_complete 	= $user_survey_data->getUserActiveComplete();
 $all_survey_keys  		= array_keys($surveys); 
 $fruits  				= SurveysConfig::$fruits;
 
-// unset($_SESSION["supplemental_surveys"]);
-// exit;
 //SUPPLEMENTAL PROJECTS
 if(isset($_SESSION["supplemental_surveys"])){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
@@ -86,8 +83,9 @@ if(isset($_SESSION["supplemental_surveys"])){
 }else{
 	$supp_surveys = array();
 	$supp_proj    = SurveysConfig::$projects;
+	
 	foreach($supp_proj as $proj_name => $project){
-	  if($proj_name == $_CFG->SESSION_NAME || $proj_name == "Studies"){
+	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"Studies","taiwan_admin","miniintervention","foodquestions")) ){
 	    continue;
 	  }
 
@@ -98,16 +96,13 @@ if(isset($_SESSION["supplemental_surveys"])){
 	  }
 	  $supp_surveys[$proj_name] = $supplementalProject;
 	}
-	$_SESSION["supplemental_surveys"] 	= $supp_surveys;
+	// $_SESSION["supplemental_surveys"] 	= $supp_surveys;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
-
 $supp_instruments = array();
 foreach($supp_surveys as $projname => $supp_project){
-	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveall() );
+	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
-// print_rr($supp_instruments,1);
 $supp_surveys_keys 	= array_keys($supp_instruments);
-// print_rr($supp_surveys_keys);
 // print_rr($surveys,1);
 // exit;

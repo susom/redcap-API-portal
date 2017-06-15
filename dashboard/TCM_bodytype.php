@@ -10,15 +10,16 @@ foreach($tcmanswers as $userans){
 }
 
 $tcm_reqs = array();
-$tcm_reqs[0] = array('tcm_energy','tcm_optimism','tcm_weight','tcm_stool','tcm_naturalenv','tcm_sleepwell');
-$tcm_reqs[1] = array('tcm_energy','tcm_voice','tcm_panting','tcm_tranquility','tcm_colds','tcm_pasweat');
-$tcm_reqs[2] = array('tcm_handsfeet_cold','tcm_cold_aversion','tcm_sensitive_cold','tcm_cold_tolerant','tcm_pain_eatingcold','tcm_loosestool');
-$tcm_reqs[3] = array('tcm_handsfeet_hot','tcm_face_hot','tcm_dryskin','tcm_dryeyes','tcm_constipated','tcm_drylips');
-$tcm_reqs[4] = array('tcm_sleepy','tcm_sweat','tcm_oily_forehead','tcm_eyelid','tcm_bodyframe','tcm_snore');
-$tcm_reqs[5] = array('tcm_frustrated','tcm_nose','tcm_acne','tcm_bitter','tcm_stickystool','tcm_scrotum','tcm_discharge');
+$tcm_reqs[0] = array('tcm_energy','tcm_optimism','tcm_appetite','tcm_weight','tcm_stool','tcm_sleepwell','tcm_naturalenv');
+$tcm_reqs[1] = array('tcm_tired','tcm_tranquility','tcm_voice','tcm_panting','tcm_colds','tcm_pasweat');
+$tcm_reqs[2] = array('tcm_cold_tolerant','tcm_cold_tolerant_freezer','tcm_pain_eatingcold','tcm_sensitive_cold','tcm_wear_more','tcm_handsfeet_cold','tcm_cold_temp');
+$tcm_reqs[3] = array('tcm_dryeyes','tcm_face_hot','tcm_handsfeet_hot','tcm_dryskin','tcm_drylips','tcm_constipated');
+$tcm_reqs[4] = array('tcm_eyelid','tcm_oily_forehead','tcm_snore','tcm_bodyframe','tcm_limbs');
+$tcm_reqs[5] = array('tcm_nose','tcm_hair_oily','tcm_bitter','tcm_acne','tcm_stickystool','tcm_scrotum','tcm_discharge');
 $tcm_reqs[6] = array('tcm_forget','tcm_bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_tongue');
-$tcm_reqs[7] = array('tcm_depressed','tcm_anxious','tcm_melancholy','tcm_scared','tcm_suspicious','tcm_ribcage','tcm_breastpain');
-$tcm_reqs[8] = array('tcm_sneeze','tcm_cough','tcm_allergies','tcm_hives','tcm_skin_red');
+$tcm_reqs[7] = array('tcm_complexion','tcm_forget','tcm_lips_color','tcm_bruises_skin','tcm_capillary_cheek','tcm_face_spot','tcm_tongue');
+$tcm_reqs[8] = array('tcm_depressed','tcm_pessimistic','tcm_melancholy','tcm_scared','tcm_anxious','tcm_suspicious','tcm_chest_male','tcm_chest_female');
+$tcm_reqs[9] = array('tcm_allergic_food','tcm_allergic_env','tcm_allergic_product','tcm_allergic_others','tcm_skin_red','tcm_allergic_exp');
 
 $tcm_types 		= array(
 		"en" => array(

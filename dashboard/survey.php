@@ -205,7 +205,6 @@ if($project){
   }
 }
 
-
 if(array_key_exists($surveyid, $surveys)){
   $survey_data    = $surveys[$surveyid];
 
@@ -220,7 +219,6 @@ if(array_key_exists($surveyid, $surveys)){
   header("Location: " . $destination);
   exit; 
 }
-
 //SOME PAGE SET UP
 $shownavsmore   = false;
 $survey_active  = ' class="active"';

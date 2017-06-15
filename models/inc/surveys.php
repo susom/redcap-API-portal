@@ -104,5 +104,7 @@ foreach($supp_surveys as $projname => $supp_project){
 	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
 $supp_surveys_keys 	= array_keys($supp_instruments);
-// print_rr($surveys,1);
+// print_rr($supp_surveys,1);
+// print_rr($supp_instruments);
+// print_rr($supp_surveys,1);
 // exit;

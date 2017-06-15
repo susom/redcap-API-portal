@@ -157,6 +157,10 @@ class Project {
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
 			
+if(count($all_instruments) > 5){
+	// print_rr($check_survey_link);
+}
+
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(strpos($check_survey_link,"error") > -1){
 				continue;
@@ -202,29 +206,37 @@ class Project {
 					$recent_sec_header = "";
 					foreach($filter_meta as $key => $item){
 						//IF NEW SECTION HEADER ENCOUNTERED BEFORE @CUSTOM, THEN DISCARD PREVIOUS SECTION HEADER
-						if(strpos($item["field_annotation"],"CUSTOM") < 0 && $item["section_header"] == ""){
-							array_push($new_new_meta,$item);
-						}else if(!empty($item["section_header"])){
+						if($item["section_header"]!== ""){
 							$recent_sec_header = $item["field_name"];
 							$new_meta[$recent_sec_header] = array();
 
 							//PUSH THIS HEADER
 							array_push($new_meta[$recent_sec_header],$item);
-						}else if(strpos($item["field_annotation"],"CUSTOM") > -1){
+						}
+
+						if(strpos($item["field_annotation"],"CUSTOM") > -1){
 							//PUSH ITEM INTO HEADER GROUP
 							array_push($new_meta[$recent_sec_header],$item);
 						}
+
+						//HIDDENS
+						if(strpos($item["field_annotation"],"CUSTOM") < 0 && $item["section_header"] == ""){
+							array_push($new_new_meta,$item);
+						}
 					}
 
+					
 					//NOW PUT THEM ALL IN ORDER
 					foreach($new_meta as $key => $group){
-						if(count($group) > 1){
+						if(count($group) >= 1){
 							foreach($group as $item){
 								array_push($new_new_meta,$item);
 							}
 						}
 					}
-
+					if($instrument_id == "your_sleep_habits"){
+						// print_rr($new_meta,1);
+					}
 					$metadata = $new_new_meta;
 				}
 
@@ -270,6 +282,7 @@ class Project {
 				,"instrument_name"	=> $instrument_id
 			);
 		}
+
 		return $surveys;
     }
 

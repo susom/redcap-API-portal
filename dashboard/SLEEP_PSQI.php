@@ -147,7 +147,7 @@ if($PSQI < 5){
 	<div id="PSQI">
 		<div class="less_than_5">
 			<p>Nice job! Your sleep survey score is associated with good quality sleep.  You understand the importance of sleep to your health and wellbeing and have made it a priority in your daily routine.  Good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Keep it up!</p>
-			<p>Check out our <a href="x" target="blank">sleep resources</a> page to learn more about sleep, including tools for improving, maintaining, and tracking your excellent sleep quality.  While there, you can also access our <a href="x" target="blank">interview with a sleep expert</a>, where many common sleep questions from other study participants like you were answered.</p>
+			<!-- <p>Check out our <a href="x" target="blank">sleep resources</a> page to learn more about sleep, including tools for improving, maintaining, and tracking your excellent sleep quality.  While there, you can also access our <a href="x" target="blank">interview with a sleep expert</a>, where many common sleep questions from other study participants like you were answered.</p> -->
 		</div>
 		<div class="greater_than_5">
 			<p>Your answers to the sleep survey are associated with poor quality sleep.  Sleep is a very important component to our health and wellbeing, and good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Poor quality sleep has been associated with reduced immunity, and health problems related to metabolism, appetite regulation, and stress response.</p>

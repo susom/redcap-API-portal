@@ -156,23 +156,23 @@ if($PSQI < 5){
 	</div>
 	<div id="PSQIDURAT" class="psqi_desc">
 		<h3>Short Duration of Sleep</h3>
-		<p>The National Sleep Foundation recommends that adults between the ages of 18 and 64 receive between 7 and 9 hours of sleep every night, and between 7-8 hours for adults 65 or older.  If you are routinely getting less than 7 hours of sleep at night, it may be affecting your sleep quality.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  </p>
+		<p>The National Sleep Foundation recommends that adults between the ages of 18 and 64 receive between 7 and 9 hours of sleep every night, and between 7-8 hours for adults 65 or older.  If you are routinely getting less than 7 hours of sleep at night, it may be affecting your sleep quality.  </p>
 	</div>
 	<div id="PSQIDISTB" class="psqi_desc">
 		<h3>Sleep Disturbance</h3>
-		<p>Creating a sleep environment that is free of night time disturbance is critical to good quality sleep.  A sleep disturbance includes anything that wakes you during the night, including the need to use the bathroom, coughing or loud snoring, not being able to breath comfortably, feeling too hot or too cold, experiencing pain, bad dreams, or anything else that can cause you to wake in the night.  These sleep disturbances interrupt natural sleep cycles.  If you frequently awake in the night, take steps to create a better sleep environment by checking out our Sleep Tips page.  </p>
+		<p>Creating a sleep environment that is free of night time disturbance is critical to good quality sleep.  A sleep disturbance includes anything that wakes you during the night, including the need to use the bathroom, coughing or loud snoring, not being able to breath comfortably, feeling too hot or too cold, experiencing pain, bad dreams, or anything else that can cause you to wake in the night.  These sleep disturbances interrupt natural sleep cycles.  If you frequently awake in the night, take steps to create a better sleep environment.</p>
 	</div>
 	<div id="PSQILATEN" class="psqi_desc">
 		<h3>Sleep Latency</h3>
-		<p>Sleep latency refers to the amount of time that it takes you to fall asleep at night.  Good quality sleep is characterized by falling asleep within 15 minutes of your head hitting the pillow.  If you have difficulty falling asleep at night, there are steps you can take to prepare yourself and your environment for falling asleep faster.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  </p>
+		<p>Sleep latency refers to the amount of time that it takes you to fall asleep at night.  Good quality sleep is characterized by falling asleep within 15 minutes of your head hitting the pillow.  If you have difficulty falling asleep at night, there are steps you can take to prepare yourself and your environment for falling asleep faster.  </p>
 	</div>
 	<div id="PSQIDAYDYS" class="psqi_desc">
 		<h3>Day Dysfunction due to Sleepiness</h3>
-		<p>Day dysfunction is defined as having trouble staying awake while driving, eating, or engaging in social activities, or with maintaining enthusiasm for daily tasks due to lack of sleep.  One episode of day dysfunction within the past month is a characteristic of poor quality sleep and requires that one address the underlying problem, which is whatever is contributing to the poor quality sleep.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  </p>
+		<p>Day dysfunction is defined as having trouble staying awake while driving, eating, or engaging in social activities, or with maintaining enthusiasm for daily tasks due to lack of sleep.  One episode of day dysfunction within the past month is a characteristic of poor quality sleep and requires that one address the underlying problem, which is whatever is contributing to the poor quality sleep.    </p>
 	</div>
 	<div id="PSQIHSE" class="psqi_desc">
 		<h3>Sleep Efficiency</h3>
-		<p>Sleep efficiency refers to the amount of time spent in bed versus the amount of time actually asleep.  If you spend less than 85% of your time in bed actually sleeping, this is an indication of poor quality sleep.  Check out our Sleep Tips page for recommendations for ways you can improve your sleep quality.  </p>
+		<p>Sleep efficiency refers to the amount of time spent in bed versus the amount of time actually asleep.  If you spend less than 85% of your time in bed actually sleeping, this is an indication of poor quality sleep. </p>
 	</div>
 	<div id="PSQISLPQUAL" class="psqi_desc">
 		<h3>Overall Sleep Quality</h3>

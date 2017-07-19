@@ -16,10 +16,9 @@ $tcm_reqs[2] = array('tcm_cold_tolerant','tcm_cold_tolerant_freezer','tcm_pain_e
 $tcm_reqs[3] = array('tcm_dryeyes','tcm_face_hot','tcm_handsfeet_hot','tcm_dryskin','tcm_drylips','tcm_constipated');
 $tcm_reqs[4] = array('tcm_eyelid','tcm_oily_forehead','tcm_snore','tcm_bodyframe','tcm_limbs');
 $tcm_reqs[5] = array('tcm_nose','tcm_hair_oily','tcm_bitter','tcm_acne','tcm_stickystool','tcm_scrotum','tcm_discharge');
-$tcm_reqs[6] = array('tcm_forget','tcm_bruises_skin','tcm_capillary_cheek','tcm_complexion','tcm_darkcircles','tcm_tongue');
-$tcm_reqs[7] = array('tcm_complexion','tcm_forget','tcm_lips_color','tcm_bruises_skin','tcm_capillary_cheek','tcm_face_spot','tcm_tongue');
-$tcm_reqs[8] = array('tcm_depressed','tcm_pessimistic','tcm_melancholy','tcm_scared','tcm_anxious','tcm_suspicious','tcm_chest_male','tcm_chest_female');
-$tcm_reqs[9] = array('tcm_allergic_food','tcm_allergic_env','tcm_allergic_product','tcm_allergic_others','tcm_skin_red','tcm_allergic_exp');
+$tcm_reqs[6] = array('tcm_complexion','tcm_forget','tcm_lips_color','tcm_bruises_skin','tcm_capillary_cheek','tcm_face_spot','tcm_tongue');
+$tcm_reqs[7] = array('tcm_depressed','tcm_pessimistic','tcm_melancholy','tcm_scared','tcm_anxious','tcm_suspicious','tcm_chest_male','tcm_chest_female');
+$tcm_reqs[8] = array('tcm_allergic_food','tcm_allergic_env','tcm_allergic_product','tcm_allergic_others','tcm_skin_red','tcm_allergic_exp');
 
 $tcm_types 		= array(
 		"en" => array(
@@ -68,6 +67,8 @@ $tcm_types 		= array(
 		)
 );
 
+$tcm_answers["tcm_gender"] = 4;
+
 //WTF IS UP WITH THE GENDER THING 
 if(isset($tcm_answers["tcm_scrotum"]) && isset($tcm_answers["tcm_ribcage"])){
 	$tcm_answers["tcm_gender"] = 5;
@@ -75,14 +76,13 @@ if(isset($tcm_answers["tcm_scrotum"]) && isset($tcm_answers["tcm_ribcage"])){
 if(isset($tcm_answers["tcm_discharge"]) && isset($tcm_answers["tcm_breastpain"])){
 	$tcm_answers["tcm_gender"] = 4;
 }
-
 if( $tcm_answers["tcm_gender"] == 5 ){
 	unset($tcm_reqs[5][6]);
-	unset($tcm_reqs[7][6]);
+	unset($tcm_reqs[7][7]);
 }
 if( $tcm_answers["tcm_gender"] == 4 ){
 	unset($tcm_reqs[5][5]);
-	unset($tcm_reqs[7][5]);
+	unset($tcm_reqs[7][6]);
 }
 
 $tcm_map = array();
@@ -95,7 +95,7 @@ foreach($tcm_reqs as $key => $reqset){
 		}
 		
 		if( !isset($tcm_answers[$item]) ){
-			exit;
+			return;
 		}
 
 		$val 	= $tcm_answers[$item];
@@ -112,6 +112,8 @@ foreach($tcm_map as $set => $qs){
 	$tcm_det[] = $tcm["determination"];
 	$tcm_def[] = $tcm["determination"] < 1 ? "hidetcm" : ($tcm["determination"] > 1 ? "positive" : "tendency");
 }
+
+
 function getBodyConstitution($constitutions,$type){
 	global $uselang;
 	$constitution 	= $constitutions[$type];
@@ -166,6 +168,10 @@ function getBodyConstitution($constitutions,$type){
 	}
 	return array("result" => $theratio, "determination" => $determination);
 }
+
+
+
+
 ?>
 <div id="tcm_results">
 <table >

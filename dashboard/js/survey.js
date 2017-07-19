@@ -636,9 +636,10 @@ function showTCMScoring(){
   var compare       = _.intersection(user_ans_flat, tcm_required_flat);
   var difference    = _.difference(tcm_required_flat, compare);
 
-  if($("#customform input[name='tcm_gender']:checked").val() !== "") {
+  if($("#customform input[name='tcm_gender']:checked").val() !== "") {    
     var nextSection = $("#customform section:last").prev();
     var dataURL     = "TCM_bodytype.php?uselang="+uselang;
+
     $.ajax({
       url:  dataURL,
       type:'POST',
@@ -659,6 +660,7 @@ function showTCMScoring(){
         });
       }
     });
+  }else{
   }
 }
 

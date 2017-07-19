@@ -2,15 +2,15 @@
 require_once("models/config.php");
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN AND CONSENTED TO THE PORTAL PAGE
-// if(isUserLoggedIn() && isUserActive()) { 
-// 	$destination = $websiteUrl . "dashboard/index.php";
-// 	header("Location: " . $destination);
-// 	exit; 
-// }else if(!isUserLoggedIn()) { 
-// 	$destination = $websiteUrl . "login.php";
-// 	header("Location: " . $destination);
-// 	exit; 
-// }
+if(isUserLoggedIn() && isUserActive()) { 
+	$destination = $websiteUrl . "dashboard/index.php";
+	header("Location: " . $destination);
+	exit; 
+}else if(!isUserLoggedIn()) { 
+	$destination = $websiteUrl . "login.php";
+	header("Location: " . $destination);
+	exit; 
+}
 
 //RECORD ACTUAL CONSENT TIME BUTTON PUSH 
 // if(isset($_REQUEST["consent_actual"])){

@@ -2,15 +2,15 @@
 require_once("models/config.php");
 
 //REDIRECT USERS THAT ARE ALREADY LOGGED IN AND CONSENTED TO THE PORTAL PAGE
-if(isUserLoggedIn() && isUserActive()) { 
-	$destination = $websiteUrl . "dashboard/index.php";
-	header("Location: " . $destination);
-	exit; 
-}else if(!isUserLoggedIn()) { 
-	$destination = $websiteUrl . "login.php";
-	header("Location: " . $destination);
-	exit; 
-}
+// if(isUserLoggedIn() && isUserActive()) { 
+// 	$destination = $websiteUrl . "dashboard/index.php";
+// 	header("Location: " . $destination);
+// 	exit; 
+// }else if(!isUserLoggedIn()) { 
+// 	$destination = $websiteUrl . "login.php";
+// 	header("Location: " . $destination);
+// 	exit; 
+// }
 
 //RECORD ACTUAL CONSENT TIME BUTTON PUSH 
 // if(isset($_REQUEST["consent_actual"])){
@@ -38,6 +38,7 @@ include("models/inc/gl_header.php");
   <div class="row"> 
 	<div id="main-content" class="col-md-8 col-md-offset-2" role="main">
 		<div class="well row">
+			<img src="assets/img/well_logo.png" class="print"/>
 			<ul id="register_steps">
 				<li><span>1</span> <?php echo lang("STEP_REGISTER") ?></li>
 				<li><span>2</span> <?php echo lang("STEP_VERIFY") ?></li>
@@ -65,7 +66,7 @@ include("models/inc/gl_header.php");
 					<button class="btn btn-info" role="back"><?php echo lang("GENERAL_BACK") ?></button>
 					<button class="btn btn-info" role="next"><?php echo lang("GENERAL_NEXT") ?></button>
 					<button type="submit" role="consent" class="btn btn-info agree"><?php echo lang("CONSENT_I_AGREE") ?></button>
-					<button type="submit" role="consent" class="btn btn-info agree"><?php echo lang("CONSENT_PRINT") ?></button>
+					<button role="print" class="btn btn-info print"><?php echo lang("CONSENT_PRINT") ?></button>
 				</form>
 			</div>
 	  	</div>
@@ -149,5 +150,9 @@ $("button[role='back']").click(function(){
 		} 
 	});
 	return false;
+});
+
+$("button[role='print']").click(function(){
+	window.print();
 });
 </script>

@@ -154,5 +154,6 @@ $("button[role='back']").click(function(){
 
 $("button[role='print']").click(function(){
 	window.print();
+	return false;
 });
 </script>

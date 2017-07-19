@@ -82,6 +82,7 @@
 		"CONSENT_WELCOME" 						=> "WELCOME!",
 		"CONSENT_CONTACT" 						=> "FOR QUESTIONS ABOUT THE STUDY, CONTACT the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.",
 		"CONSENT_I_AGREE" 						=> "I Agree",
+		"CONSENT_PRINT" 						=> "Print",
 		
 		//FORGOT PASSWORD AND ACCOUNT SETUP
 		"FORGOTPASS" 							=> "Forgot Password?",

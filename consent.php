@@ -65,6 +65,7 @@ include("models/inc/gl_header.php");
 					<button class="btn btn-info" role="back"><?php echo lang("GENERAL_BACK") ?></button>
 					<button class="btn btn-info" role="next"><?php echo lang("GENERAL_NEXT") ?></button>
 					<button type="submit" role="consent" class="btn btn-info agree"><?php echo lang("CONSENT_I_AGREE") ?></button>
+					<button type="submit" role="consent" class="btn btn-info agree"><?php echo lang("CONSENT_PRINT") ?></button>
 				</form>
 			</div>
 	  	</div>

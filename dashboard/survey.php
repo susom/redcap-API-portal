@@ -25,8 +25,6 @@ if(isset($_REQUEST["TCM"])){
     $data[0]["redcap_event_name"] = $event_name;
   }
   $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-  print_r($data);
-  exit;
 }
 
 //SPECIAL CUSTOM MAT SCORINGCAPTURE
@@ -195,7 +193,7 @@ if(!isUserLoggedIn()) {
 }
 
 //THIS PAGE NEEDS A SURVEY ID
-$surveyid = $sid = $_GET["sid"];
+$surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
 
 if($project){

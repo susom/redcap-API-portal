@@ -89,7 +89,7 @@ $graph_fields               = array(
 $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
 
 //GET ANSWERS FOR ALL USERS
-$all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fields);
+$all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fields,$instrument_event["event"]);
 
 //GATHER UP THIS USERS ANSWERS
 $health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
@@ -147,9 +147,6 @@ if(isset($_GET["irvin"])){
       }
     }
   }
-  print_rr($ALL_TIME_SLEEP_HOURS);
-  print_rr(round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) );
-  exit;
 }
 
 foreach($all_answers as $users_answers){
@@ -251,6 +248,28 @@ $assesments     = '';
 $pg_title 		  = $lang["DASHBOARD"]. " : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
+
+
+$data = array(
+    'token' => '379870900189B71CF04F47F6DC260835',
+    'content' => 'metadata',
+    'format' => 'json',
+    'returnFormat' => 'json',
+    'fields' => array(),
+    'forms' => array('a_little_bit_about_you','about_you','contact_information','wellbeing_questions','your_diet','your_feedback','your_health','your_physical_activity','your_sleep_habits','your_social_and_neighborhood_environment','your_tobacco_and_alcohol_use')
+);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'http://redcap.irvins.loc/api/');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_VERBOSE, 0);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data, '', '&'));
+$output = curl_exec($ch);
 ?>
   <section class="vbox">
     <?php 

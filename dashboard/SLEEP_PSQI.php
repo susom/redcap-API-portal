@@ -180,7 +180,7 @@ if($PSQI < 5){
 	</div>
 	<div id="PSQIMEDS" class="psqi_desc">
 		<h3>Use of Sleep Medication</h3>
-		<p>Taking prescription or over the counter medications within the past month to help you sleep, is an indication of poor quality sleep.  Medications can be useful for acute cases of insomnia, but are not recommended for long-term use.  There more natural treatments for insomnia that don’t involve taking medication, including various relaxation techniques, such as meditation, breathing exercises, and guided imagery.  Cognitive behavioral therapy has also been shown to be an effective treatment for insomnia.  Check out our Sleep Tips page for recommendations for non-medical methods of addressing insomnia.  </p>
+		<p>Taking prescription or over the counter medications within the past month to help you sleep, is an indication of poor quality sleep.  Medications can be useful for acute cases of insomnia, but are not recommended for long-term use.  There more natural treatments for insomnia that don’t involve taking medication, including various relaxation techniques, such as meditation, breathing exercises, and guided imagery.  Cognitive behavioral therapy has also been shown to be an effective treatment for insomnia.  Check out our <a href='sleep_resources.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;'>Sleep Tips page</a> for recommendations for non-medical methods of addressing insomnia.  </p>
 	</div>
 
 	<p>If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>

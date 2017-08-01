@@ -203,7 +203,7 @@ a:hover { text-decoration:underline; }
 /*CONSENT FORM*/
 .consent_slides { 
 	position : relative;
-    overflow : hidden;
+    overflow : auto;
     text-align : left;
 	height: 500px;
 	font-size: 16px;

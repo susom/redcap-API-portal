@@ -77,18 +77,18 @@ p{
 </ul>
 
 <h3>Additional Resources</h3>
-<a href='https://ed.ted.com/lessons/what-would-happen-if-you-didn-t-sleep-claudia-aguirre' target='_blank'>TEDEd - Lessons Worth Sharing (Video) - What would happen if you didn't sleep by Claudia Aguirre.</a><br>
-<a href='http://web.stanford.edu/group/bewell/cgi-bin/bewell-wp/sleeps-impact-on-weight/' target='_blank'>BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
-<a href='http://yoursleep.aasmnet.org/pdf/sleepdiary.pdf' target='_blank'>Sleep Diary from the Centers for Disease Control and Prevention</a><br>
-<a href='http://www.sleepeducation.org/find-a-facility' target='_blank'>Find a Sleep Facility tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</a><br><br>
+<a target="_blank" href='https://ed.ted.com/lessons/what-would-happen-if-you-didn-t-sleep-claudia-aguirre' >TEDEd - Lessons Worth Sharing (Video) - What would happen if you didn't sleep by Claudia Aguirre.</a><br>
+<a target="_blank" href='http://web.stanford.edu/group/bewell/cgi-bin/bewell-wp/sleeps-impact-on-weight/' >BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
+<a target="_blank" href='http://yoursleep.aasmnet.org/pdf/sleepdiary.pdf' >Sleep Diary from the Centers for Disease Control and Prevention</a><br>
+<a target="_blank" href='http://www.sleepeducation.org/find-a-facility' >Find a Sleep Facility tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</a><br><br>
 
 <h3>Sources</h3>
-<a href='https://www.cdc.gov/Features/dsdrowsydriving/index.html' target='_blank'>Centers for Disease Control and Prevention. (updated 2015). Drowsy Driving: Asleep at the Wheel.</a><br>
-<a href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd'>National Heart, Lung, and Blood Institute. (updated 2017). What Are Sleep Deprivation and Deficiency?</a><br>
-<a href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/signs'>National Heart, Lung, and Blood Institute. (updated 2017). What Are the Signs and Symptoms of Problem Sleepiness?</a> <br>
-<a href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/atrisk'>National Heart, Lung, and Blood Institute. (updated 2017). Who Is at Risk for Sleep Deprivation and Deficiency?</a><br>
-<a href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/why'>National Heart, Lung, and Blood Institute (updated 2017).  Why is sleep important?</a><br>
-<a href='https://sleepfoundation.org/sleep-topics/drowsy-driving-vs-drunk-driving-how-similar-are-they'>National Sleep Foundation. (2017). Drowsy Driving vs. Drunk Driving: How Similar Are They?</a><br><br>
+<a target="_blank" href='https://www.cdc.gov/Features/dsdrowsydriving/index.html'>Centers for Disease Control and Prevention. (updated 2015). Drowsy Driving: Asleep at the Wheel.</a><br>
+<a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd'>National Heart, Lung, and Blood Institute. (updated 2017). What Are Sleep Deprivation and Deficiency?</a><br>
+<a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/signs'>National Heart, Lung, and Blood Institute. (updated 2017). What Are the Signs and Symptoms of Problem Sleepiness?</a> <br>
+<a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/atrisk'>National Heart, Lung, and Blood Institute. (updated 2017). Who Is at Risk for Sleep Deprivation and Deficiency?</a><br>
+<a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/why'>National Heart, Lung, and Blood Institute (updated 2017).  Why is sleep important?</a><br>
+<a target="_blank" href='https://sleepfoundation.org/sleep-topics/drowsy-driving-vs-drunk-driving-how-similar-are-they'>National Sleep Foundation. (2017). Drowsy Driving vs. Drunk Driving: How Similar Are They?</a><br><br>
 
 <a name='diet'/>
 <hr/>
@@ -117,11 +117,11 @@ p{
 
 
 <h3>Sources</h3>
-<a href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a href='http://sleepeducation.org/news/2007/06/18/the-sleep-diet-a-link-between-sleep-weight-loss-'>National Sleep Foundation
+<a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='http://sleepeducation.org/news/2007/06/18/the-sleep-diet-a-link-between-sleep-weight-loss-'>National Sleep Foundation
 St-Onge MP, Roberts A, Shechter A, Choudhury AR. Fiber and saturated fat are associated with sleep arousals and slow wave sleep. J Clin Sleep Med 2016;12(1):19–24.
 The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='light'/>
 <hr/>
 
@@ -145,9 +145,9 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 
 
 <h3>Sources</h3>
-<a href='http://well.blogs.nytimes.com/2015/04/07/can-orange-glasses-help-you-sleep-better/?_r=0'>Galbraith, K. (2015, April 7). Can orange glasses help you sleep better?</a><br>
-<a href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='http://well.blogs.nytimes.com/2015/04/07/can-orange-glasses-help-you-sleep-better/?_r=0'>Galbraith, K. (2015, April 7). Can orange glasses help you sleep better?</a><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='body_temp'/>
 <hr/>
 
@@ -166,8 +166,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 </ul>
 
 <h3>Sources</h3>
-<a href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='noise'/>
 <hr/>
 
@@ -185,12 +185,12 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 </ul>
 
 <h3>Additional Resources</h3>
-<a href='https://play.google.com/store/search?q=white%20noise&c=apps&hl=en'>White noise - free white noise apps available</a><br><br>
+<a target="_blank" href='https://play.google.com/store/search?q=white%20noise&c=apps&hl=en'>White noise - free white noise apps available</a><br><br>
 
 
 <h4>Sources</h4>
-<a href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='bedroom'/>
 <hr/>
 
@@ -220,8 +220,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 
 
 <h4>Sources</h4>
-<a href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='sleep'/>
 <hr/>
 
@@ -236,7 +236,7 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 </ul>
 
 <h4>Sources</h4>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <a name='exercise'/>
 <hr/>
 
@@ -252,7 +252,7 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 </ul>
 
 <h4>Sources</h4>
-<a href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 
 <a name='insomnia'/>
 <hr/>
@@ -271,19 +271,19 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 </ul>
 
 <h3>Additional Resources</h3>
-<a href='http://www.drweil.com/health-wellness/body-mind-spirit/stress-anxiety/breathing-three-exercises/'>Breathing Technique for Better Sleep from Dr. Weil</a><br><br>
+<a target="_blank" href='http://www.drweil.com/health-wellness/body-mind-spirit/stress-anxiety/breathing-three-exercises/'>Breathing Technique for Better Sleep from Dr. Weil</a><br><br>
 
 <h3>Cognitive Behavioral Therapy for Sleep</h3>
 <ul>
-<li><a href='http://www.mayoclinic.org/diseases-conditions/insomnia/in-depth/insomnia-treatment/art-20046677'>Cognitive behavioral therapy instead of sleeping pills from the Mayo Clinic</a></li>
-<li><a href='http://sleepdisorders.sleepfoundation.org/chapter-2-insomnia/cbt-overview/cbt-cognitive-therapy/'>CBT - Cognitive Therapy from the National Sleep Foundation</a></li>
+<li><a target="_blank" href='http://www.mayoclinic.org/diseases-conditions/insomnia/in-depth/insomnia-treatment/art-20046677'>Cognitive behavioral therapy instead of sleeping pills from the Mayo Clinic</a></li>
+<li><a target="_blank" href='http://sleepdisorders.sleepfoundation.org/chapter-2-insomnia/cbt-overview/cbt-cognitive-therapy/'>CBT - Cognitive Therapy from the National Sleep Foundation</a></li>
 </ul>
-<a href='http://www.sleepapnea.org/index.html'>Learn more about sleep apnea - American Sleep Apnea Association</a><br><br>
+<a target="_blank" href='http://www.sleepapnea.org/index.html'>Learn more about sleep apnea - American Sleep Apnea Association</a><br><br>
 
 <h4>Sources</h4>
-<a href='http://www.sleepapnea.org/learn/sleep-apnea.html'>American Sleep Apnea Association (2015). Sleep Apnea.</a><br>
-<a href='http://www.mayoclinic.org/diseases-conditions/insomnia/in-depth/insomnia-treatment/art-20046677'>Mayo Clinic. (2016, September 28). Insomnia treatment: cognitive behavioral therapy instead of sleeping pills.</a><br>
-<a href='https://www.nhlbi.nih.gov/health/health-topics/topics/sleepapnea/'>NIH, National Heart, Lung, and Blood Institute (updated 2012).  What is Sleep Apnea.</a><br>
-<a href='http://sleepdisorders.sleepfoundation.org/chapter-2-insomnia/cbt-overview/cbt-cognitive-therapy/'>National Sleep Foundation. (updated 2016). The Sleep Disorders, Chapter 2: Insomnia.</a><br>
-<a href='https://sleepfoundation.org/insomnia/content/what-is-insomnia'>National Sleep Foundation. (updated 2017) What is Insomnia?</a><br><br>
+<a target="_blank" href='http://www.sleepapnea.org/learn/sleep-apnea.html'>American Sleep Apnea Association (2015). Sleep Apnea.</a><br>
+<a target="_blank" href='http://www.mayoclinic.org/diseases-conditions/insomnia/in-depth/insomnia-treatment/art-20046677'>Mayo Clinic. (2016, September 28). Insomnia treatment: cognitive behavioral therapy instead of sleeping pills.</a><br>
+<a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sleepapnea/'>NIH, National Heart, Lung, and Blood Institute (updated 2012).  What is Sleep Apnea.</a><br>
+<a target="_blank" href='http://sleepdisorders.sleepfoundation.org/chapter-2-insomnia/cbt-overview/cbt-cognitive-therapy/'>National Sleep Foundation. (updated 2016). The Sleep Disorders, Chapter 2: Insomnia.</a><br>
+<a target="_blank" href='https://sleepfoundation.org/insomnia/content/what-is-insomnia'>National Sleep Foundation. (updated 2017) What is Insomnia?</a><br><br>
 

@@ -157,10 +157,6 @@ class Project {
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
 			
-if(count($all_instruments) > 5){
-	// print_rr($check_survey_link);
-}
-
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(strpos($check_survey_link,"error") > -1){
 				continue;
@@ -192,15 +188,16 @@ if(count($all_instruments) > 5){
 				$projectInfo 		= $this->PROJECT_INFO;
 				$project_notes	 	= $projectInfo["project_notes"];
 				
-				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM"
-				if($this->current_arm !== REDCAP_PORTAL_EVENT && in_array($instrument_id,SurveysConfig::$core_surveys)){ //DEFAULT ARM
+				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM" 
+				//THIS BLOCK SHOULD ONLY RUN FOR ODD YEAR ANNIVERSARY, SHORT SURVEYS
+				if(strpos($this->current_arm,"short") > -1  && in_array($instrument_id,SurveysConfig::$core_surveys)){ //DEFAULT ARM
 					$filter_meta 	= $metadata;
 					$new_meta 		= array();
 					$new_new_meta 	= array();
 					$prev_sechdr 	= null;
-
+					
 					$filter_meta 	= array_filter($metadata, function($item){
-									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) ;
+									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) || !empty($item["field_annotation"]) ;
 									});
 
 					$recent_sec_header = "";
@@ -233,9 +230,6 @@ if(count($all_instruments) > 5){
 								array_push($new_new_meta,$item);
 							}
 						}
-					}
-					if($instrument_id == "your_sleep_habits"){
-						// print_rr($new_meta,1);
 					}
 					$metadata = $new_new_meta;
 				}

@@ -209,6 +209,8 @@ if(array_key_exists($surveyid, $surveys)){
   //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
   $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
 
+// print_rr($survey_data,1);
+
   //LOAD UP THE SURVEY PRINTER HERE
   $active_survey  = new Survey($survey_data);
 }else{
@@ -217,6 +219,7 @@ if(array_key_exists($surveyid, $surveys)){
   header("Location: " . $destination);
   exit; 
 }
+
 //SOME PAGE SET UP
 $shownavsmore   = false;
 $survey_active  = ' class="active"';

@@ -61,7 +61,7 @@ if(isset($_SESSION["user_survey_data"])){
 }
 
 //THIS DATA NEEDS TO BE REFRESHED EVERYTIME OR RISK BEING STALE 
-$surveys 				= $user_survey_data->getActiveAll();	
+$surveys 				= $user_survey_data->getActiveAll();
 $all_completed 			= $user_survey_data->getAllComplete(); 
 $first_survey 			= reset($surveys);
 
@@ -104,6 +104,7 @@ foreach($supp_surveys as $projname => $supp_project){
 	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
 $supp_surveys_keys 	= array_keys($supp_instruments);
+// print_rr($surveys,1);
 // print_rr($supp_surveys,1);
 // print_rr($supp_instruments);
 // print_rr($supp_surveys,1);

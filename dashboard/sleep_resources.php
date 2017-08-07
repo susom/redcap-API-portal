@@ -15,9 +15,18 @@ p{
 	background-size:contain;
 }
 
+img{
+	max-width:100%;
+	margin:0 auto;
+	display:block;
+}
 </style>
 <div id='logo'></div>
 
+
+<table width="100%">
+<tr>
+<td valign='top'>
 <p>More than 1/3 of Americans are not getting enough sleep on an ongoing basis, defined as less than 7 hours each night, according to a study conducted by the Centers for Disease Control and Prevention's (CDC) Morbidity and Mortality Weekly Report (2016). Sleep is a basic human need and is critical to good health and well-being.  Sleep impacts all aspects of our health, and getting good quality sleep is one of the most effective and easy interventions for immediate improvements in health and mood.</p>  
 <p>You can learn about the importance of sleep, and steps you can take to improve your sleep by clicking on the sleep topic links below.</p>
 
@@ -33,6 +42,7 @@ p{
 <li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#insomnia'>Addressing Insomnia and Sleep Apnea</a></li>
 </ul>
 
+<img src="images/sleepy_kid.png"/>
 <hr/>
 
 <h3>Additional Sleep Resources</h3>
@@ -70,14 +80,24 @@ p{
 <li><a target='_blank' href='http://sleep.stanford.edu/'>The Stanford Center for Sleep Sciences and Medicine</a></li>
 </ul>
 
-<hr>
 
+</td>
+<td width='20'></td>
+<td valign='top'>
+
+<img src="images/sleep_expert.png"/>
+<br>
 <h4>Expert Interview</h4>
 <p>Check out our interview with Stanford sleep expert, Maurice Ohayon, Director at the Stanford Sleep Epidemiology Research Center (SSERC)</p>
 
 <h4>Find a Sleep Facility</h4> 
 <p>If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.</p> 
-<p>Use the Find a Sleep Facility tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</p>
+<p>Use the <a href='http://www.sleepeducation.org/find-a-facility' target='_blank'>Find a Sleep Facility</a> tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</p>
+
+
+
+</td>
+</tr>
 
 
 

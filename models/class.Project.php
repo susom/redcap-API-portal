@@ -228,6 +228,12 @@ class Project {
 					
 					//NOW PUT THEM ALL IN ORDER
 					foreach($new_meta as $key => $group){
+						if(count($group) == 1){
+							if(empty($group[0]["field_annotation"]) || strpos($group[0]["field_annotation"],"anniversary") == -1){
+								continue;
+							}
+						}
+
 						if(count($group) >= 1){
 							$previtem = null;
 							foreach($group as $item){
@@ -239,7 +245,6 @@ class Project {
 						}
 					}
 					$metadata = $new_new_meta;
-
 					// print_rr($metadata,1);
 				}
 

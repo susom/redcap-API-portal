@@ -335,7 +335,7 @@ class Survey {
     return self::doActionTags($results);
   }
 
-  public function printHTML($event){
+  public function printHTML($event, $instrument_id){
     global $MAT_videos;
     $theHTML      = array();
     $yourAnswers  = (!$this->surveycomplete ? "" : " : Your Answers");
@@ -491,7 +491,9 @@ class Survey {
           }
 
           //LETS JUST PRINT A REGULAR FIELD
-          if( (strpos($event,"short_anniversary") > -1 && strpos($field["field_annotation"],"anniversary") > -1) ||  strpos($event,"short_anniversary") == -1){
+          if( (strpos($event,"short_anniversary") > -1 && strpos($field["field_annotation"],"anniversary") > -1 && in_array($instrument_id,SurveysConfig::$core_surveys)) 
+            || (strpos($event,"short_anniversary") > -1 && !in_array($instrument_id,SurveysConfig::$core_surveys))
+            || strpos($event,"short_anniversary") == -1){
             if( $field_type !== "descriptive" && $field_type !== "hidden" ){
               if($matrix_group !== ""){
                 $section_html[] = "<div class='table-responsive'>";

@@ -190,7 +190,7 @@ class Project {
 				
 				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM" 
 				//THIS BLOCK SHOULD ONLY RUN FOR ODD YEAR ANNIVERSARY, SHORT SURVEYS
-				if(strpos($this->current_arm,"short") > -1  && in_array($instrument_id,SurveysConfig::$core_surveys)){ //DEFAULT ARM
+				if(strpos($this->current_arm,"short") > -1  && in_array($instrument_id,SurveysConfig::$core_surveys) ){ //DEFAULT ARM
 					$filter_meta 	= $metadata;
 					$new_meta 		= array();
 					$new_new_meta 	= array();

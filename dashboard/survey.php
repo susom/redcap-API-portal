@@ -258,7 +258,7 @@ include("inc/gl_head.php");
                           <?php    
                       }
                       //PRINT OUT THE HTML FOR THIS SURVEY
-                      $active_survey->printHTML($survey_data["event"]);
+                      $active_survey->printHTML($survey_data["event"], $sid);
                     ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>

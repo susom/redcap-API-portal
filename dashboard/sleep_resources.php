@@ -11,7 +11,7 @@ p{
 #logo{
 	height:100px;
 	margin:20px 0;
-	background:url(images/well_logo_treeonly.png) 50% no-repeat;
+	background:url(../assets/img/well_logo.png) 50% no-repeat;
 	background-size:contain;
 }
 

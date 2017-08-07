@@ -12,7 +12,7 @@ p{
 #logo{
 	height:100px;
 	margin:20px 0;
-	background:url(images/well_logo_treeonly.png) 50% no-repeat;
+	background:url(../assets/img/well_logo.png) 50% no-repeat;
 	background-size:contain;
 }
 .back{
@@ -29,6 +29,12 @@ p{
 	color:#333;
 	font-size:88%;
 	font-family:arial;
+}
+
+img{
+	max-width:100%;
+	margin:0 auto;
+	display:block;
 }
 </style>
 <a href='#' class='back' onclick='window.history.go(-1);'><< Back</a>
@@ -89,6 +95,7 @@ p{
 <a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/atrisk'>National Heart, Lung, and Blood Institute. (updated 2017). Who Is at Risk for Sleep Deprivation and Deficiency?</a><br>
 <a target="_blank" href='https://www.nhlbi.nih.gov/health/health-topics/topics/sdd/why'>National Heart, Lung, and Blood Institute (updated 2017).  Why is sleep important?</a><br>
 <a target="_blank" href='https://sleepfoundation.org/sleep-topics/drowsy-driving-vs-drunk-driving-how-similar-are-they'>National Sleep Foundation. (2017). Drowsy Driving vs. Drunk Driving: How Similar Are They?</a><br><br>
+<img src="images/sleep_def.png"/>
 
 <a name='diet'/>
 <hr/>
@@ -122,6 +129,10 @@ p{
 St-Onge MP, Roberts A, Shechter A, Choudhury AR. Fiber and saturated fat are associated with sleep arousals and slow wave sleep. J Clin Sleep Med 2016;12(1):19–24.
 The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/diet.png"/>
+
+
+
 <a name='light'/>
 <hr/>
 
@@ -148,6 +159,10 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <a target="_blank" href='http://well.blogs.nytimes.com/2015/04/07/can-orange-glasses-help-you-sleep-better/?_r=0'>Galbraith, K. (2015, April 7). Can orange glasses help you sleep better?</a><br>
 <a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/nature.png"/>
+
+
+
 <a name='body_temp'/>
 <hr/>
 
@@ -168,6 +183,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <h3>Sources</h3>
 <a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/temp.png"/>
+
 <a name='noise'/>
 <hr/>
 
@@ -191,6 +208,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <h4>Sources</h4>
 <a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/noise.png"/>
+
 <a name='bedroom'/>
 <hr/>
 
@@ -222,6 +241,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <h4>Sources</h4>
 <a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/bedroom.png"/>
+
 <a name='sleep'/>
 <hr/>
 
@@ -237,6 +258,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 
 <h4>Sources</h4>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/routine.png"/>
+
 <a name='exercise'/>
 <hr/>
 
@@ -253,6 +276,8 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 
 <h4>Sources</h4>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
+<img src="images/exercise.png"/>
+
 
 <a name='insomnia'/>
 <hr/>
@@ -287,3 +312,4 @@ The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
 <a target="_blank" href='http://sleepdisorders.sleepfoundation.org/chapter-2-insomnia/cbt-overview/cbt-cognitive-therapy/'>National Sleep Foundation. (updated 2016). The Sleep Disorders, Chapter 2: Insomnia.</a><br>
 <a target="_blank" href='https://sleepfoundation.org/insomnia/content/what-is-insomnia'>National Sleep Foundation. (updated 2017) What is Insomnia?</a><br><br>
 
+<img src="images/insomnia.png"/>

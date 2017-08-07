@@ -209,8 +209,6 @@ if(array_key_exists($surveyid, $surveys)){
   //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
   $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
 
-// print_rr($survey_data,1);
-
   //LOAD UP THE SURVEY PRINTER HERE
   $active_survey  = new Survey($survey_data);
 }else{
@@ -260,7 +258,7 @@ include("inc/gl_head.php");
                           <?php    
                       }
                       //PRINT OUT THE HTML FOR THIS SURVEY
-                      $active_survey->printHTML();
+                      $active_survey->printHTML($survey_data["event"]);
                     ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>

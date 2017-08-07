@@ -335,7 +335,7 @@ class Survey {
     return self::doActionTags($results);
   }
 
-  public function printHTML(){
+  public function printHTML($event){
     global $MAT_videos;
     $theHTML      = array();
     $yourAnswers  = (!$this->surveycomplete ? "" : " : Your Answers");
@@ -404,7 +404,6 @@ class Survey {
         $mask_js[]= "$.mask.definitions['N']='[0-5]';";
         $type_arr = array();
 
-        // print_rr($this->raw,1);
         foreach($this->raw as $field){
           // print_rr($this->raw,1);
           $section_html = array();
@@ -492,88 +491,86 @@ class Survey {
           }
 
           //LETS JUST PRINT A REGULAR FIELD
-          if( $field_type !== "descriptive" && $field_type !== "hidden" ){
-            if($matrix_group !== ""){
-              $section_html[] = "<div class='table-responsive'>";
-              if(!in_array($matrix_group, $matrixes)){
-                //THIS GETS ME ALL THE ITEMS WITH THIS MATRIX NAME AND THEIR PRESERVED KEYS 
-                //SOME TIMES SOME ITEMS GET INSERTED IN BETWEEN MATRIX ROWS (WHY?!), SO INSTEAD OF FOREACH, DO A FOR FROM START Index TO END Index
-                $all_matrix_group = array_filter($this->raw, function($item) use ($matrix_group){
-                  return $item["matrix_group_name"] == $matrix_group;
-                });
-                $matrix_range     = array_keys($all_matrix_group);
-                $last_matrix      = array_pop($matrix_range);
-                $first_matrix     = array_shift($matrix_range);
+          if( (strpos($event,"short_anniversary") > -1 && strpos($field["field_annotation"],"anniversary") > -1) ||  strpos($event,"short_anniversary") == -1){
+            if( $field_type !== "descriptive" && $field_type !== "hidden" ){
+              if($matrix_group !== ""){
+                $section_html[] = "<div class='table-responsive'>";
+                if(!in_array($matrix_group, $matrixes)){
+                  //THIS GETS ME ALL THE ITEMS WITH THIS MATRIX NAME AND THEIR PRESERVED KEYS 
+                  //SOME TIMES SOME ITEMS GET INSERTED IN BETWEEN MATRIX ROWS (WHY?!), SO INSTEAD OF FOREACH, DO A FOR FROM START Index TO END Index
+                  $all_matrix_group = array_filter($this->raw, function($item) use ($matrix_group){
+                    return $item["matrix_group_name"] == $matrix_group;
+                  });
+                  $matrix_range     = array_keys($all_matrix_group);
+                  $last_matrix      = array_pop($matrix_range);
+                  $first_matrix     = array_shift($matrix_range);
 
-                $section_html[]   = "<div class='table-responsive'>";
-                $section_html[]   = "<table class='table table-striped b-t b-light'>";
-                $section_html[]   = "<thead>";
-                $section_html[]   = "<th></th>";
-                $options  = getAnswerOptions($select_choices_or_calculations);
-                foreach($options as $val => $value){
-                  $section_html[] = "<th class='text-center'>$value</th>";
-                } 
-                $section_html[]   = "</thead><tbody>";
-
-                for($i = $first_matrix ; $i <= $last_matrix; $i++){
-                  $item           = $this->raw[$i];
-                  $field_name     = $item["field_name"];
-                  $field_type     = $item["field_type"];
-                  $field_label    = $item["field_label"];
-                  $field_label    = str_replace("\r","",$field_label);
-                  $field_label    = str_replace("\n","<br>",$field_label);
-                  $required_field = ($item["required_field"] == "y" ? "required" : "");
-
-                  $section_html[] = "<tr>";
-                  $section_html[] = "<td>$field_label</td>";
-                  $options        = self::getAnswerOptions($item["select_choices_or_calculations"]);
+                  $section_html[]   = "<div class='table-responsive'>";
+                  $section_html[]   = "<table class='table table-striped b-t b-light'>";
+                  $section_html[]   = "<thead>";
+                  $section_html[]   = "<th></th>";
+                  $options  = getAnswerOptions($select_choices_or_calculations);
                   foreach($options as $val => $value){
-                    if($field_type == "radio"){
-                      $checked      = (array_key_exists($field_name,$this->completed) && $completed[$field_name] == $val ? "checked" : "");
-                    }else{
-                      $altered_name = $field_name . "___" . $val;
-                      $checked      = (array_key_exists($altered_name,$this->completed) ? "checked" : "");
-                    }
-                    $section_html[] = "<td class='text-center'><label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/></label></td>";
+                    $section_html[] = "<th class='text-center'>$value</th>";
                   } 
-                  $section_html[]   = "</tr>";
-                }
-                $section_html[]     = "</tbody></table>";
-                array_push($matrixes,$matrix_group);
-              }
-            }else{
-              $has_branching  = (array_key_exists($field_name,$branches) ? "hasBranching" : "");
-              $section_html[] = "<div class='inputwrap $field_name $custom_alignment $has_branching $required_field'>";
-              $section_html[] = "<label class='q_label' for='$field_name'>$field_label<i></i></label>";
+                  $section_html[]   = "</thead><tbody>";
 
-              if($field_type == "dropdown"){
-                $dropdown         = self::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
-                $section_html     = array_merge($section_html, $dropdown);
-              }elseif($field_type == "yesno" || $field_type == "truefalse"){
-                $select_choices_or_calculations = ($field_type == "yesno" ? "1, Yes | 0, No": "1, True | 0, False");
-                $radioOrCheck     = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
-                $section_html     = array_merge($section_html, $radioOrCheck);
-              }elseif($field_type == "notes"){
-                $textarea         = self::makeTextarea($field_name, $required_field, $field_value); 
-                $section_html     = array_merge($section_html, $textarea);
-              }elseif($field_type == "readonly"){
-                $altered_input    = self::makeReadonly($field_name, $field_type,  $field_value); 
-                $section_html     = array_merge($section_html, $altered_input);
-              }elseif($field_type == "custom"){
-                // $textarea         = SELF::makeReadonly($field_name, $field_value); 
-                // $section_html     = array_merge($section_html, $textarea);
-              }else{
-                if($field_type == "text"){
-                  $textinput      = self::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
-                  $section_html   = array_merge($section_html, $textinput);
-                }else{
-                  $radioOrCheck   = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
-                  $section_html   = array_merge($section_html, $radioOrCheck);
+                  for($i = $first_matrix ; $i <= $last_matrix; $i++){
+                    $item           = $this->raw[$i];
+                    $field_name     = $item["field_name"];
+                    $field_type     = $item["field_type"];
+                    $field_label    = $item["field_label"];
+                    $field_label    = str_replace("\r","",$field_label);
+                    $field_label    = str_replace("\n","<br>",$field_label);
+                    $required_field = ($item["required_field"] == "y" ? "required" : "");
+
+                    $section_html[] = "<tr>";
+                    $section_html[] = "<td>$field_label</td>";
+                    $options        = self::getAnswerOptions($item["select_choices_or_calculations"]);
+                    foreach($options as $val => $value){
+                      if($field_type == "radio"){
+                        $checked      = (array_key_exists($field_name,$this->completed) && $completed[$field_name] == $val ? "checked" : "");
+                      }else{
+                        $altered_name = $field_name . "___" . $val;
+                        $checked      = (array_key_exists($altered_name,$this->completed) ? "checked" : "");
+                      }
+                      $section_html[] = "<td class='text-center'><label><input $required_field type='$field_type' name='$field_name' $checked value='$val'/></label></td>";
+                    } 
+                    $section_html[]   = "</tr>";
+                  }
+                  $section_html[]     = "</tbody></table>";
+                  array_push($matrixes,$matrix_group);
                 }
+              }else{
+                $has_branching  = (array_key_exists($field_name,$branches) ? "hasBranching" : "");
+                $section_html[] = "<div class='inputwrap $field_name $custom_alignment $has_branching $required_field'>";
+                $section_html[] = "<label class='q_label' for='$field_name'>$field_label<i></i></label>";
+                if($field_type == "dropdown"){
+                  $dropdown         = self::makeDropdown($field_name, $required_field, $select_choices_or_calculations, $field_value); 
+                  $section_html     = array_merge($section_html, $dropdown);
+                }elseif($field_type == "yesno" || $field_type == "truefalse"){
+                  $select_choices_or_calculations = ($field_type == "yesno" ? "1, Yes | 0, No": "1, True | 0, False");
+                  $radioOrCheck     = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, "radio", $field_value);
+                  $section_html     = array_merge($section_html, $radioOrCheck);
+                }elseif($field_type == "notes"){
+                  $textarea         = self::makeTextarea($field_name, $required_field, $field_value); 
+                  $section_html     = array_merge($section_html, $textarea);
+                }elseif($field_type == "readonly"){
+                  $altered_input    = self::makeReadonly($field_name, $field_type,  $field_value); 
+                  $section_html     = array_merge($section_html, $altered_input);
+                }else{
+                  if($field_type == "text"){
+                    $textinput      = self::makeTextinput($field_name, $required_field, $validation_rules, $field_type, $field_value); 
+                    $section_html   = array_merge($section_html, $textinput);
+                  }else{
+                    $radioOrCheck   = self::makeRadioOrCheck($field_name, $required_field, $select_choices_or_calculations, $field_type, $field_value);
+                    $section_html   = array_merge($section_html, $radioOrCheck);
+                  }
+                }            
               }
+              if($field_note !== "") $section_html[] = "<div class='fieldnote'>$field_note </div>";
+              $section_html[] = "</div>";
             }
-            if($field_note !== "") $section_html[] = "<div class='fieldnote'>$field_note </div>";
-            $section_html[] = "</div>";
           }
 
           if($show && !empty($this->raw)){

@@ -196,14 +196,16 @@ class Project {
 					$new_new_meta 	= array();
 					$prev_sechdr 	= null;
 					
+					// FOR SHORT SURVEY WE ONLY WANT SECTION_HEADERS AND ANNOTATED FIELD ACTIONTAGS WHICH IDENTIFY SHORT QUESTIONS
 					$filter_meta 	= array_filter($metadata, function($item){
-									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) || !empty($item["field_annotation"]) ;
+									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) ;
 									});
+
 
 					$recent_sec_header = "";
 					foreach($filter_meta as $key => $item){
 						//IF NEW SECTION HEADER ENCOUNTERED BEFORE @CUSTOM, THEN DISCARD PREVIOUS SECTION HEADER
-						if($item["section_header"]!== ""){
+						if($item["section_header"] !== ""){
 							$recent_sec_header = $item["field_name"];
 							$new_meta[$recent_sec_header] = array();
 
@@ -211,12 +213,13 @@ class Project {
 							array_push($new_meta[$recent_sec_header],$item);
 						}
 
+						//WE ONLY WANT "CUSTOM" QUESTIONS
 						if(strpos($item["field_annotation"],"CUSTOM") > -1){
 							//PUSH ITEM INTO HEADER GROUP
 							array_push($new_meta[$recent_sec_header],$item);
 						}
 
-						//HIDDENS
+						//AND HIDDEN I GUESS
 						if(strpos($item["field_annotation"],"CUSTOM") < 0 && $item["section_header"] == ""){
 							array_push($new_new_meta,$item);
 						}
@@ -226,12 +229,18 @@ class Project {
 					//NOW PUT THEM ALL IN ORDER
 					foreach($new_meta as $key => $group){
 						if(count($group) >= 1){
+							$previtem = null;
 							foreach($group as $item){
-								array_push($new_new_meta,$item);
+								if($previtem !== $item){
+									array_push($new_new_meta,$item);
+								}
+								$previtem = $item;
 							}
 						}
 					}
 					$metadata = $new_new_meta;
+
+					// print_rr($metadata,1);
 				}
 
 				//SOME QUESTION ACCOUNTING

@@ -49,7 +49,7 @@ if(isset($_GET["survey_complete"])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
         $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
       }else{
-        $success_msg .= $lang["CONGRATS_FRUITS"] . " <iframe width='560' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+        $success_msg .= $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
       }
       addSessionMessage( $success_msg , "success");
   }

@@ -229,7 +229,7 @@ class Project {
 					//NOW PUT THEM ALL IN ORDER
 					foreach($new_meta as $key => $group){
 						if(count($group) == 1){
-							if(empty($group[0]["field_annotation"]) || strpos($group[0]["field_annotation"],"anniversary") == -1){
+							if(empty($group[0]["field_annotation"]) || !strpos($group[0]["field_annotation"],"anniversary")){
 								continue;
 							}
 						}
@@ -245,7 +245,10 @@ class Project {
 						}
 					}
 					$metadata = $new_new_meta;
-					// print_rr($metadata,1);
+
+					// if($instrument_id == "your_physical_activity"){
+					// 	print_rr($metadata);
+					// }
 				}
 
 				//SOME QUESTION ACCOUNTING

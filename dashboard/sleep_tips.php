@@ -84,7 +84,7 @@ img{
 
 <h3>Additional Resources</h3>
 <a target="_blank" href='https://ed.ted.com/lessons/what-would-happen-if-you-didn-t-sleep-claudia-aguirre' >TEDEd - Lessons Worth Sharing (Video) - What would happen if you didn't sleep by Claudia Aguirre.</a><br>
-<a target="_blank" href='http://web.stanford.edu/group/bewell/cgi-bin/bewell-wp/sleeps-impact-on-weight/' >BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
+<a target="_blank" href='https:/bewell.stanford.edu/sleeps-impact-on-weight' >BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
 <a target="_blank" href='http://yoursleep.aasmnet.org/pdf/sleepdiary.pdf' >Sleep Diary from the Centers for Disease Control and Prevention</a><br>
 <a target="_blank" href='http://www.sleepeducation.org/find-a-facility' >Find a Sleep Facility tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</a><br><br>
 
@@ -155,7 +155,7 @@ img{
 
 <h3>Sources</h3>
 <a target="_blank" href='http://well.blogs.nytimes.com/2015/04/07/can-orange-glasses-help-you-sleep-better/?_r=0'>Galbraith, K. (2015, April 7). Can orange glasses help you sleep better?</a><br>
-<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <img src="images/nature.png"/>
 
@@ -179,7 +179,7 @@ img{
 </ul>
 
 <h3>Sources</h3>
-<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <img src="images/temp.png"/>
 
@@ -204,7 +204,7 @@ img{
 
 
 <h4>Sources</h4>
-<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <img src="images/noise.png"/>
 
@@ -237,7 +237,7 @@ img{
 
 
 <h4>Sources</h4>
-<a target="_blank" href='https://sleepfoundation.org/bedroom/National Sleep Foundation'>Inside your bedroom, use your senses! (2012-2016).</a><br>
+<a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <img src="images/bedroom.png"/>
 

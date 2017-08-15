@@ -84,7 +84,7 @@ img{
 
 <h3>Additional Resources</h3>
 <a target="_blank" href='https://ed.ted.com/lessons/what-would-happen-if-you-didn-t-sleep-claudia-aguirre' >TEDEd - Lessons Worth Sharing (Video) - What would happen if you didn't sleep by Claudia Aguirre.</a><br>
-<a target="_blank" href='https:/bewell.stanford.edu/sleeps-impact-on-weight' >BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
+<a target="_blank" href='https://bewell.stanford.edu/sleeps-impact-on-weight' >BeWell at Stanford. Interview by Julie Croteau with Dr. Emmanuel Mignot: Sleeps Impact on Weight.</a><br>
 <a target="_blank" href='http://yoursleep.aasmnet.org/pdf/sleepdiary.pdf' >Sleep Diary from the Centers for Disease Control and Prevention</a><br>
 <a target="_blank" href='http://www.sleepeducation.org/find-a-facility' >Find a Sleep Facility tool provided by the American Academy of Sleep Medicine. Just enter your zipcode to find a facility near you.</a><br><br>
 

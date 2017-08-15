@@ -1,6 +1,7 @@
 <?php
 $sleep_answers 	= $_POST["sleep"] ?: NULL;
 $sleepar 		= json_decode($sleep_answers,1);
+
 $qs 			= array();
 foreach($sleepar as $i => $q){
 	$qs[$q["name"]] = $q["value"];
@@ -23,6 +24,7 @@ $disturbance[] 	= $qs["psqi_bad_dreams"];
 $disturbance[] 	= $qs["psqi_pain"];
 $disturbance[] 	= empty($qs["psqi_other"]) ? 0 : $qs["psqi_other"];
 $total_disturb 	= array_sum($disturbance);
+
 if($total_disturb == 0){
 	$results["PSQIDISTB"] = 0;
 }else if($total_disturb >= 1 && $total_disturb <= 9){
@@ -48,7 +50,6 @@ if($COMBO_LATENCY == 0){
 }else if($COMBO_LATENCY >= 5 && $COMBO_LATENCY <= 6){
 	$results["PSQILATEN"] = 3;
 }
-
 
 //DAY DYSFUNCTION
 $COMBO_DYSFUNCTION = $qs["psqi_staying_awake"] + $qs["psqi_enthusiasm"];
@@ -97,11 +98,19 @@ if($qs["psqi_to_bed_ampm"] > $qs["psqi_gotten_up_ampm"]){
 	$sleep_seconds = $wake_seconds - $tobed_seconds;
 }
 
-
-
+if($qs["psqi_actual_sleep"] == 0){
+	$actual_sleep = 7;
+}else if($qs["psqi_actual_sleep"] == 1){
+	$actual_sleep = 6;
+}else if($qs["psqi_actual_sleep"] == 2){
+	$actual_sleep = 5;
+}else{
+	$actual_sleep = 4;
+}
 
 $newtib = $sleep_seconds/3600;
-$time_phase 			= ($qs["psqi_actual_sleep"]/$newtib)*100;
+$time_phase 			= ($actual_sleep/$newtib)*100;
+
 if($time_phase >= 85){
 	$results["PSQIHSE"] = 0;
 }else if($time_phase < 85 && $time_phase >= 75){

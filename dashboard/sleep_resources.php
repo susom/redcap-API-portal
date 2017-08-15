@@ -31,7 +31,7 @@ img{
 <p>You can learn about the importance of sleep, and steps you can take to improve your sleep by clicking on the sleep topic links below.</p>
 
 <ul>
-<li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#slee_deprivation'>Sleep Deprivation and its Consequences</a></li>
+<li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#slee_deprivation'>Sleep Deficiency and its Consequences</a></li>
 <li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#diet'>Diet, Caffeine and Alcohol</a></li>
 <li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#light'>Natural and Artificial Light</a></li>
 <li><a onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' href='sleep_tips.php#body_temp'>Body Temperature </a></li>
@@ -76,7 +76,7 @@ img{
 <li><a target='_blank' href='http://www.sleepapnea.org/index.html'>American Sleep Apnea Association</a></li>
 <li><a target='_blank' href='http://www.cdc.gov/sleep/index.html'>CDC Sleep and Sleep Disorders</a></li>
 <li><a target='_blank' href='http://healthysleep.med.harvard.edu/'>Division of Sleep Medicine at Harvard Medical School and WGBH Educational Foundation</a></li>
-<li><a target='_blank' href='https://sleep.org/; https://sleepfoundation.org/'>National Sleep Foundation</a></li>
+<li><a target='_blank' href='https://sleepfoundation.org/'>National Sleep Foundation</a></li>
 <li><a target='_blank' href='http://sleep.stanford.edu/'>The Stanford Center for Sleep Sciences and Medicine</a></li>
 </ul>
 

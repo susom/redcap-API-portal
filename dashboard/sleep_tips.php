@@ -125,9 +125,7 @@ img{
 
 <h3>Sources</h3>
 <a target="_blank" href='https://sleepfoundation.org/bedroom/'>Inside your bedroom, use your senses! (2012-2016).</a><br>
-<a target="_blank" href='http://sleepeducation.org/news/2007/06/18/the-sleep-diet-a-link-between-sleep-weight-loss-'>National Sleep Foundation
-St-Onge MP, Roberts A, Shechter A, Choudhury AR. Fiber and saturated fat are associated with sleep arousals and slow wave sleep. J Clin Sleep Med 2016;12(1):19–24.
-The sleep diet: a link between sleep & weight loss? (2007, June).</a><br>
+<a target="_blank" href='http://sleepeducation.org/news/2007/06/18/the-sleep-diet-a-link-between-sleep-weight-loss-'>The sleep diet: a link between sleep & weight loss?</a><br>
 <a target="_blank" href='http://healthysleep.med.harvard.edu/healthy/getting/overcoming/tips'>Twelve Simple Tips to Improve Your Sleep. (2007, December).</a><br><br>
 <img src="images/diet.png"/>
 

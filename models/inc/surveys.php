@@ -1,6 +1,6 @@
 <?php
 //DEFINITION IN class.Project.php
-unset($_SESSION["user_survey_data"]);
+// unset($_SESSION["user_survey_data"]);
 // exit;
 
 //DETERMINE WHICH ARM TO BE IN
@@ -8,7 +8,6 @@ $consent_date = strToTime($loggedInUser->consent_ts);
 $datediff     = time() - $consent_date;
 $days_active  = floor($datediff / (60 * 60 * 24));
 $user_event_arm = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
-
 
 // OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?
 // FIRST GET META DATA FOR FIRST SURVEY - wellbeing_questions
@@ -109,3 +108,7 @@ $supp_surveys_keys 	= array_keys($supp_instruments);
 // print_rr($supp_instruments);
 // print_rr($supp_surveys,1);
 // exit;
+
+
+// $end_time  = microtime(true) - $start_time; //measure script time somewhere
+// print_r($end_time."<br>");

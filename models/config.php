@@ -1,5 +1,5 @@
 <?php
-// ob_start("ob_gzhandler"); //gzip outputted html
+ob_start("ob_gzhandler"); //gzip outputted html
 
 //REQUIRED LIBRARIES
 $requires 	= array(
@@ -16,7 +16,6 @@ foreach($requires as $required){
 }
 
 $start_time	= microtime(true);
-// $end_time 	= microtime(true) - $start_time; //measure script time somewhere
 
 $default_hooks 				= array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
 $default_replace 			= array( $_CFG->WEBSITE["Name"]

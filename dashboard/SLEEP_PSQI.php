@@ -10,7 +10,19 @@ foreach($sleepar as $i => $q){
 $results 		= array();
 
 // DURATION OF SLEEP
-$results["PSQIDURAT"] = $qs["psqi_actual_sleep"];
+$actual_sleep 	= ($qs["psqi_actual_sleep_mm"] + ($qs["psqi_actual_sleep_hh"]*60))/60;
+
+
+if($actual_sleep >= 6 && $actual_sleep < 7){
+	$duration_val 	= 1;
+}else if($actual_sleep >= 5 && $actual_sleep < 6){
+	$duration_val 	= 2;
+}else if($actual_sleep < 5){
+	$duration_val 	= 3;
+}else{
+	$duration_val 	= 0;
+}
+$results["PSQIDURAT"] = $duration_val;
 
 //SLEEP DISTURBANCE
 $disturbance 	= array();
@@ -98,18 +110,9 @@ if($qs["psqi_to_bed_ampm"] > $qs["psqi_gotten_up_ampm"]){
 	$sleep_seconds = $wake_seconds - $tobed_seconds;
 }
 
-if($qs["psqi_actual_sleep"] == 0){
-	$actual_sleep = 7;
-}else if($qs["psqi_actual_sleep"] == 1){
-	$actual_sleep = 6;
-}else if($qs["psqi_actual_sleep"] == 2){
-	$actual_sleep = 5;
-}else{
-	$actual_sleep = 4;
-}
 
-$newtib 	= $sleep_seconds/3600;
-$time_phase = ($actual_sleep/$newtib)*100;
+$newtib 		= $sleep_seconds/3600;
+$time_phase 	= ($actual_sleep/$newtib)*100;
 
 if($time_phase >= 85){
 	$results["PSQIHSE"] = 0;

@@ -82,7 +82,7 @@
 		"CONSENT_WELCOME" 						=> "欢迎加入!",
 		"CONSENT_CONTACT" 						=> "如您对本研究有任何问题，请联系总监 John Ioannidis 650-725-5465 或Sandra Winter 副总监650-723-8513。",
 		"CONSENT_I_AGREE" 						=> "我同意",
-		"CONSENT_PRINT" 						=> "Print",
+		"CONSENT_PRINT" 						=> "列印",
 		
 		//FORGOT PASSWORD AND ACCOUNT SETUP
 		"FORGOTPASS" 							=> "忘记密码？",

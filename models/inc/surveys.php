@@ -110,5 +110,4 @@ $supp_surveys_keys 	= array_keys($supp_instruments);
 // exit;
 
 
-// $end_time  = microtime(true) - $start_time; //measure script time somewhere
-// print_r($end_time."<br>");
+// 

@@ -175,8 +175,8 @@ if(isset($_REQUEST["ajax"])){
       $data[0]["redcap_event_name"] = $event_name;
     }
     $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
-    print_r($data);
-    print_r($result);
+    // print_r($data);
+    // print_r($result);
   }
   exit;
 }

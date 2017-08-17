@@ -491,9 +491,12 @@ class Survey {
           }
 
           //LETS JUST PRINT A REGULAR FIELD
+          //if "short_anniversary" AND field annotation contains "anniversary" and is a "coreSurvey"
+          //OR "short_anniversary" AND NOT coreSurvey 
+          //OR NOT "short_anniversary"
           if( (strpos($event,"short_anniversary") > -1 && strpos($field["field_annotation"],"anniversary") > -1 && in_array($instrument_id,SurveysConfig::$core_surveys)) 
             || (strpos($event,"short_anniversary") > -1 && !in_array($instrument_id,SurveysConfig::$core_surveys))
-            || strpos($event,"short_anniversary") == -1){
+            || !strpos($event,"short_anniversary")){
             if( $field_type !== "descriptive" && $field_type !== "hidden" ){
               if($matrix_group !== ""){
                 $section_html[] = "<div class='table-responsive'>";
@@ -573,6 +576,8 @@ class Survey {
               if($field_note !== "") $section_html[] = "<div class='fieldnote'>$field_note </div>";
               $section_html[] = "</div>";
             }
+          }else{
+            //
           }
 
           if($show && !empty($this->raw)){

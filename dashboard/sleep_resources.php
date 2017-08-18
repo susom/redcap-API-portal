@@ -88,7 +88,7 @@ img{
 <img src="images/sleep_expert.png"/>
 <br>
 <h4>Expert Interview</h4>
-<p>Check out our interview with Stanford sleep expert, Maurice Ohayon, Director at the Stanford Sleep Epidemiology Research Center (SSERC)</p>
+<p><a href='https://youtu.be/sFJIMzBVnW0' target='blank'>Check out our interview</a> with Stanford sleep expert, Maurice Ohayon, Director at the Stanford Sleep Epidemiology Research Center (SSERC)</p>
 
 <h4>Find a Sleep Facility</h4> 
 <p>If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.</p> 

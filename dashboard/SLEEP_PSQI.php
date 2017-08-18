@@ -159,13 +159,14 @@ if($PSQI < 5){
 	<div id="PSQI">
 		<div class="less_than_5">
 			<p>Nice job! Your sleep survey score is associated with good quality sleep.  You understand the importance of sleep to your health and wellbeing and have made it a priority in your daily routine.  Good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Keep it up!</p>
-			<!-- <p>Check out our <a href="x" target="blank">sleep resources</a> page to learn more about sleep, including tools for improving, maintaining, and tracking your excellent sleep quality.  While there, you can also access our <a href="x" target="blank">interview with a sleep expert</a>, where many common sleep questions from other study participants like you were answered.</p> -->
+			<p>Check out our <a href='sleep_resources.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;'>Sleep Resources page</a> page to learn more about sleep, including tools for improving, maintaining, and tracking your excellent sleep quality.  While there, you can also access our <a href="https://youtu.be/sFJIMzBVnW0" target="blank">interview with a sleep expert</a>, where many common sleep questions from other study participants like you were answered.</p>
 		</div>
 		<div class="greater_than_5">
 			<p>Your answers to the sleep survey are associated with poor quality sleep.  Sleep is a very important component to our health and wellbeing, and good quality sleep is associated with better learning, memory, cellular repair and muscle building, better immune function, and can lead to living a healthier and more productive life.  Poor quality sleep has been associated with reduced immunity, and health problems related to metabolism, appetite regulation, and stress response.</p>
 			<p>Based on your personal sleep survey answers, the factors contributing to your poor quality sleep include the following:</p>
+			<p>If you're interested in addressing these factors and improving your sleep quality, please check out our <a href='sleep_resources.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;'>Sleep Resources page</a>, where we provide tips, strategies, and natural approaches for getting you to sleep and stay asleep. If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the <a href='http://www.sleepeducation.org/find-a-facility' target='_blank'>Find a Professional tool</a> to find a sleep specialist near you.></If>
 		</div>
-		<p>Check out our <u><a href='sleep_resources.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;'>Sleep Tips page</a></u> for recommendations for non-medical methods of addressing insomnia.</p>
+		
 	</div>
 	<div id="PSQIDURAT" class="psqi_desc">
 		<h3>Short Duration of Sleep</h3>
@@ -195,6 +196,6 @@ if($PSQI < 5){
 		<h3>Use of Sleep Medication</h3>
 		<p>Taking prescription or over the counter medications within the past month to help you sleep, is an indication of poor quality sleep.  Medications can be useful for acute cases of insomnia, but are not recommended for long-term use.  There more natural treatments for insomnia that don’t involve taking medication, including various relaxation techniques, such as meditation, breathing exercises, and guided imagery.  Cognitive behavioral therapy has also been shown to be an effective treatment for insomnia.   </p>
 	</div>
-	<p><B><u><a href='sleep_resources.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' style="color:#369">Sleep Tips page</a></u></B></p>
+	<p><B><u><a href='sleep_tips.php' onclick='window.open(this.href,"sleep_resources","width=780,height=980, left=450, top=100, toolbar=0, menubar=0, status=1"); return false;' style="color:#369">Sleep Tips page</a></u></B></p>
 	<p>If you feel you need additional help, consider visiting your primary doctor, a sleep center, or a sleep specialist.  Use the Find a Professional tool to find a sleep specialist near you.</p>
 </div>

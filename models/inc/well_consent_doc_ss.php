@@ -27,13 +27,13 @@
 	<p>The goal of the WELL for Life Initiative is to learn how to promote living well. We cannot and do not guarantee or promise you will receive any benefits from this study. All participants will receive information about living well and updates about the research study. By participating, you also will contribute to the health and wellbeing of your community.</p>
 
 	<h2>POSSIBLE RISKS</h2>
-	<p>The risks associated with this study are minimal and we do not expect any negative effects from participating. We follow federal, state, and Stanford University regulations to protect your information. If some of the survey questions make you feel uneasy, you can choose to skip them. While loss of confidentiality is a risk, we take great care to protect your information.</p>
+	<p>The risks associated with this study are minimal and we do not expect any negative effects from participating. We follow federal, state, and Stanford University regulations to protect your information. If some of the survey questions make you feel uneasy, you can choose to skip them. While loss of confidentiality is a risk, we take great care to protect your information. We may communicate with you via email that is not encrypted, but that we will use every reasonable effort to ensure no sensitive information is in these communications.</p>
 </section>
 
 <section class="lang en"> 
 	<h2>FINANCIAL CONSIDERATIONS</h2>
 	<h3>Payment and Costs</h3>
-	<p>You will not be paid for participating in this study. Program-branded items, however, may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys.</p>
+	<p>You will not be paid for participating in this study. Program-branded items, however, may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys. If you are a student, you are eligible to receive course credit.</p>
 </section>
 
 <section class="lang en">
@@ -65,7 +65,7 @@
 	<h3>Do I have to provide my authorization?</h3>
 	<p>You do not have to provide your authorization. But if you do not, you will not be able to participate in this research study. Providing your authorization is not a condition for receiving any medical care outside the study.</p>
 
-	<p>If I provide my authorization, can I revoke it or withdraw from the research later?</p>
+	<h3>If I provide my authorization, can I revoke it or withdraw from the research later?</h3>
 	<p>If you decide to participate, you are free to withdraw your authorization regarding the use and disclosure of your health information (and to discontinue any other participation in the study) at any time. After any revocation, your health information will no longer be used or disclosed in the study, except to the extent that the law allows us to continue using your information (e.g., necessary to maintain integrity of research). If you wish to revoke your authorization for the research use or disclosure of your health information in this study, you must write to: the Protocol Director, Sandra Winter, Stanford Prevention Research Center, Department of Medicine, Stanford University, Medical School Office Building, X3C02. 1265 Welch Road. Stanford, CA 94305-5411, or e-mail sjwinter@stanford.edu</p>
 
 	<h3>What Personal Information Will Be Obtained, Used or Disclosed?</h3>

@@ -75,6 +75,8 @@
 		"ACCOUNT_NEXT_STEP" 					=> "下一步",
 		
 		//CONSENT
+		"IRB_ONLY" 								=> "IRB Use Only",
+		"IRB_EXPIRATION"						=> "Expiration Date",
 		"CONSENT_BULLET_1" 						=> "我們需要您的許可，我們才能向您提出任何問題，因此請閱讀以下同意文件",
 		"CONSENT_BULLET_2" 						=> "初步問卷需時20-30分鐘完成。但你不需要一次性填寫完。",
 		"CONSENT_BULLET_3" 						=> "每隔幾個月我們會联系您有關WELL的最新資訊。",
@@ -157,6 +159,7 @@
 		,"ADDITIONAL_SURVEYS" 						=> "附加問卷"
 		,"SEE_PA_DATA" 								=> "填寫問卷的 “您的身體活動” 部分，可看到您與其他參與者的數據比較圖表！"
 		,"HOW_DO_YOU_COMPARE" 						=> "您與其他參與者比較圖表"
+		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
 		,"SITTING" 									=> "坐著" 
 		,"WALKING" 									=> "走路"
 		,"MODACT" 									=> "中度身體活動"

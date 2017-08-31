@@ -75,6 +75,8 @@
 		"ACCOUNT_NEXT_STEP" 					=> "Próximo Paso",
 		
 		//CONSENT
+		"IRB_ONLY" 								=> "IRB Use Only",
+		"IRB_EXPIRATION"						=> "Expiration Date",
 		"CONSENT_BULLET_1" 						=> "Necesitamos su permiso antes de hacer preguntas, por favor lea el documento de consentimiento informado",		
 		"CONSENT_BULLET_2" 						=> "La encuesta inicial tomará 20-30 minutos para completar – pero no tiene que llenarla toda a la vez", 
 		"CONSENT_BULLET_3" 						=> "Nos comunicaremos con usted cada varios meses",		
@@ -156,6 +158,7 @@
 		,"ADDITIONAL_SURVEYS" 						=> "Encuestas adicionales"
 		,"SEE_PA_DATA" 								=> "¡Complete la sección 'Su actividad física' de la encuesta para ver sus datos representados aquí!"
 		,"HOW_DO_YOU_COMPARE" 						=> "¿Cómo se compara con otros participantes?"
+		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
 		,"SITTING" 									=> "Sentado(a)"
 		,"WALKING" 									=> "Caminando"
 		,"MODACT" 									=> "Actividad moderada"

@@ -47,7 +47,8 @@ include("models/inc/gl_header.php");
 			</ul>
 			<div class="consent_slides">
 				<section  class="consent_disclaim">
-					<h2><?php echo lang("CONSENT_WELCOME") ?></h2> 
+					<h2><?php echo lang("CONSENT_WELCOME") ?></h2>
+					<div id='irbexp'><i><?php echo lang("IRB_EXPIRATION") ?> : August 31, 2018</i></div> 
 					<ul>
 						<li><?php echo lang("CONSENT_BULLET_1") ?></li>
 						<li><?php echo lang("CONSENT_BULLET_2") ?></li>

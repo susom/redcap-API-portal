@@ -75,6 +75,8 @@
 		"ACCOUNT_NEXT_STEP" 					=> "Next Step",
 		
 		//CONSENT
+		"IRB_ONLY" 								=> "IRB Use Only",
+		"IRB_EXPIRATION"						=> "Expiration Date",
 		"CONSENT_BULLET_1" 						=> "We need your permission before we can ask you any questions, so please read the following Informed Consent Document",
 		"CONSENT_BULLET_2" 						=> "The initial survey will take 20-30 minutes to complete – but you don't need to fill it all out at one time",
 		"CONSENT_BULLET_3" 						=> "We will check back in with you every few months",
@@ -157,6 +159,7 @@
 		,"ADDITIONAL_SURVEYS" 						=> "Additional Surveys"
 		,"SEE_PA_DATA" 								=> "Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!"
 		,"HOW_DO_YOU_COMPARE" 						=> "How Do You Compare With Other Survey Takers?"
+		,"SHORT_SCORE_OVER_TIME"					=> "Your WELL Score over time"
 		,"SITTING" 									=> "Sitting"
 		,"WALKING" 									=> "Walking"
 		,"MODACT" 									=> "Moderate Activity"

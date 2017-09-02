@@ -259,6 +259,8 @@ include("inc/gl_head.php");
                       }
                       //PRINT OUT THE HTML FOR THIS SURVEY
                       $active_survey->printHTML($survey_data["event"], $sid);
+// echo "<Br>";
+// echo microtime(true) - $start_time;
                     ?>
                     </div>
                     <div class="col-sm-1">&nbsp;</div>
@@ -389,3 +391,4 @@ include("inc/gl_foot.php");
   }
 </script>
 <script src="js/survey.js"></script>
+<?php

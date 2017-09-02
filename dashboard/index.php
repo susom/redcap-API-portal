@@ -320,13 +320,16 @@ $result       = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->R
 $events       = array_column($result, 'unique_event_name');
 
 $arms_answers = array();
+$arms_all_ans = array();
 foreach($events as $eventarm){
   $user_answers             = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
   $user_completed_keys      = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
       return $v !== false && !is_null($v) && ($v != '' || $v == '0');
   });
-  $missing_data_keys = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
-    
+  $missing_data_keys  = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
+  $all_well_scores    = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm);
+  $arms_all_ans[$eventarm]    = $all_well_scores;
+
   if(checkMinimumForShortScore($missing_data_keys)){
     $arms_answers[$eventarm]  = $user_completed_keys;
   }
@@ -471,6 +474,8 @@ function getShortScore($answers){
 
   return $score;
 }
+
+
 // echo "<Br>";
 // echo microtime(true) - $start_time;
 
@@ -831,6 +836,11 @@ $output = curl_exec($ch);
                         </div>
                     </div>
                     
+
+                    <?php 
+                    //THE SHORT SCORE SHOW ONLY IF HAVE TWO OF THEM
+                    if(count($short_scores) > 1){
+                    ?>
                     <div class="col-md-6 dker datacharts charttoo col_ipad_port col_ipad_land">
                       <section>
                         <h3><?php echo $lang["SHORT_SCORE_OVER_TIME"] ?></h3>
@@ -862,6 +872,9 @@ $output = curl_exec($ch);
                     <div class="col-md-6 bg-light dker datacharts chartone col_ipad_port col_ipad_land">
                       <section></section>
                     </div>
+                    <?php
+                    }
+                    ?>
 
                     
 

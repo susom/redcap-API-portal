@@ -220,12 +220,12 @@ class Project {
 						}
 
 						//AND HIDDEN I GUESS
-						if(strpos($item["field_annotation"],"CUSTOM") < 0 && $item["section_header"] == ""){
+						if(!strpos($item["field_annotation"],"CUSTOM") && $item["section_header"] == ""){
 							array_push($new_new_meta,$item);
 						}
 					}
 
-					
+					// print_rr($new_meta,1);
 					//NOW PUT THEM ALL IN ORDER
 					foreach($new_meta as $key => $group){
 						if(count($group) == 1){
@@ -238,6 +238,11 @@ class Project {
 							$previtem = null;
 							foreach($group as $item){
 								if($previtem !== $item){
+									if($item["section_header"] !== "" && !strpos($group[0]["field_annotation"],"anniversary")){
+										$item["field_type"] = "skip";
+										$item["select_choices_or_calculations"] = null;
+										$item["field_label"] = null;
+									}
 									array_push($new_new_meta,$item);
 								}
 								$previtem = $item;
@@ -246,8 +251,8 @@ class Project {
 					}
 					$metadata = $new_new_meta;
 
-					// if($instrument_id == "your_physical_activity"){
-					// 	print_rr($metadata);
+					// if($instrument_id == "wellbeing_questions"){
+					// 	print_rr($metadata,1);
 					// }
 				}
 

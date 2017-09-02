@@ -303,7 +303,7 @@ class Project {
     }
 
     //GET ALL USER ANSWERS
-	public function getUserAnswers($record_id=NULL,$fields = NULL,$event=NULL){
+	public function getUserAnswers($record_id=NULL,$fields = NULL,$event=NULL, $filterLogic=NULL){
 		$extra_params = array(
 		  'content'   	=> 'record',
 		  'records' 	=> (is_null($record_id) ? null:  array($record_id) ),
@@ -314,7 +314,9 @@ class Project {
 		if($event){
 			$extra_params["events"] = "$event";
 		}
-
+		if($filterLogic){
+			$extra_params["filterLogic"] = "$filterLogic";
+		}
 		$result 		= RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 
 		$proper_answers = array();

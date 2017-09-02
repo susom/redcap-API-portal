@@ -160,6 +160,7 @@
 		,"SEE_PA_DATA" 								=> "Fill out the 'Your Physical Activity' part of the survey to see your data graphed here!"
 		,"HOW_DO_YOU_COMPARE" 						=> "How Do You Compare With Other Survey Takers?"
 		,"SHORT_SCORE_OVER_TIME"					=> "Your WELL Score over time"
+		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"SITTING" 									=> "Sitting"
 		,"WALKING" 									=> "Walking"
 		,"MODACT" 									=> "Moderate Activity"

@@ -161,6 +161,7 @@
 		,"SEE_PA_DATA" 								=> "填写问卷的 “您的身体活动” 部分，可看到您与其他参与者的数据比较图表！"
 		,"HOW_DO_YOU_COMPARE" 						=> "你与其他参与者比较图表"
 		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
+		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"SITTING" 									=> "坐着"
 		,"WALKING" 									=> "走路"
 		,"MODACT" 									=> "中度身体活动"

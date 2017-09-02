@@ -159,6 +159,7 @@
 		,"SEE_PA_DATA" 								=> "¡Complete la sección 'Su actividad física' de la encuesta para ver sus datos representados aquí!"
 		,"HOW_DO_YOU_COMPARE" 						=> "¿Cómo se compara con otros participantes?"
 		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
+		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"SITTING" 									=> "Sentado(a)"
 		,"WALKING" 									=> "Caminando"
 		,"MODACT" 									=> "Actividad moderada"

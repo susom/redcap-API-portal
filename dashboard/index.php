@@ -239,79 +239,23 @@ foreach($user_answers as $fieldname => $hhmm){
 $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 
-
 // echo microtime(true) - $start_time;
-//SHORT SCALE SCORE
-$short_q_fields  = array(
-   //SOCIAL CONNECTEDNESS
-   "core_lack_companionship"
-  ,"core_people_upset"
-  ,"core_energized_help"
 
-  //Lifestyle BEHAVIORS
-  ,"core_vegatables_intro_v2"
-  ,"core_vegetables_intro_v2_1"
-  ,"core_vegetables_intro_v2_2"
-  ,"core_vegetables_intro_v2_3"
-  ,"core_sugar_intro_v2"
-  ,"core_sugar_intro_v2_1"
-  ,"core_sugar_intro_v2_2"
-  ,"core_sugar_intro_v2_3"
-  ,"core_lpaq"
-  ,"core_smoke_100"
-  ,"core_smoke_freq"
-  ,"core_sleep_quality"
-  ,"core_bngdrink_female_freq"
-  ,"core_bngdrink_male_freq"
-
-  //STRESS AND RESILIENCE
-  ,"core_important_energy"
-  ,"core_deal_whatever"
-
-  //EXPERIENCE OF EMOTIONS
-  ,"core_joyful"
-  ,"core_worried"
-
-  //PHYSICAL HEALTH
-  ,"core_fitness_level"
-
-  //PURPOSE AND MEANING
-  ,"core_contribute_doing"
-
-  //SENSE OF SELF
-  ,"core_satisfied_yourself"
-
-  //FINANCIAL SECURITY/SATISFACTION
-  ,"core_money_needs"
-
-  //SPIRITUALITY AND RELIGION
-  ,"core_religious_beliefs"
-
-  //EXPLORATION AND CREATIVITY
-  ,"core_engage_oppo"
+// CHECK IF USER HAS "well_score"
+$extra_params = array(
+  'content'     => 'record',
+  'records'     => array($loggedInUser->id) ,
+  'fields'      => array("well_score"),
 );
+$user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
+$min_well_score_show = false;
 
-$short_circuit_diff_ar = array(
-   "core_contribute_doing" => 1
-  ,"core_satisfied_yourself" => 1
-  ,"core_money_needs" => 1
-  ,"core_religious_beliefs" => 1
-  ,"core_engage_oppo" => 1
-  ,"core_fitness_level" => 1
-  ,"core_important_energy" => 1
-  ,"core_deal_whatever" => 1
-  ,"core_joyful" => 1
-  ,"core_worried" => 1
-  ,"core_lack_companionship" => 1
-  ,"core_people_upset" => 1
-  ,"core_energized_help" => 1
-  ,"core_lpaq" => 1
-  ,"core_vegatables_intro_v2" => 1
-  ,"core_sugar_intro_v2" => 1
-  ,"core_smoke_100" => 1
-  ,"core_sleep_quality" => 1
-);
+//ONLY WANT TO SHOW IT IF THE 1st anniversary WAS COMPLETED
+if( isset($user_ws[1]) && !empty($user_ws[1]["well_score"])){
+  $min_well_score_show = true;
+}
 
+//GET ALL EVENT ARMS
 $extra_params = array(
   'content'     => 'event',
   'format'      => 'json'
@@ -319,22 +263,129 @@ $extra_params = array(
 $result       = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
 $events       = array_column($result, 'unique_event_name');
 
-$arms_answers = array();
-$arms_all_ans = array();
+// GET ALL STORED WELLSCORES FOR EVERYONE
+$others_scores = array();
 foreach($events as $eventarm){
-  $user_answers             = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
-  $user_completed_keys      = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
-      return $v !== false && !is_null($v) && ($v != '' || $v == '0');
-  });
-  $missing_data_keys  = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
-  $all_well_scores    = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm);
-  $arms_all_ans[$eventarm]    = $all_well_scores;
+    $all_well_scores    = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
+   
+// print_rr($all_well_scores);
 
-  if(checkMinimumForShortScore($missing_data_keys)){
-    $arms_answers[$eventarm]  = $user_completed_keys;
-  }
+    if(!empty($all_well_scores[0]["well_score"])){
+      $others_scores[$eventarm] = array("junk" => getAvgWellScoreOthers($all_well_scores) );
+    }
 };
-$short_scores = getShortScores($arms_answers);
+
+//CALCULATE WELL_SCORE IF NOT ALREADY STORED
+if(!$min_well_score_show){
+  //SHORT SCALE SCORE
+  $short_q_fields  = array(
+     //SOCIAL CONNECTEDNESS
+     "core_lack_companionship"
+    ,"core_people_upset"
+    ,"core_energized_help"
+
+    //Lifestyle BEHAVIORS
+    ,"core_vegatables_intro_v2"
+    ,"core_vegetables_intro_v2_1"
+    ,"core_vegetables_intro_v2_2"
+    ,"core_vegetables_intro_v2_3"
+    ,"core_sugar_intro_v2"
+    ,"core_sugar_intro_v2_1"
+    ,"core_sugar_intro_v2_2"
+    ,"core_sugar_intro_v2_3"
+    ,"core_lpaq"
+    ,"core_smoke_100"
+    ,"core_smoke_freq"
+    ,"core_sleep_quality"
+    ,"core_bngdrink_female_freq"
+    ,"core_bngdrink_male_freq"
+
+    //STRESS AND RESILIENCE
+    ,"core_important_energy"
+    ,"core_deal_whatever"
+
+    //EXPERIENCE OF EMOTIONS
+    ,"core_joyful"
+    ,"core_worried"
+
+    //PHYSICAL HEALTH
+    ,"core_fitness_level"
+
+    //PURPOSE AND MEANING
+    ,"core_contribute_doing"
+
+    //SENSE OF SELF
+    ,"core_satisfied_yourself"
+
+    //FINANCIAL SECURITY/SATISFACTION
+    ,"core_money_needs"
+
+    //SPIRITUALITY AND RELIGION
+    ,"core_religious_beliefs"
+
+    //EXPLORATION AND CREATIVITY
+    ,"core_engage_oppo"
+  );
+
+  $short_circuit_diff_ar = array(
+     "core_contribute_doing" => 1
+    ,"core_satisfied_yourself" => 1
+    ,"core_money_needs" => 1
+    ,"core_religious_beliefs" => 1
+    ,"core_engage_oppo" => 1
+    ,"core_fitness_level" => 1
+    ,"core_important_energy" => 1
+    ,"core_deal_whatever" => 1
+    ,"core_joyful" => 1
+    ,"core_worried" => 1
+    ,"core_lack_companionship" => 1
+    ,"core_people_upset" => 1
+    ,"core_energized_help" => 1
+    ,"core_lpaq" => 1
+    ,"core_vegatables_intro_v2" => 1
+    ,"core_sugar_intro_v2" => 1
+    ,"core_smoke_100" => 1
+    ,"core_sleep_quality" => 1
+  );
+
+  $arms_answers = array();
+  $arms_all_ans = array();
+  foreach($events as $eventarm){
+    $user_answers             = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
+    $user_completed_keys      = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
+        return $v !== false && !is_null($v) && ($v != '' || $v == '0');
+    });
+    $missing_data_keys  = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
+    
+    if(checkMinimumForShortScore($missing_data_keys)){
+      $arms_answers[$eventarm]  = $user_completed_keys;
+    }
+  };
+  $short_scores = getShortScores($arms_answers);
+  foreach($short_scores as $arm => $parts){
+    $score  = round(array_sum($parts));
+    $data[] = array(
+      "record"            => $loggedInUser->id,
+      "field_name"        => "well_score",
+      "value"             => $score,
+      "redcap_event_name" => $arm
+    );
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+  }
+}else{
+  foreach($user_ws as $idx => $well_score){
+    $short_scores[$events[$idx]] = array("junk" => $well_score["well_score"]);
+  }
+}
+
+function getAvgWellScoreOthers($others_scores){
+  $sum = 0;
+  foreach($others_scores as $user){
+    $sum = $sum + intval($user["well_score"]);
+  }
+
+  return round($sum/count($others_scores));
+}
 
 function checkMinimumForShortScore($missing_data_keys){
   $skip_score = 0;
@@ -475,17 +526,8 @@ function getShortScore($answers){
   return $score;
 }
 
-
 // echo "<Br>";
 // echo microtime(true) - $start_time;
-
-
-
-
-
-
-
-
 
 
 
@@ -844,8 +886,7 @@ $output = curl_exec($ch);
                     <div class="col-md-6 dker datacharts charttoo col_ipad_port col_ipad_land">
                       <section>
                         <h3><?php echo $lang["SHORT_SCORE_OVER_TIME"] ?></h3>
-                        
-                        <ul id='short_scores'>
+                        <ul class='short_scores'>
                         <?php 
                           $bubble_color = array("base","ok","better","best");
                           $desc_order   = array();
@@ -870,7 +911,30 @@ $output = curl_exec($ch);
                       </section>
                     </div>
                     <div class="col-md-6 bg-light dker datacharts chartone col_ipad_port col_ipad_land">
-                      <section></section>
+                      <section>
+                        <h3><?php echo $lang["OTHERS_WELL_SCORES"] ?></h3>
+                        <ul class='short_scores'>
+                        <?php 
+                          $desc_order   = array();
+                          foreach($others_scores as $arm => $parts){
+                            $score = round(array_sum($parts));
+                            $desc_order[$arm] = $score;
+                          }
+                          krsort($desc_order);
+
+                          $i = 0;
+                          foreach($others_scores as $arm => $parts){
+                            $score    = round(array_sum($parts));
+                            $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
+                            $scale    = ($score*2)+100;
+                            $css      = "width:". $scale ."px;height:" . $scale . "px";
+                            $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
+                            echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
+                            $i++;
+                          }
+                        ?>
+                        </ul>
+                      </section>
                     </div>
                     <?php
                     }
@@ -1089,7 +1153,7 @@ var pie = new d3pie("pieChart", {
 </script>
 
 <style>
-#short_scores {
+.short_scores {
   width:100%;
   margin:0;
   padding:0;

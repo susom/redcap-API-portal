@@ -1,6 +1,9 @@
 <?php
 ob_start("ob_gzhandler"); //gzip outputted html
 
+//START TIMER FOR PAGE LOAD
+$start_time	= microtime(true);
+
 //REQUIRED LIBRARIES
 $requires 	= array(
 	 "/settings.php"
@@ -14,8 +17,6 @@ $requires 	= array(
 foreach($requires as $required){
 	require_once( dirname(__FILE__) . $required);
 }
-
-$start_time	= microtime(true);
 
 $default_hooks 				= array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
 $default_replace 			= array( $_CFG->WEBSITE["Name"]
@@ -102,3 +103,5 @@ if(isset($loggedInUser->lang)){
 
 require_once( dirname(__FILE__) . "/lang/".$_SESSION["use_lang"].".php");
 $PAGE = basename($_SERVER["SCRIPT_FILENAME"]);
+
+markPageLoadTime("end config.php");

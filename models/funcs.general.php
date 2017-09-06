@@ -821,3 +821,14 @@ function print_rr($d,$exit=false){
 		exit;
 	}
 }
+
+function markPageLoadTime($msg=null){
+	global $start_time;
+	
+	echo "<h6>";
+	if($msg){
+		echo $msg ."<br>";
+	}
+	echo microtime(true) - $start_time;
+	echo "</h6>";
+}

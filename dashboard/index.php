@@ -69,6 +69,8 @@ if(isset($_GET["survey_complete"])){
   }
 }
 
+markPageLoadTime("Start index.php graph data");
+
 //FOR THE PIE CHART
 $graph_fields               = array(
                                  "core_sitting_hh"
@@ -239,43 +241,49 @@ foreach($user_answers as $fieldname => $hhmm){
 $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 
-// echo microtime(true) - $start_time;
+markPageLoadTime("End index.php graph data");
 
+
+
+markPageLoadTime("Start index.php WELL Score");
 // CHECK IF USER HAS "well_score"
 $extra_params = array(
   'content'     => 'record',
   'records'     => array($loggedInUser->id) ,
-  'fields'      => array("well_score"),
+  'fields'      => array("id","well_score"),
 );
 $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
-$min_well_score_show = false;
+$user_ws      = array_filter($user_ws,function($item){
+  return $item["redcap_event_name"] !== "enrollment_arm_1";
+});
 
-//ONLY WANT TO SHOW IT IF THE 1st anniversary WAS COMPLETED
-if( isset($user_ws[1]) && !empty($user_ws[1]["well_score"])){
-  $min_well_score_show = true;
+$min_well_score_show    = false;
+
+//ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
+if( count($user_ws) ){
+  $min_well_score_show  = true;
 }
 
 //GET ALL EVENT ARMS
-$extra_params = array(
+$extra_params   = array(
   'content'     => 'event',
   'format'      => 'json'
 );
-$result       = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-$events       = array_column($result, 'unique_event_name');
+$result         = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+array_shift($result); //TODO, save enrollment arm for later.
+
+$events         = array_column($result, 'unique_event_name');
 
 // GET ALL STORED WELLSCORES FOR EVERYONE
-$others_scores = array();
+$others_scores  = array();
 foreach($events as $eventarm){
-    $all_well_scores    = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
-   
-// print_rr($all_well_scores);
-
+    $all_well_scores = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
     if(!empty($all_well_scores[0]["well_score"])){
       $others_scores[$eventarm] = array("junk" => getAvgWellScoreOthers($all_well_scores) );
     }
 };
 
-//CALCULATE WELL_SCORE IF NOT ALREADY STORED
+//CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
 if(!$min_well_score_show){
   //SHORT SCALE SCORE
   $short_q_fields  = array(
@@ -358,6 +366,7 @@ if(!$min_well_score_show){
     $missing_data_keys  = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
     
     if(checkMinimumForShortScore($missing_data_keys)){
+      echo "helllllo.<br>";
       $arms_answers[$eventarm]  = $user_completed_keys;
     }
   };
@@ -526,8 +535,23 @@ function getShortScore($answers){
   return $score;
 }
 
-// echo "<Br>";
-// echo microtime(true) - $start_time;
+markPageLoadTime("END index.php WELL SCORE Calc");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -542,28 +566,6 @@ $assesments     = '';
 $pg_title 		  = $lang["DASHBOARD"]. " : $websiteName";
 $body_classes 	= "dashboard";
 include("inc/gl_head.php");
-
-
-$data = array(
-    'token' => '379870900189B71CF04F47F6DC260835',
-    'content' => 'metadata',
-    'format' => 'json',
-    'returnFormat' => 'json',
-    'fields' => array(),
-    'forms' => array('a_little_bit_about_you','about_you','contact_information','wellbeing_questions','your_diet','your_feedback','your_health','your_physical_activity','your_sleep_habits','your_social_and_neighborhood_environment','your_tobacco_and_alcohol_use')
-);
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'http://redcap.irvins.loc/api/');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_VERBOSE, 0);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data, '', '&'));
-$output = curl_exec($ch);
 ?>
   <section class="vbox">
     <?php 
@@ -967,6 +969,8 @@ $output = curl_exec($ch);
               </section>
             </section>
             <?php
+              markPageLoadTime("END index.php");
+
             	include("inc/gl_slideout.php");
             ?>
           </section>
@@ -1209,3 +1213,4 @@ var pie = new d3pie("pieChart", {
   box-shadow: 0px 0px 15px 5px #FF8F84;
 }
 </style>
+

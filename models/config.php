@@ -104,4 +104,3 @@ if(isset($loggedInUser->lang)){
 require_once( dirname(__FILE__) . "/lang/".$_SESSION["use_lang"].".php");
 $PAGE = basename($_SERVER["SCRIPT_FILENAME"]);
 
-markPageLoadTime("end config.php");

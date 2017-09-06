@@ -69,8 +69,6 @@ if(isset($_GET["survey_complete"])){
   }
 }
 
-markPageLoadTime("Start index.php graph data");
-
 //FOR THE PIE CHART
 $graph_fields               = array(
                                  "core_sitting_hh"
@@ -241,11 +239,6 @@ foreach($user_answers as $fieldname => $hhmm){
 $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 
-markPageLoadTime("End index.php graph data");
-
-
-
-markPageLoadTime("Start index.php WELL Score");
 // CHECK IF USER HAS "well_score"
 $extra_params = array(
   'content'     => 'record',
@@ -535,7 +528,6 @@ function getShortScore($answers){
   return $score;
 }
 
-markPageLoadTime("END index.php WELL SCORE Calc");
 
 
 
@@ -969,8 +961,6 @@ include("inc/gl_head.php");
               </section>
             </section>
             <?php
-              markPageLoadTime("END index.php");
-
             	include("inc/gl_slideout.php");
             ?>
           </section>

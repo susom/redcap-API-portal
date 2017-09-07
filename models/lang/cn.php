@@ -163,7 +163,7 @@
 		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
 		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"OTHERS_SCORE"								=> "Average Participant Score"
-		,"USERS_SCORE"								=> "Your Score:"
+		,"USERS_SCORE"								=> "Your Score"
 		,"NOT_ENOUGH_USER_DATA" 					=> "Please complete surveys to calculate your score."
 		,"NOT_ENOUGH_OTHER_DATA" 					=> "Not enough data to calculate Average."
 		,"SITTING" 									=> "坐着"

@@ -256,9 +256,9 @@ $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->R
 $user_ws      = array_filter($user_ws,function($item){
   return $item["redcap_event_name"] !== "enrollment_arm_1" && !empty($item["well_score"]);
 });
-$min_well_score_show    = false;
 
-//ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
+// ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
+$min_well_score_show    = false;
 if( count($user_ws) ){
   $min_well_score_show  = true;
 }
@@ -282,8 +282,6 @@ foreach($events as $eventarm){
 };
 
 //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
-
-// $min_well_score_show = false; //TODO REMOVE
 if(!$min_well_score_show){
   //SHORT SCALE SCORE
   $short_q_fields  = array(
@@ -369,7 +367,7 @@ if(!$min_well_score_show){
     $arms_minimum[$eventarm]    = $minimumData;
     
     //ENOUGH DATA TO CALC SCORE
-    $arms_answers[$eventarm]    = $minimumData ? $user_completed_keys : null;
+    $arms_answers[$eventarm]    = $minimumData ? $user_completed_keys : array();
 
     //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
     if($loggedInUser->user_event_arm  == $eventarm){
@@ -390,7 +388,7 @@ if(!$min_well_score_show){
   }
 }else{
   foreach($user_ws as $idx => $well_score){
-    $short_scores[$events[$idx]] = array("junk" => $well_score["well_score"]);
+    $short_scores[$well_score["redcap_event_name"]] = array("junk" => $well_score["well_score"]);
   }
 }
 
@@ -560,7 +558,7 @@ function printWELLComparison($eventarm, $user_score, $other_score){
   $armtime          = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$eventarm)));
   echo "<div class='well_scores'>";
   echo "<div class='well_score user_score'><span style='width:$user_bar%'></span><b>$user_score_txt</b></div>";
-  echo "<div class='well_score other_score'><span style='width:$other_bar%'></span><b>Others Score : $other_score</b></div>";
+  echo "<div class='well_score other_score'><span style='width:$other_bar%'></span><b>$other_score_txt</b></div>";
   echo "<h4>$armtime</h4>";  
   echo "</div>";
 }

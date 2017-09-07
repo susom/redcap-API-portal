@@ -52,13 +52,18 @@ $(document).ready(function(){
         //REDIRECT TO HOME WITH A MESSAGE
         var dataURL         = "survey.php?ajax=1&surveycomplete=1";
         var instrument_name = $("#customform").attr("name");
+        var next_instrument = $("#customform").data("next");
         var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
         $.ajax({
           url:  dataURL,
           type:'POST',
           data: surveyhash + project,
           success:function(result){
-            location.href="index.php?survey_complete=" + instrument_name;
+            if(next_instrument){
+              location.href="survey.php?sid=" + next_instrument;
+            }else{
+              location.href="index.php?survey_complete=" + instrument_name;
+            }
           }
         });
       }    

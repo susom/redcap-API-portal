@@ -1,6 +1,8 @@
 <?php
 require_once("../models/config.php");
 
+// markPageLoadTime("STARTING Dashboad index.php");
+
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
   $destination = $websiteUrl . "login.php";
@@ -38,6 +40,8 @@ if(!isUserLoggedIn()) {
 //NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
+  // markPageLoadTime("STARTING (pop up) survey_complete block");
+
   $surveyid = $_GET["survey_complete"];
   
   if(array_key_exists($surveyid,$surveys)){
@@ -67,6 +71,9 @@ if(isset($_GET["survey_complete"])){
       
       addSessionMessage( $success_msg , "success");
   }
+
+  // markPageLoadTime("END survey_complete block");
+
 }
 
 //FOR THE PIE CHART

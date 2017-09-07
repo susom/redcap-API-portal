@@ -197,7 +197,7 @@ $all_completed["core_gender"] = $loggedInUser->gender;
 
 
 //THIS PAGE NEEDS A SURVEY ID
-$surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;
+$current_surveyid = $surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
 
 if($project){
@@ -284,6 +284,11 @@ include("inc/gl_foot.php");
 ?>
 <script>
 <?php
+  //TODO : MOVE THE FRUIT GIVING TO SURVEY PAGES
+  $index  = array_search($current_surveyid, $all_survey_keys);
+  $nextsurvey = isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null;
+  echo "$('#customform').attr('data-next','". $nextsurvey ."');\n\n";
+
   $isMET    = $sid == "how_fit_are_you"                                     ? "true" : "false";
   $isMAT    = $sid == "how_physically_mobile_are_you"                       ? "true" : "false";
   $isTCM    = $sid == "find_out_your_body_type_according_to_chinese_medic"  ? "true" : "false";

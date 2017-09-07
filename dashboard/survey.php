@@ -192,6 +192,10 @@ if(!isUserLoggedIn()) {
   include("inc/classes/Survey.php");
 }
 
+//TODO : generalize this : CUSTOM FOR SHORT SURVEYS (NEED TO PULL GENDER FROM enrollment_arm for BINGE DRINK)
+$all_completed["core_gender"] = $loggedInUser->gender;
+
+
 //THIS PAGE NEEDS A SURVEY ID
 $surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
@@ -291,7 +295,7 @@ include("inc/gl_foot.php");
   echo "var isGRIT              = $isGRIT ;\n";
   echo "var isSleep             = $isSleep ;\n";
   echo "var uselang             = ".(isset($_SESSION["use_lang"]) ? "'".$_SESSION["use_lang"]."'" : "'en'").";\n";
-  
+
   //THIS IS A CONFusINg FUNCTION
   //BUT SINCE THERE ARE CONDITiONALS THAT SPAN INSTRUMENTS OR EVEN PROJECTS, GOTTA TRACK EM  ALL
   //THE $all_branching is done in surveys.php

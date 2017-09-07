@@ -158,7 +158,7 @@
 		,"ADDITIONAL_SURVEYS" 						=> "Encuestas adicionales"
 		,"SEE_PA_DATA" 								=> "¡Complete la sección 'Su actividad física' de la encuesta para ver sus datos representados aquí!"
 		,"HOW_DO_YOU_COMPARE" 						=> "¿Cómo se compara con otros participantes?"
-		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
+		,"SHORT_SCORE_OVER_TIME"					=> "Your WELL Short Score"
 		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"OTHERS_SCORE"								=> "Average Participant Score"
 		,"USERS_SCORE"								=> "Your Score"

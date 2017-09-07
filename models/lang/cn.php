@@ -160,7 +160,7 @@
 		,"ADDITIONAL_SURVEYS" 						=> "附加问卷"
 		,"SEE_PA_DATA" 								=> "填写问卷的 “您的身体活动” 部分，可看到您与其他参与者的数据比较图表！"
 		,"HOW_DO_YOU_COMPARE" 						=> "你与其他参与者比较图表"
-		,"SHORT_SCORE_OVER_TIME"					=> "Your Short Score over time"
+		,"SHORT_SCORE_OVER_TIME"					=> "Your WELL Short Score"
 		,"OTHERS_WELL_SCORES"						=> "Other's WELL Score over time"
 		,"OTHERS_SCORE"								=> "Average Participant Score"
 		,"USERS_SCORE"								=> "Your Score"

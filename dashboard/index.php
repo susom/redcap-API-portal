@@ -239,6 +239,13 @@ foreach($user_answers as $fieldname => $hhmm){
 $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 
+
+
+
+
+
+
+
 // CHECK IF USER HAS "well_score"
 $extra_params = array(
   'content'     => 'record',
@@ -275,7 +282,8 @@ foreach($events as $eventarm){
 };
 
 //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
-$min_well_score_show = false;
+
+$min_well_score_show = false; //TODO REMOVE
 if(!$min_well_score_show){
   //SHORT SCALE SCORE
   $short_q_fields  = array(
@@ -356,14 +364,12 @@ if(!$min_well_score_show){
         return $v !== false && !is_null($v) && ($v != '' || $v == '0');
     });
     $missing_data_keys          = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
-    
+
     $minimumData                = checkMinimumForShortScore($missing_data_keys);
     $arms_minimum[$eventarm]    = $minimumData;
     
     //ENOUGH DATA TO CALC SCORE
-    if($minimumData){
-      $arms_answers[$eventarm]  = $user_completed_keys;
-    }
+    $arms_answers[$eventarm]    = $minimumData ? $user_completed_keys : null;
 
     //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
     if($loggedInUser->user_event_arm  == $eventarm){
@@ -445,6 +451,10 @@ function getShortScores($arm_answers){
 function getShortScore($answers){
   // $answers = array_filter($answers);
   $score  = array();
+
+  if(empty($answers)){
+    return array();
+  }
 
   //SOCIAL CONNECTEDNESS
   //
@@ -537,33 +547,23 @@ function getAvgWellScoreOthers($others_scores){
 }
 
 function printWELLComparison($eventarm, $user_score, $other_score){
-  global $loggedInUser;
+  global $loggedInUser, $lang;
 
-  $user_score     = round(array_sum($user_score));
-  $user_bar       = ($user_score*100)/70;
-  $other_score    = round(array_sum($other_score));
-  $other_bar      = ($other_score*100)/70;
-  $armtime        = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$eventarm)));
+  $user_score       = round(array_sum($user_score));
+  $user_score_txt   = !empty($user_score) ? $lang["USERS_SCORE"] . " : " . $user_score : $lang["NOT_ENOUGH_USER_DATA"];
+  $user_bar         = ($user_score*100)/70;
+
+  $other_score      = round(array_sum($other_score));
+  $other_score_txt  = !empty($other_score) ? $lang["OTHERS_SCORE"] . " : " . $other_score : $lang["NOT_ENOUGH_OTHER_DATA"];
+  $other_bar        = ($other_score*100)/70;
+  
+  $armtime          = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$eventarm)));
   echo "<div class='well_scores'>";
-  echo "<div class='well_score user_score'><span style='width:$user_bar%'></span><b>User Score : $user_score</b></div>";
+  echo "<div class='well_score user_score'><span style='width:$user_bar%'></span><b>$user_score_txt</b></div>";
   echo "<div class='well_score other_score'><span style='width:$other_bar%'></span><b>Others Score : $other_score</b></div>";
   echo "<h4>$armtime</h4>";  
   echo "</div>";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

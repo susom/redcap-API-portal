@@ -3,7 +3,7 @@
 // unset($_SESSION["user_survey_data"]);
 // exit;
 
-markPageLoadTime("Start surveys.php include");
+// markPageLoadTime("Start surveys.php include");
 
 //DETERMINE WHICH ARM TO BE IN
 $consent_date = strToTime($loggedInUser->consent_ts);
@@ -113,4 +113,4 @@ $supp_surveys_keys 	= array_keys($supp_instruments);
 
 // for branching logic, if change branch, clear out answers 
 // 
-markPageLoadTime("End surveys.php include");
+// markPageLoadTime("End surveys.php include");

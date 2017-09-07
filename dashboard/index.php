@@ -247,9 +247,8 @@ $extra_params = array(
 );
 $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
 $user_ws      = array_filter($user_ws,function($item){
-  return $item["redcap_event_name"] !== "enrollment_arm_1";
+  return $item["redcap_event_name"] !== "enrollment_arm_1" && !empty($item["well_score"]);
 });
-
 $min_well_score_show    = false;
 
 //ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
@@ -263,8 +262,7 @@ $extra_params   = array(
   'format'      => 'json'
 );
 $result         = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-array_shift($result); //TODO, save enrollment arm for later.
-
+array_shift($result); //TODO, save enrollment arm for later WELL LONG SCORE
 $events         = array_column($result, 'unique_event_name');
 
 // GET ALL STORED WELLSCORES FOR EVERYONE
@@ -272,11 +270,12 @@ $others_scores  = array();
 foreach($events as $eventarm){
     $all_well_scores = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
     if(!empty($all_well_scores[0]["well_score"])){
-      $others_scores[$eventarm] = array("junk" => getAvgWellScoreOthers($all_well_scores) );
+      $others_scores[$eventarm] = array("well_score" => getAvgWellScoreOthers($all_well_scores) );
     }
 };
 
 //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
+$min_well_score_show = false;
 if(!$min_well_score_show){
   //SHORT SCALE SCORE
   $short_q_fields  = array(
@@ -349,20 +348,29 @@ if(!$min_well_score_show){
     ,"core_sleep_quality" => 1
   );
 
+  $arms_minimum = array();
   $arms_answers = array();
-  $arms_all_ans = array();
   foreach($events as $eventarm){
-    $user_answers             = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
-    $user_completed_keys      = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
+    $user_answers               = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
+    $user_completed_keys        = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
         return $v !== false && !is_null($v) && ($v != '' || $v == '0');
     });
-    $missing_data_keys  = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
+    $missing_data_keys          = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
     
-    if(checkMinimumForShortScore($missing_data_keys)){
-      echo "helllllo.<br>";
+    $minimumData                = checkMinimumForShortScore($missing_data_keys);
+    $arms_minimum[$eventarm]    = $minimumData;
+    
+    //ENOUGH DATA TO CALC SCORE
+    if($minimumData){
       $arms_answers[$eventarm]  = $user_completed_keys;
     }
+
+    //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
+    if($loggedInUser->user_event_arm  == $eventarm){
+      break;
+    }
   };
+
   $short_scores = getShortScores($arms_answers);
   foreach($short_scores as $arm => $parts){
     $score  = round(array_sum($parts));
@@ -378,15 +386,6 @@ if(!$min_well_score_show){
   foreach($user_ws as $idx => $well_score){
     $short_scores[$events[$idx]] = array("junk" => $well_score["well_score"]);
   }
-}
-
-function getAvgWellScoreOthers($others_scores){
-  $sum = 0;
-  foreach($others_scores as $user){
-    $sum = $sum + intval($user["well_score"]);
-  }
-
-  return round($sum/count($others_scores));
 }
 
 function checkMinimumForShortScore($missing_data_keys){
@@ -528,9 +527,29 @@ function getShortScore($answers){
   return $score;
 }
 
+function getAvgWellScoreOthers($others_scores){
+  $sum = 0;
+  foreach($others_scores as $user){
+    $sum = $sum + intval($user["well_score"]);
+  }
 
+  return round($sum/count($others_scores));
+}
 
+function printWELLComparison($eventarm, $user_score, $other_score){
+  global $loggedInUser;
 
+  $user_score     = round(array_sum($user_score));
+  $user_bar       = ($user_score*100)/70;
+  $other_score    = round(array_sum($other_score));
+  $other_bar      = ($other_score*100)/70;
+  $armtime        = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$eventarm)));
+  echo "<div class='well_scores'>";
+  echo "<div class='well_score user_score'><span style='width:$user_bar%'></span><b>User Score : $user_score</b></div>";
+  echo "<div class='well_score other_score'><span style='width:$other_bar%'></span><b>Others Score : $other_score</b></div>";
+  echo "<h4>$armtime</h4>";  
+  echo "</div>";
+}
 
 
 
@@ -874,61 +893,63 @@ include("inc/gl_head.php");
                     
 
                     <?php 
-                    //THE SHORT SCORE SHOW ONLY IF HAVE TWO OF THEM
-                    if(count($short_scores) > 1){
+                    //THE WELL SCORE SHOW ONLY IF HAVE TWO OF THEM
+                    if(count($short_scores)){
                     ?>
-                    <div class="col-md-6 dker datacharts charttoo col_ipad_port col_ipad_land">
-                      <section>
-                        <h3><?php echo $lang["SHORT_SCORE_OVER_TIME"] ?></h3>
-                        <ul class='short_scores'>
-                        <?php 
-                          $bubble_color = array("base","ok","better","best");
-                          $desc_order   = array();
-                          foreach($short_scores as $arm => $parts){
-                            $score = round(array_sum($parts));
-                            $desc_order[$arm] = $score;
-                          }
-                          krsort($desc_order);
+                    <div class="col-md-12">
+                      <div class="panel panel-primary portlet-item">
+                          <header class="panel-heading">
+                            <i class="glyphicon glyphicon-align-left"></i> <?php echo $lang["SHORT_SCORE_OVER_TIME"] ?>
+                          </header>
+                          
+                          <?php
+                            foreach($events as $arm){
+                              printWELLComparison($arm,$short_scores[$arm],$others_scores[$arm]);
+                              if($arm == $loggedInUser->user_event_arm){
+                                break;
+                              }
+                            }
 
-                          $i = 0;
-                          foreach($short_scores as $arm => $parts){
-                            $score    = round(array_sum($parts));
-                            $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
-                            $scale    = ($score*2)+100;
-                            $css      = "width:". $scale ."px;height:" . $scale . "px";
-                            $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
-                            echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
-                            $i++;
-                          }
-                        ?>
-                        </ul>
-                      </section>
-                    </div>
-                    <div class="col-md-6 bg-light dker datacharts chartone col_ipad_port col_ipad_land">
-                      <section>
-                        <h3><?php echo $lang["OTHERS_WELL_SCORES"] ?></h3>
-                        <ul class='short_scores'>
-                        <?php 
-                          $desc_order   = array();
-                          foreach($others_scores as $arm => $parts){
-                            $score = round(array_sum($parts));
-                            $desc_order[$arm] = $score;
-                          }
-                          krsort($desc_order);
+                            //WEIRD BUBBLES
+                            // $bubble_color = array("base","ok","better","best");
+                            
+                            // $desc_order   = array();
+                            // foreach($short_scores as $arm => $parts){
+                            //   $score = round(array_sum($parts));
+                            //   $desc_order[$arm] = $score;
+                            // }
+                            // krsort($desc_order);
 
-                          $i = 0;
-                          foreach($others_scores as $arm => $parts){
-                            $score    = round(array_sum($parts));
-                            $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
-                            $scale    = ($score*2)+100;
-                            $css      = "width:". $scale ."px;height:" . $scale . "px";
-                            $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
-                            echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
-                            $i++;
-                          }
-                        ?>
-                        </ul>
-                      </section>
+                            // $i = 0;
+                            // foreach($short_scores as $arm => $parts){
+                            //   $score    = round(array_sum($parts));
+                            //   $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
+                            //   $scale    = ($score*2)+100;
+                            //   $css      = "width:". $scale ."px;height:" . $scale . "px";
+                            //   $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
+                            //   echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
+                            //   $i++;
+                            // }
+
+                            // $desc_order   = array();
+                            // foreach($others_scores as $arm => $parts){
+                            //   $score = round(array_sum($parts));
+                            //   $desc_order[$arm] = $score;
+                            // }
+                            // krsort($desc_order);
+
+                            // $i = 0;
+                            // foreach($others_scores as $arm => $parts){
+                            //   $score    = round(array_sum($parts));
+                            //   $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
+                            //   $scale    = ($score*2)+100;
+                            //   $css      = "width:". $scale ."px;height:" . $scale . "px";
+                            //   $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
+                            //   echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
+                            //   $i++;
+                            // }
+                          ?>
+                        </div>
                     </div>
                     <?php
                     }
@@ -1201,6 +1222,39 @@ var pie = new d3pie("pieChart", {
 }
 .eclipse.best::before{
   box-shadow: 0px 0px 15px 5px #FF8F84;
+}
+
+
+
+
+
+
+
+.well_scores{
+  margin:20px 10px;
+}
+.well_score{
+  margin-bottom:5px;
+  height:30px;
+  background:#efefef;
+}
+.well_score b{
+  display:inline-block; 
+  vertical-align:middle;
+}
+.well_score span {
+  display:inline-block;
+  height:30px;
+  vertical-align:middle;
+  margin-right:10px;
+}
+.user_score span{
+  background:#0BA5A3;
+  box-shadow:0 0 5px #28D1D8;
+}
+.other_score span{
+  background:#FEC83B;
+  box-shadow:0 0 5px #9ABC46;
 }
 </style>
 

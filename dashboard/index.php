@@ -283,7 +283,7 @@ foreach($events as $eventarm){
 
 //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
 
-$min_well_score_show = false; //TODO REMOVE
+// $min_well_score_show = false; //TODO REMOVE
 if(!$min_well_score_show){
   //SHORT SCALE SCORE
   $short_q_fields  = array(

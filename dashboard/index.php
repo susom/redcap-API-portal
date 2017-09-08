@@ -1,8 +1,6 @@
 <?php
 require_once("../models/config.php");
 
-// markPageLoadTime("STARTING Dashboad index.php");
-
 //REDIRECT USERS THAT ARE NOT LOGGED IN
 if(!isUserLoggedIn()) { 
   $destination = $websiteUrl . "login.php";
@@ -40,8 +38,6 @@ if(!isUserLoggedIn()) {
 //NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
-  // markPageLoadTime("STARTING (pop up) survey_complete block");
-
   $surveyid = $_GET["survey_complete"];
   
   if(array_key_exists($surveyid,$surveys)){
@@ -71,9 +67,6 @@ if(isset($_GET["survey_complete"])){
       
       addSessionMessage( $success_msg , "success");
   }
-
-  // markPageLoadTime("END survey_complete block");
-
 }
 
 //FOR THE PIE CHART
@@ -551,11 +544,11 @@ function getAvgWellScoreOthers($others_scores){
 function printWELLComparison($eventarm, $user_score, $other_score){
   global $loggedInUser, $lang, $all_completed;
 
-  $user_score       = round(array_sum($user_score));
+  $user_score       = !empty($user_score) ? round(array_sum($user_score)) : array();
   $user_score_txt   = !empty($user_score) ? $lang["USERS_SCORE"] . " : " . $user_score . "/50" : $lang["NOT_ENOUGH_USER_DATA"];
   $user_bar         = ($user_score*100)/70;
 
-  $other_score      = round(array_sum($other_score));
+  $other_score      = !empty($other_score) ? round(array_sum($other_score)) : array();
   $other_score_txt  = !empty($other_score) ? $lang["OTHERS_SCORE"] . " : " . $other_score . "/50" : $lang["NOT_ENOUGH_OTHER_DATA"];
   $other_bar        = ($other_score*100)/70;
   

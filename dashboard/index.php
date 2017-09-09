@@ -251,12 +251,12 @@ if($core_surveys_complete){
   );
   $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
   $user_ws      = array_filter($user_ws,function($item){
-    return $item["redcap_event_name"] !== "enrollment_arm_1" && !empty($item["well_score"]);
+    return !empty($item["well_score"]);
   });
 
   // ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
   $min_well_score_show    = false;
-  if( count($user_ws) ){
+  if( count($user_ws) > 1){
     $min_well_score_show  = true;
   }
 
@@ -266,17 +266,17 @@ if($core_surveys_complete){
     'format'      => 'json'
   );
   $result         = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-  array_shift($result); //TODO, save enrollment arm for later WELL LONG SCORE
   $events         = array_column($result, 'unique_event_name');
 
-  // GET ALL STORED WELLSCORES FOR EVERYONE
-  $others_scores  = array();
-  foreach($events as $eventarm){
-      $all_well_scores = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
-      if(!empty($all_well_scores[0]["well_score"])){
-        $others_scores[$eventarm] = array("well_score" => getAvgWellScoreOthers($all_well_scores) );
-      }
-  };
+  // GET ALL STORED WELLSCORES FOR EVERYONE, 
+  // TODO : maybe some other day
+  // $others_scores  = array();
+  // foreach($events as $eventarm){
+  //     $all_well_scores = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
+  //     if(!empty($all_well_scores[0]["well_score"])){
+  //       $others_scores[$eventarm] = array("well_score" => getAvgWellScoreOthers($all_well_scores) );
+  //     }
+  // };
 
   //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
   if(!$min_well_score_show){
@@ -359,14 +359,13 @@ if($core_surveys_complete){
           return $v !== false && !is_null($v) && ($v != '' || $v == '0');
       });
       $missing_data_keys          = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
-
       $minimumData                = checkMinimumForShortScore($missing_data_keys);
-      $arms_minimum[$eventarm]    = $minimumData;
       
       //ENOUGH DATA TO CALC SCORE
       $arms_answers[$eventarm]    = $minimumData ? $user_completed_keys : array();
 
-      //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
+      //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, 
+      //SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
       if($loggedInUser->user_event_arm  == $eventarm){
         break;
       }
@@ -459,24 +458,30 @@ function getShortScore($answers){
   $score["soc_con"] = $sc_a + $sc_b + $sc_c;
 
   //Lifestyle BEHAVIORS
-  $diet_ar = array(
-    1 => array(1,2,3),
-    2 => array(4,5,6),
-    3 => array(7,8,9,10)
+  $veg_ar = array(
+    1 => array(0,0,1),
+    2 => array(2,4,6),
+    3 => array(8,9,10,10)
+  );
+
+  $sugar_ar = array(
+    1 => array(10,9,8),
+    2 => array(6,4,1),
+    3 => array(0,0,0,0)
   );
 
   $veg_score = 0;
   if(isset($answers["core_vegatables_intro_v2"])){
     $veg_a  = $answers["core_vegatables_intro_v2"];
     $veg_b  = $answers["core_vegetables_intro_v2_" . $veg_a];
-    $veg_score = (($diet_ar[$veg_a][$veg_b])/10) * .5;
+    $veg_score = (($veg_ar[$veg_a][$veg_b])/10) * .5;
   }
 
   $sug_score = 0;
   if(isset($answers["core_sugar_intro_v2"])){
     $sug_a  = $answers["core_sugar_intro_v2"];
     $sug_b  = $answers["core_sugar_intro_v2_" . $sug_a];
-    $sug_score = ((11 - $diet_ar[$sug_a][$sug_b])/10) * .5;
+    $sug_score = (($sugar_ar[$sug_a][$sug_b])/10) * .5;
   }
   $dietscore  = $veg_score + $sug_score;
 
@@ -532,15 +537,6 @@ function getShortScore($answers){
   return $score;
 }
 
-function getAvgWellScoreOthers($others_scores){
-  $sum = 0;
-  foreach($others_scores as $user){
-    $sum = $sum + intval($user["well_score"]);
-  }
-
-  return round($sum/count($others_scores));
-}
-
 function printWELLComparison($eventarm, $user_score, $other_score){
   global $loggedInUser, $lang, $all_completed;
 
@@ -562,6 +558,43 @@ function printWELLComparison($eventarm, $user_score, $other_score){
   echo "<h4>$armtime</h4>";  
   echo "</div>";
 }
+
+function printWELLOverTime($user_scores){
+  global $loggedInUser, $lang;
+
+  $year_css = "year";
+  $arm_year = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
+
+  echo "<div class='well_scores'>";
+  foreach($user_scores as $arm => $score){
+    $user_score       = !empty($score) ? round(array_sum($score)) : array();
+    $user_score_txt   = !empty($user_score) ? ($user_score/50)*100 . "%" : $lang["NOT_ENOUGH_USER_DATA"];
+    $user_bar         = ($user_score*100)/50;
+    
+    echo "<div class='well_score user_score $year_css'><span style='width:$user_bar%'><i>$arm_year</i></span><b>$user_score_txt</b></div>";
+    
+    //TODO IS THIS OK?
+    $year_css = $year_css . "x";
+    $arm_year++;
+  }
+  echo "<div class='anchor'>
+    <span class='zero'>0</span>
+    <span class='hundred'>(".$lang["BETTER_WELLBEING"].") 100</span>
+  </div>";
+  echo "</div>";
+}
+
+function getAvgWellScoreOthers($others_scores){
+  $sum = 0;
+  foreach($others_scores as $user){
+    $sum = $sum + intval($user["well_score"]);
+  }
+
+  return round($sum/count($others_scores));
+}
+
+
+
 
 
 $shownavsmore   = true;
@@ -899,12 +932,13 @@ include("inc/gl_head.php");
                           </header>
                           
                           <?php
-                            foreach($events as $arm){
-                              printWELLComparison($arm,$short_scores[$arm],$others_scores[$arm]);
-                              if($arm == $loggedInUser->user_event_arm){
-                                break;
-                              }
-                            }
+                            printWELLOverTime($short_scores);
+                            // foreach($events as $arm){
+                            //   printWELLComparison($arm,$short_scores[$arm],$others_scores[$arm]);
+                            //   if($arm == $loggedInUser->user_event_arm){
+                            //     break;
+                            //   }
+                            // }
 
                             //WEIRD BUBBLES
                             // $bubble_color = array("base","ok","better","best");
@@ -927,23 +961,6 @@ include("inc/gl_head.php");
                             //   $i++;
                             // }
 
-                            // $desc_order   = array();
-                            // foreach($others_scores as $arm => $parts){
-                            //   $score = round(array_sum($parts));
-                            //   $desc_order[$arm] = $score;
-                            // }
-                            // krsort($desc_order);
-
-                            // $i = 0;
-                            // foreach($others_scores as $arm => $parts){
-                            //   $score    = round(array_sum($parts));
-                            //   $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
-                            //   $scale    = ($score*2)+100;
-                            //   $css      = "width:". $scale ."px;height:" . $scale . "px";
-                            //   $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
-                            //   echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
-                            //   $i++;
-                            // }
                           ?>
                         </div>
                     </div>
@@ -1227,6 +1244,7 @@ var pie = new d3pie("pieChart", {
 
 
 
+/*SPECIAL FOR WELL SCORE*/
 .panel-warning > .panel-heading {
     background-color: antiquewhite !important;
 }
@@ -1234,8 +1252,29 @@ var pie = new d3pie("pieChart", {
 .well_scores{
   margin:20px 10px;
 }
+.well_scores .anchor {
+  border-top:1px solid #333;
+  color:#333;
+  font-weight:bold;
+  padding-top:5px;
+  position:relative;
+}
+.well_scores .anchor:after{
+  position: absolute;
+  content: "";
+  top: -5px;
+  right: 0px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #333;
+}
+.well_scores .hundred{
+  float:right;
+}
 .well_score{
-  margin-bottom:5px;
+  margin-bottom:10px;
   height:30px;
   background:#efefef;
 }
@@ -1249,10 +1288,38 @@ var pie = new d3pie("pieChart", {
   vertical-align:middle;
   margin-right:10px;
 }
+
+.well_score span i {
+  font-style: normal;
+  font-weight:bold;
+  font-size:120%;
+  color:#fff;
+  line-height: 200%;
+  margin-left: 5px;
+  display: inline-block;
+}
+
 .user_score span{
   background:#0BA5A3;
   box-shadow:0 0 5px #28D1D8;
 }
+.user_score.yearx span{
+  background:#FEC83B;
+  box-shadow:0 0 5px #9ABC46;
+}
+.user_score.yearxx span{
+  background:#126C97;
+  box-shadow:0 0 5px #9ABC46;
+}
+.user_score.yearxxx span{
+  background:#E02141;
+  box-shadow:0 0 5px #9ABC46;
+}
+.user_score.yearxxxx span{
+  background:#328443;
+  box-shadow:0 0 5px #9ABC46;
+}
+
 .other_score span{
   background:#FEC83B;
   box-shadow:0 0 5px #9ABC46;

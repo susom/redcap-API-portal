@@ -39,35 +39,21 @@ if(!isUserLoggedIn()) {
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK
   $surveyid = $_GET["survey_complete"];
-  
   if(array_key_exists($surveyid,$surveys)){
     $index  = array_search($surveyid, $all_survey_keys);
     $survey = $surveys[$surveyid];
-    $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
-      
-      if(isset($all_survey_keys[$index+1])){
-        $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
-      }else{
-        $success_msg .= $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
-      }
-      addSessionMessage( $success_msg , "success");
-  }
 
-  if(array_key_exists($surveyid,$supp_surveys)){
-    $index  = array_search($surveyid, $supp_surveys_keys);
-    $survey = $supp_surveys[$surveyid];
-    $success_msg  = $lang["FITNESS_BADGE"]. ": <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
-      
-      if(isset($all_survey_keys[$index+1])){
-        $success_msg .= $lang["GET_ALL_BADGES"]. "<br> ";
+    if(!isset($all_survey_keys[$index+1])){
+      if(strpos($user_event_arm,"enrollment") > -1){
+        $success_msg = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
       }else{
-        $success_msg .= $lang["CONGRATS_ALL_FITNESS_BADGES"];
+        $success_msg = "SHOW THE WELL SCORE HERE";
       }
-      
       addSessionMessage( $success_msg , "success");
+    }
   }
 }
+
 
 //FOR THE PIE CHART
 $graph_fields               = array(
@@ -351,7 +337,6 @@ if($core_surveys_complete){
       ,"core_sleep_quality" => 1
     );
 
-    $arms_minimum = array();
     $arms_answers = array();
     foreach($events as $eventarm){
       $user_answers               = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
@@ -366,7 +351,7 @@ if($core_surveys_complete){
 
       //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, 
       //SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
-      if($loggedInUser->user_event_arm  == $eventarm){
+      if($user_event_arm  == $eventarm){
         break;
       }
     };
@@ -569,8 +554,7 @@ function printWELLOverTime($user_scores){
   foreach($user_scores as $arm => $score){
     $user_score       = !empty($score) ? round(array_sum($score)) : array();
     $user_score_txt   = !empty($user_score) ? ($user_score/50)*100 . "%" : $lang["NOT_ENOUGH_USER_DATA"];
-    $user_bar         = ($user_score*100)/50;
-    
+    $user_bar         = !empty($user_score) ? ($user_score*100)/50 : "0%";
     echo "<div class='well_score user_score $year_css'><span style='width:$user_bar%'><i>$arm_year</i></span><b>$user_score_txt</b></div>";
     
     //TODO IS THIS OK?
@@ -592,10 +576,6 @@ function getAvgWellScoreOthers($others_scores){
 
   return round($sum/count($others_scores));
 }
-
-
-
-
 
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
@@ -920,10 +900,9 @@ include("inc/gl_head.php");
                         </div>
                     </div>
                     
-
                     <?php 
                     //THE WELL SCORE SHOW ONLY IF HAVE TWO OF THEM
-                    if(count($short_scores)){
+                    if(count($short_scores) > 1){
                     ?>
                     <div class="col-md-12">
                       <div class="panel panel-warning portlet-item">
@@ -1010,12 +989,6 @@ include("inc/gl_foot.php");
 <script type="text/javascript">
 $(document).ready(function () {
   $(".weather").weatherFeed({relativeTimeZone:true});
-  $(".btn-success").click(function(){
-    if($(".takenext").length > 0){
-      location.href= $(".takenext").prop("href");
-      return;
-    }
-  });
 });
 </script>
 <script src="js/Chart.js"></script>
@@ -1239,11 +1212,6 @@ var pie = new d3pie("pieChart", {
 
 
 
-
-
-
-
-
 /*SPECIAL FOR WELL SCORE*/
 .panel-warning > .panel-heading {
     background-color: antiquewhite !important;
@@ -1287,6 +1255,7 @@ var pie = new d3pie("pieChart", {
   height:30px;
   vertical-align:middle;
   margin-right:10px;
+  min-width:46px;
 }
 
 .well_score span i {

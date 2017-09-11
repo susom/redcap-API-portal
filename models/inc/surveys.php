@@ -6,9 +6,9 @@
 // markPageLoadTime("Start surveys.php include");
 
 //DETERMINE WHICH ARM TO BE IN
-$consent_date = strToTime($loggedInUser->consent_ts);
-$datediff     = time() - $consent_date;
-$days_active  = floor($datediff / (60 * 60 * 24));
+$consent_date	= strToTime($loggedInUser->consent_ts);
+$datediff    	= time() - $consent_date;
+$days_active 	= floor($datediff / (60 * 60 * 24));
 $user_event_arm = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
 
 // OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?

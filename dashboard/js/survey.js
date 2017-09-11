@@ -60,7 +60,7 @@ $(document).ready(function(){
           data: surveyhash + project,
           success:function(result){
             if(next_instrument){
-              location.href="survey.php?sid=" + next_instrument;
+              location.href="survey.php?sid=" + next_instrument + "&survey_complete=" + instrument_name;
             }else{
               location.href="index.php?survey_complete=" + instrument_name;
             }

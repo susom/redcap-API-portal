@@ -195,7 +195,6 @@ if(!isUserLoggedIn()) {
 //TODO : generalize this : CUSTOM FOR SHORT SURVEYS (NEED TO PULL GENDER FROM enrollment_arm for BINGE DRINK)
 $all_completed["core_gender"] = $loggedInUser->gender;
 
-
 //THIS PAGE NEEDS A SURVEY ID
 $current_surveyid = $surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;
 $project  = (isset($_GET["project"])? $_GET["project"]:null);
@@ -220,6 +219,38 @@ if(array_key_exists($surveyid, $surveys)){
   $destination = $websiteUrl."dashboard/index.php";
   header("Location: " . $destination);
   exit; 
+}
+
+print_rr($user_event_arm);
+//POP UP IN BETWEEN SURVEYS 
+//NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
+if(isset($_GET["survey_complete"])){
+  if(!strpos($user_event_arm,"short")){
+    //ONLY LONG ANNIVERSARIES GET POP UP TREATMENT
+    //IF NO URL PASSED IN THEN REDIRECT BACK
+    $surveyid = $_GET["survey_complete"];
+    
+    if(array_key_exists($surveyid,$surveys)){
+      $index  = array_search($surveyid, $all_survey_keys);
+      $survey = $surveys[$surveyid];
+      $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
+      if(isset($all_survey_keys[$index+1])){
+        $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
+        $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
+        addSessionMessage( $success_msg , "success");
+      }
+    }
+
+    if(array_key_exists($surveyid,$supp_surveys)){
+      $index  = array_search($surveyid, $supp_surveys_keys);
+      $survey = $supp_surveys[$surveyid];
+      $success_msg  = $lang["FITNESS_BADGE"]. ": <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
+      if(isset($all_survey_keys[$index+1])){
+        $success_msg .= $lang["GET_ALL_BADGES"]. "<br> ";
+        addSessionMessage( $success_msg , "success");
+      }
+    }
+  }
 }
 
 //SOME PAGE SET UP

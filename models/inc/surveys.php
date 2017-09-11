@@ -54,11 +54,10 @@ if(isset($_SESSION["user_survey_data"])){
 	//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
 	$user_survey_data->refreshData();
 }else{
-
-	markPageLoadTime("core SURVey data : I BET THIS TAKES LONG TIME");
+	// markPageLoadTime("core SURVey data : I BET THIS TAKES LONG TIME");
 	//THIS KICKS OF 7 HEAVY API CALLS.  BUT NOT EVERYTHING CHANGES
 	$user_survey_data				= new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-	markPageLoadTime("core SURVey data : up to 6.8 seconds");
+	// markPageLoadTime("core SURVey data : up to 6.8 seconds");
 	$_SESSION["user_survey_data"] 	= $user_survey_data;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
@@ -92,7 +91,7 @@ if(isset($_SESSION["supplemental_surveys"])){
 	    continue;
 	  }
 
-	  markPageLoadTime("$proj_name : NEW PROJECT FOR SUPP TAKES A LONG TIME");
+	  // markPageLoadTime("$proj_name : NEW PROJECT FOR SUPP TAKES A LONG TIME");
 	  if(isset($_SESSION[$proj_name])){
 	  	$supplementalProject 	= $_SESSION[$proj_name];
 		//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
@@ -101,7 +100,7 @@ if(isset($_SESSION["supplemental_surveys"])){
 	  	$supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
 	  	$_SESSION[$proj_name] 	= $supplementalProject;
 	  }
-	  markPageLoadTime("$proj_name : up to  3.1 seconds");
+	  // markPageLoadTime("$proj_name : up to  3.1 seconds");
 	  
 	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){

@@ -525,9 +525,10 @@ if(isset($_GET["survey_complete"])){
         $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
         $arm_year       = $arm_year + count($short_scores) - 1;
         $for_popup      = array_slice($short_scores, -1);
+        
         //THIS SHOULD BE THE MOST RECENT ONE
-        $new_well_score = ($for_popup[$user_event_arm]["junk"]/50)*100;
-        $scale          = 2*$for_popup[$user_event_arm]["junk"]+100;
+        $new_well_score = (array_sum($for_popup[$user_event_arm])/50)*100;
+        $scale          = 2*array_sum($for_popup[$user_event_arm])+100;
         $extracss       = "width: ".$scale."px; height: ".$scale."px";
         $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b>$arm_year </b><i>$new_well_score<em>%</em></i></div></li></ul>";
       }

@@ -3,13 +3,12 @@
 // unset($_SESSION["user_survey_data"]);
 // exit;
 
-// markPageLoadTime("Start surveys.php include");
-
 //DETERMINE WHICH ARM TO BE IN
 $consent_date	= strToTime($loggedInUser->consent_ts);
 $datediff    	= time() - $consent_date;
 $days_active 	= floor($datediff / (60 * 60 * 24));
 $user_event_arm = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
+
 
 // OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?
 // FIRST GET META DATA FOR FIRST SURVEY - wellbeing_questions
@@ -55,8 +54,11 @@ if(isset($_SESSION["user_survey_data"])){
 	//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
 	$user_survey_data->refreshData();
 }else{
+
+	markPageLoadTime("core SURVey data : I BET THIS TAKES LONG TIME");
 	//THIS KICKS OF 7 HEAVY API CALLS.  BUT NOT EVERYTHING CHANGES
 	$user_survey_data				= new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+	markPageLoadTime("core SURVey data : up to 6.8 seconds");
 	$_SESSION["user_survey_data"] 	= $user_survey_data;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
@@ -84,13 +86,23 @@ if(isset($_SESSION["supplemental_surveys"])){
 }else{
 	$supp_surveys = array();
 	$supp_proj    = SurveysConfig::$projects;
-	
+
 	foreach($supp_proj as $proj_name => $project){
 	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"Studies","taiwan_admin","miniintervention","foodquestions")) ){
 	    continue;
 	  }
 
-	  $supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+	  markPageLoadTime("$proj_name : NEW PROJECT FOR SUPP TAKES A LONG TIME");
+	  if(isset($_SESSION[$proj_name])){
+	  	$supplementalProject 	= $_SESSION[$proj_name];
+		//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
+		$supplementalProject->refreshData();
+	  }else{
+	  	$supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
+	  	$_SESSION[$proj_name] 	= $supplementalProject;
+	  }
+	  markPageLoadTime("$proj_name : up to  3.1 seconds");
+	  
 	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){
 		  $all_branching 		= array_merge($all_branching,$supp_branching);

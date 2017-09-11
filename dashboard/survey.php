@@ -221,11 +221,11 @@ if(array_key_exists($surveyid, $surveys)){
   exit; 
 }
 
-print_rr($user_event_arm);
 //POP UP IN BETWEEN SURVEYS 
 //NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
-  if(!strpos($user_event_arm,"short")){
+  //ONLY SHOW THESE POPUPS FOR LONG ANNIVERSARIES
+  if(empty(strpos($user_event_arm,"short")) && strpos($user_event_arm,"short") !== 0){
     //ONLY LONG ANNIVERSARIES GET POP UP TREATMENT
     //IF NO URL PASSED IN THEN REDIRECT BACK
     $surveyid = $_GET["survey_complete"];

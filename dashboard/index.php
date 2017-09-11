@@ -35,26 +35,7 @@ if(!isUserLoggedIn()) {
   include("../models/inc/surveys.php");
 }
 
-//NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
-if(isset($_GET["survey_complete"])){
-  //IF NO URL PASSED IN THEN REDIRECT BACK
-  $surveyid = $_GET["survey_complete"];
-  if(array_key_exists($surveyid,$surveys)){
-    $index  = array_search($surveyid, $all_survey_keys);
-    $survey = $surveys[$surveyid];
-
-    if(!isset($all_survey_keys[$index+1])){
-      if(strpos($user_event_arm,"enrollment") > -1){
-        $success_msg = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
-      }else{
-        $success_msg = "SHOW THE WELL SCORE HERE";
-      }
-      addSessionMessage( $success_msg , "success");
-    }
-  }
-}
-
-
+//GATHER DATA FOR DATA VISUALIZATIONS
 //FOR THE PIE CHART
 $graph_fields               = array(
                                  "core_sitting_hh"
@@ -88,52 +69,6 @@ $ALL_TIME_WALKING_IN_HOURS  = array();
 $ALL_TIME_SITTING_IN_HOURS  = array();
 $ALL_TIME_SLEEP_HOURS       = array();
 $sitting_count              = 0;
-
-if(isset($_GET["irvin"])){
-  foreach($all_answers as $users_answers){
-    $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
-    foreach($u_ans as $fieldname => $hhmm){
-      if(!empty($hhmm)){
-        if(strpos($fieldname,"hh") > -1){
-          $answer_value = (int) $hhmm;
-        }else if(strpos($fieldname,"mm") > -1){
-          $answer_value = (float) $hhmm/60;
-        }
-
-        if($answer_value <= 0 && strpos($fieldname,"sleep") > -1){
-          continue;
-        }
-
-        if(strpos($fieldname,"core_pa_mod") > -1){
-          $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
-        }
-
-        if(strpos($fieldname,"core_pa_vig") > -1){
-          $ALL_TIME_PA_VIG_IN_HOURS[]  = $answer_value;
-        }
-
-        if(strpos($fieldname,"walking") > -1){
-          $ALL_TIME_WALKING_IN_HOURS[] = $answer_value;
-        }
-
-        if(strpos($fieldname,"sitting") > -1){
-          $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
-          $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
-
-          if(strpos($fieldname,"nowrk") > -1){
-            $sitting_count = $sitting_count  + 1;
-          }else{
-            $sitting_count = $sitting_count  +  .5;
-          }
-        }
-
-        if(strpos($fieldname,"sleep") > -1){
-          $ALL_TIME_SLEEP_HOURS[] = $answer_value;
-        }
-      }
-    }
-  }
-}
 
 foreach($all_answers as $users_answers){
   $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
@@ -225,9 +160,7 @@ foreach($user_answers as $fieldname => $hhmm){
 $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
 $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
 
-
-
-// CHECK IF USER HAS "well_score"
+//GATHER DATA FOR USERS SHORT SCORES
 $short_scores   = array();
 if($core_surveys_complete){
   $extra_params = array(
@@ -577,6 +510,33 @@ function getAvgWellScoreOthers($others_scores){
   return round($sum/count($others_scores));
 }
 
+//NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
+if(isset($_GET["survey_complete"])){
+  //IF NO URL PASSED IN THEN REDIRECT BACK
+  $surveyid = $_GET["survey_complete"];
+  if(array_key_exists($surveyid,$surveys)){
+    $index  = array_search($surveyid, $all_survey_keys);
+    $survey = $surveys[$surveyid];
+
+    if(!isset($all_survey_keys[$index+1])){
+      if(strpos($user_event_arm,"enrollment") > -1){
+        $success_msg = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+      }else{
+        $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
+        $arm_year       = $arm_year + count($short_scores) - 1;
+        $for_popup      = array_slice($short_scores, -1);
+        //THIS SHOULD BE THE MOST RECENT ONE
+        $new_well_score = ($for_popup[$user_event_arm]["junk"]/50)*100;
+        $scale          = 2*$for_popup[$user_event_arm]["junk"]+100;
+        $extracss       = "width: ".$scale."px; height: ".$scale."px";
+        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b>$arm_year </b><i>$new_well_score<em>%</em></i></div></li></ul>";
+      }
+      addSessionMessage( $success_msg , "success");
+    }
+  }
+}
+
+
 $shownavsmore   = true;
 $survey_active  = ' class="active"';
 $profile_active = '';
@@ -912,34 +872,6 @@ include("inc/gl_head.php");
                           
                           <?php
                             printWELLOverTime($short_scores);
-                            // foreach($events as $arm){
-                            //   printWELLComparison($arm,$short_scores[$arm],$others_scores[$arm]);
-                            //   if($arm == $loggedInUser->user_event_arm){
-                            //     break;
-                            //   }
-                            // }
-
-                            //WEIRD BUBBLES
-                            // $bubble_color = array("base","ok","better","best");
-                            
-                            // $desc_order   = array();
-                            // foreach($short_scores as $arm => $parts){
-                            //   $score = round(array_sum($parts));
-                            //   $desc_order[$arm] = $score;
-                            // }
-                            // krsort($desc_order);
-
-                            // $i = 0;
-                            // foreach($short_scores as $arm => $parts){
-                            //   $score    = round(array_sum($parts));
-                            //   $armtime  = ucfirst(str_replace("_"," ",str_replace("_arm_1","",$arm)));
-                            //   $scale    = ($score*2)+100;
-                            //   $css      = "width:". $scale ."px;height:" . $scale . "px";
-                            //   $extracss = $bubble_color[array_search($arm,array_keys($desc_order))];
-                            //   echo "<li class='eclipse $extracss' style='$css' data-size='$score'><div><b>$armtime</b><i>$score</i></div></li>\n";
-                            //   $i++;
-                            // }
-
                           ?>
                         </div>
                     </div>
@@ -1194,9 +1126,12 @@ var pie = new d3pie("pieChart", {
 .eclipse i {
   font-style:normal;
   font-weight:bold;
-  font-size:150%;
+  font-size:250%;
 }
-
+.eclipse  i em {
+  font-size:65%;
+  font-style:normal;
+}
 .eclipse.ok{
   background:#0BA5A3;
 }

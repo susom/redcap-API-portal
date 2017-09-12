@@ -495,8 +495,9 @@ function printWELLOverTime($user_scores){
     $arm_year++;
   }
   echo "<div class='anchor'>
-    <span class='zero'>0</span>
-    <span class='hundred'>(".$lang["BETTER_WELLBEING"].") 100</span>
+    <span class='zero'>0% (".$lang["LOWER_WELLBEING"].")</span>
+    <span class='fifty'>50%</span>
+    <span class='hundred'> (".$lang["HIGHER_WELLBEING"].") 100%</span>
   </div>";
   echo "</div>";
 }
@@ -1157,8 +1158,8 @@ var pie = new d3pie("pieChart", {
   margin:20px 10px;
 }
 .well_scores .anchor {
-  border-top:1px solid #333;
-  color:#333;
+  border-top:3px dashed #ccc;
+  color:#8a6d3b;
   font-weight:bold;
   padding-top:5px;
   position:relative;
@@ -1166,20 +1167,25 @@ var pie = new d3pie("pieChart", {
 .well_scores .anchor:after{
   position: absolute;
   content: "";
-  top: -5px;
-  right: 0px;
+  top: -12px;
+  right: -2px;
   width: 0;
   height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 5px solid #333;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #ccc;
 }
 .well_scores .hundred{
   float:right;
 }
+.well_scores .fifty{
+  position:absolute;
+  left:50%;
+  top:5px;
+}
 .well_score{
   margin-bottom:10px;
-  height:30px;
+  height:60px;
   background:#efefef;
 }
 .well_score b{
@@ -1188,7 +1194,7 @@ var pie = new d3pie("pieChart", {
 }
 .well_score span {
   display:inline-block;
-  height:30px;
+  height:60px;
   vertical-align:middle;
   margin-right:10px;
   min-width:46px;

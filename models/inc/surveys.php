@@ -108,9 +108,13 @@ if(isset($_SESSION["supplemental_surveys"])){
 	  }
 	  $supp_surveys[$proj_name] = $supplementalProject;
 	}
-	// $_SESSION["supplemental_surveys"] 	= $supp_surveys;
+	$_SESSION["supplemental_surveys"] 	= $supp_surveys;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
+
+// print_rr($_SESSION["user_survey_data"]);
+// print_rr($_SESSION["supplemental_surveys"],1);
+
 $supp_instruments = array();
 foreach($supp_surveys as $projname => $supp_project){
 	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );

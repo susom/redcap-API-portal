@@ -528,10 +528,10 @@ if(isset($_GET["survey_complete"])){
         $for_popup      = array_slice($short_scores, -1);
         
         //THIS SHOULD BE THE MOST RECENT ONE
-        $new_well_score = (array_sum($for_popup[$user_event_arm])/50)*100;
+        $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
         $scale          = 2*array_sum($for_popup[$user_event_arm])+100;
         $extracss       = "width: ".$scale."px; height: ".$scale."px";
-        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b>$arm_year </b><i>$new_well_score<em>%</em></i></div></li></ul>";
+        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: helllo<ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
       }
       addSessionMessage( $success_msg , "success");
     }
@@ -882,7 +882,10 @@ include("inc/gl_head.php");
                     ?>
 
                     
-
+                    <?php 
+                    //THE WELL SCORE SHOW ONLY IF HAVE TWO OF THEM
+                    if(empty(strpos($user_event_arm,"short")) && strpos($user_event_arm,"short") !== 0){
+                    ?>
                     <div class="col-md-6 bg-light dker datacharts chartone col_ipad_port col_ipad_land">
                       <section>
                         <?php 
@@ -901,7 +904,9 @@ include("inc/gl_head.php");
                         <canvas id="youvsall" ></canvas>
                       </section>
                     </div>
-      
+                     <?php 
+                    }
+                    ?>
                     
                   </div>
                 </section>
@@ -1234,6 +1239,10 @@ var pie = new d3pie("pieChart", {
 .other_score span{
   background:#FEC83B;
   box-shadow:0 0 5px #9ABC46;
+}
+
+.alert.text-center ul {
+  margin:20px 40px 20px;
 }
 </style>
 

@@ -21,7 +21,6 @@ class Project {
 		//DO ALL THE ONE TIME CALLS OUT HERE
 		//THEN I CAN GRANULARLY REFRESH JUST THE LIVE DATA
 		//WHILE LEAVING THE OBJECT ITSELF STORED IN THE SESSION
-		
 		$this->API_URL 			= $api_url;
 		$this->API_TOKEN 		= $api_token;
 		$this->LOGGED_IN_USER 	= $loggedInUser;
@@ -29,7 +28,7 @@ class Project {
 		$this->current_arm 		= $loggedInUser->user_event_arm;
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
-
+		
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
@@ -51,7 +50,7 @@ class Project {
 				}
 			}, $all_events);
 		}
-		
+
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 
 		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
@@ -59,10 +58,15 @@ class Project {
 		$surveylinks 	= array();
 		$metadata 		= array(); 
 		foreach($all_instruments as $index => $instrument){
+			if(empty($instrument)){
+				continue;
+			}
 			$instrument_id 					= $instrument["instrument_name"];
 			$unique_event_name 				= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
+			// markPageLoadTime("start $instrument_id");
 			$surveylinks[$instrument_id]  	= self::getSurveyLink($this->LOGGED_IN_USER->id, $instrument_id, $unique_event_name);
 			$metadata[$instrument_id]		= self::getMetaData(array($instrument_id));
+			// markPageLoadTime("end $instrument_id");
 		}
 		$this->SURVEY_LINKS 	= $surveylinks;
 		$this->METADATA 		= $metadata;

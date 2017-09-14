@@ -57,9 +57,9 @@ if(isset($_SESSION["user_survey_data"])){
 }else{
 	// markPageLoadTime("core SURVey data : I BET THIS TAKES LONG TIME");
 	//THIS KICKS OF 7 HEAVY API CALLS.  BUT NOT EVERYTHING CHANGES
-	markPageLoadTime("start user_survey_data");
+	// markPageLoadTime("start user_survey_data");
 	$user_survey_data				= new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-	markPageLoadTime("end user_survey_data");
+	// markPageLoadTime("end user_survey_data");
 	// markPageLoadTime("core SURVey data : up to 6.8 seconds");
 	$_SESSION["user_survey_data"] 	= $user_survey_data;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
@@ -100,9 +100,9 @@ if(isset($_SESSION["supplemental_surveys"])){
 		//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
 		$supplementalProject->refreshData();
 	  }else{
-	  	markPageLoadTime("start supplemental_surveys");
+	  	// markPageLoadTime("start supplemental_surveys");
 	  	$supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-	  	markPageLoadTime("end supplemental_surveys");
+	  	// markPageLoadTime("end supplemental_surveys");
 	  	$_SESSION[$proj_name] 	= $supplementalProject;
 	  }
 	  // markPageLoadTime("$proj_name : up to  3.1 seconds");

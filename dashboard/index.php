@@ -531,7 +531,7 @@ if(isset($_GET["survey_complete"])){
         $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
         $scale          = 2*array_sum($for_popup[$user_event_arm])+100;
         $extracss       = "width: ".$scale."px; height: ".$scale."px";
-        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: helllo<ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
+        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
       }
       addSessionMessage( $success_msg , "success");
     }

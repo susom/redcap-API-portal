@@ -88,32 +88,34 @@
               <ul class="nav dk">
                 <?php
                 $new = null;
-                $core_surveys   = array();
-                // $supp_surveys     = array();
+                $core_surveys           = array();
+                $supp_surveys           = array();
+
                 foreach($surveys as $surveyid => $survey){
                   $projnotes      = json_decode($survey["project_notes"],1);
                   $title_trans    = $projnotes["translations"];
-                   
+         
                   $index          = array_search($surveyid, $all_survey_keys);
+
                   $surveylink     = "survey.php?sid=" . $surveyid;
                   $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
-                  
                   $surveycomplete = $survey["survey_complete"];
 
                   $completeclass  = ($surveycomplete ? "completed":"");
                   $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
                   $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
-                  
+
+                  $fruitcss       = $user_short_scale ? "nofruit" : $fruits[$index];
                   if(!$surveycomplete && is_null($new)){
                     $new = $index;
                     $next_survey =  $surveylink;
                   }
 
-                  if(in_array($surveyid, SurveysConfig::$core_surveys)){
+                  if(in_array($surveyid, $available_instruments)){
                     array_push($core_surveys, "<li >
                         <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
                           $newbadge                                                   
-                          <span class='fruit $completeclass ".$fruits[$index]."'></span>
+                          <span class='fruit $completeclass $fruitcss'></span>
                           <span class='survey_name'>$surveyname</span>     
                         </a>
                       </li>\n");

@@ -166,10 +166,10 @@ if(!empty($_POST['submit_new_user'])){
 			if($proj_name == $_CFG->SESSION_NAME){
 				continue;
 			}
-			$supp_id 					= linkSupplementalProject($project, $loggedInUser);
+
+			$supp_id 					= linkSupplementalProject($project, $loggedInUser,REDCAP_PORTAL_EVENT);
 			$loggedInUser->{$proj_name} = $supp_id;
 		}
-		
 		setSessionUser($loggedInUser);
 
 		//REDIRECT TO CONSENT

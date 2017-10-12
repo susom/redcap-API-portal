@@ -12,6 +12,9 @@ class Project {
 	protected $ALL_USER_ANSWERS;
 	protected $ACTIVE_INSTRUMENTS;
 
+	protected $SHORT_SCALE 				 	= false;
+	protected $instrument_list 				= "";
+
 	protected $active_surveys_complete 		= true;
 	protected $user_current_survey_index 	= NULL;
 	protected $current_arm 				 	= 0; //WHAT EVEN IS THIS
@@ -26,9 +29,11 @@ class Project {
 		$this->LOGGED_IN_USER 	= $loggedInUser;
 		$this->name 			= $projectName;
 		$this->current_arm 		= $loggedInUser->user_event_arm;
+		$this->instrument_list 	= SurveysConfig::$core_surveys;
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
-		
+
+
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
@@ -49,9 +54,14 @@ class Project {
 					);
 				}
 			}, $all_events);
-		}
 
+
+		}
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
+		if(strpos($user_current_event,"short") > -1){
+			$this->SHORT_SCALE 		= true;
+			$this->instrument_list 	= SurveysConfig::$short_surveys;
+		}
 
 		//ALL INSTRUMENTS(surveys) IN THIS PROJECT
 		$this->ALL_INSTRUMENTS 	= array_filter($all_instruments);
@@ -154,13 +164,14 @@ class Project {
 
 	private function getSurveyInfo($all_instruments, $getall = true){
     	$surveys = array();
+
     	foreach($all_instruments as $index => $instrument){
 			$instrument_id 		= $instrument["instrument_name"];
 			$instrument_label	= $instrument["instrument_label"];
 			$unique_event_name 	= isset($instrument["unique_event_name"]) 	? $instrument["unique_event_name"] 	: NULL;
 			$arm_num 			= isset($instrument["arm_num"]) 			? $instrument["arm_num"] 			: NULL;
 			$check_survey_link  = $this->SURVEY_LINKS[$instrument_id];
-			
+
 			//IF SURVEY ENABLED, RETURNS URL (STRING) , ELSE RETURNS JSON OBJECT (WITH ERROR CODE) SO JUST IGNORE
 			if(strpos($check_survey_link,"error") > -1){
 				continue;
@@ -182,7 +193,7 @@ class Project {
 			$proper_completed_timestamp = $instrument_id . "_timestamp";
 			$user_actually_completed 	= isset($user_arm_answers[$proper_completed_timestamp]) ? $user_arm_answers[$proper_completed_timestamp] : null; //= "[not completed]"
 			$instrument_complete 		= $user_actually_completed == "[not completed]" || $user_actually_completed == ""   ? 0 : 1;
-			if(!$instrument_complete && in_array($instrument_id, SurveysConfig::$core_surveys)){
+			if(!$instrument_complete && in_array($instrument_id, $this->instrument_list)){
 				$this->active_surveys_complete = false;
 			}
 
@@ -191,74 +202,6 @@ class Project {
 				$metadata 			= $this->METADATA[$instrument_id];
 				$projectInfo 		= $this->PROJECT_INFO;
 				$project_notes	 	= $projectInfo["project_notes"];
-				
-				//THIs IS SPECIAL TO FILTER FOR NON COMPLETE SURVEYS, LOOKING FOR "@CUSTOM" 
-				//THIS BLOCK SHOULD ONLY RUN FOR ODD YEAR ANNIVERSARY, SHORT SURVEYS
-				if(strpos($this->current_arm,"short") > -1  && in_array($instrument_id,SurveysConfig::$core_surveys) ){ //DEFAULT ARM
-					$filter_meta 	= $metadata;
-					$new_meta 		= array();
-					$new_new_meta 	= array();
-					$prev_sechdr 	= null;
-					
-					// FOR SHORT SURVEY WE ONLY WANT SECTION_HEADERS AND ANNOTATED FIELD ACTIONTAGS WHICH IDENTIFY SHORT QUESTIONS
-					$filter_meta 	= array_filter($metadata, function($item){
-									  return !empty($item["section_header"]) || !empty($item["field_annotation"]) ;
-									});
-
-
-					$recent_sec_header = "";
-					foreach($filter_meta as $key => $item){
-						//IF NEW SECTION HEADER ENCOUNTERED BEFORE @CUSTOM, THEN DISCARD PREVIOUS SECTION HEADER
-						if($item["section_header"] !== ""){
-							$recent_sec_header = $item["field_name"];
-							$new_meta[$recent_sec_header] = array();
-
-							//PUSH THIS HEADER
-							array_push($new_meta[$recent_sec_header],$item);
-						}
-
-						//WE ONLY WANT "CUSTOM" QUESTIONS
-						if(strpos($item["field_annotation"],"CUSTOM") > -1){
-							//PUSH ITEM INTO HEADER GROUP
-							array_push($new_meta[$recent_sec_header],$item);
-						}
-
-						//AND HIDDEN I GUESS
-						if(!strpos($item["field_annotation"],"CUSTOM") && $item["section_header"] == ""){
-							array_push($new_new_meta,$item);
-						}
-					}
-
-					// print_rr($new_meta,1);
-					//NOW PUT THEM ALL IN ORDER
-					foreach($new_meta as $key => $group){
-						if(count($group) == 1){
-							if(empty($group[0]["field_annotation"]) || !strpos($group[0]["field_annotation"],"anniversary")){
-								continue;
-							}
-						}
-
-						if(count($group) >= 1){
-							$previtem = null;
-							foreach($group as $item){
-								if($previtem !== $item){
-									if($item["section_header"] !== "" && !strpos($group[0]["field_annotation"],"anniversary")){
-										$item["field_type"] = "skip";
-										$item["select_choices_or_calculations"] = null;
-										$item["field_label"] = null;
-									}
-									array_push($new_new_meta,$item);
-								}
-								$previtem = $item;
-							}
-						}
-					}
-					$metadata = $new_new_meta;
-
-					// if($instrument_id == "wellbeing_questions"){
-					// 	print_rr($metadata,1);
-					// }
-				}
 
 				//SOME QUESTION ACCOUNTING
 				$actual_questions 	= array_filter($metadata, function($item){

@@ -1160,6 +1160,12 @@ input[readonly] {
     background-size: 70px 582px;
 }
 
+.nav .fruit.nofruit:before {
+    background:url(../images/ico_healthyheart.png) 0 no-repeat;
+    background-size:contain;
+
+}
+
 .nav .fitness:before {
     position: absolute;
     left: 0;

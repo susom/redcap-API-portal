@@ -1,68 +1,72 @@
 <?php
-//DEFINITION IN class.Project.php
-// unset($_SESSION["user_survey_data"]);
-// exit;
-
 // markPageLoadTime("start surveys.php");
-//DETERMINE WHICH ARM TO BE IN
-$consent_date	= strToTime($loggedInUser->consent_ts);
-$datediff    	= time() - $consent_date;
-$days_active 	= floor($datediff / (60 * 60 * 24));
-$user_event_arm = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
 
+//DETERMINE WHICH ARM TO BE IN BY CHECKING DAYS SINCE REGISTERED
+$consent_date		= strToTime($loggedInUser->consent_ts);
+$datediff    		= time() - $consent_date;
+$days_active 		= floor($datediff / (60 * 60 * 24));
+
+$user_event_arm 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
+$user_short_scale 	= false;
 
 // OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?
-// FIRST GET META DATA FOR FIRST SURVEY - wellbeing_questions
-$extra_params = array(
-	'content' 	=> 'metadata',
-	'forms'		=> array("wellbeing_questions")
-);
-$result = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-$fields = array_map(function($item){
-	return $item["field_name"];
-},$result);
-//THEN GET USER ANSWERS ONLY NEED 1
 $extra_params = array(
   'content'   	=> 'record',
   'records' 	=> array($loggedInUser->id) ,
-  'type'      	=> "flat",
-  'fields'    	=> $fields,
+  'fields'    	=> ["well_q_2_start_ts"],
   'events'		=> array(REDCAP_PORTAL_EVENT),
-  'exportSurveyFields' => true
 );
 $result 		= RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
 
-//ON ANNIVERSARY UPDATE THEIR EVENT ARM
-if( $days_active > 364 && $user_event_arm !== REDCAP_PORTAL_EVENT_1
+//ON ANNIVERSARY UPDATE THEIR EVENT ARM AND USE DIFFERENT PROJECT!!
+if( $days_active > 364 
+	&& $user_event_arm !== REDCAP_PORTAL_EVENT_1
 	&& !empty($result[0]["well_q_2_start_ts"]) 
-) {
+  ){
+  	//CLEAR SESSION DATA
 	unset($_SESSION["user_survey_data"]);
-	$loggedInUser->updateUser(array(
-				"user_event_arm" => REDCAP_PORTAL_EVENT_1,
-	));
-	$loggedInUser->user_event_arm = REDCAP_PORTAL_EVENT_1;
-}else if($days_active > 729 && $user_event_arm !== REDCAP_PORTAL_EVENT_2){
+	$loggedInUser->updateUser(array("user_event_arm" => REDCAP_PORTAL_EVENT_1));
+	$loggedInUser->user_event_arm = $user_event_arm = REDCAP_PORTAL_EVENT_1;
+}else if(
+	$days_active > 729 
+	&& $user_event_arm !== REDCAP_PORTAL_EVENT_2
+  ){
 	unset($_SESSION["user_survey_data"]);
-	$loggedInUser->updateUser(array(
-				"user_event_arm" => REDCAP_PORTAL_EVENT_2,
-	));
-	$loggedInUser->user_event_arm = REDCAP_PORTAL_EVENT_2;
+	$loggedInUser->updateUser(array("user_event_arm" => REDCAP_PORTAL_EVENT_2));
+	$loggedInUser->user_event_arm = $user_event_arm = REDCAP_PORTAL_EVENT_2;
+}
+
+if (strpos($user_event_arm, "short") > -1){
+	$user_short_scale = true;
 }
 
 if(isset($_SESSION["user_survey_data"])){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
-	$user_survey_data 				= $_SESSION["user_survey_data"];
-	//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
+	$user_survey_data 	= $_SESSION["user_survey_data"];
 	$user_survey_data->refreshData();
 }else{
-	// markPageLoadTime("core SURVey data : I BET THIS TAKES LONG TIME");
-	//THIS KICKS OF 7 HEAVY API CALLS.  BUT NOT EVERYTHING CHANGES
-	// markPageLoadTime("start user_survey_data");
-	$user_survey_data				= new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
-	// markPageLoadTime("end user_survey_data");
-	// markPageLoadTime("core SURVey data : up to 6.8 seconds");
+	if ($user_short_scale){
+		$api_url 	= SurveysConfig::$projects["SHORT_SCALE"]["URL"];
+		$api_token 	= SurveysConfig::$projects["SHORT_SCALE"]["TOKEN"];
+		$sesh_name 	= "SHORT_SCALE";
+	}else{
+		$api_url 	= $_CFG->REDCAP_API_URL;
+		$api_token 	= $_CFG->REDCAP_API_TOKEN;
+		$sesh_name 	= SESSION_NAME;
+	}
+	$user_survey_data				= new Project($loggedInUser, $sesh_name, $api_url, $api_token);
 	$_SESSION["user_survey_data"] 	= $user_survey_data;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
+}
+
+if(isset($_SESSION["long_survey_data"])){
+	$long_survey_data = $_SESSION["long_survey_data"];
+}else{
+	if ($user_short_scale){
+		$long_survey_data = $_SESSION["long_survey_data"] = new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+	}else{
+		$long_survey_data = $_SESSION["long_survey_data"] = $user_survey_data;
+	}
 }
 
 //THIS DATA NEEDS TO BE REFRESHED EVERYTIME OR RISK BEING STALE 
@@ -77,7 +81,7 @@ $all_survey_keys  		= array_keys($surveys);
 $fruits  				= SurveysConfig::$fruits;
 
 //SUPPLEMENTAL PROJECTS
-if(isset($_SESSION["supplemental_surveys"])){
+if(isset($_SESSION["supplemental_surveys"]) && 1==2){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
 	$supp_surveys  = $_SESSION["supplemental_surveys"];
 	foreach($supp_surveys as $supp_survey){
@@ -88,25 +92,12 @@ if(isset($_SESSION["supplemental_surveys"])){
 }else{
 	$supp_surveys = array();
 	$supp_proj    = SurveysConfig::$projects;
-
 	foreach($supp_proj as $proj_name => $project){
-	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"Studies","taiwan_admin","miniintervention","foodquestions")) ){
+	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"SHORT_SCALE","Studies","taiwan_admin","miniintervention","foodquestions")) ){
 	    continue;
 	  }
 
-	  // markPageLoadTime("$proj_name : NEW PROJECT FOR SUPP TAKES A LONG TIME");
-	  if(isset($_SESSION[$proj_name])){
-	  	$supplementalProject 	= $_SESSION[$proj_name];
-		//NEW METHOD TO REFRESH JUST THE NECESSARY DATA
-		$supplementalProject->refreshData();
-	  }else{
-	  	// markPageLoadTime("start supplemental_surveys");
-	  	$supplementalProject  	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-	  	// markPageLoadTime("end supplemental_surveys");
-	  	$_SESSION[$proj_name] 	= $supplementalProject;
-	  }
-	  // markPageLoadTime("$proj_name : up to  3.1 seconds");
-	  
+	  $supplementalProject = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
 	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){
 		  $all_branching 		= array_merge($all_branching,$supp_branching);
@@ -117,20 +108,14 @@ if(isset($_SESSION["supplemental_surveys"])){
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
 
-// print_rr($_SESSION["user_survey_data"]);
-// print_rr($_SESSION["supplemental_surveys"],1);
-
 $supp_instruments = array();
-foreach($supp_surveys as $projname => $supp_project){
+foreach($_SESSION["supplemental_surveys"] as $projname => $supp_project){
 	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
-$supp_surveys_keys 	= array_keys($supp_instruments);
+$supp_surveys_keys 		= array_keys($supp_instruments);
+$available_instruments  = $user_short_scale ? SurveysConfig::$short_surveys : SurveysConfig::$core_surveys;
+
+// print_rr($user_short_scale->getActiveAll(),1);
 // print_rr($supp_instruments,1);
 // print_rr($supp_surveys,1);
-// print_rr($supp_instruments);
-// print_rr($supp_surveys,1);
-// exit;
-
-// for branching logic, if change branch, clear out answers 
-
 // markPageLoadTime("end surveys.php");

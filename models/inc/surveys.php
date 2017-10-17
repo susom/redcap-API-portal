@@ -110,7 +110,7 @@ if(isset($_SESSION["supplemental_surveys"]) && 1==2){
 
 $supp_instruments = array();
 foreach($_SESSION["supplemental_surveys"] as $projname => $supp_project){
-	$supp_instruments = array_merge( $supp_instruments,  $supp_project->getActiveAll() );
+	$supp_instruments 	= array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
 $supp_surveys_keys 		= array_keys($supp_instruments);
 $available_instruments  = $user_short_scale ? SurveysConfig::$short_surveys : SurveysConfig::$core_surveys;

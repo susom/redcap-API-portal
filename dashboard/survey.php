@@ -352,11 +352,13 @@ include("inc/gl_foot.php");
   $isTCM    = $sid == "find_out_your_body_type_according_to_chinese_medic"  ? "true" : "false";
   $isGRIT   = $sid == "how_resilient_are_you_to_stress"                     ? "true" : "false";
   $isSleep  = $sid == "how_well_do_you_sleep"                               ? "true" : "false";
+  $isIPAQ   = $sid == "ipaq"                                                ? "true" : "false";
   echo "var isMET               = $isMET ;\n";
   echo "var isMAT               = $isMAT ;\n";
   echo "var isTCM               = $isTCM ;\n";
   echo "var isGRIT              = $isGRIT ;\n";
   echo "var isSleep             = $isSleep ;\n";
+  echo "var isIPAQ              = $isIPAQ ;\n";
   echo "var uselang             = ".(isset($_SESSION["use_lang"]) ? "'".$_SESSION["use_lang"]."'" : "'en'").";\n";
 
   //THIS IS A CONFusINg FUNCTION

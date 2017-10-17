@@ -69,31 +69,44 @@ function getShortScore($answers){
   $sc_c   = isset($answers["core_energized_help"]) ? 5/3 * ($answers["core_energized_help"]/5) : 0;
   $score["soc_con"] = $sc_a + $sc_b + $sc_c;
 
-  //Lifestyle BEHAVIORS
-  $veg_ar = array(
-    1 => array(0,0,1),
-    2 => array(2,4,6),
-    3 => array(8,9,10,10)
-  );
 
-  $sugar_ar = array(
-    1 => array(10,9,8),
-    2 => array(6,4,1),
-    3 => array(0,0,0,0)
-  );
-
-  $veg_score = 0;
   if(isset($answers["core_vegatables_intro_v2"])){
-    $veg_a  = $answers["core_vegatables_intro_v2"];
-    $veg_b  = $answers["core_vegetables_intro_v2_" . $veg_a];
-    $veg_score = (($veg_ar[$veg_a][$veg_b])/10) * .5;
+	  //Lifestyle BEHAVIORS
+	  $veg_ar = array(
+	    1 => array(0,0,1),
+	    2 => array(2,4,6),
+	    3 => array(8,9,10,10)
+	  );
+	  $veg_score = 0;
+	  if(isset($answers["core_vegatables_intro_v2"])){
+	    $veg_a  = $answers["core_vegatables_intro_v2"];
+	    $veg_b  = $answers["core_vegetables_intro_v2_" . $veg_a];
+	    $veg_score = (($veg_ar[$veg_a][$veg_b])/10) * .5;
+	  }
+  }elseif(isset($answers["core_vegatables_intro"])){
+  	  $veg_ar = array(
+	    0 => 0,
+	    1 => 8,
+	    2 => 9,
+	    3 => 9
+	  );
+	  $veg_score = $answers["core_vegatables_intro"] > 3 ? 10 : $veg_ar[$answers["core_vegatables_intro"]];
   }
 
-  $sug_score = 0;
   if(isset($answers["core_sugar_intro_v2"])){
-    $sug_a  = $answers["core_sugar_intro_v2"];
-    $sug_b  = $answers["core_sugar_intro_v2_" . $sug_a];
-    $sug_score = (($sugar_ar[$sug_a][$sug_b])/10) * .5;
+	  $sugar_ar = array(
+	    1 => array(10,9,8),
+	    2 => array(6,4,1),
+	    3 => array(0,0,0,0)
+	  );
+	  $sug_score = 0;
+	  if(isset($answers["core_sugar_intro_v2"])){
+	    $sug_a  = $answers["core_sugar_intro_v2"];
+	    $sug_b  = $answers["core_sugar_intro_v2_" . $sug_a];
+	    $sug_score = (($sugar_ar[$sug_a][$sug_b])/10) * .5;
+	  }
+  }elseif(isset($answers["core_sugar_intro"])){
+	  $sug_score = $answers["core_sugar_intro"] == 0 ? 10 : 0;
   }
   $dietscore  = $veg_score + $sug_score;
 

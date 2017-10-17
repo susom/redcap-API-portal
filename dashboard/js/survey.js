@@ -43,6 +43,15 @@ $(document).ready(function(){
           return false;
         }
       }else{
+        //CREATE HIDDEN INPUTS WITH THESE VALUES
+        if(isIPAQ){
+          var ipaqScores = getIPAQScores();
+          for(var i in ipaqScores){
+            var hiddeninput = $("<input>").attr("name",i).attr("id",i).attr("type","hidden").val(ipaqScores[i]);
+            $("#customform").append(hiddeninput);
+          }
+        }
+
         //SUBMIT ALL THOSE HIDDEN FORMS NOW
         $("#customform input[type='hidden']").each(function(){
           saveFormData($(this));
@@ -369,7 +378,7 @@ function saveFormData(elem){
     type:'POST',
     data: elem.serialize() + project,
     success:function(result){
-      // console.log("result from save:",result);
+      console.log("result from save:",result);
 
       if(elem.is(":checkbox")){
         //GOTTA RESET THE checkbox properties haha
@@ -387,6 +396,76 @@ function saveFormData(elem){
       },450);
     }
   });
+}
+
+function getIPAQScores(){
+  var ipaq_job_vigorous_day       = parseInt($("#ipaq_job_vigorous_day :selected").val());
+  var ipaq_job_vigorous_hr        = parseInt($("#ipaq_job_vigorous_hr :selected").val());
+  var ipaq_job_vigorous_min       = parseInt($("#ipaq_job_vigorous_min :selected").val());
+  var ipaq_job_moderate_day       = parseInt($("#ipaq_job_moderate_day :selected").val());
+  var ipaq_job_moderate_hr        = parseInt($("#ipaq_job_moderate_hr :selected").val());
+  var ipaq_job_moderate_min       = parseInt($("#ipaq_job_moderate_min :selected").val());
+  var ipaq_job_walk_day           = parseInt($("#ipaq_job_walk_day :selected").val());
+  var ipaq_job_walk_hr            = 0; //parseInt($("#ipaq_job_walk_hr :selected").val());
+  var ipaq_job_walk_min           = 10; //parseInt($("#ipaq_job_walk_min :selected").val());
+  
+  var walking_met                 = 3.3 * ipaq_job_walk_day * (ipaq_job_walk_hr*60 + ipaq_job_walk_min); //3.3 * walking minutes * walking days at work
+  var moderate_met                = 4.0 * ipaq_job_moderate_day * (ipaq_job_moderate_hr*60 + ipaq_job_moderate_min); //4.0 * moderate-intensity activity minutes * moderate-intensity days at work
+  var vigorous_met                = 8.0 * ipaq_job_vigorous_day * (ipaq_job_vigorous_hr*60 + ipaq_job_vigorous_min); //8.0 * vigorous-intensity activity minutes * vigorous-intensity days at work
+  var total_work_met              = walking_met + moderate_met + vigorous_met; //sum of Walking + Moderate + Vigorous MET-minutes/week scores at work
+
+  var ipaq_bike_day               = parseInt($("#ipaq_bike_day :selected").val());
+  var ipaq_bike_hr                = parseInt($("#ipaq_bike_hr :selected").val());
+  var ipaq_bike_min               = parseInt($("#ipaq_bike_min :selected").val());
+  var ipaq_walk_day               = parseInt($("#ipaq_walk_day :selected").val());
+  var ipaq_walk_hr                = parseInt($("#ipaq_walk_hr :selected").val());
+  var ipaq_walk_min               = parseInt($("#ipaq_walk_min :selected").val());
+
+  var walking_trans               = 3.3 * ipaq_walk_day * (ipaq_walk_hr*60 + ipaq_walk_min);
+  var cycle_trans                 = 6.0 * ipaq_bike_day * (ipaq_bike_hr*60 + ipaq_bike_min);
+  var total_trans                 = walking_trans + cycle_trans;
+
+  var ipaq_vigorous_day           = parseInt($("#ipaq_vigorous_day :selected").val());
+  var ipaq_vigorous_hr            = parseInt($("#ipaq_vigorous_hr :selected").val());
+  var ipaq_vigorous_min           = parseInt($("#ipaq_vigorous_min :selected").val());
+  var ipaq_moderate_day           = parseInt($("#ipaq_moderate_day :selected").val());
+  var ipaq_moderate_hr            = parseInt($("#ipaq_moderate_hr :selected").val());
+  var ipaq_moderate_min           = parseInt($("#ipaq_moderate_min :selected").val());
+  var ipaq_moderate_other_day     = parseInt($("#ipaq_moderate_other_day :selected").val());
+  var ipaq_moderate_other_hr      = parseInt($("#ipaq_moderate_other_hr :selected").val());
+  var ipaq_moderate_other_min     = parseInt($("#ipaq_moderate_other_min :selected").val());
+
+  var domestic_vig                = 5.5 * ipaq_vigorous_day * (ipaq_vigorous_hr*60 + ipaq_vigorous_min);
+  var domestic_mod                = 4 * ipaq_moderate_day * (ipaq_moderate_hr*60 + ipaq_moderate_min);
+  var domestic_other              = 3 * ipaq_moderate_other_day * (ipaq_moderate_other_hr*60 + ipaq_moderate_other_min);
+  var total_domestic              = domestic_vig + domestic_mod +  domestic_other;
+
+  var ipaq_walk_leisure_day       = parseInt($("#ipaq_walk_leisure_day :selected").val());
+  var ipaq_walk_leisure_hr        = parseInt($("#ipaq_walk_leisure_hr :selected").val());
+  var ipaq_walk_leisure_min       = parseInt($("#ipaq_walk_leisure_min :selected").val());
+  var ipaq_moderate_leisure_day   = parseInt($("#ipaq_moderate_leisure_day :selected").val());
+  var ipaq_moderate_leisure_hr    = parseInt($("#ipaq_moderate_leisure_hr :selected").val());
+  var ipaq_moderate_leisure_min   = parseInt($("#ipaq_moderate_leisure_min :selected").val());
+  var ipaq_vigorous_leisure_day   = parseInt($("#ipaq_vigorous_leisure_day :selected").val());
+  var ipaq_vigorous_leisure_hr    = parseInt($("#ipaq_vigorous_leisure_hr :selected").val());
+  var ipaq_vigorous_leisure_min   = parseInt($("#ipaq_vigorous_leisure_min :selected").val());
+
+  var leisure_walk                = 3.3 * ipaq_walk_leisure_day * (ipaq_walk_leisure_hr*60 + ipaq_walk_leisure_min);
+  var leisure_mod                 = 4 * ipaq_moderate_leisure_day * (ipaq_moderate_leisure_hr*60 + ipaq_moderate_leisure_min);
+  var leisure_vig                 = 8 * ipaq_vigorous_leisure_day * (ipaq_vigorous_leisure_hr*60 + ipaq_vigorous_leisure_min);
+  var total_leisure               = leisure_walk + leisure_mod +  leisure_vig;
+
+  var total_walking               = walking_met + walking_trans + leisure_walk;
+  var total_moderate              = moderate_met + domestic_mod + leisure_mod + cycle_trans + domestic_vig;
+  var total_vigorous              = vigorous_met + leisure_vig;
+  var total_overall               = total_work_met + total_trans + total_domestic + total_leisure;
+
+  return {
+     "ipaq_total_walking"  : Math.round(total_walking)
+    ,"ipaq_total_moderate" : Math.round(total_moderate)
+    ,"ipaq_total_vigorous" : Math.round(total_vigorous)
+    ,"ipaq_total_overall"  : Math.round(total_overall)
+  };
 }
 
 function getBMI(met_weight_pound, met_height_total_inch){
@@ -726,8 +805,7 @@ function showSleepScoring(){
 }
 
 // Find Left Boundry of the Screen/Monitor
-function FindLeftScreenBoundry()
-{
+function FindLeftScreenBoundry(){
     // Check if the window is off the primary monitor in a positive axis
     // X,Y                  X,Y                    S = Screen, W = Window
     // 0,0  ----------   1280,0  ----------

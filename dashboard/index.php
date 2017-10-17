@@ -208,10 +208,12 @@ if(!$user_short_scale){
         ,"core_energized_help"
 
         //Lifestyle BEHAVIORS
+        ,"core_vegatables_intro"
         ,"core_vegatables_intro_v2"
         ,"core_vegetables_intro_v2_1"
         ,"core_vegetables_intro_v2_2"
         ,"core_vegetables_intro_v2_3"
+        ,"core_sugar_intro"
         ,"core_sugar_intro_v2"
         ,"core_sugar_intro_v2_1"
         ,"core_sugar_intro_v2_2"
@@ -274,7 +276,6 @@ if(!$user_short_scale){
       $arms_answers     = array();
       $long_survey_data = false;
       foreach($events as $eventarm){
-        // fuck
         if($eventarm == "enrollment_arm_1"){
           $long_survey_data = new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
           $user_answers     = $long_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
@@ -282,6 +283,11 @@ if(!$user_short_scale){
           //SHORT YEAR , CAUSE WE ALREADY DID it in surveys.php
           $user_answers   = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
         }
+
+        if(!isset($user_answers[0])){
+          continue;
+        }
+
         $user_completed_keys        = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
             return $v !== false && !is_null($v) && ($v != '' || $v == '0');
         });
@@ -297,7 +303,6 @@ if(!$user_short_scale){
           break;
         }
       };
-
 
       $short_scores = getShortScores($arms_answers);
       foreach($short_scores as $arm => $parts){
@@ -444,10 +449,10 @@ include("inc/gl_head.php");
                       
                       $firstonly      = true;
                       $fruit_row      = "<ul class='dash_fruits'>\n";
-                      $projnotes      = json_decode($survey["project_notes"],1);
-                      $title_trans    = $projnotes["translations"];
                        
                       foreach($surveys as $surveyid => $survey){
+                        $projnotes      = json_decode($survey["project_notes"],1);
+                        $title_trans    = $projnotes["translations"];
                         $index          = array_search($surveyid, $all_survey_keys);
                         $surveylink     = "survey.php?sid=". $surveyid;
                         $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];

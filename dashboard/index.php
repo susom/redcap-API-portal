@@ -741,8 +741,25 @@ include("inc/gl_foot.php");
 <script type="text/javascript">
 $(document).ready(function () {
   $(".weather").weatherFeed({relativeTimeZone:true});
+  
+  //THIS IS FOR THE SLIDER BANNER ON THE INDEX PAGE
+  $("#slide_banner li").first().addClass("on");
+  setInterval(function(){
+    var nextslide = $("#slide_banner li.on").next().length ? $("#slide_banner li.on").next() : $("#slide_banner li").first();
+    $("#slide_banner li.on").addClass("off", function(){
+      var _this = $(this);
+      setTimeout(function(){
+        _this.removeClass("on").removeClass("off");
+      },500);
+      nextslide.addClass("on");
+    });
+  },8000);
+
 });
 </script>
+<?php
+if(!$user_short_scale){
+?>
 <script src="js/Chart.js"></script>
 <script>
 var ctx = $("#youvsall");
@@ -795,19 +812,6 @@ var myBarChart = new Chart(ctx, {
 <script src="js/d3.min.js"></script>
 <script src="js/d3pie.min.js"></script>
 <script>
-//THIS IS FOR THE SLIDER BANNER ON THE INDEX PAGE
-$("#slide_banner li").first().addClass("on");
-setInterval(function(){
-  var nextslide = $("#slide_banner li.on").next().length ? $("#slide_banner li.on").next() : $("#slide_banner li").first();
-  $("#slide_banner li.on").addClass("off", function(){
-    var _this = $(this);
-    setTimeout(function(){
-      _this.removeClass("on").removeClass("off");
-    },500);
-    nextslide.addClass("on");
-  });
-},8000);
-
 var pieData = [
       {
         "label": "<?php echo $lang["NOACT"] ?>",
@@ -904,7 +908,7 @@ var pie = new d3pie("pieChart", {
   }
 });
 </script>
-
+<?php } ?>
 <style>
 .short_scores {
   width:100%;

@@ -406,8 +406,8 @@ function getIPAQScores(){
   var ipaq_job_moderate_hr        = parseInt($("#ipaq_job_moderate_hr :selected").val());
   var ipaq_job_moderate_min       = parseInt($("#ipaq_job_moderate_min :selected").val());
   var ipaq_job_walk_day           = parseInt($("#ipaq_job_walk_day :selected").val());
-  var ipaq_job_walk_hr            = 0; //parseInt($("#ipaq_job_walk_hr :selected").val());
-  var ipaq_job_walk_min           = 10; //parseInt($("#ipaq_job_walk_min :selected").val());
+  var ipaq_job_walk_hr            = parseInt($("#ipaq_job_walk_hr :selected").val());
+  var ipaq_job_walk_min           = parseInt($("#ipaq_job_walk_min :selected").val());
   
   var walking_met                 = 3.3 * ipaq_job_walk_day * (ipaq_job_walk_hr*60 + ipaq_job_walk_min); //3.3 * walking minutes * walking days at work
   var moderate_met                = 4.0 * ipaq_job_moderate_day * (ipaq_job_moderate_hr*60 + ipaq_job_moderate_min); //4.0 * moderate-intensity activity minutes * moderate-intensity days at work

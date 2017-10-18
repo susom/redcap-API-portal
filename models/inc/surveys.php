@@ -96,9 +96,9 @@ if(isset($_SESSION["supplemental_surveys"]) && 1==2){
 	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"SHORT_SCALE","Studies","taiwan_admin","miniintervention","foodquestions")) ){
 	    continue;
 	  }
-
-	  $supplementalProject = new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
-	  $supp_branching 			= $supplementalProject->getAllInstrumentsBranching();
+	  $supplementalProject 	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"],"goddamint");
+	  $suppsurveys 			= $supplementalProject->getActiveAll();
+	  $supp_branching 		= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){
 		  $all_branching 		= array_merge($all_branching,$supp_branching);
 	  }

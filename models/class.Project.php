@@ -33,7 +33,6 @@ class Project {
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
 
-
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
@@ -54,8 +53,6 @@ class Project {
 					);
 				}
 			}, $all_events);
-
-
 		}
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 		if(strpos($user_current_event,"short") > -1){
@@ -313,6 +310,7 @@ class Project {
 		if(!isset($this->ACTIVE_INSTRUMENTS)){
 			return;
 		}
+
 		foreach($this->ACTIVE_INSTRUMENTS as $instrument =>  $data){
 			if ($instrument == "users") {
 				continue;

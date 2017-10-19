@@ -150,8 +150,7 @@ class RedcapPortalUser
       // Update token
       return self::updateUser(array(
          getRF('email_verified')    => 1,
-         getRF('email_verified_ts') => date('Y-m-d H:i:s'),
-         getRF('email_act_token')   => ''
+         getRF('email_verified_ts') => date('Y-m-d H:i:s')
       ), array('overwriteBehavior'=>'overwrite'));
    }
 
@@ -161,7 +160,8 @@ class RedcapPortalUser
       return self::updateUser(array(
          getRF('active')      => 1,
          getRF('consent_ts')  => date('Y-m-d H:i:s'),
-      ));
+         getRF('email_act_token')   => ''
+      ), array('overwriteBehavior'=>'overwrite'));
    }
 
    // Return username

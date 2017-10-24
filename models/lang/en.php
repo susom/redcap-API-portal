@@ -166,7 +166,7 @@
 		,"HIGHER_WELLBEING"							=> "Higher Wellbeing"
 		,"LOWER_WELLBEING"							=> "Lower Wellbeing"
 		,"NOT_ENOUGH_USER_DATA" 					=> "Please complete surveys to calculate your score."
-		,"NOT_ENOUGH_OTHER_DATA" 					=> "Not enough data to calculate score. We encourage you to complete all questions the surveys in the future."
+		,"NOT_ENOUGH_OTHER_DATA" 					=> "Not enough data to calculate score. We encourage you to complete all survey questions in the future."
 		,"SITTING" 									=> "Sitting"
 		,"WALKING" 									=> "Walking"
 		,"MODACT" 									=> "Moderate Activity"

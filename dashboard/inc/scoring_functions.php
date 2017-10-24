@@ -193,7 +193,7 @@ function printWELLOverTime($user_scores){
   echo "<div class='well_scores'>";
   foreach($user_scores as $arm => $score){
     $user_score       = !empty($score) ? round(array_sum($score)) : array();
-    $user_score_txt   = !empty($user_score) ? ($user_score/50)*100 . "%" : $lang["NOT_ENOUGH_USER_DATA"];
+    $user_score_txt   = !empty($user_score) ? ($user_score/50)*100 . "%" : $lang["NOT_ENOUGH_OTHER_DATA"];
     $user_bar         = !empty($user_score) ? ($user_score*100)/50 : "0%";
     echo "<div class='well_score user_score $year_css'><span style='width:$user_bar%'><i>$arm_year</i></span><b>$user_score_txt</b></div>";
     

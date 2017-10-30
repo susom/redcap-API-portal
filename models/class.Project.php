@@ -304,6 +304,10 @@ class Project {
 		return $all_complete;
 	}
 
+	public function getAllUserAnswers(){
+		return $this->ALL_USER_ANSWERS;
+	}
+
     //GET ALL THE BRANCHING ACROSS ALL ACTIVE INSTRUMENTS
 	public function getAllInstrumentsBranching(){
 		$all_branching = array();

@@ -55,6 +55,26 @@ if(isset($_SESSION["user_survey_data"])){
 		$sesh_name 	= SESSION_NAME;
 	}
 	$user_survey_data				= new Project($loggedInUser, $sesh_name, $api_url, $api_token);
+
+	//CUSTOM CUSTOM WORK - NEED core_gender from loggedInUser->gender
+	if($user_short_scale){
+		$alluseranswers = $user_survey_data->getAllUserAnswers();
+		foreach($alluseranswers as $i => $eventarm){
+			if($eventarm["redcap_event_name"] == $user_event_arm){
+				if(empty($eventarm["core_gender"])){
+					$data[] = array(
+			          "record"            => $loggedInUser->id,
+			          "field_name"        => "core_gender",
+			          "value"             => $loggedInUser->gender,
+			          "redcap_event_name" => $user_event_arm
+			        );
+			        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $api_url , $api_token);
+				}
+			}
+		}
+	}
+
+	$user_survey_data->refreshData();
 	$_SESSION["user_survey_data"] 	= $user_survey_data;
 	// WILL NEED TO REFRESH THIS WHEN SURVEY SUBMITTED OR ELSE STALE DATA 
 }
@@ -118,4 +138,5 @@ $available_instruments  = $user_short_scale ? SurveysConfig::$short_surveys : Su
 // print_rr($user_short_scale->getActiveAll(),1);
 // print_rr($supp_instruments,1);
 // print_rr($supp_surveys,1);
+// print_rr($surveys ,1);
 // markPageLoadTime("end surveys.php");

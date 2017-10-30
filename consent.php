@@ -34,8 +34,6 @@ include("models/inc/gl_header.php");
 					<ul>
 						<li><?php echo lang("CONSENT_BULLET_1") ?></li>
 						<li><?php echo lang("CONSENT_BULLET_2") ?></li>
-						<li><?php echo lang("CONSENT_BULLET_3") ?></li>
-						<li><?php echo lang("CONSENT_BULLET_4") ?></li>
 					</ul>
 					<p><?php echo lang("CONSENT_CONTACT") ?></p>
 				</section>

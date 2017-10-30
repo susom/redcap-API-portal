@@ -1,18 +1,18 @@
 <?php 
-  if(isset($_SESSION["elite_users"])){
-    $elite        = $_SESSION["elite_users"];
-  }else{
-    $elite        = getEliteUsers();
-    $_SESSION["elite_users"]  = $elite;
-  }
-  $special_user = in_array($loggedInUser->id, $elite) ?  "special_user_icon" : "";  
-  if(in_array($loggedInUser->id, $elite)){
-    foreach($elite as $uorder => $uids){
-      if($uids == $loggedInUser->id){
-        $elite_order = $uorder + 1;
-      }
-    }
-  }
+  // if(isset($_SESSION["elite_users"])){
+  //   $elite        = $_SESSION["elite_users"];
+  // }else{
+  //   $elite        = getEliteUsers();
+  //   $_SESSION["elite_users"]  = $elite;
+  // }
+  // $special_user = in_array($loggedInUser->id, $elite) ?  "special_user_icon" : "";  
+  // if(in_array($loggedInUser->id, $elite)){
+  //   foreach($elite as $uorder => $uids){
+  //     if($uids == $loggedInUser->id){
+  //       $elite_order = $uorder + 1;
+  //     }
+  //   }
+  // }
 ?>
 <aside class="bg-black aside-md hidden-print hidden-xs <?php echo (isset($navmini) ? "nav-xs" : ""); ?>" id="nav">          
   <section class="vbox">
@@ -22,7 +22,10 @@
           <div class="dropdown">
             <!-- USER PROFILE PIC -->
             <a href="profile.php" >
-              <span class="thumb avatar pull-left m-r <?php echo $special_user ?>">                        
+              <?php 
+              // echo $special_user 
+              ?>
+              <span class="thumb avatar pull-left m-r ">                        
               </span>
               <style>
                 .thumb.avatar {
@@ -162,7 +165,8 @@
             </li>
             
             <li <?php echo $game_active ?>>
-              <a href="game.php" class="under_construction">
+              <!-- class="under_construction" -->
+              <a href="game.php" class="">
                 <span class="pull-right text-muted">
                   <i class="i i-circle-sm-o text"></i>
                   <i class="i i-circle-sm text-active"></i>

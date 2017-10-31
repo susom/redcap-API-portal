@@ -366,7 +366,7 @@ if(isset($_GET["survey_complete"])){
       $for_popup      = array_slice($short_scores, -1);
 
       //THIS SHOULD BE THE MOST RECENT ONE
-      $success_msg    = "Your IPAQ score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' ><div><b></b><i>$overall_score</i></div></li></ul>";
+      $success_msg    = "Your total physical activity MET-minutes/week score is: <ul class='eclipse_well_score'><li class='eclipse' ><div><b></b><i>$overall_score</i></div></li></ul>";
 
       addSessionMessage( $success_msg , "success");
   } 

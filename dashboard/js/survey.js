@@ -20,11 +20,6 @@ $(document).ready(function(){
 
       checkGeneralBranching();
 
-      if(isIPAQ){
-        var ipaqScores = getIPAQScores();
-        console.log(ipaqScores);
-      }
-
       if($(this).next().length){
         $(".required_message").remove();
         if($(this).hasClass("active")){
@@ -416,20 +411,10 @@ function getIPAQScores(){
   var ipaq_job_moderate_hr        = parseInt($("#ipaq_job_moderate_hr :selected").val());
   var ipaq_job_moderate_min       = parseInt($("#ipaq_job_moderate_min :selected").val());
   var ipaq_job_walk_day           = parseInt($("#ipaq_job_walk_day :selected").val());
-  var ipaq_job_walk_hr            = parseInt($("#ipaq_job_walk_hr :selected").val());
-  var ipaq_job_walk_min           = parseInt($("#ipaq_job_walk_min :selected").val());
-  
-  console.log( "ipaq_job_vigorous_day = " + ipaq_job_vigorous_day
-              ,"ipaq_job_vigorous_hr  = " + ipaq_job_vigorous_hr 
-              ,"ipaq_job_vigorous_min = " + ipaq_job_vigorous_min
-              ,"ipaq_job_moderate_day = " + ipaq_job_moderate_day
-              ,"ipaq_job_moderate_hr  = " + ipaq_job_moderate_hr 
-              ,"ipaq_job_moderate_min = " + ipaq_job_moderate_min
-              ,"ipaq_job_walk_day     = " + ipaq_job_walk_day    
-              ,"ipaq_job_walk_hr      = " + ipaq_job_walk_hr     
-              ,"ipaq_job_walk_min     = " + ipaq_job_walk_min    );
+  var ipaq_job_walk_day_hr        = parseInt($("#ipaq_job_walk_day_hr :selected").val());
+  var ipaq_job_walk_day_min       = parseInt($("#ipaq_job_walk_day_min :selected").val());
 
-  var walking_met                 = 3.3 * ipaq_job_walk_day * (ipaq_job_walk_hr*60 + ipaq_job_walk_min); //3.3 * walking minutes * walking days at work
+  var walking_met                 = 3.3 * ipaq_job_walk_day * (ipaq_job_walk_day_hr*60 + ipaq_job_walk_day_min); //3.3 * walking minutes * walking days at work
   var moderate_met                = 4.0 * ipaq_job_moderate_day * (ipaq_job_moderate_hr*60 + ipaq_job_moderate_min); //4.0 * moderate-intensity activity minutes * moderate-intensity days at work
   var vigorous_met                = 8.0 * ipaq_job_vigorous_day * (ipaq_job_vigorous_hr*60 + ipaq_job_vigorous_min); //8.0 * vigorous-intensity activity minutes * vigorous-intensity days at work
   var total_work_met              = walking_met + moderate_met + vigorous_met; //sum of Walking + Moderate + Vigorous MET-minutes/week scores at work

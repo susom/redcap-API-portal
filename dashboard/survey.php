@@ -343,8 +343,9 @@ include("inc/gl_foot.php");
 <script>
 <?php
   //TODO : MOVE THE FRUIT GIVING TO SURVEY PAGES
-  $index  = array_search($current_surveyid, $all_survey_keys);
-  $nextsurvey = isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null;
+  $index      = array_search($current_surveyid, $all_survey_keys);
+  $nextsurvey = $project == "Supp2" ? null : (isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null);
+
   echo "$('#customform').attr('data-next','". $nextsurvey ."');\n\n";
 
   $isMET    = $sid == "how_fit_are_you"                                     ? "true" : "false";

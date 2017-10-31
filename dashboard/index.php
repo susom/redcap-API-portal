@@ -341,7 +341,7 @@ if(isset($_GET["survey_complete"])){
     $index  = array_search($surveyid, $all_survey_keys);
     $survey = $surveys[$surveyid];
 
-    if(!isset($all_survey_keys[$index+1])){
+    if(!isset($all_survey_keys[$index+1])){ 
       if(strpos($user_event_arm,"enrollment") > -1){
         $success_msg = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
       }else{
@@ -355,9 +355,21 @@ if(isset($_GET["survey_complete"])){
         $extracss       = "width: ".$scale."px; height: ".$scale."px";
         $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
       }
+
       addSessionMessage( $success_msg , "success");
     }
-  }
+  }elseif($surveyid == "international_physical_activity_questionnaire"){
+      $overall_score  = $_GET["overall_score"];
+      // custom ipaq scoring crap
+      $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
+      $arm_year       = $arm_year + count($short_scores) - 1;
+      $for_popup      = array_slice($short_scores, -1);
+
+      //THIS SHOULD BE THE MOST RECENT ONE
+      $success_msg    = "Your IPAQ score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' ><div><b></b><i>$overall_score</i></div></li></ul>";
+
+      addSessionMessage( $success_msg , "success");
+  } 
 }
 
 //PAGE SET UP VARIABLES

@@ -78,6 +78,7 @@ function getShortScore($answers){
 	    3 => array(8,9,10,10)
 	  );
 	  $veg_score = 0;
+
 	  if(isset($answers["core_vegatables_intro_v2"])){
 	    $veg_a  = $answers["core_vegatables_intro_v2"];
 	    $veg_b  = $answers["core_vegetables_intro_v2_" . $veg_a];
@@ -108,6 +109,7 @@ function getShortScore($answers){
   }elseif(isset($answers["core_sugar_intro"])){
 	  $sug_score = $answers["core_sugar_intro"] == 0 ? 10 : 0;
   }
+
   $dietscore  = $veg_score + $sug_score;
 
   $smokescore = 0;
@@ -132,7 +134,7 @@ function getShortScore($answers){
   $score["lif_beh"] = $bngscore + $slepscore + $lpaqscore + $smokescore + $dietscore;
 
   //STRESS AND RESILIENCE
-  $sr_a     = isset($answers["core_important_energy"]) ? ((6 - $answers["core_important_energy"])/5) * 2.5 : 0;
+  $sr_a     = isset($answers["core_important_time"]) ? ((6 - $answers["core_important_time"])/5) * 2.5 : 0;
   $sr_b     = isset($answers["core_deal_whatever"]) ? ($answers["core_deal_whatever"]/5) * 2.5 : 0;
   $score["stress_res"]  = $sr_a + $sr_b;
 

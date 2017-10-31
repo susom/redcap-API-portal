@@ -236,7 +236,7 @@ if(!$user_short_scale){
         ,"core_bngdrink_male_freq"
 
         //STRESS AND RESILIENCE
-        ,"core_important_energy"
+        ,"core_important_time"
         ,"core_deal_whatever"
 
         //EXPERIENCE OF EMOTIONS
@@ -269,7 +269,7 @@ if(!$user_short_scale){
         ,"core_religious_beliefs" => 1
         ,"core_engage_oppo" => 1
         ,"core_fitness_level" => 1
-        ,"core_important_energy" => 1
+        ,"core_important_time" => 1
         ,"core_deal_whatever" => 1
         ,"core_joyful" => 1
         ,"core_worried" => 1

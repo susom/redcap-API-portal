@@ -71,15 +71,15 @@ if( isset($_POST['account_update']) ) {
 		//REDIRECT TO THE DASHBOARD
 		include("models/inc/surveys.php");
 
-		if(isset($_SESSION["elite_users"])){
-			$elite 				= $_SESSION["elite_users"];
-		}else{
-			$elite				= getEliteUsers();
-			$_SESSION["elite_users"] 	= $elite;
-		}
-		if(in_array($loggedInUser->id, $elite)){
-			addSessionMessage(lang("ACCOUNT_ELITE_THANKS") . "<br><br><img src='images/ribbon_heart.png'>","success");
-		}
+		// if(isset($_SESSION["elite_users"])){
+		// 	$elite 				= $_SESSION["elite_users"];
+		// }else{
+		// 	$elite				= getEliteUsers();
+		// 	$_SESSION["elite_users"] 	= $elite;
+		// }
+		// if(in_array($loggedInUser->id, $elite)){
+		// 	addSessionMessage(lang("ACCOUNT_ELITE_THANKS") . "<br><br><img src='images/ribbon_heart.png'>","success");
+		// }
 		header("Location: dashboard/survey.php?sid=" . SurveysConfig::$core_surveys[0]); //survey link of first survey
 		exit;
 	}

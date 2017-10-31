@@ -3,7 +3,6 @@ Dear #USERNAME#
 Thank you for enrolling in the WELL for Life initiative! 
 
 At WELL for Life we aim to improve understanding of living well and ways to increase wellbeing.
-You will need to first activate your account before you can login. Follow the link below to activate your account. 
 
 #ACTIVATION-MESSAGE
 

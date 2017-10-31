@@ -1,5 +1,5 @@
 <?php
-ob_start("ob_gzhandler"); //gzip outputted html
+// ob_start("ob_gzhandler"); //gzip outputted html
 
 //START TIMER FOR PAGE LOAD
 $start_time	= microtime(true);

@@ -219,8 +219,10 @@ if(!isUserLoggedIn()) {
   include("inc/classes/Survey.php");
 }
 
-//TODO : generalize this : CUSTOM FOR SHORT SURVEYS (NEED TO PULL GENDER FROM enrollment_arm for BINGE DRINK)
-$all_completed["core_gender"] = $loggedInUser->gender;
+if($user_short_scale){
+  // crrap again. this was affecting
+  $all_completed["core_gender"] = $loggedInUser->gender;
+}
 
 //THIS PAGE NEEDS A SURVEY ID
 $current_surveyid = $surveyid = $sid = isset($_GET["sid"]) ? $_GET["sid"]  : null;

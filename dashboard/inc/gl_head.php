@@ -34,7 +34,7 @@ $location   = $city . "," . $state;
   <![endif]-->
 </head>
 <?php
-if(isset($portal_test)){
+if($portal_test){
   echo "<div id='testserver'>Test Server</div>";
 }
 ?>

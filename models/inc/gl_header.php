@@ -78,7 +78,7 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <?php
-if(isset($portal_test)){
+if($portal_test){
 	echo "<div id='testserver'>Test Server</div>";
 }
 ?>

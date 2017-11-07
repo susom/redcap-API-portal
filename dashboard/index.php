@@ -417,7 +417,7 @@ include("inc/gl_head.php");
                         , SurveysConfig::$projects[$proj_name]["TOKEN"]);
                       $ffq = $ffq_project->getAccount();
                       if(!array_key_exists("error",$ffq)){
-                        $nutrilink      = isset($portal_test) ? "#" : "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
+                        $nutrilink      = $portal_test ? "#" : "https://www.nutritionquest.com/login/index.php?username=".$ffq["ffq_username"]."&password=".$ffq["ffq_password"]."&BDDSgroup_id=747&Submit=Submit";
                         $a_nutrilink    = "<a href='$nutrilink' class='nutrilink' title='".$lang["TAKE_BLOCK_DIET"]."' target='_blank'>".$lang["HOW_WELL_EAT"]." &#128150 </a>";
                         if($_SESSION["use_lang"] !== "sp"){
                           $news[]         = "<li class='list-group-item icon_update'>".$a_nutrilink."</li>";

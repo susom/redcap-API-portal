@@ -412,40 +412,72 @@ class PreGenAccounts extends Project{
     }
 
     public function getAccount(){
-    	$foreign_key 	= PROJ_ENV ."_" . $this->LOGGED_IN_USER->id;
+    	$ffq_ts 	  		= strToTime($this->LOGGED_IN_USER->ffq_generated_ts);
+		$generate_new 		= false;
+
+		if(!empty($ffq_ts)){
+			$datediff    	= time() - $ffq_ts;
+			$days_active 	= floor($datediff / (60 * 60 * 24));
+			$years 			= ceil($days_active/365);
+			if($years > 1){
+				$generate_new = true;
+			}
+		}else{
+			$generate_new = true;
+		}
+
+	    if($generate_new){
+	    	$ffq = $this->genNewAccount();
+	    }else{
+	    	$result = $this->checkExisting();
+	    	if(!empty($result)){
+	    		$ffq = array_pop($result);
+    			unset($ffq["portal_id"]);
+	    	}else{
+	    		$ffq = $this->genNewAccount();
+	    	}
+	    }
+    	return $ffq;
+    }
+
+    private function genNewAccount(){
+    	global $loggedInUser;
+    	$extra_params = array(
+	      'content'   	=> 'record',
+	      'fields'  	=> array("portal_id", "record_id","ffq_username","ffq_password"),
+	      'filterLogic' => "[portal_id] = ''"
+	    );
+	    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+	    if(count($result)){
+	    	$foreign_key  = PROJ_ENV ."_" . $this->LOGGED_IN_USER->id;
+	    	$ffq = array_shift($result);
+	    	unset($ffq["portal_id"]);
+	    	$data[] = array(
+	          "record"            => $ffq["record_id"],
+	          "field_name"        => "portal_id",
+	          "value"             => $foreign_key
+	        );
+	        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $this->API_URL,$this->API_TOKEN);
+	    	$this->LOGGED_IN_USER->updateUser( array("ffq_generated_ts" => date('Y-m-d H:i:s')) ); 
+	    	$loggedInUser->ffq_generated_ts = $this->LOGGED_IN_USER->ffq_generated_ts;
+	    	setSessionUser($loggedInUser);
+	    }else{
+			//ERROR
+			$ffq = array("error" => "Error. No new accounts available.");		    	
+	    }
+	    return $ffq;
+    }
+
+	private function checkExisting(){	
+		$foreign_key  = PROJ_ENV ."_" . $this->LOGGED_IN_USER->id;
     	$extra_params = array(
 	      'content'   	=> 'record',
 	      'fields'  	=> array("portal_id", "record_id","ffq_username","ffq_password"),
 	      'filterLogic' => "[portal_id] = '$foreign_key'"
 	    );
-	    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
 
-    	if(!empty($result)){
-    		$ffq = array_shift($result);
-    		unset($ffq["portal_id"]);
-    	}else{
-    		$extra_params = array(
-		      'content'   	=> 'record',
-		      'fields'  	=> array("portal_id", "record_id","ffq_username","ffq_password"),
-		      'filterLogic' => "[portal_id] = ''"
-		    );
-		    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
-		    if(count($result)){
-		    	$ffq = array_shift($result);
-		    	unset($ffq["portal_id"]);
-		    	$data[] = array(
-		          "record"            => $ffq["record_id"],
-		          "field_name"        => "portal_id",
-		          "value"             => $foreign_key
-		        );
-		        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $this->API_URL,$this->API_TOKEN);
-		    }else{
-				//ERROR
-				$ffq = array("error" => "Error. No new accounts available.");		    	
-		    }
-    	}
-    	
-    	return $ffq;
-    }
+	    $result = RC::callApi($extra_params, true, $this->API_URL, $this->API_TOKEN);
+	    return $result;
+	}
 }
 

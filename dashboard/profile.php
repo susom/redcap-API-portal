@@ -118,7 +118,6 @@ include("inc/gl_head.php");
                           <figcaption>
                             <b><?php echo $p_firstname . " " . $p_lastname ?></b>
                             <em><?php echo lang("PROFILE_JOINED") ?> : <?php echo $p_joined ?></em>
-                            <i><?php if($elite_order) echo "#" . $elite_order . " to sign up!" ?></i>
                           </figcaption>
                         </figure>
                         <ul>

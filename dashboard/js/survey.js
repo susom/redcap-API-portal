@@ -454,10 +454,10 @@ function getIPAQScores(){
   var total_leisure               = leisure_walk + leisure_mod +  leisure_vig;
 
   var total_walking               = walking_met + walking_trans + leisure_walk;
-  var total_moderate              = moderate_met + domestic_mod + leisure_mod + cycle_trans + domestic_vig;
+  var total_moderate              = moderate_met + domestic_mod + domestic_other + leisure_mod  + cycle_trans + domestic_vig;
   var total_vigorous              = vigorous_met + leisure_vig;
-  var total_overall               = total_work_met + total_trans + total_domestic + total_leisure;
-
+  var total_overall               = total_walking + total_moderate + total_vigorous;
+  
   return {
      "ipaq_total_walking"  : Math.round(total_walking)
     ,"ipaq_total_moderate" : Math.round(total_moderate)

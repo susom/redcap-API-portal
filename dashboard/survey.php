@@ -187,6 +187,7 @@ if(isset($_REQUEST["ipaq"])){
       "value"             => $scores["ipaq_total_overall"]
     );
 
+
   if(!empty($event_name)){
     $data[0]["redcap_event_name"] = $event_name;
     $data[1]["redcap_event_name"] = $event_name;

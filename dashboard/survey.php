@@ -152,6 +152,52 @@ if(isset($_REQUEST["sleep"])){
   exit;
 }
 
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["ipaq"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $loggedInUser->user_event_arm;
+  $survey_id    = $_REQUEST["sid"] ?: null;
+
+  $ipaqscores   = $_REQUEST["ipaq_scores"] ?: null;
+  $scores       = json_decode($ipaqscores,1);
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_walking',
+      "value"             => $scores["ipaq_total_walking"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_moderate',
+      "value"             => $scores["ipaq_total_moderate"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_vigorous',
+      "value"             => $scores["ipaq_total_vigorous"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_overall',
+      "value"             => $scores["ipaq_total_overall"]
+    );
+
+  if(!empty($event_name)){
+    $data[0]["redcap_event_name"] = $event_name;
+    $data[1]["redcap_event_name"] = $event_name;
+    $data[2]["redcap_event_name"] = $event_name;
+    $data[3]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
 //POSTING DATA TO REDCAP API
 if(isset($_REQUEST["ajax"])){
   $project_name = $_REQUEST["project"] ?: null;

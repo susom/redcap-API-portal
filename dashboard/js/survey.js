@@ -43,15 +43,6 @@ $(document).ready(function(){
           return false;
         }
       }else{
-        //CREATE HIDDEN INPUTS WITH THESE VALUES
-        if(isIPAQ){
-          var ipaqScores = getIPAQScores();
-          for(var i in ipaqScores){
-            var hiddeninput = $("<input>").attr("name",i).attr("id",i).attr("type","hidden").val(ipaqScores[i]);
-            $("#customform").append(hiddeninput);
-          }
-        }
-
         //SUBMIT ALL THOSE HIDDEN FORMS NOW
         $("#customform input[type='hidden']").each(function(){
           saveFormData($(this));
@@ -72,11 +63,7 @@ $(document).ready(function(){
             if(next_instrument){
               location.href="survey.php?sid=" + next_instrument + "&survey_complete=" + instrument_name;
             }else{
-              if(isIPAQ){
-                customIPAQSCORE = "&overall_score=" + ipaqScores["ipaq_total_overall"];
-              }
-              // console.log("index.php?survey_complete=" + instrument_name +  customIPAQSCORE);
-              location.href="index.php?survey_complete=" + instrument_name +  customIPAQSCORE;
+              location.href="index.php?survey_complete=" + instrument_name;
             }
           }
         });
@@ -108,6 +95,9 @@ $(document).ready(function(){
     }
     if(isSleep){
       showSleepScoring();
+    }
+    if(isIPAQ){
+      showIPAQScoring();
     }
 
     //THE REST IS JUST FIGURING OUT THIS PROGRESS BAR
@@ -204,6 +194,9 @@ $(document).ready(function(){
   }
   if(isSleep){
     showSleepScoring();
+  }
+  if(isIPAQ){
+    showIPAQScoring();
   }
 
   //BMI POPUP
@@ -506,6 +499,48 @@ function getMETScore(gender,age,bmi,isSmoker,PA_level){
   return Math.round(MetScore*100)/100;
 }
 
+function customMET_BS(_this){
+  if(_this.find("#met_results").length > 0){
+    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>"+MET_DATA_DISCLAIM+"<li></ul>");
+    reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
+    reqmsg.click(function(){
+      $("#met_results").addClass("disclaimed");
+    });
+    $("body").append(reqmsg);
+  }
+  return;
+}
+
+function customMAT_BS(_this){
+  var time = 3000;
+  if(_this.find("#mat_results").length > 0){
+    _this.find(".dead").each(function(){
+      var closure_this = $(this);
+      setTimeout( function(){ 
+        closure_this.addClass("goGray"); 
+      }, time);
+      time += 500;
+    })
+  }
+  return;
+}
+
+function customGRIT_BS(_this){
+  var closure_this  = _this.find("#grit_results");
+  var animtime      = closure_this.data("animation-time"); 
+  if(closure_this.length > 0){
+    setTimeout( function(){ 
+        closure_this.addClass("pushing").addClass("animate", function(){
+          setTimeout(function(){
+            closure_this.removeClass("pushing");
+            closure_this.addClass("showflags");
+          }, animtime*1000);
+        }); 
+      }, 500);
+  }
+  return;
+}
+
 function showMETScoring(){
   //GATHER ALL AND IF THEY ARE ALL FILLED OUT SHOW THE SCORE
   var age       = $('#met_age').val();
@@ -590,48 +625,6 @@ function showMETScoring(){
       }
     });
   }
-}
-
-function customMET_BS(_this){
-  if(_this.find("#met_results").length > 0){
-    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>"+MET_DATA_DISCLAIM+"<li></ul>");
-    reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
-    reqmsg.click(function(){
-      $("#met_results").addClass("disclaimed");
-    });
-    $("body").append(reqmsg);
-  }
-  return;
-}
-
-function customMAT_BS(_this){
-  var time = 3000;
-  if(_this.find("#mat_results").length > 0){
-    _this.find(".dead").each(function(){
-      var closure_this = $(this);
-      setTimeout( function(){ 
-        closure_this.addClass("goGray"); 
-      }, time);
-      time += 500;
-    })
-  }
-  return;
-}
-
-function customGRIT_BS(_this){
-  var closure_this  = _this.find("#grit_results");
-  var animtime      = closure_this.data("animation-time"); 
-  if(closure_this.length > 0){
-    setTimeout( function(){ 
-        closure_this.addClass("pushing").addClass("animate", function(){
-          setTimeout(function(){
-            closure_this.removeClass("pushing");
-            closure_this.addClass("showflags");
-          }, animtime*1000);
-        }); 
-      }, 500);
-  }
-  return;
 }
 
 function showMATScoring(qinput){
@@ -807,6 +800,45 @@ function showSleepScoring(){
       });
     }
   });
+}
+
+function showIPAQScoring(){
+  var nextSection     = $("#customform section:last").prev();
+  var ipaqScores      = getIPAQScores();
+  
+  var dataURL         = "survey.php";
+  var instrument_name = $("#customform").attr("name");
+  var project         = "&project=" + $("#customform").data("project") + "&sid=" + instrument_name ;
+  var dataURL         = "survey.php?ipaq=1";
+  $.ajax({
+    url:  dataURL,
+    type:'POST',
+    data: project + "&ipaq_scores=" + JSON.stringify(ipaqScores),
+    success:function(result){
+      if($("#ipaq_results").length > 0){
+        $("#ipaq_results").remove();
+      }
+
+      var results   = $("<div>").attr("id","ipaq_results");
+      var dl        = $("<dl>");
+      for(var i in ipaqScores){
+        // var hiddeninput = $("<input>").attr("name",i).attr("id",i).attr("type","hidden").val(ipaqScores[i]);
+        // $("#customform").append(hiddeninput);
+        var tit = i.replace(/_/g," ").toUpperCase();
+        var dt = $("<dt>").text(tit);
+        var dd = $("<dd>").text(ipaqScores[i]);
+        dl.append(dt);
+        dl.append(dd);
+      }
+
+      var success_msg  = "<h3>Your physical activity MET-minutes/week score is:</h3>";
+      results.append(success_msg);
+      results.append(dl);
+
+      nextSection.find("h2").after(results);
+    }
+  });
+  return;
 }
 
 // Find Left Boundry of the Screen/Monitor

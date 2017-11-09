@@ -2098,6 +2098,22 @@ span.rs-number {
     white-space:nowrap;
 }
 
+
+
+#ipaq_results {
+    /*border:1px solid red; */
+}
+
+#ipaq_results dl {
+    margin:10px; 
+}
+
+#ipaq_results dd {
+    margin-bottom:10px;
+}
+
+
+
 #grit_results{
     background:url(../images/photo_sisyphus_mountain.jpg) -197px -170px no-repeat;
     width:960px;

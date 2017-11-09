@@ -2102,14 +2102,16 @@ span.rs-number {
 
 #ipaq_results {
     /*border:1px solid red; */
+    text-align:center;
+}
+#ipaq_results h3 {
+    font-size: 220%;
 }
 
-#ipaq_results dl {
-    margin:10px; 
-}
-
-#ipaq_results dd {
-    margin-bottom:10px;
+#ipaq_results b {
+    display:block;
+    font-size:180%;
+    margin-top:20px;
 }
 
 

@@ -821,19 +821,19 @@ function showIPAQScoring(){
 
       var results   = $("<div>").attr("id","ipaq_results");
       var dl        = $("<dl>");
-      for(var i in ipaqScores){
-        // var hiddeninput = $("<input>").attr("name",i).attr("id",i).attr("type","hidden").val(ipaqScores[i]);
-        // $("#customform").append(hiddeninput);
-        var tit = i.replace(/_/g," ").toUpperCase();
-        var dt = $("<dt>").text(tit);
-        var dd = $("<dd>").text(ipaqScores[i]);
-        dl.append(dt);
-        dl.append(dd);
-      }
+      // for(var i in ipaqScores){
+      //   // var hiddeninput = $("<input>").attr("name",i).attr("id",i).attr("type","hidden").val(ipaqScores[i]);
+      //   // $("#customform").append(hiddeninput);
+      //   var tit = i.replace(/_/g," ").toUpperCase();
+      //   var dt = $("<dt>").text(tit);
+      //   var dd = $("<dd>").text(ipaqScores[i]);
+      //   dl.append(dt);
+      //   dl.append(dd);
+      // }
 
-      var success_msg  = "<h3>Your physical activity MET-minutes/week score is:</h3>";
+      var success_msg  = "<h3>Your physical activity MET-minutes/week score is: <b>"+ipaqScores["ipaq_total_overall"]+"</b></h3>";
       results.append(success_msg);
-      results.append(dl);
+      // results.append(dl);
 
       nextSection.find("h2").after(results);
     }

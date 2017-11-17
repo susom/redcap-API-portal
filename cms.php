@@ -74,7 +74,6 @@ $locs         = array(1 => "US", 2 => "Taiwan");
           'format'    => 'json'
         );
         $results      = RC::callApi($extra_params, true, $api_url, $api_token); 
-        print_rr($results);
         $fields       = array_column($results, 'field_name'); 
         $labels       = array_column($results, 'field_label'); 
         

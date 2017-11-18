@@ -111,22 +111,27 @@ $locs         = array(1 => "US", 2 => "Taiwan");
               <form id="edit" method="post">
               <?php
               $trs = array();
+              $monthly_active = false;
               foreach($events as $event){
-                $trs[] = "<tr>";
+                $trs[]  = "<tr>";
+                $active = $event["well_cms_active"] ? "Yes" : "No";
                 
                 if($cat == 0){
                   $trs[] = "<td>".$event["well_cms_subject"]."</td>";
                   $trs[] = "<td>".$event["well_cms_content"]."</td>";
                   $trs[] = "<td>".$event["well_cms_pic"]."</td>";
                   $trs[] = "<td>".$event["well_cms_event_link"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_active"]."</td>";
+                  $trs[] = "<td>".$active."</td>";
                   $trs[] = "<td>".$event["well_cms_displayord"]."</td>";
                   $trs[] = "<td>".$event["well_cms_update_ts"]."</td>";
                   $trs[] = "<td>buttons</td>";
                 }else{
+                  if(!$monthly_active && $active == "Yes"){
+                    $monthly_active = true;
+                  }
                   $trs[] = "<td>".$event["well_cms_subject"]."</td>";
                   $trs[] = "<td>".$event["well_cms_pic"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_content"]."</td>";
+                  $trs[] = "<td>".$active."</td>";
                   $trs[] = "<td>".$event["well_cms_active"]."</td>";
                   $trs[] = "<td>".$event["well_cms_update_ts"]."</td>";
                   $trs[] = "<td>buttons</td>";
@@ -180,10 +185,18 @@ $locs         = array(1 => "US", 2 => "Taiwan");
                       break;
 
                       case "truefalse":
+                        $checked  = array("y" => "", "n" => "");
+                        $disabled = "";
+                        if($cat == 1 && $varid == "well_cms_active" && $monthly_active){
+                          $checked["n"] = "checked";
+                          $disabled = "disabled=true";
+                        }else{
+                          $checked["y"] = "checked";
+                        }
                         $fields[] = "<label name='$varid'>";
                         $fields[] = "<span>$label</span>";
-                        $fields[] = "<em><input name='$varid' type='radio' checked value='1'> Yes</em>";
-                        $fields[] = "<em><input name='$varid' type='radio' value='0'> No</em>";
+                        $fields[] = "<em><input name='$varid' type='radio' ".$checked["y"]." $disabled value='1'> Yes</em>";
+                        $fields[] = "<em><input name='$varid' type='radio' ".$checked["n"]." $disabled value='0'> No</em>";
                         $fields[] = "</label>";
                       break;
 

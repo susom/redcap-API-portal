@@ -8,6 +8,8 @@ $body_classes = "cms";
 if(!empty($_POST) && isset($_POST["action"]) && $_POST["action"] == "newevent"){
   unset($_POST["submit"]);
   unset($_POST["action"]);
+  unset($_POST["loc"]);
+  unset($_POST["cat"]);
 
   //import the record
   $API_URL    = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
@@ -39,14 +41,11 @@ if(!empty($_POST) && isset($_POST["action"]) && $_POST["action"] == "newevent"){
   $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
 }
 
-
-
-
 include("models/inc/gl_header.php");
 
 // DEFAULT VALUES
-$loc          = isset($_GET["loc"]) ? $_GET["loc"] : "1";
-$cat          = isset($_GET["cat"]) ? $_GET["cat"] : "1";
+$loc          = isset($_REQUEST["loc"]) ? $_REQUEST["loc"] : "1";
+$cat          = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : "1";
 
 $types        = array(0 => "Events", 1 => "Monthly Goals", 99 => "Others");
 $locs         = array(1 => "US", 2 => "Taiwan");
@@ -145,6 +144,8 @@ $locs         = array(1 => "US", 2 => "Taiwan");
                   <input type="hidden" name="action" value="newevent"/>
                   <input type="hidden" name="well_cms_loc" value="<?php echo $loc?>"/>
                   <input type="hidden" name="well_cms_catagory" value="<?php echo $cat?>"/>
+                  <input type="hidden" name="loc" value="<?php echo $loc?>"/>
+                  <input type="hidden" name="cat" value="<?php echo $cat?>"/>
                   <fieldset>
                   <h3>New <?php echo substr($types[$cat],0,strlen($types[$cat]) - 1) ?> for <?php echo $locs[$loc] ?></h3>
                   <?php

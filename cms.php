@@ -5,43 +5,63 @@ $pg_title     = "$websiteName";
 $body_classes = "cms";
 
 
-if(!empty($_POST) && isset($_POST["action"]) && $_POST["action"] == "newevent"){
-  unset($_POST["submit"]);
-  unset($_POST["action"]);
-  unset($_POST["loc"]);
-  unset($_POST["cat"]);
-
-  //import the record
+if(!empty($_POST) && isset($_POST["action"])){
   $API_URL    = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
   $API_TOKEN  = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
-  
-  $ts         = date('Y-m-d H:i:s');
-  $data = array(
-       "well_cms_create_ts" => $ts
-      ,"well_cms_update_ts" => $ts
-      ,"id" => "whatever_required_but_wont_be_used"
-    );
 
-  foreach($_POST as $key => $val){
-    $data[$key] = $val;
+  if($_POST["action"] == "newevent"){
+    unset($_POST["submit"]);
+    unset($_POST["action"]);
+    unset($_POST["loc"]);
+    unset($_POST["cat"]);
+
+    //import the record
+    $ts         = date('Y-m-d H:i:s');
+    $data = array(
+         "well_cms_create_ts" => $ts
+        ,"well_cms_update_ts" => $ts
+        ,"id" => "whatever_required_but_wont_be_used"
+      );
+
+    foreach($_POST as $key => $val){
+      $data[$key] = $val;
+    }
+    $result = RC::writeToApi($data, array("forceAutoNumber" => "true", "returnContent" => "auto_ids", "overwriteBehavior" => "overwite", "type" => "flat"), $API_URL, $API_TOKEN);
+    $split  = explode(",",$result[0]);
+    $new_id = $split[0];
+
+    //import the picture file
+    $file = (function_exists('curl_file_create') ? curl_file_create($_FILES["well_cms_pic"]["name"],$_FILES["well_cms_pic"]["type"],$_FILES["well_cms_pic"]["tmp_name"]) : "@". realpath($_FILES["well_cms_pic"]["tmp_name"]));
+    $data = array(
+         "record"       => $new_id
+        ,"field_name"   => 'well_cms_pic'
+        ,"action"       => "import"
+        ,"content"      => "file"
+        ,"file"         => $file
+      );
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  }elseif($_POST["action"] == "delete"){
+    if(!empty($_POST["id"])){
+      $data = array(
+           "action"       => "delete"
+          ,"content"      => "record"
+          ,"records"      => array($_POST["id"])
+        );
+      $result = RC::callApi($data, array(), $API_URL, $API_TOKEN);
+    }
+  }elseif($_POST["action"] == "edit"){
+    if(!empty($_POST["id"])){
+      $data[] = array(
+           "record"     => $_POST["id"]
+          ,"field_name" => $_POST["field_name"]
+          ,"value"      => $_POST["value"]
+        );
+      $result = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    }
   }
-  $result = RC::writeToApi($data, array("forceAutoNumber" => "true", "returnContent" => "auto_ids", "overwriteBehavior" => "overwite", "type" => "flat"), $API_URL, $API_TOKEN);
-  $split  = explode(",",$result[0]);
-  $new_id = $split[0];
-
-  //import the picture file
-  $file = (function_exists('curl_file_create') ? curl_file_create($_FILES["well_cms_pic"]["name"],$_FILES["well_cms_pic"]["type"],$_FILES["well_cms_pic"]["tmp_name"]) : "@". realpath($_FILES["well_cms_pic"]["tmp_name"]));
-  $data = array(
-       "record"       => $new_id
-      ,"field_name"   => 'well_cms_pic'
-      ,"action"       => "import"
-      ,"content"      => "file"
-      ,"file"         => $file
-    );
-  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  exit;
 }
 
-include("models/inc/gl_header.php");
 
 // DEFAULT VALUES
 $loc          = isset($_REQUEST["loc"]) ? $_REQUEST["loc"] : "1";
@@ -49,6 +69,8 @@ $cat          = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : "1";
 
 $types        = array(0 => "Events", 1 => "Monthly Goals", 99 => "Others");
 $locs         = array(1 => "US", 2 => "Taiwan");
+
+include("models/inc/gl_header.php");
 ?>
 <div id="content" class="container" role="main" tabindex="0">
   <div class="row"> 
@@ -65,6 +87,7 @@ $locs         = array(1 => "US", 2 => "Taiwan");
           <li><a href="?cat=0"  data-val=0 class="<?php if($cat == 0) echo "on"?>"><?php echo $types[0] ?></a></li>
           <li><a href="?cat=99" data-val=99 class="<?php if($cat == 99) echo "on"?>"><?php echo $types[99] ?></a></li>
         </ul>
+
         <?php
         $api_url      = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
         $api_token    = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
@@ -75,9 +98,8 @@ $locs         = array(1 => "US", 2 => "Taiwan");
         $results      = RC::callApi($extra_params, true, $api_url, $api_token); 
         $fields       = array_column($results, 'field_name'); 
         $labels       = array_column($results, 'field_label'); 
-        
-        $mon_display  = array(3,5,4,8,11);
-        $evt_display  = array(3,4,5,6,8,9,11);
+        $mon_display  = array(3,4,5,8,11);
+        $evt_display  = array(9,6,3,4,5,8,11);
         
         $extra_params = array(
           'content'   => 'record',
@@ -110,141 +132,139 @@ $locs         = array(1 => "US", 2 => "Taiwan");
           <tbody>
               <form id="edit" method="post">
               <?php
-              $trs = array();
+              $trs            = array();
               $monthly_active = false;
+
+              $selected = array("Yes" => "", "No" => "");
               foreach($events as $event){
-                $trs[]  = "<tr>";
-                $active = $event["well_cms_active"] ? "Yes" : "No";
-                
+                $trs[]    = "<tr data-id='".$event["id"]."' class='editable'>";
+                $active   = $event["well_cms_active"] ? "Yes" : "No";
+                $selected[$active] = "selected";
+
                 if($cat == 0){
-                  $trs[] = "<td>".$event["well_cms_subject"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_content"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_pic"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_event_link"]."</td>";
-                  $trs[] = "<td>".$active."</td>";
-                  $trs[] = "<td>".$event["well_cms_displayord"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_update_ts"]."</td>";
-                  $trs[] = "<td>buttons</td>";
+                  $trs[] = "<td class='order'><input type='number' name='well_cms_displayord' value='".$event["well_cms_displayord"] ."'/></td>";
+                  $trs[] = "<td class='link'><input type='text' name='well_cms_event_link' value='".$event["well_cms_event_link"] ."'/></td>";
                 }else{
                   if(!$monthly_active && $active == "Yes"){
                     $monthly_active = true;
                   }
-                  $trs[] = "<td>".$event["well_cms_subject"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_pic"]."</td>";
-                  $trs[] = "<td>".$active."</td>";
-                  $trs[] = "<td>".$event["well_cms_active"]."</td>";
-                  $trs[] = "<td>".$event["well_cms_update_ts"]."</td>";
-                  $trs[] = "<td>buttons</td>";
                 }
+                $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
+                $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
+                $trs[] = "<td class='pic'>".$event["well_cms_pic"]."</td>";
+
+                $trs[] = "<td class='active'><select name='well_cms_active'>";
+                $trs[] = "<option value='0' ".$selected["No"].">No</option>";
+                $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";
+                $trs[] = "</select></td>";
+
+                $trs[] = "<td class='updated'>".$event["well_cms_update_ts"]."</td>";
+                $trs[] = "<td class='editbtns'><a href='#' class='deleteid btn btn-error' data-id='".$event["id"]."'>Delete</a></td>";
+
                 $trs[] = "</tr>";
               }
               echo implode("\n",$trs);
               ?>
               </form>
-              <tr class="addnew">
-              <td colspan="<?php echo count($display) + 1 ?>">
-                <a id="additem" href="#">+ add item to <?php echo $types[$cat] ?></a>
-                
-                <form id="newevent" action="cms.php" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="action" value="newevent"/>
-                  <input type="hidden" name="well_cms_loc" value="<?php echo $loc?>"/>
-                  <input type="hidden" name="well_cms_catagory" value="<?php echo $cat?>"/>
-                  <input type="hidden" name="loc" value="<?php echo $loc?>"/>
-                  <input type="hidden" name="cat" value="<?php echo $cat?>"/>
-                  <fieldset>
-                  <h3>New <?php echo substr($types[$cat],0,strlen($types[$cat]) - 1) ?> for <?php echo $locs[$loc] ?></h3>
-                  <?php
-                  $fields     = array();
-                  $new_fields = $display;
-                  array_pop($new_fields);
-                  foreach($new_fields as $idx){
-                    $field = $results[$idx];
-                    $label = $field["field_label"];
-                    $varid = $field["field_name"];
-                    $type  = $field["field_type"];
-                    $setan = $field["select_choices_or_calculations"];
-                    // https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
-                    // https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js
-
-                    $fields[] = "<div class='newevent_item'>";
-                    switch($type){
-                      case "dropdown":
-                        $split = explode("|",$setan);
-                        
-                        $fields[] = "<label name='$varid'>";
-                        $fields[] = "<span>$label</span>";
-                        $fields[] = "<select name='$varid'>";
-                        foreach($split as $pair){
-                          $value_label  = explode(", ",$pair);
-                          $key          = trim($value_label[0]); 
-                          $val          = trim($value_label[1]); 
-                          $fields[]     = "<option value='".$key."' $selected>".$val."</option>";
-                        }
-                        $fields[] = "</select>";
-                        $fields[] = "</label>";
-                      break;
-
-                      case "truefalse":
-                        $checked  = array("y" => "", "n" => "");
-                        $disabled = "";
-                        if($cat == 1 && $varid == "well_cms_active" && $monthly_active){
-                          $checked["n"] = "checked";
-                          $disabled = "disabled=true";
-                        }else{
-                          $checked["y"] = "checked";
-                        }
-                        $fields[] = "<label name='$varid'>";
-                        $fields[] = "<span>$label</span>";
-                        $fields[] = "<em><input name='$varid' type='radio' ".$checked["y"]." $disabled value='1'> Yes</em>";
-                        $fields[] = "<em><input name='$varid' type='radio' ".$checked["n"]." $disabled value='0'> No</em>";
-                        $fields[] = "</label>";
-                      break;
-
-                      case "notes":
-                        $fields[] = "<label name='$varid'>";
-                        $fields[] = "<span>$label</span>";
-                        $fields[] = "<textarea name='$varid'></textarea>";
-                        $fields[] = "</label>";
-                      break;
-
-                      case "file":
-                        $fields[] = "<label name='$varid'>";
-                        $fields[] = "<span>$label</span>";
-                        $fields[] = "<input type='file' name='$varid'/>";
-                        $fields[] = "</label>";
-                      break;
-
-                      default: //text
-                        if($varid == "well_cms_displayord"){
-                          $type = "number";
-                          $val  = count($events) + 1;
-                        }else{
-                          $type = "text";
-                          $val  = "";
-                        }
-                        $fields[] = "<label name='$varid'>";
-                        $fields[] = "<span>$label</span>";
-                        $fields[] = "<input type='$type' name='$varid' value='$val'/>";
-                        $fields[] = "</label>";
-                      break;
-                    }
-                    $fields[] = "</div>";
-                  }
-                  print(implode("\n",$fields));
-                  ?>
-                  </fieldset>
-                  <input type="submit" name="submit" class="btn btn-success" value="Save to <?php echo $types[$cat]?>"/>
-                </form>
-              </td>
-              </tr>
           </tbody>
-         <!--  <tfoot>
-            <tr>
+          <tfoot>
+            <tr class="addnew">
             <td colspan="<?php echo count($display) + 1 ?>">
-              <a href="#">Sumbit Edits</a>
+              <a id="additem" href="#">+ add item to <?php echo $types[$cat] ?></a>
+              
+              <form id="newevent" action="cms.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="newevent"/>
+                <input type="hidden" name="well_cms_loc" value="<?php echo $loc?>"/>
+                <input type="hidden" name="well_cms_catagory" value="<?php echo $cat?>"/>
+                <input type="hidden" name="loc" value="<?php echo $loc?>"/>
+                <input type="hidden" name="cat" value="<?php echo $cat?>"/>
+                <fieldset>
+                <h3>New <?php echo substr($types[$cat],0,strlen($types[$cat]) - 1) ?> for <?php echo $locs[$loc] ?></h3>
+                <?php
+                $fields     = array();
+                $new_fields = $display;
+                array_pop($new_fields);
+                foreach($new_fields as $idx){
+                  $field = $results[$idx];
+                  $label = $field["field_label"];
+                  $varid = $field["field_name"];
+                  $type  = $field["field_type"];
+                  $setan = $field["select_choices_or_calculations"];
+                  // https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css
+                  // https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js
+
+                  $fields[] = "<div class='newevent_item'>";
+                  switch($type){
+                    case "dropdown":
+                      $split = explode("|",$setan);
+                      
+                      $fields[] = "<label name='$varid'>";
+                      $fields[] = "<span>$label</span>";
+                      $fields[] = "<select name='$varid'>";
+                      foreach($split as $pair){
+                        $value_label  = explode(", ",$pair);
+                        $key          = trim($value_label[0]); 
+                        $val          = trim($value_label[1]); 
+                        $fields[]     = "<option value='".$key."' $selected>".$val."</option>";
+                      }
+                      $fields[] = "</select>";
+                      $fields[] = "</label>";
+                    break;
+
+                    case "truefalse":
+                      $checked  = array("y" => "", "n" => "");
+                      $disabled = "";
+                      if($cat == 1 && $varid == "well_cms_active" && $monthly_active){
+                        $checked["n"] = "checked";
+                        $disabled = "disabled=true";
+                      }else{
+                        $checked["y"] = "checked";
+                      }
+                      $fields[] = "<label name='$varid'>";
+                      $fields[] = "<span>$label</span>";
+                      $fields[] = "<em><input name='$varid' type='radio' ".$checked["y"]." $disabled value='1'> Yes</em>";
+                      $fields[] = "<em><input name='$varid' type='radio' ".$checked["n"]." $disabled value='0'> No</em>";
+                      $fields[] = "</label>";
+                    break;
+
+                    case "notes":
+                      $fields[] = "<label name='$varid'>";
+                      $fields[] = "<span>$label</span>";
+                      $fields[] = "<textarea name='$varid'></textarea>";
+                      $fields[] = "</label>";
+                    break;
+
+                    case "file":
+                      $fields[] = "<label name='$varid'>";
+                      $fields[] = "<span>$label</span>";
+                      $fields[] = "<input type='file' name='$varid'/>";
+                      $fields[] = "</label>";
+                    break;
+
+                    default: //text
+                      if($varid == "well_cms_displayord"){
+                        $type = "number";
+                        $val  = count($events) + 1;
+                      }else{
+                        $type = "text";
+                        $val  = "";
+                      }
+                      $fields[] = "<label name='$varid'>";
+                      $fields[] = "<span>$label</span>";
+                      $fields[] = "<input type='$type' name='$varid' value='$val'/>";
+                      $fields[] = "</label>";
+                    break;
+                  }
+                  $fields[] = "</div>";
+                }
+                print(implode("\n",$fields));
+                ?>
+                </fieldset>
+                <input type="submit" name="submit" class="btn btn-success" value="Save to <?php echo $types[$cat]?>"/>
+              </form>
             </td>
             </tr>
-          </tfoot> -->
+          </tfoot>
         </table>
         
 
@@ -278,6 +298,37 @@ $(document).ready(function(){
       el.slideUp();
       $("#newevent").slideDown();
     },500);
+    return false;
+  });
+  $(".deleteid").click(function(){
+    var id_to_delete = $(this).data("id");
+    $.ajax({
+      url : "cms.php",
+      type: 'POST',
+      data: "action=delete&id=" + id_to_delete,
+      success:function(result){
+        $("tr[data-id='"+id_to_delete+"']").fadeOut();
+      }
+    });
+    return false;
+  });
+  $("#ed_items tbody :input").change(function(){
+    var el = $(this);
+    var id_to_edit = $(this).parents("tr").data("id");
+    var field_name = $(this).attr("name");
+    var value      = $(this).val();
+    $.ajax({
+      url : "cms.php",
+      type: 'POST',
+      data: "action=edit&id=" + id_to_edit + "&field_name=" + field_name + "&value=" + value,
+      success:function(result){
+        el.addClass("edited");
+        setTimeout(function(){
+          el.removeClass("edited");
+        },1000);
+      }
+    });
+    return false;
   });
 });
 </script>
@@ -302,21 +353,10 @@ $(document).ready(function(){
     border-bottom:1px solid #333;
     border-left:1px solid #333;
     padding:5px 8px;
+    font-size:77%;
+    vertical-align: top;
   }
   
-  #cms tfoot {
-    text-align:right;
-  }
-  #cms tfoot a{
-    display:inline-block;
-    border:1px solid #ccc;
-    border-radius:10px;
-    box-shadow:0 0 5px #000;
-    text-transform: uppercase;
-    background:salmon;
-    padding:5px 15px;
-    margin:5px;
-  }
 
   #loc {
     float:right;
@@ -404,5 +444,60 @@ $(document).ready(function(){
     display:inline-block;
     margin-right:10px;
     font-style:normal;
+  }
+
+  .content textarea,
+  .active select,
+  .order input,
+  .link input,
+  .subject input {
+    width:100%;
+    border:1px solid transparent;
+    padding:0 5px; 
+    background:none;
+    cursor:pointer;
+    height:30px;
+  }
+  
+  .content textarea:focus,
+  .active select:focus,
+  .order input:focus,
+  .link input:focus,
+  .subject input:focus{
+    border:1px solid yellow;
+    box-shadow:0 0 5px 5px yellow;
+  }
+  
+  .content textarea.edited,
+  .active select.edited,
+  .order input.edited,
+  .link input.edited,
+  .subject input.edited{
+    border:1px solid yellow;
+    box-shadow:0 0 3px 5px lightgreen;
+  }
+
+  .content textarea {
+    padding:4px 5px;
+  }
+  .active select{
+    width:50px;
+  }
+  .order input {
+    width:40px;
+  }
+
+  
+  #ed_items th {
+    vertical-align: bottom
+  }
+  .order{
+    width:58px;
+  }
+  .active {
+    width:68px;
+  }
+  .actions{
+    width:82px;
   }
 </style>

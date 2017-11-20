@@ -19,7 +19,7 @@ class RC {
 		// logIt(json_encode($params,1),"DEBUG");
 		$raw = self::http_post($api_url, $params);
 		// logIt('call API Raw result: ' . print_r($raw, true), "DEBUG");	
-		
+	
 		if ( $json_expected ) {
 			$result = json_decode($raw,true);
 			if (isset($result["error"])) {
@@ -94,10 +94,6 @@ class RC {
 			if (isset($info['http_code']) && $info['http_code'] == 404){ 
 				return json_encode(array("error" => "404 on $url"));
 			}
-
-			// echo  "<pre>";
-			// print_r($response);
-			// exit;
 			
 			return $response;
 

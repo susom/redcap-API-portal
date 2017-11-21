@@ -52,6 +52,19 @@ class RC {
 		return $j;
 	}
 	
+	// Write to the API
+	public static function writeFileToApi($extra_params, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
+		$default_params = array(
+			'token' 	=> $api_token,
+			'content' 	=> 'file',
+			'action' 	=> 'import'
+		);	
+
+		$params = array_merge($default_params, $extra_params);
+		$raw 	= self::http_post($api_url, $params);
+      	return $raw;
+	}
+
 	// Send HTTP Post request and receive/return content
 	static function http_post($url="", $params=array(), $timeout=null, $content_type='application/x-www-form-urlencoded') {
 		// If params are given as an array, then convert to query string format, else leave as is

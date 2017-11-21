@@ -4,7 +4,6 @@ $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";
 $body_classes = "cms";
 
-
 if(!empty($_POST) && isset($_POST["action"])){
   $API_URL    = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
   $API_TOKEN  = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
@@ -26,20 +25,22 @@ if(!empty($_POST) && isset($_POST["action"])){
     foreach($_POST as $key => $val){
       $data[$key] = $val;
     }
+    if(!isset($data["well_cms_active"])){
+      $data["well_cms_active"] = "0";
+    }
     $result = RC::writeToApi($data, array("forceAutoNumber" => "true", "returnContent" => "auto_ids", "overwriteBehavior" => "overwite", "type" => "flat"), $API_URL, $API_TOKEN);
-    $split  = explode(",",$result[0]);
-    $new_id = $split[0];
 
     //import the picture file
+    $split  = explode(",",$result[0]);
+    $new_id = $split[0];
     $file = (function_exists('curl_file_create') ? curl_file_create($_FILES["well_cms_pic"]["name"],$_FILES["well_cms_pic"]["type"],$_FILES["well_cms_pic"]["tmp_name"]) : "@". realpath($_FILES["well_cms_pic"]["tmp_name"]));
     $data = array(
          "record"       => $new_id
-        ,"field_name"   => 'well_cms_pic'
-        ,"action"       => "import"
-        ,"content"      => "file"
+        ,"field"        => 'well_cms_pic'
         ,"file"         => $file
       );
-    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    $file_result = RC::writeFileToApi($data, $API_URL, $API_TOKEN);
+    print_rr($file_result);
   }elseif($_POST["action"] == "delete"){
     if(!empty($_POST["id"])){
       $data = array(
@@ -49,6 +50,7 @@ if(!empty($_POST) && isset($_POST["action"])){
         );
       $result = RC::callApi($data, array(), $API_URL, $API_TOKEN);
     }
+    exit;
   }elseif($_POST["action"] == "edit"){
     if(!empty($_POST["id"])){
       $data[] = array(
@@ -58,8 +60,8 @@ if(!empty($_POST) && isset($_POST["action"])){
         );
       $result = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
     }
+    exit;
   }
-  exit;
 }
 
 
@@ -135,8 +137,9 @@ include("models/inc/gl_header.php");
               $trs            = array();
               $monthly_active = false;
 
-              $selected = array("Yes" => "", "No" => "");
               foreach($events as $event){
+                $selected = array("Yes" => "", "No" => "");
+
                 $trs[]    = "<tr data-id='".$event["id"]."' class='editable'>";
                 $active   = $event["well_cms_active"] ? "Yes" : "No";
                 $selected[$active] = "selected";
@@ -149,18 +152,16 @@ include("models/inc/gl_header.php");
                     $monthly_active = true;
                   }
                 }
+
                 $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
                 $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
                 $trs[] = "<td class='pic'>".$event["well_cms_pic"]."</td>";
-
                 $trs[] = "<td class='active'><select name='well_cms_active'>";
                 $trs[] = "<option value='0' ".$selected["No"].">No</option>";
                 $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";
                 $trs[] = "</select></td>";
-
                 $trs[] = "<td class='updated'>".$event["well_cms_update_ts"]."</td>";
                 $trs[] = "<td class='editbtns'><a href='#' class='deleteid btn btn-error' data-id='".$event["id"]."'>Delete</a></td>";
-
                 $trs[] = "</tr>";
               }
               echo implode("\n",$trs);

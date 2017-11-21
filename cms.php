@@ -64,7 +64,6 @@ if(!empty($_POST) && isset($_POST["action"])){
   }
 }
 
-
 // DEFAULT VALUES
 $loc          = isset($_REQUEST["loc"]) ? $_REQUEST["loc"] : "1";
 $cat          = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : "1";

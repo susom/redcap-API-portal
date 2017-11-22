@@ -1,0 +1,1062 @@
+/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+
+html {
+    color: #000;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    text-shadow: none;
+}
+
+::selection {
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ===== Initializr Styles ==================================================
+   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
+   ========================================================================== */
+
+body {
+    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+}
+
+#outter_rim{
+    position:relative;
+    overflow:hidden;
+}
+#inner_rim{
+    position:relative;
+    left:0;
+    transition:left .5s ease-in-out;
+}
+
+#inner_rim.open{
+    left:230px;
+}
+
+.wrapper {
+    width: 90%;
+    margin: 0 5%;
+}
+
+
+.splash-container .wrapper{
+    text-align:center;
+    padding:30px 0;
+}
+.splash-container blockquote{
+    position:relative;
+    margin-top:118px;
+}
+.splash-container blockquote:before{
+    content:"";
+    position:absolute;
+    top:-98px;
+    left:50%;
+    margin-left:-39px;
+    background:url(icons_lifestyle_155.png) top left no-repeat;
+    background-size:200%;
+    width:78px;
+    height:78px;
+}
+
+
+/* ===================
+    HEADER
+   =================== */
+
+.header-container {
+    position:relative;
+    padding-top:10px;
+    
+}
+
+header.wrapper {
+    position:relative;
+}
+
+
+.splash-container{
+    background: #91ad25;
+    color:#fff;
+    text-shadow:1px 1px 2px #333;
+    box-shadow:inset 0 0 10px #333;
+}
+
+.main-container{
+
+}
+
+.title {
+    color: #000;
+    background:url(well_logo_treeonly.png) no-repeat;
+    background-size:contain;
+    text-indent:-5000px;
+    width:60px; 
+    height:70px;
+    position:relative;
+    margin:0 0 0 30px;
+}
+
+.title:after{
+    content:"";
+    background:url(txt_well_for_life.png) no-repeat;
+    background-size:contain;
+    width:50px;
+    height:30px;
+    left:100%;
+    top:30%;
+    position:absolute;
+}
+
+nav{
+    position:absolute;
+    width:460px;
+    left:50%;
+    top:25px;
+    margin-left: -230px;
+}
+/* ==============
+    MOBILE: Menu
+   ============== */
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+nav a {
+    display: inline-block;
+    padding: 5px 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    border-radius:3px;
+}
+
+nav a:hover,
+nav a:visited {
+    color: #000;
+    background: #f2f2f2;
+}
+
+#account_drop {
+    position:absolute;
+    right:10px;
+    top:20%;
+    margin:0; padding:0;
+    list-style:none;
+    vertical-align: middle;
+    text-decoration:none;
+    color:#000;
+    font-size:85%;
+}
+
+#account_drop span {
+    display:inline-block;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    background: url(profile_icons.png) 0 0 no-repeat;
+    background-size: 500%;
+    border-radius: 500px;
+    margin-right:3px;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+#drop_menu {
+    display:none;
+    position: absolute;
+    top: 70px;
+    right: 0px;
+    border: 1px solid #ccc;
+    width: 110px;
+    border-radius: 0 0 10px 10px;
+    list-style: none; 
+    margin:0; padding:0;
+    background:#efefef;
+    box-shadow:1px 1px 3px -1px #333;
+}
+
+#drop_menu.show{
+    display:block;
+}
+
+#drop_menu a {
+    display:block;
+    text-decoration:none;
+    font-size:12px;
+    text-align:right;
+    padding-right:10px;
+    color:#333;
+}
+/* ==============
+    MOBILE: Main
+   ============== */
+
+.main {
+    padding: 30px 0;
+}
+
+.main-container .main h3 {
+    color:#ff9900;
+    font-size:180%;
+    font-weight:normal; 
+    margin:0 0 20px;
+    padding:0;
+}
+
+
+.main-container article > section{
+    background:#f2f2f2;
+    border-radius:5px;
+    padding:10px 15px;
+    margin-bottom:15px;
+    box-shadow: 2px 2px 5px #999;
+}
+
+.main-container .main  article h3{
+    margin-left:15px;
+}
+.main-container section  figure{
+    overflow:hidden;
+    margin:0; padding:0;
+}
+.main-container figure img {
+    float:left; 
+    max-width:150px;
+    max-height:150px;
+
+}
+.main-container figcaption {
+    float:left; 
+    width:calc(100% - 200px);
+    margin-left:20px;
+}
+.main-container figcaption h2{ 
+    margin:0 0 10px; 
+    padding:0;
+    font-weight:normal;
+}
+.main-container figcaption p{ 
+    margin:0 0 10px;
+    padding:0 ;
+}
+.main aside {
+    color: #000;
+    padding: 0px 15px 10px;
+}
+.main-container .main aside h3{
+    margin-left:55px;
+}
+.main aside a{
+    color:#000;
+    text-decoration:none;
+}
+.main aside ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+
+}
+.main aside ul > li{
+    position:relative;
+    padding-left:55px;
+    min-height:55px;
+    margin-bottom:5px;
+}
+.main aside ul > li:before{
+    position:absolute;
+    left:10px; 
+    top:10px;
+    content:"";
+    background:url(icons_resilience_130.png) top left no-repeat;
+    background-size:200%;
+    width:35px;
+    height:35px;
+}
+.main aside ul > li.notifs:before{
+    background-position:top left;
+}
+.main aside ul > li.rewards:before{
+    background-position:bottom right;
+}
+.main aside ul > li.surveys:before{
+    background-position:top right;
+}   
+.main aside ul > li >a {
+    display:inline-block;
+    margin-top:15px;
+    font-size:140%;
+}
+.main aside li ol{
+    margin:0; padding:0;
+    list-style:none;
+}
+.main aside li li{
+    padding-left:30px;
+    position:relative;
+}
+.main aside li li:before{
+    position:absolute;
+    left:5px; 
+    top:0;
+    content:"";
+    background:url(sprites_fruit.png) 0 0 no-repeat;
+    background-size:180%;
+    width:20px;
+    height:20px;
+}
+.main aside li li.strawberry:before{
+    background-position: 0 0;
+}
+.main aside li li.grape:before{
+    background-position:0 -25px;
+}
+.main aside li li.apple:before{
+    background-position:0 -47px;
+}
+.main aside li li.orange:before{
+    background-position:0 -71px;
+}
+.main aside li li.cherry:before{
+    background-position:0 -95px;
+}
+.main aside li li.blueberry:before{
+    background-position:0 -118px;
+}
+
+
+
+
+
+
+.footer-container footer {
+    color: #000;
+    padding: 20px 0;
+    text-align:center;
+}
+
+footer ul {
+    list-style:none;
+    margin:0; padding:0;
+}
+footer li{
+    display:inline-block;
+}
+footer a{
+    display:block;
+    width:35px;
+    height:35px;
+    background:url(ico_social.png) 0 0 no-repeat;
+    background-size:400%;
+    text-indent:-5000px;
+}
+footer .fb a {
+    background-position:0 0;
+}
+footer .tw a {
+    background-position:-35px 0;
+}
+footer .in a {
+    background-position:-70px 0;
+}
+footer .li a{
+    background-position:-105px 0;
+}
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 .title {
+    padding-top: 20px;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.hamburger{
+    display:none;
+    position:absolute;
+    left:-20px; 
+    top:10px; 
+    width:30px; 
+    height:25px;
+    background:url(menu-icon.png) no-repeat;
+    background-size:contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+/* ====================
+    INTERMEDIATE: Menu
+   ==================== */
+    
+    nav {
+        background: #fff;
+        left: 0;
+        width:230px;
+        }
+
+
+    nav li:first-child a {
+        margin-left: 0;
+    }
+
+    nav li:last-child a {
+        margin-right: 0;
+    }
+
+/* ========================
+    INTERMEDIATE: IE Fixes
+   ======================== */
+
+    nav ul li {
+        display:block;
+        text-align:right;
+        border-bottom:1px solid #333;
+    }
+
+    .hamburger {
+        display:inline-block;
+    }
+    .oldie nav a {
+        margin: 0 0.7%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+
+/* ====================
+    WIDE: CSS3 Effects
+   ==================== */
+
+    .header-container,
+    .main aside {
+      
+    }
+
+/* ============
+    WIDE: Menu
+   ============ */
+
+    .title {
+        display:inline-block;
+    }
+    
+    .hamburger {
+        display:none;
+    }
+
+    nav {
+        background: none;
+        left: 50%;
+        width:460px;
+    }
+    
+    nav ul li {
+        display:inline-block;
+        text-align:center;
+        border-bottom:none;
+    }
+/* ============
+    WIDE: Main
+   ============ */
+
+    .main article {
+        float: right;
+        width: 68%;
+    }
+
+    .main aside {
+        float: left;
+        width: 27%;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+    .wrapper {
+        width: 1026px; /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+.lang.sp,
+.lang.tw,
+.lang.cn{
+    display:none; 
+}
+#content {
+    padding:0;
+    font-size:88%;
+}
+#content section {
+    padding:0 5px; 
+}
+
+#survey_progress {
+    width: 30%;
+    margin: 0 auto 20px;
+    background-color: #ccc;
+    position:absolute; 
+    top:8px;
+    right:10px;
+    text-indent:10px;
+    white-space:nowrap;
+    border-radius: 5px;
+}
+.progress{
+    height:30px;
+}
+
+.surveyHeader{
+    font-weight:normal;
+    margin: 10px;
+}
+#survey_progress .progress-bar{
+    font-size:14px; 
+    line-height:200%;
+    color:#fff;
+    font-weight:600;
+    position:relative;
+    text-indent:-5000px;
+    border-radius: 4px;
+}
+#survey_progress  .progress-bar:after{
+    position:absolute;
+    content:"";
+    right:-15px; 
+    width:30px;
+    height:30px;
+    z-index:1;
+    background:url(running_man.gif) no-repeat;
+    background-size:contain;
+}
+
+.survey .m-b-md {
+    margin-bottom: 10px;
+}
+
+.survey .submits {
+    clear: both;
+    padding: 20px;
+    text-align: Center;
+}
+
+.survey .submits .btn {
+    margin: 0 8px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px #999;
+}
+
+.survey .submits .progress {
+    
+}
+
+.survey .nav-primary .surveys a {
+    display: block;
+    text-align: center;
+}
+
+.btn-back {
+    display: none;
+}
+
+.surveyFrame {
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 0;
+    /*border-radius : 10px;*/
+    /*background    : #fff ;*/
+    /*overflow-y      : auto;*/
+    transition: .2s height ease-in-out;
+}
+
+.customform {
+    position: relative;
+    overflow: hidden;
+    overflow-y: auto;
+    width: calc(100% + 0);
+    min-height: 70vh;
+    /*height: 70vh;*/
+    
+    text-align: left;
+    color: #222;
+    transition: .2s height ease-in-out;
+
+    margin: 20px 0 0 0;
+    padding: 20px 0 0;
+    border-top:1px solid #ccc;
+}
+
+.customform .required .q_label {
+    color: #333;
+}
+
+.customform .required .q_label i:after {
+    /*content:"*";*/
+}
+
+.customform .custom.or_divider {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    padding: 20px 0 0;
+}
+
+
+.customform .section .inputwrap:last-child:after {
+    position: relative;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 10px;
+}
+
+.customform .section.active {
+    z-index: 1;
+    left: 0;
+    display: block;
+    opacity: 1;
+}
+
+.customform .section.inactive {
+    left: -10px;
+}
+
+.customform .section h2 {
+    font-size: 90%;
+    line-height: 130%;
+    /*position:fixed;*/
+    z-index: 3;
+    width: auto;
+    margin: 0 0 10px;
+    padding: 10px;
+    color: #000;
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px 5px 0 0;
+    background: #d9edf7;
+}
+
+.customform h3 {
+    font-size: 130%;
+    margin: 30px 10px 10px;
+}
+
+.customform label {
+    display: block;
+    margin-bottom:5px;
+}
+
+.customform .q_label {
+    font-weight: bold;
+    position: relative;
+}
+
+.customform .hasLoading:after {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    content: '';
+    vertical-align: top;
+    background: url(../images/ajax-loader.gif) 0 0 no-repeat;
+    background-size: contain;
+}
+
+.customform input[type='number'] {
+    max-width:55px; 
+}
+.customform #core_phone {
+    max-width:100%;
+}
+
+.profile_card .hasLoading:after {
+    position: absolute;
+    top: 20px;
+    left: -20px;
+}
+
+.customform .sectionInputs {
+    border: 1px solid red;
+}
+
+.customform textarea {
+    width: 80%;
+    height: 200px;
+}
+
+.customform .hasBranching {
+    display: none;
+}
+
+.customform input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.customform .inputwrap,
+.customform .LV .customform .LH,
+.customform .RH,
+.customform .RV {
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+.customform .inputwrap {
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+.customform .inputwrap span.lang {
+    max-width:98%; 
+    vertical-align: top;
+}
+
+.customform .LV {
+    padding: 10px 0 0;
+}
+
+.customform .LV input[type='text'] {
+    width: 40%;
+}
+
+.customform .LH {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.customform .RH label {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.customform .RH .q_label {
+    display: block;
+}
+
+.customform .fieldnote {
+    display: block;
+    font-size: 92%;
+    margin: 10px 0 0;
+    color: #666;
+}
+
+.table.b-light {
+    border: none;
+}
+
+.table.b-t {
+    border: none;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+
+#surveypagination {
+    position: absolute;
+    right: 0;
+}
+
+
+
+#survey_progress .progress-bar {
+    font-size: 14px;
+    line-height: 200%;
+    color: #fff;
+    font-weight: 600;
+    position: relative;
+    text-indent: -5000px;
+    border-radius: 4px;
+}
+
+.progress.active .progress-bar, .progress-bar.active {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    -o-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+}
+.bg-info.lter, .bg-info .lter {
+    background-color: #3ddcde;
+}
+.progress-striped .progress-bar, .progress-bar-striped {
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+    -webkit-background-size: 40px 40px;
+    background-size: 40px 40px;
+}
+.bg-info {
+    background-color: #1ccacc;
+    color: #bef5f6;
+}
+.progress, .progress-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #337ab7;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+
+.main-container .main .section  h3 {
+    color: #331;
+    font-size: 100%;
+    font-weight: bold;
+    margin: 0 0 0px;
+    padding: 0;
+}
+
+.lang.tw,
+.lang.cn,
+.lang.sp{
+    display:none;
+}
+
+
+.unit {
+    transition: opacity 1.9s ease-in-out;
+    position:absolute;
+    z-index:-999;
+    opacity:0;
+}
+.unit.show {
+    position:relative;
+    z-index:1;
+    opacity:1;
+}

@@ -813,6 +813,17 @@ function getActionTags($fieldmeta){
 	return $results;
 }
 
+function getBase64Img($file_curl ){
+	if(strpos($file_curl["headers"]["content-type"][0],"image") > -1){
+      $split    = explode("; ",$file_curl["headers"]["content-type"][0]);
+      $mime     = $split[0];
+      $split2   = explode('"',$split[1]);
+      $imgname  = $split2[1];
+      $eventpic = '<img class="event_img" src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
+    }
+    return $eventpic;
+}
+
 if (!function_exists('curl_file_create')) {
   function curl_file_create($filename, $mimetype = '', $postname = '') {
     return "@$filename;filename="

@@ -137,7 +137,7 @@ include("models/inc/gl_header.php");
                   $mime     = $split[0];
                   $split2   = explode('"',$split[1]);
                   $imgname  = $split2[1];
-                  $eventpic = '<img src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
+                  $eventpic = '<img class="event_img" src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
                 }
                 $selected = array("Yes" => "", "No" => "");
 
@@ -501,5 +501,10 @@ $(document).ready(function(){
   }
   .actions{
     width:82px;
+  }
+
+
+  .well .event_img {
+    max-width:200px;
   }
 </style>

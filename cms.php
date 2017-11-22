@@ -1,13 +1,13 @@
 <?php
 require_once("models/config.php");
+
 $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";
 $body_classes = "cms";
 
+$API_URL      = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
+$API_TOKEN    = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
 if(!empty($_POST) && isset($_POST["action"])){
-  $API_URL    = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
-  $API_TOKEN  = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
-
   if($_POST["action"] == "newevent"){
     unset($_POST["submit"]);
     unset($_POST["action"]);
@@ -15,13 +15,12 @@ if(!empty($_POST) && isset($_POST["action"])){
     unset($_POST["cat"]);
 
     //import the record
-    $ts         = date('Y-m-d H:i:s');
+    $ts   = date('Y-m-d H:i:s');
     $data = array(
          "well_cms_create_ts" => $ts
         ,"well_cms_update_ts" => $ts
         ,"id" => "whatever_required_but_wont_be_used"
       );
-
     foreach($_POST as $key => $val){
       $data[$key] = $val;
     }
@@ -33,14 +32,7 @@ if(!empty($_POST) && isset($_POST["action"])){
     //import the picture file
     $split  = explode(",",$result[0]);
     $new_id = $split[0];
-    $file = (function_exists('curl_file_create') ? curl_file_create($_FILES["well_cms_pic"]["name"],$_FILES["well_cms_pic"]["type"],$_FILES["well_cms_pic"]["tmp_name"]) : "@". realpath($_FILES["well_cms_pic"]["tmp_name"]));
-    $data = array(
-         "record"       => $new_id
-        ,"field"        => 'well_cms_pic'
-        ,"file"         => $file
-      );
-    $file_result = RC::writeFileToApi($data, $API_URL, $API_TOKEN);
-    print_rr($file_result);
+    RC::writeFileToApi($_FILES["well_cms_pic"], $new_id, "well_cms_pic", null, $API_URL, $API_TOKEN);
   }elseif($_POST["action"] == "delete"){
     if(!empty($_POST["id"])){
       $data = array(
@@ -137,9 +129,19 @@ include("models/inc/gl_header.php");
               $monthly_active = false;
 
               foreach($events as $event){
+                $eventpic   = "";
+                $recordid   = $event["id"];
+                $file_curl  = RC::callFileApi($recordid, "well_cms_pic", null, $API_URL,$API_TOKEN);
+                if(strpos($file_curl["headers"]["content-type"][0],"image") > -1){
+                  $split    = explode("; ",$file_curl["headers"]["content-type"][0]);
+                  $mime     = $split[0];
+                  $split2   = explode('"',$split[1]);
+                  $imgname  = $split2[1];
+                  $eventpic = '<img src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
+                }
                 $selected = array("Yes" => "", "No" => "");
 
-                $trs[]    = "<tr data-id='".$event["id"]."' class='editable'>";
+                $trs[]    = "<tr data-id='$recordid' class='editable'>";
                 $active   = $event["well_cms_active"] ? "Yes" : "No";
                 $selected[$active] = "selected";
 
@@ -154,7 +156,7 @@ include("models/inc/gl_header.php");
 
                 $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
                 $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
-                $trs[] = "<td class='pic'>".$event["well_cms_pic"]."</td>";
+                $trs[] = "<td class='pic'>$eventpic</td>";
                 $trs[] = "<td class='active'><select name='well_cms_active'>";
                 $trs[] = "<option value='0' ".$selected["No"].">No</option>";
                 $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";

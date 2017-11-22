@@ -813,6 +813,14 @@ function getActionTags($fieldmeta){
 	return $results;
 }
 
+if (!function_exists('curl_file_create')) {
+  function curl_file_create($filename, $mimetype = '', $postname = '') {
+    return "@$filename;filename="
+        . ($postname ?: basename($filename))
+        . ($mimetype ? ";type=$mimetype" : '');
+  }
+}
+  
 function print_rr($d,$exit=false){
 	echo "<pre>";
 	print_r($d);

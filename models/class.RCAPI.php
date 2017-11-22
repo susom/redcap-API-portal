@@ -53,30 +53,93 @@ class RC {
 	}
 	
 	// Write to the API
-	public static function writeFileToApi($extra_params, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
-		$default_params = array(
-			'token' 	=> $api_token,
-			'content' 	=> 'file',
-			'action' 	=> 'import'
-		);	
+	public function writeFileToApi($file, $record, $field, $event, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
+		// Prepare upload file
+		$curlFile 	= curl_file_create($file["tmp_name"], $file["type"], $file["name"]);
+		$data 		= array(
+		  'token'         => $api_token,
+		  'content'       => 'file',
+		  'action'        => 'import',
+		  'record'        => $record,
+		  'field'         => $field,
+		  'event'         => $event,
+		  'file'          => $curlFile,
+		  'returnFormat'  => 'json'
+		);
 
-		$params = array_merge($default_params, $extra_params);
-		$raw 	= self::http_post($api_url, $params);
-      	return $raw;
+		$ch = curl_init($api_url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 105200);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_VERBOSE, 0);
+		$result = curl_exec($ch);
+		$info 	= curl_getinfo($ch);
+		curl_close($ch);
+
+		if ($info['http_code'] != 200) {
+		  print "<br>Error uploading $field to $record";
+		  print "<br>Upload Request Info:<pre>" . print_r($info, true) . "</pre>";
+		  print "<br>Upload Request:<pre>" . print_r($result, true) . "</pre>";
+		  return false;
+		}
+
+		return true;
 	}
 
-	public static function callFileApi($extra_params, $api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
-		$default_params = array(
-			'token' 	=> $api_token,
-			'content' 	=> 'file',
-			'action' 	=> 'export'
+	public static function callFileApi($recordid, $fieldname, $event=null,$api_url = REDCAP_API_URL, $api_token = REDCAP_API_TOKEN) {
+		$data = array(
+			'token' 		=> $api_token,
+			'content' 		=> 'file',
+			'action' 		=> 'export',
+			'record' 		=> $recordid,
+			'field'			=> $fieldname,
+			'event' 		=> $event,
+			'returnFormat' 	=> 'json'
 		);	
 
-		$params = array_merge($default_params, $extra_params);
-		$raw 	= self::http_post($api_url, $params);
-		print_rr($raw);
+		$headers 	= [];
+		$ch 		= curl_init($api_url);
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 105200);
+		curl_setopt($ch, CURLOPT_VERBOSE, 0);
+
+		// this function is called by curl for each header received
+		curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+		  function($curl, $header) use (&$headers){
+		    $len 	= strlen($header);
+		    $header = explode(':', $header, 2);
+		    if(count($header) < 2){
+		      return $len;
+		    } // ignore invalid headers
+
+		    $name 	= strtolower(trim($header[0]));
+		    if(!array_key_exists($name, $headers)){
+		    	$headers[$name] = [trim($header[1])];
+		    }else{
+		    	$headers[$name][] = trim($header[1]);
+		    }
+		    return $len;
+		  }
+		);
 		
-      	return $raw;
+		$result = curl_exec($ch);
+		// $info 	= curl_getinfo($ch);
+		$header_size 	= curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+		$header 		= substr($result, 0, $header_size);
+		$img_body 		= substr($result, $header_size);
+		curl_close($ch);
+      	return array("result" => $result, "headers" => $headers, "file_body" => $img_body);
 	}
 
 	// Send HTTP Post request and receive/return content

@@ -80,7 +80,7 @@ foreach($cats as $cat){
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Reports</a></li>
-            <li><a href="#">WEll Game</a></li>
+            <li><a href="#">Game</a></li>
             <!-- <li><a href="#">Resources</a></li> -->
         </ul>
     </nav>

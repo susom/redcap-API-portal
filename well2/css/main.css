@@ -55,7 +55,7 @@ textarea {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font: 16px/26px Calibri, Arial;
 }
 
 #outter_rim{
@@ -80,7 +80,7 @@ body {
 
 .splash-container .wrapper{
     text-align:center;
-    padding:30px 0;
+    padding:10px 0;
 }
 .splash-container blockquote{
     position:relative;
@@ -116,8 +116,8 @@ header.wrapper {
 
 .splash-container{
     background: #91ad25;
-    color:#fff;
-    text-shadow:1px 1px 2px #333;
+    color:#333;
+    /*text-shadow:1px 1px 2px #333;*/
     box-shadow:inset 0 0 10px #333;
 }
 
@@ -250,12 +250,17 @@ nav a:visited {
     padding: 30px 0;
 }
 
+.main-container .main {
+    padding:15px 0;
+}
+
 .main-container .main h3 {
-    color:#ff9900;
+    color:chocolate;
     font-size:180%;
     font-weight:normal; 
     margin:0 0 20px;
     padding:0;
+
 }
 
 
@@ -270,6 +275,10 @@ nav a:visited {
 .main-container .main  article h3{
     margin-left:15px;
 }
+.main-container .main  article a {
+    text-decoration:none;
+}
+
 .main-container section  figure{
     overflow:hidden;
     margin:0; padding:0;
@@ -534,7 +543,7 @@ footer .li a{
 
     .main article {
         float: right;
-        width: 68%;
+        width: 70%;
     }
 
     .main aside {

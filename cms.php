@@ -156,7 +156,12 @@ include("models/inc/gl_header.php");
 
                 $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
                 $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
-                $trs[] = "<td class='pic'>$eventpic</td>";
+                $trs[] = "<td class='pic'>$eventpic";
+                $trs[] = "<form class='edit_img' action='cms.php' method='post' enctype='multipart/form-data'><label name='well_cms_pic'>";
+                $trs[] = "<input type='hidden' name='record_id' value='$recordid'/>";
+                $trs[] = "<input type='file' name='well_cms_pic'/>";
+                $trs[] = "</label></form>";
+                $trs[] = "</td>";
                 $trs[] = "<td class='active'><select name='well_cms_active'>";
                 $trs[] = "<option value='0' ".$selected["No"].">No</option>";
                 $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";
@@ -240,6 +245,9 @@ include("models/inc/gl_header.php");
                       $fields[] = "<label name='$varid'>";
                       $fields[] = "<span>$label</span>";
                       $fields[] = "<input type='file' name='$varid'/>";
+                      if($varid == "well_cms_pic"){
+                        $fields[] = "<i>WxH must be 150x150px</i>";
+                      }
                       $fields[] = "</label>";
                     break;
 
@@ -314,7 +322,7 @@ $(document).ready(function(){
     });
     return false;
   });
-  $("#ed_items tbody :input").change(function(){
+  $("#ed_items tbody :input[name!='well_cms_pic']").change(function(){
     var el = $(this);
     var id_to_edit = $(this).parents("tr").data("id");
     var field_name = $(this).attr("name");
@@ -330,6 +338,10 @@ $(document).ready(function(){
         },1000);
       }
     });
+    return false;
+  });
+  $("#ed_items tbody :input[name='well_cms_pic']").change(function(){
+      $(this).parents("form").submit();
     return false;
   });
 });
@@ -436,6 +448,12 @@ $(document).ready(function(){
   }
   .newevent_item label span{
     display:block;
+  }
+
+  .newevent_item label i{
+    color:red;
+    font-weight:normal;
+    font-style:italic;
   }
   .newevent_item input[type="text"],
   .newevent_item textarea{

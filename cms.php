@@ -53,6 +53,10 @@ if(!empty($_POST) && isset($_POST["action"])){
       $result = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
     }
     exit;
+  }elseif($_POST["action"] == "edit_img"){
+    if(!empty($_POST["id"])){
+      RC::writeFileToApi($_FILES["well_cms_pic"], $_POST["id"], "well_cms_pic", null, $API_URL, $API_TOKEN);
+    }
   }
 }
 
@@ -123,7 +127,6 @@ include("models/inc/gl_header.php");
             </tr> 
           </thead>
           <tbody>
-              <form id="edit" method="post">
               <?php
               $trs            = array();
               $monthly_active = false;
@@ -157,10 +160,11 @@ include("models/inc/gl_header.php");
                 $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
                 $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
                 $trs[] = "<td class='pic'>$eventpic";
-                $trs[] = "<form class='edit_img' action='cms.php' method='post' enctype='multipart/form-data'><label name='well_cms_pic'>";
-                $trs[] = "<input type='hidden' name='record_id' value='$recordid'/>";
+                $trs[] = "<form class='edit_img' action='cms.php' method='post' enctype='multipart/form-data'>";
+                $trs[] = "<input type='hidden' name='action' value='edit_img'/>";
+                $trs[] = "<input type='hidden' name='id' value='$recordid'/>";
                 $trs[] = "<input type='file' name='well_cms_pic'/>";
-                $trs[] = "</label></form>";
+                $trs[] = "</form>";
                 $trs[] = "</td>";
                 $trs[] = "<td class='active'><select name='well_cms_active'>";
                 $trs[] = "<option value='0' ".$selected["No"].">No</option>";
@@ -172,7 +176,6 @@ include("models/inc/gl_header.php");
               }
               echo implode("\n",$trs);
               ?>
-              </form>
           </tbody>
           <tfoot>
             <tr class="addnew">
@@ -276,9 +279,6 @@ include("models/inc/gl_header.php");
             </tr>
           </tfoot>
         </table>
-        
-
-        
       </div>  
     </div>
   </div>
@@ -341,7 +341,8 @@ $(document).ready(function(){
     return false;
   });
   $("#ed_items tbody :input[name='well_cms_pic']").change(function(){
-      $(this).parents("form").submit();
+    $(this).parents("form").submit();
+    console.log($(this).parents("form"));
     return false;
   });
 });

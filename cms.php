@@ -45,17 +45,31 @@ if(!empty($_POST) && isset($_POST["action"])){
     exit;
   }elseif($_POST["action"] == "edit"){
     if(!empty($_POST["id"])){
-      $data[] = array(
+      $data[]   = array(
            "record"     => $_POST["id"]
           ,"field_name" => $_POST["field_name"]
           ,"value"      => $_POST["value"]
         );
-      $result = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+      $result   = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    
+      $data[]   = array(
+           "record"     => $_POST["id"]
+          ,"field_name" => "well_cms_update_ts"
+          ,"value"      => date('Y-m-d H:i:s')
+      );
+      $result   = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
     }
     exit;
   }elseif($_POST["action"] == "edit_img"){
     if(!empty($_POST["id"])){
       RC::writeFileToApi($_FILES["well_cms_pic"], $_POST["id"], "well_cms_pic", null, $API_URL, $API_TOKEN);
+      
+      $data[]   = array(
+           "record"     => $_POST["id"]
+          ,"field_name" => "well_cms_update_ts"
+          ,"value"      => date('Y-m-d H:i:s')
+      );
+      $result   = RC::writeToApi($data, array("format" => "json", "overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
     }
   }
 }

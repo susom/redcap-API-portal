@@ -1,5 +1,5 @@
 <?php
-require_once("models/config.php");
+require_once("../models/config.php");
 
 $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";
@@ -81,7 +81,7 @@ $cat          = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : "1";
 $types        = array(0 => "Events", 1 => "Monthly Goals", 99 => "Others");
 $locs         = array(1 => "US", 2 => "Taiwan");
 
-include("models/inc/gl_header.php");
+include("../models/inc/gl_header.php");
 ?>
 <div id="content" class="container" role="main" tabindex="0">
   <div class="row"> 
@@ -298,7 +298,7 @@ include("models/inc/gl_header.php");
   </div>
 </div>
 <?php 
-include("models/inc/gl_footer.php");
+include("../models/inc/gl_footer.php");
 ?>
 <script>
 $(document).ready(function(){

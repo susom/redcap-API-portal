@@ -1,6 +1,10 @@
 <?php 
 require_once("../models/config.php"); 
 
+$nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
+$navon  = array("home" => "", "reports" => "", "game" => "");
+$navon[$nav] = "on";
+
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
 $extra_params   = array();
@@ -55,7 +59,6 @@ foreach($cats as $cat){
         );
     }
 }
-
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -78,9 +81,9 @@ foreach($cats as $cat){
 <div id="inner_rim">
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Game</a></li>
+            <li class="<?php echo $navon["home"]; ?>"><a href="#">Home</a></li>
+            <li class="<?php echo $navon["reports"]; ?>"><a href="#">Reports</a></li>
+            <li class="<?php echo $navon["game"]; ?>"><a href="#">Game</a></li>
             <!-- <li><a href="#">Resources</a></li> -->
         </ul>
     </nav>

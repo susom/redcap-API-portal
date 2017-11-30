@@ -164,6 +164,10 @@ nav ul {
     list-style-type: none;
 }
 
+nav li.on{
+    background: #D2B37D;
+    border-radius: 5px;
+}
 nav a {
     display: inline-block;
     padding: 5px 12px;
@@ -172,7 +176,7 @@ nav a {
     text-decoration: none;
     color: #000;
     border-radius:3px;
-    font-size:140%;
+    font-size:120%;
 }
 
 nav a:hover,

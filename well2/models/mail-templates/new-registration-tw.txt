@@ -1,0 +1,14 @@
+﻿親愛的 #USERNAME#
+
+感谢您註册WELL人生(Stanford大學WELL人生)!
+
+WELL人生主要是一個幫助我們了解和改善全人WELL的計畫。
+#ACTIVATION-MESSAGE
+
+以後請您點擊此鏈接以登錄WELL人生：
+http://wellforlife.stanford.edu
+
+在任何階段您可選擇參與或取消繼續參與此計劃。如果您有任何問題，請隨時聯繫 Matthew Grason，電話：650-725-9682 或 mgrason1@stanford.edu.
+
+
+#INC-FOOTER#

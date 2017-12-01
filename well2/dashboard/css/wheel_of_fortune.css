@@ -1,0 +1,355 @@
+/*WHEEL OF FORTUNEGAME*/
+
+  #wof_game h1 {
+      text-align: center;
+      padding: 0 0 20px;
+  }
+
+  #letterpicker {
+      text-align: center;
+      float: right;
+      min-width: 370px;
+      width:52%;
+  }
+  
+  #letterpicker h2 {
+    font-size:20px;
+  }
+
+  #letterpicker input {
+      visiblity: hidden;
+      margin-left: -5000px;
+      position: absolute;
+      z-index: -1;
+  }
+
+  #letterpicker label {
+      display: inline-block;
+      border: 1px solid #ccc;
+      width: 28px;
+      height: 38px;
+      overflow: hidden;
+      text-align: center;
+      line-height: 205%;
+      font-size: 18px;
+      margin: 0 2px;
+      cursor: pointer;
+  }
+
+  #letterpicker label.picked {
+      background: #ccc;
+      cursor: default;
+  }
+
+  #letterpicker label.selected {
+      border: 2px solid orange;
+      background: #ffffcc;
+  }
+
+  #letterpicker label:not(.picked):not(.selected):hover {
+      background: #efefef;
+  }
+  #letterpicker button{
+    display:block; 
+    margin: 10px auto;
+    float: none;
+  }
+
+  #board {
+      text-align: Center;
+      border: 1px solid #333;
+      margin: 0 0 25px;
+      padding: 30px 15px 30px;
+      background: green url(../images/vannawhite.gif) 95% 100% no-repeat;
+      background-size: 30px;
+      border-radius:5px; 
+  }
+
+  #board i {
+      color: #fff;
+      font-size: 24px;
+      display:block;
+  }
+  
+  #board .btn{
+    cursor:pointer;
+  }
+
+  .flip-container {
+      perspective: 1000;
+      display: inline-block;
+      overflow: hidden;
+      margin: 0 3px 5px;
+  }
+
+
+  /* flip the pane when hovered */
+
+  .flip-container.rotate .flipper {
+      transform: rotateY(180deg);
+  }
+
+  .flip-container,
+  .front,
+  .back,
+  .flipper {
+      width: 34px;
+      height: 44px;
+  }
+
+
+  /* flip speed goes here */
+
+  .flipper {
+      transition: 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+  }
+
+
+  /* hide back of pane during swap */
+
+  .front,
+  .back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 22px;
+      line-height: 200%;
+      text-align: center;
+  }
+
+
+  /* front pane, placed above back */
+
+  .front {
+      z-index: 2;
+      /* for firefox 31 */
+      transform: rotateY(0deg);
+      background: #fff;
+  }
+
+
+  /* back, initially hidden pane */
+
+  .back {
+      transform: rotateY(180deg);
+      background: #fff;
+  }
+
+  .front.space {
+      background: black;
+  }
+
+
+  #gameboard{
+    float:none;
+    width:100%;
+    margin:0 auto 100px;
+  }
+  
+  h1.title {
+    height:120px;
+    min-width:700px;
+    margin:0 auto 25px;
+    overflow:hidden;
+    position:relative;
+  }
+
+  h1.title span{
+    float:left;
+    width:340px;
+    height:120px;
+    background:url(../images/well_of_fortune.png) 20px 0 no-repeat;
+    background-size:contain;
+  }
+  
+  h1 .stats {
+    height:120px;
+    position:relative;
+    margin-right:20px;
+    float:right;
+    color:#fff;
+    text-shadow:1px 1px 1px #333;
+    text-align:center;
+  }
+
+  .stats h4{
+    display:block; 
+    font-weight:bold;
+    font-size:20px;
+    margin:20px 0 15px;
+  }
+  .stats b {
+    font-size:20px; 
+    display:block; 
+  }
+  
+  .stats i {
+    margin-top:10px; 
+    display:block; 
+    font-size:11px;
+  }
+
+  .stats div{
+    padding:0 10px;
+  }
+
+  #guesscount {
+    float:left;
+    width:140px;
+    height:120px;
+    background:#863B47;
+    border-radius:10px 0 0 10px;
+  }
+
+  #totalpoints{
+    float:left; 
+    width:140px;
+    height:120px;
+    background:#FECC00;
+  }
+
+  #solved{
+    float:left; 
+    width:140px;
+    height:120px;
+    background:#2639A0;
+    border-radius:0 10px 10px 0;
+
+  }
+  
+  #flipboard {
+    margin-right:100px; 
+  }
+
+  #flipboard div {
+    border-radius:3px; 
+  }
+
+  #lettertray,
+  #voweltray{
+    background:#f5f5f5;
+    margin:10px 0;
+    padding:5px 0 10px;
+    border:1px solid #eee;
+    border-radius:5px;
+  }
+  label{
+    background:#fff;
+    border-radius:3px;
+  }
+
+  #current_survey {
+      margin-bottom: 30px;
+  }
+
+  #current_survey span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background: #efefef;
+      border: 1px solid #ccc;
+      margin: 3px;
+      text-align: center;
+      line-height: 240%;
+  }
+
+  #current_survey span.done {
+      background: #ccc;
+  }
+
+  #current_survey span.current {
+      background: #ffc;
+      border: 1px solid orange;
+  }
+
+  #current_question {
+      background: #efefef;
+      border-radius: 5px;
+      padding: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+  }
+
+  #current_question dl {
+      font-size: 20px;
+      display: none;
+  }
+
+  #current_question dl.on {
+      display: block;
+  }
+
+  #current_question .question,
+  #current_question .answer {
+      padding: 10px 0;
+      vertical-align: top;
+  }
+
+  #current_question .question span,
+  #current_question .answer span {
+      display: inline-block;
+      vertical-align: top;
+  }
+
+  #current_question .question .qlabel,
+  #current_question .answer .inputs {
+      display: inline-block;
+      margin: 0 10px;
+      max-width: 85%;
+  }
+
+  #current_question .answer label {
+      display: block;
+  }
+
+  #current_question .answer input,
+  #current_question .answer select,
+  #current_question .answer textarea {
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      padding: 5px 8px;
+  }
+
+  #current_question .question .qlabel {
+      width: 380px;
+  }
+
+  #current_question .submitit {
+      float: right;
+  }
+
+  #guesses {
+      padding: 0 0 10px;
+      overflow: hidden;
+  }
+
+  
+
+  
+
+  #guessvalue {
+     
+  }
+
+  #guessvalue i {
+     
+  }
+
+
+
+  
+/*WHEEL OF FORTUNE*/
+#bigwheel {
+    position       : relative;
+    width          : 430px;
+    height         : 430px;
+    float:left;
+}
+#status_label {
+    color          : #333;
+    font-size      : 1.5em;
+    text-align     : center;
+}

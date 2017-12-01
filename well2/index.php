@@ -1,5 +1,7 @@
 <?php 
-require_once("../models/config.php"); 
+require_once("models/config.php"); 
+include("models/inc/checklogin.php");
+
 
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
@@ -71,19 +73,18 @@ foreach($cats as $cat){
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="css/normalize.min.css">
-<link rel="stylesheet" href="css/main.css">
-
-<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<link rel="stylesheet" href="assets/css/normalize.min.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
 <body>
 <div id="outter_rim">
 <div id="inner_rim">
     <nav>
         <ul>
-            <li class="<?php echo $navon["home"]; ?>"><a href="#">Home</a></li>
-            <li class="<?php echo $navon["reports"]; ?>"><a href="#">Reports</a></li>
-            <li class="<?php echo $navon["game"]; ?>"><a href="#">Game</a></li>
+            <li class="<?php echo $navon["home"]; ?>"><a href="index.php?nav=home">Home</a></li>
+            <li class="<?php echo $navon["reports"]; ?>"><a href="reports.php?nav=reports">Reports</a></li>
+            <li class="<?php echo $navon["game"]; ?>"><a href="game.php?nav=game">Game</a></li>
             <!-- <li><a href="#">Resources</a></li> -->
         </ul>
     </nav>
@@ -93,7 +94,8 @@ foreach($cats as $cat){
             <h1 class="title">WELL for Life</h1>
             <a id="account_drop" href="#"><span></span> Irvin Szeto <b class="caret"></b></a>
             <ul id="drop_menu">
-                <li><a href="#">Logout</a></li>
+                <li><a href="../dashboard/profile.php">Profile</a></li>
+                <li><a href="../index.php?logout=1">Logout</a></li>
             </ul>
             <a href="#" class="hamburger"></a>
         </header>
@@ -151,12 +153,65 @@ foreach($cats as $cat){
                     <li class="surveys">
                         <a href="#">Surveys</a>
                         <ol>
-                            <li class="strawberry"><a href="#">2017 Wellbeing</a></li>
-                            <li class="grape"><a href="#">Nutrition</a></li>
-                            <li class="apple"><a href="#">Fitness</a></li>
-                            <li class="orange"><a href="#">Physical Mobility</a></li>
-                            <li class="cherry"><a href="#">Resilience</a></li>
-                            <li class="blueberry"><a href="#">TCM</a></li>
+                            <?php
+                            $new = null;
+                            $core_surveys           = array();
+                            $supp_surveys           = array();
+
+                            foreach($surveys as $surveyid => $survey){
+                              $projnotes      = json_decode($survey["project_notes"],1);
+                              $title_trans    = $projnotes["translations"];
+                              $index          = array_search($surveyid, $all_survey_keys);
+                              $surveylink     = "survey.php?sid=" . $surveyid;
+                              $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
+                              $surveycomplete = $survey["survey_complete"];
+                              $completeclass  = ($surveycomplete ? "completed":"");
+                              $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
+                              $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
+                              if(!$surveycomplete && is_null($new)){
+                                $new = $index;
+                                $next_survey =  $surveylink;
+                              }
+                              if(in_array($surveyid, $available_instruments)){
+                                array_push($core_surveys, "<li >
+                                    <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                                      $newbadge                                                   
+                                      <span class='fruit $completeclass'></span>
+                                      <span class='survey_name'>$surveyname</span>     
+                                    </a>
+                                  </li>\n");
+                              }
+                              break;
+                            }
+                            echo implode("",$core_surveys);
+                            
+                            $fruits = array("strawberry","grapes","apple","orange","cherry","blueberry","bananas","longans","pineapple");
+                            foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
+                                $index++;
+                                
+
+                                if($supp_instrument["survey_complete"]){
+                                  continue;
+                                }
+
+                                //if bucket is A make sure that three other ones are complete before showing.
+                                $projnotes    = json_decode($supp_instrument["project_notes"],1);
+                                $title_trans  = $projnotes["translations"];
+                                $tooltips     = $projnotes["tooltips"];
+                                $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
+                                $fruitcss     = $fruits[$index];
+                                
+                                $titletext    = $core_surveys_complete ? $tooltips[$supp_instrument_id] : $lang["COMPLETE_CORE_FIRST"];
+                                $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                                $icon_update  = " icon_update";
+                                $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
+                            
+                                $news[]       = "<li class='list-group-item $icon_update $fruitcss'>
+                                                    ".$survey_alinks[$supp_instrument_id]." 
+                                                </li>";
+                              }
+                            echo implode("",$news);
+                            ?>  
                         </ol>
                     </li>
                 </ul>
@@ -177,7 +232,7 @@ foreach($cats as $cat){
 </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-<script src="js/main.js"></script>
+<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>

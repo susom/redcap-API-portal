@@ -92,7 +92,7 @@ body {
     top:-98px;
     left:50%;
     margin-left:-39px;
-    background:url(icons_lifestyle_155.png) top left no-repeat;
+    background:url(../img/icons_lifestyle_155.png) top left no-repeat;
     background-size:200%;
     width:78px;
     height:78px;
@@ -127,7 +127,7 @@ header.wrapper {
 
 .title {
     color: #000;
-    background:url(well_logo_treeonly.png) no-repeat;
+    background:url(../img/well_logo_treeonly.png) no-repeat;
     background-size:contain;
     text-indent:-5000px;
     width:60px; 
@@ -138,7 +138,7 @@ header.wrapper {
 
 .title:after{
     content:"";
-    background:url(txt_well_for_life.png) no-repeat;
+    background:url(../img/txt_well_for_life.png) no-repeat;
     background-size:contain;
     width:50px;
     height:30px;
@@ -165,8 +165,9 @@ nav ul {
 }
 
 nav li.on{
-    background: #D2B37D;
+    background: #f2f2f2;
     border-radius: 5px;
+
 }
 nav a {
     display: inline-block;
@@ -185,6 +186,9 @@ nav a:visited {
     background: #f2f2f2;
 }
 
+#drop_menu a:hover{
+    background:#ffc;
+}
 #account_drop {
     position:absolute;
     right:10px;
@@ -203,7 +207,7 @@ nav a:visited {
     border: 1px solid #ccc;
     width: 40px;
     height: 40px;
-    background: url(profile_icons.png) 0 0 no-repeat;
+    background: url(../img/profile_icons.png) 0 0 no-repeat;
     background-size: 500%;
     border-radius: 500px;
     margin-right:3px;
@@ -313,11 +317,13 @@ nav a:visited {
     padding: 0px 15px 10px;
 }
 .main-container .main aside h3{
-    margin-left:55px;
+    margin-left:40px;
 }
 .main aside a{
     color:#000;
     text-decoration:none;
+    display:block;
+    line-height:120%;
 }
 .main aside ul{
     list-style:none;
@@ -327,7 +333,7 @@ nav a:visited {
 }
 .main aside ul > li{
     position:relative;
-    padding-left:55px;
+    padding-left:40px;
     min-height:55px;
     margin-bottom:5px;
 }
@@ -336,7 +342,7 @@ nav a:visited {
     left:10px; 
     top:10px;
     content:"";
-    background:url(icons_resilience_130.png) top left no-repeat;
+    background:url(../img/icons_resilience_130.png) top left no-repeat;
     background-size:200%;
     width:35px;
     height:35px;
@@ -356,11 +362,12 @@ nav a:visited {
     font-size:140%;
 }
 .main aside li ol{
-    margin:0; padding:0;
+    margin:10px 0 0 0; padding:0;
     list-style:none;
 }
 .main aside li li{
     padding-left:30px;
+    margin-bottom: 15px;
     position:relative;
 }
 .main aside li li:before{
@@ -368,7 +375,7 @@ nav a:visited {
     left:5px; 
     top:0;
     content:"";
-    background:url(sprites_fruit.png) 0 0 no-repeat;
+    background:url(../img/sprites_fruit.png) 0 0 no-repeat;
     background-size:180%;
     width:20px;
     height:20px;
@@ -376,14 +383,14 @@ nav a:visited {
 .main aside li li.strawberry:before{
     background-position: 0 0;
 }
-.main aside li li.grape:before{
+.main aside li li.grapes:before{
     background-position:0 -25px;
 }
 .main aside li li.apple:before{
     background-position:0 -47px;
 }
 .main aside li li.orange:before{
-    background-position:0 -71px;
+    background-position:1px -71px;
 }
 .main aside li li.cherry:before{
     background-position:0 -95px;
@@ -391,8 +398,15 @@ nav a:visited {
 .main aside li li.blueberry:before{
     background-position:0 -118px;
 }
-
-
+.main aside li li.bananas:before{
+    background-position:2px -141px;
+}
+.main aside li li.longans:before{
+    background-position:1px -164px;
+}
+.main aside li li.pineapple:before{
+    background-position:0 -188px;
+}
 
 
 
@@ -414,7 +428,7 @@ footer a{
     display:block;
     width:35px;
     height:35px;
-    background:url(ico_social.png) 0 0 no-repeat;
+    background:url(../img/ico_social.png) 0 0 no-repeat;
     background-size:400%;
     text-indent:-5000px;
 }
@@ -449,7 +463,7 @@ footer .li a{
     top:10px; 
     width:30px; 
     height:25px;
-    background:url(menu-icon.png) no-repeat;
+    background:url(../img/menu-icon.png) no-repeat;
     background-size:contain;
 }
 
@@ -739,7 +753,7 @@ footer .li a{
     width:30px;
     height:30px;
     z-index:1;
-    background:url(running_man.gif) no-repeat;
+    background:url(../img/running_man.gif) no-repeat;
     background-size:contain;
 }
 

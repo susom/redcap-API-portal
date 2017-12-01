@@ -1,0 +1,23 @@
+Dear #USERNAME#
+
+Thank you for enrolling in the WELL for Life initiative! 
+
+At WELL for Life we aim to improve understanding of living well and ways to increase wellbeing.
+
+#ACTIVATION-MESSAGE
+
+1. Please read the "consent form" pages. -> click the "I Agree" button on the last page.
+2. When you get to the "Password Setup" page -> please setup your password and recovery questions.
+3. Once you click the "Submit" button, you will see the Stanford WELL for Life Scale.
+
+Please follow this link to log into the WELL for Life initiative in the future:
+http://wellforlife.stanford.edu
+
+The choice to take part and continue taking part is yours.  If you have any questions, feel free to contact Matthew Grason at 650-725-9682 or at mgrason1@stanford.edu.
+#INC-FOOTER#
+
+
+
+
+
+

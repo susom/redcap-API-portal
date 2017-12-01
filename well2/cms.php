@@ -1,5 +1,6 @@
 <?php
 require_once("../models/config.php");
+include("models/inc/checklogin.php");
 
 $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";
@@ -185,7 +186,7 @@ include("../models/inc/gl_header.php");
                 $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";
                 $trs[] = "</select></td>";
                 $trs[] = "<td class='updated'>".$event["well_cms_update_ts"]."</td>";
-                $trs[] = "<td class='editbtns'><a href='#' class='deleteid btn btn-error' data-id='".$event["id"]."'>Delete</a></td>";
+                $trs[] = "<td class='editbtns'><a href='#' class='deleteid btn btn-danger' data-id='".$event["id"]."'>Delete</a></td>";
                 $trs[] = "</tr>";
               }
               echo implode("\n",$trs);
@@ -325,15 +326,17 @@ $(document).ready(function(){
     return false;
   });
   $(".deleteid").click(function(){
-    var id_to_delete = $(this).data("id");
-    $.ajax({
-      url : "cms.php",
-      type: 'POST',
-      data: "action=delete&id=" + id_to_delete,
-      success:function(result){
-        $("tr[data-id='"+id_to_delete+"']").fadeOut();
-      }
-    });
+    if(confirm("Confirm deletion of this event")){
+      var id_to_delete = $(this).data("id");
+      $.ajax({
+        url : "cms.php",
+        type: 'POST',
+        data: "action=delete&id=" + id_to_delete,
+        success:function(result){
+          $("tr[data-id='"+id_to_delete+"']").fadeOut();
+        }
+      });
+    }
     return false;
   });
   $("#ed_items tbody :input[name!='well_cms_pic']").change(function(){

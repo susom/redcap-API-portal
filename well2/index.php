@@ -92,7 +92,7 @@ foreach($cats as $cat){
     <div class="header-container">
         <header class="wrapper clearfix">
             <h1 class="title">WELL for Life</h1>
-            <a id="account_drop" href="#"><span></span> Irvin Szeto <b class="caret"></b></a>
+            <a id="account_drop" href="#"><span></span> <?php  echo $loggedInUser->firstname . " " . $loggedInUser->lastname?> <b class="caret"></b></a>
             <ul id="drop_menu">
                 <li><a href="../dashboard/profile.php">Profile</a></li>
                 <li><a href="../index.php?logout=1">Logout</a></li>
@@ -184,7 +184,7 @@ foreach($cats as $cat){
                               break;
                             }
                             echo implode("",$core_surveys);
-                            
+
                             $fruits = array("strawberry","grapes","apple","orange","cherry","blueberry","bananas","longans","pineapple");
                             foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                                 $index++;

@@ -573,8 +573,14 @@ footer .li a{
 
     .main article {
         float: right;
-        width: 70%;
+        width: 68%;
         position:relative;
+    }
+    
+    .survey .main article {
+        padding:10px;
+        background:#f2f2f2;
+        border-radius:10px;
     }
 
     .main aside {

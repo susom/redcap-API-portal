@@ -189,6 +189,9 @@ nav a:visited {
 #drop_menu a:hover{
     background:#ffc;
 }
+#drop_menu a:last-child:hover{
+    border-radius:0 0 10px 10px;
+}
 #account_drop {
     position:absolute;
     right:10px;
@@ -367,15 +370,22 @@ nav a:visited {
 }
 .main aside li li{
     padding-left:30px;
-    margin-bottom: 15px;
+    padding-top:8px;
+    padding-bottom: 8px;
     position:relative;
+}
+.main aside li li:hover,
+.main aside li li.on{
+    background: #f2f2f2;
+    border-radius: 5px;
 }
 .main aside li li:before{
     position:absolute;
     left:5px; 
-    top:0;
+    top:50%;
+    transform: translateY(-50%);
     content:"";
-    background:url(../img/sprites_fruit.png) 0 0 no-repeat;
+    background:url(../img/sprites_fruit.png) 1px 0 no-repeat;
     background-size:180%;
     width:20px;
     height:20px;
@@ -563,11 +573,13 @@ footer .li a{
     .main article {
         float: right;
         width: 70%;
+        position:relative;
     }
 
     .main aside {
         float: left;
         width: 27%;
+        position:relative;
     }
 }
 
@@ -724,7 +736,7 @@ footer .li a{
     background-color: #ccc;
     position:absolute; 
     top:8px;
-    right:10px;
+    right:0;
     text-indent:10px;
     white-space:nowrap;
     border-radius: 5px;
@@ -734,8 +746,10 @@ footer .li a{
 }
 
 .surveyHeader{
-    font-weight:normal;
-    margin: 10px;
+    font-weight: normal;
+    margin: 0 10px;
+    color: #C6303A;
+    font-size: 180%;
 }
 #survey_progress .progress-bar{
     font-size:14px; 
@@ -768,9 +782,14 @@ footer .li a{
 }
 
 .survey .submits .btn {
+    display:inline-block;
     margin: 0 8px;
+    padding:8px;
     border-radius: 3px;
     box-shadow: 1px 1px 3px #999;
+}
+.survey .submits cite{
+    display:block;
 }
 
 .survey .submits .progress {
@@ -809,8 +828,6 @@ footer .li a{
     transition: .2s height ease-in-out;
 
     margin: 20px 0 0 0;
-    padding: 20px 0 0;
-    border-top:1px solid #ccc;
 }
 
 .customform .required .q_label {
@@ -1087,4 +1104,23 @@ footer .li a{
     position:relative;
     z-index:1;
     opacity:1;
+}
+
+
+
+/*LANGUAGE*/
+.lang.en + br,
+.lang.cn,
+.lang.cn + br,
+.lang.tw,
+.lang.tw + br,
+.lang.sp,
+.lang.sp + br{
+    display:none;
+}
+
+.lang.cn,
+.lang.tw {
+    font-size:140%;
+    line-height:140%;
 }

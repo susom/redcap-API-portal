@@ -1,6 +1,5 @@
 <?php
-require_once("../models/config.php");
-include("models/inc/checklogin.php");
+require_once("models/config.php");
 
 $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";

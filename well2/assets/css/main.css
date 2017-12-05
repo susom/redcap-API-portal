@@ -145,6 +145,7 @@ header.wrapper {
     left:100%;
     top:30%;
     position:absolute;
+        z-index: 1000;
 }
 
 nav{

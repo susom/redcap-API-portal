@@ -145,7 +145,6 @@ header.wrapper {
     left:100%;
     top:30%;
     position:absolute;
-        z-index: 1000;
 }
 
 nav{
@@ -154,6 +153,7 @@ nav{
     left:50%;
     top:25px;
     margin-left: -230px;
+    z-index: 1000;
 }
 /* ==============
     MOBILE: Menu

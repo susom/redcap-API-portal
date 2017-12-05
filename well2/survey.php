@@ -35,8 +35,10 @@ if(!empty($pid)){
         $surveys      = $supp_surveys[$pid]->getActiveAll();
     }
 
-    //ONLY ONE MENUITEM HIGHLIGHTED
-    $surveyon["wellbeing_questions"] = "on";
+    if(!array_key_exists($sid,$surveyon)){
+      //ONLY ONE MENUITEM HIGHLIGHTED
+      $surveyon["wellbeing_questions"] = "on";
+    }
 }else{
     //ITS A CORESURVEY, FIND THE LATEST INCOMPLETE ONE
     foreach($surveys as $surveyid => $survey){
@@ -133,37 +135,38 @@ if(array_key_exists($sid, $surveys)){
                             $core_surveys   = array();
                             $supp_surveys   = array();
 
-                            foreach($surveys as $surveyid => $survey){
-                              $projnotes      = json_decode($survey["project_notes"],1);
-                              $title_trans    = $projnotes["translations"];
-                              $index          = array_search($surveyid, $all_survey_keys);
-                              $surveylink     = "survey.php?sid=" . $surveyid;
-                              $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
-                              $surveycomplete = $survey["survey_complete"];
-                              $completeclass  = ($surveycomplete ? "completed":"");
-                              $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
-                              $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
-                              if(!$surveycomplete && is_null($new)){
-                                $new = $index;
-                                $next_survey =  $surveylink;
+                            $index = 0;
+                            if(!$core_surveys_complete){
+                              foreach($surveys as $surveyid => $survey){
+                                $projnotes      = json_decode($survey["project_notes"],1);
+                                $title_trans    = $projnotes["translations"];
+                                $index          = array_search($surveyid, $all_survey_keys);
+                                $surveylink     = "survey.php?sid=" . $surveyid;
+                                $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
+                                $surveycomplete = $survey["survey_complete"];
+                                $completeclass  = ($surveycomplete ? "completed":"");
+                                $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
+                                $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
+                                if(!$surveycomplete && is_null($new)){
+                                  $new = $index;
+                                  $next_survey =  $surveylink;
+                                }
+                                if(in_array($surveyid, $available_instruments)){
+                                  array_push($core_surveys, "<li class='".$surveyon[$surveyid]."'>
+                                      <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                                        $newbadge                                                   
+                                        <span class='fruit $completeclass'></span>
+                                        <span class='survey_name'>$surveyname</span>     
+                                      </a>
+                                    </li>\n");
+                                }
+                                break;
                               }
-                              if(in_array($surveyid, $available_instruments)){
-                                array_push($core_surveys, "<li class='".$surveyon[$surveyid]."'>
-                                    <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
-                                      $newbadge                                                   
-                                      <span class='fruit $completeclass'></span>
-                                      <span class='survey_name'>$surveyname</span>     
-                                    </a>
-                                  </li>\n");
-                              }
-                              break;
+                              echo implode("",$core_surveys);
                             }
-                            echo implode("",$core_surveys);
-
                             $fruits = array("strawberry","grapes","apple","orange","cherry","blueberry","bananas","longans","pineapple");
                             foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                                 $index++;
-                                
 
                                 if($supp_instrument["survey_complete"]){
                                   continue;
@@ -175,7 +178,6 @@ if(array_key_exists($sid, $surveys)){
                                 $tooltips     = $projnotes["tooltips"];
                                 $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
                                 $fruitcss     = $fruits[$index];
-                                
                                 $titletext    = $core_surveys_complete ? $tooltips[$supp_instrument_id] : $lang["COMPLETE_CORE_FIRST"];
                                 $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
                                 $icon_update  = " icon_update";

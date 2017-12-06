@@ -101,26 +101,28 @@ foreach($cats as $cat){
         </header>
     </div>
     
-    <?php  
-    if(isset($cats[1])){
-    ?>
+    
     <div class="splash-container">
         <div class="wrapper clearfix">
+            <?php  
+            if(isset($cats[1])){
+            ?>
             <h2><?php echo $cats[1]["subject"]?></h2>
             <blockquote>
                 <?php echo $cats[1]["content"]?>
             </blockquote>
             <style>
-                .splash-container blockquote:before {
-                    background: url(<?php echo $cats[1]["pic"] ?>) top left no-repeat;
-                    background-size:contain;
+                .splash-container .wrapper:before {
+                    background: url(<?php echo $cats[1]["pic"] ?>) 50% no-repeat;
+                    background-size:cover;
                 }
             </style>
+            <?php 
+            }
+            ?>
         </div>
     </div>
-    <?php 
-    }
-    ?>
+    
     <div class="main-container">
         <div class="main wrapper clearfix">
             <article>

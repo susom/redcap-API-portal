@@ -29,7 +29,7 @@
 
                   if(in_array($surveyid, $available_instruments)){
                     array_push($core_surveys, "<li >
-                        <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                        <a $hreflink='$surveylink' class='auto ".$surveyon[$surveyid]."' title='".$survey["label"]."'>
                           $newbadge                                                   
                           <span class='fruit $completeclass'></span>
                           <span class='survey_name'>$surveyname</span>     
@@ -60,7 +60,7 @@
                     $icon_update  = " icon_update";
                     $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
                 
-                    $news[]       = "<li class='list-group-item $icon_update $fruitcss'>
+                    $news[]       = "<li class='list-group-item $icon_update $fruitcss  ".$surveyon[$supp_instrument_id]."'>
                                         ".$survey_alinks[$supp_instrument_id]." 
                                     </li>";
                   }

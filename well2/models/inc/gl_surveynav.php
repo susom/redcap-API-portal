@@ -10,11 +10,11 @@
                 $supp_surveys           = array();
 
                 foreach($surveys as $surveyid => $survey){
-                  $index          = array_search($surveyid, $all_survey_keys);
                   $surveycomplete = $survey["survey_complete"];
                   if($surveycomplete){
                     break;
                   }
+                  $index          = array_search($surveyid, $all_survey_keys);
                   $projnotes      = json_decode($survey["project_notes"],1);
                   $title_trans    = $projnotes["translations"];
                   $surveylink     = "survey.php?sid=" . $surveyid;
@@ -39,7 +39,8 @@
                   break;
                 }
                 echo implode("",$core_surveys);
-
+  
+                $index  = 0;
                 $fruits = array("strawberry","grapes","apple","orange","cherry","blueberry","bananas","longans","pineapple");
                 foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                     $index++;

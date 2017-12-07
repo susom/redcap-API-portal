@@ -333,7 +333,7 @@ nav a:visited {
     padding: 0px 15px 10px;
 }
 .main-container .main aside h3{
-    margin-left:40px;
+    margin-left:0;
 }
 .main aside a{
     color:#000;
@@ -349,19 +349,12 @@ nav a:visited {
 }
 .main aside ul > li{
     position:relative;
-    padding-left:40px;
+    padding-left:0;
     min-height:55px;
     margin-bottom:5px;
 }
 .main aside ul > li:before{
-    position:absolute;
-    left:10px; 
-    top:10px;
-    content:"";
-    background:url(../img/icons_resilience_130.png) top left no-repeat;
-    background-size:200%;
-    width:35px;
-    height:35px;
+
 }
 .main aside ul > li.notifs:before{
     background-position:top left;
@@ -845,7 +838,6 @@ footer .li a{
     text-align: left;
     color: #222;
     transition: .2s height ease-in-out;
-
     margin: 20px 0 0 0;
 }
 

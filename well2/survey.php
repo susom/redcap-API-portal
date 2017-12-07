@@ -12,7 +12,7 @@ $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";
 
 //IF CORE SURVEY GET THE SURVEY ID
-$sid    = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
+$sid = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
 $surveyon       = array();
 $surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
@@ -28,7 +28,7 @@ if(!empty($sid)){
 }
 
 // IF SUPP SURVEY GET PROJECT TOO
-$pid    = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
+$pid = $project = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
 if(!empty($pid)){
     if(array_key_exists($pid, SurveysConfig::$projects)){
         $supp_project = $supp_surveys[$pid]->getSingleInstrument($sid);
@@ -72,7 +72,7 @@ include_once("models/inc/gl_head.php");
 ?>
     <div class="main-container">
         <div class="main wrapper clearfix">
-            <article>
+            <article class="surveyFrame">
                 <?php
                   if(!$active_survey->surveycomplete){
                       ?>
@@ -211,5 +211,5 @@ include_once("models/inc/gl_foot.php");
       $("section.vbox").addClass("blur");
   }
 </script>
-<script src="js/survey.js"></script>
+<script src="assets/js/survey.js"></script>
 <?php

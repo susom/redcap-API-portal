@@ -27,7 +27,7 @@ if(!isUserLoggedIn()) {
   $variant = "A"; //THIS WILL DETERMINE THE BUCKETS I GUESS
 
   // GET SURVEY LINKS
-  // markPageLoadTime("checklogin : before surveys.php");
+  markPageLoadTime("checklogin : before surveys.php");
   include("models/inc/surveys.php");
-  // markPageLoadTime("checklogin : after surveys.php");
+  markPageLoadTime("checklogin : after surveys.php");
 }

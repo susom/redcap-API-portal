@@ -10,10 +10,10 @@
                 $supp_surveys           = array();
 
                 foreach($surveys as $surveyid => $survey){
-                  $surveycomplete = $survey["survey_complete"];
-                  if($surveycomplete){
+                  if($core_surveys_complete){
                     break;
                   }
+                  $surveycomplete = $survey["survey_complete"];
                   $index          = array_search($surveyid, $all_survey_keys);
                   $projnotes      = json_decode($survey["project_notes"],1);
                   $title_trans    = $projnotes["translations"];
@@ -28,8 +28,8 @@
                   }
 
                   if(in_array($surveyid, $available_instruments)){
-                    array_push($core_surveys, "<li >
-                        <a $hreflink='$surveylink' class='auto ".$surveyon[$surveyid]."' title='".$survey["label"]."'>
+                    array_push($core_surveys, "<li class='".$surveyon[$surveyid]."'>
+                        <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
                           $newbadge                                                   
                           <span class='fruit $completeclass'></span>
                           <span class='survey_name'>$surveyname</span>     

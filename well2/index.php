@@ -6,6 +6,12 @@ $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";
 
+$surveyon       = array();
+$surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
+foreach($surveynav as $surveyitem){
+    $surveyon[$surveyitem] = "";
+}
+
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
 $extra_params   = array();

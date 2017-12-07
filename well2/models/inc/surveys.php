@@ -101,7 +101,7 @@ $all_survey_keys  		= array_keys($surveys);
 $fruits  				= SurveysConfig::$fruits;
 
 //SUPPLEMENTAL PROJECTS
-if(isset($_SESSION["supplemental_surveys"]) && 1==2){
+if(isset($_SESSION["supplemental_surveys"])){
 	//THE BULK OF IT HAS BEEN CALLED ONCE, NOW JUST REFRESH THE NECESSARY DATA
 	$supp_surveys  = $_SESSION["supplemental_surveys"];
 	foreach($supp_surveys as $supp_survey){

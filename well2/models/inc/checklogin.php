@@ -26,8 +26,8 @@ if(!isUserLoggedIn()) {
   }
   $variant = "A"; //THIS WILL DETERMINE THE BUCKETS I GUESS
 
-  //if they are logged in and active
-  //find survey completion and go there?
   // GET SURVEY LINKS
+  // markPageLoadTime("checklogin : before surveys.php");
   include("models/inc/surveys.php");
+  // markPageLoadTime("checklogin : after surveys.php");
 }

@@ -453,11 +453,11 @@ class Survey {
           if(!empty($section_header)){
             if(!$first_section){
               //SUBMIT BUTTONS
-              // $section_html[]     = '<div class="submits">';
-              // $section_html[]     = '<a href="index.php" class="btn btn-info" role="savereturnlater">'.lang("SAVE_EXIT").'</a>';
-              // $section_html[]     = '<button class="btn btn-primary" role="saverecord">'.lang("SUBMIT_NEXT").'</button>';
-              // $section_html[]     = '<cite class="redcap">Powered by REDCap</cite>';
-              // $section_html[]     = '</div>';
+              $section_html[]     = '<div class="submits">';
+              $section_html[]     = '<a href="index.php" class="btn btn-info" role="savereturnlater">'.lang("SAVE_EXIT").'</a>';
+              $section_html[]     = '<button class="btn btn-primary" role="saverecord">'.lang("SUBMIT_NEXT").'</button>';
+              $section_html[]     = '<cite class="redcap">Powered by REDCap</cite>';
+              $section_html[]     = '</div>';
               $section_html[]     = "</section>";
             }
 

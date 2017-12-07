@@ -100,7 +100,6 @@ body {
     transform:translateY(-50%);
     left:50%;
     margin-left:-39px;
-    background:url(../img/icons_lifestyle_155.png) 50% 50% no-repeat;
     background-size:cover;
     width:78px;
     height:78px;
@@ -163,7 +162,7 @@ nav{
     left:50%;
     top:25px;
     margin-left: -230px;
-    z-index: 1000;
+    z-index: 1001;
 }
 /* ==============
     MOBILE: Menu
@@ -240,6 +239,7 @@ nav a:visited {
 }
 
 #drop_menu {
+    border:10px solid blue;
     display:none;
     position: absolute;
     top: 70px;
@@ -251,6 +251,7 @@ nav a:visited {
     margin:0; padding:0;
     background:#efefef;
     box-shadow:1px 1px 3px -1px #333;
+    z-index:1001;
 }
 
 #drop_menu.show{
@@ -754,7 +755,7 @@ footer .li a{
     background-color: #ccc;
     position:absolute; 
     top:8px;
-    right:0;
+    right: 10px;
     text-indent:10px;
     white-space:nowrap;
     border-radius: 5px;

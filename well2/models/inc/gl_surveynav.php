@@ -2,7 +2,7 @@
     <h3>MyWELL</h3>
     <ul class="nav">
         <li class="surveys">
-            <a href="#">Surveys</a>
+            <h4>Surveys</h4>
             <ol>
                 <?php
                 $new = null;

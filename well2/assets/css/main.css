@@ -369,11 +369,10 @@ nav a:visited {
 }   
 .main aside ul > li >a {
     display:inline-block;
-    margin-top:15px;
     font-size:140%;
 }
 .main aside li ol{
-    margin:10px 0 0 0; padding:0;
+    margin:0 0 0 0; padding:0;
     list-style:none;
 }
 .main aside li li{

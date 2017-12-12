@@ -1286,3 +1286,147 @@ footer .li a{
     margin-left: -40px;
 }
 
+
+.alert span.fruit {
+    position: relative;
+    display: block;
+    width: 70px;
+    height: 65px;
+    margin: 10px auto;
+    text-indent: -5000px;
+}
+
+.alert span.fruit:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 65px;
+    content: '';
+    opacity: 1;
+    background: url(../img/sprites_fruits.png) 0 0px no-repeat;
+    background-position-x: 0 !important;
+    transition: .5s opacity;
+}
+
+.dash_fruits {
+    margin: 0;
+    padding: 0;
+}
+
+.dash_fruits .fitness {
+    margin-top: 20px;
+    margin-right: 8px;
+    text-indent: -5000px;
+}
+
+.alert span.fitness {
+    position: relative;
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 10px auto;
+    text-indent: -5000px;
+}
+
+.alert span.fitness:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 70px;
+    content: '';
+    opacity: 1;
+    background: url(../img/ico_fitness_sprites.png) 0 0px no-repeat;
+    background-size: 200%;
+    background-position-x: 0 !important;
+    transition: .5s opacity;
+}
+
+.alert .biking:before {
+    background-position: 0 -70px !important;
+}
+
+.alert .weightlifting:before {
+    background-position: 0 -140px !important;
+}
+
+.alert .cardio:before{
+    background-position: 0 -210px !important;
+}
+
+.alert .tbone:before, {
+    background-position: 0 -280px !important;
+}
+
+.alert .carrot:before {
+    background-position: 0 -350px !important;
+}
+
+.alert .pomegranate:before {
+    background-position: 0 -65px !important;
+}
+
+.alert .apricot:before {
+    background-position: 0 -130px !important;
+}
+
+.alert .peach:before {
+    background-position: 0 -195px !important;
+}
+
+.alert .strawberry:before {
+    background-position: 0 -260px !important;
+}
+
+.alert .orange:before {
+    background-position: 0 -325px !important;
+}
+
+.alert .watermelon:before {
+    background-position: 0 -390px !important;
+}
+
+.alert .mango:before {
+    background-position: 0 -455px !important;
+}
+
+.alert .lime:before {
+    background-position: 0 -520px !important;
+}
+
+.alert .raspberry:before {
+    background-position: 0 -585px !important;
+}
+
+.alert .greenapple:before {
+    background-position: 0 -650px !important;
+}
+
+.alert .plum:before {
+    background-position: 0 -715px !important;
+}
+
+.alert .bananas:before {
+    background-position: 0 -780px !important;
+}
+
+.alert .pear:before {
+    background-position: 0 -845px !important;
+}
+
+.alert .ranier:before {
+    background-position: 0 -905px !important;
+}
+
+.alert .redapple:before {
+    background-position: 0 -975px !important;
+}
+
+.alert .lemon:before {
+    background-position: 0 -1040px !important;
+}
+
+.alert .cherries:before{
+    background-position: 0 -1105px !important;
+}

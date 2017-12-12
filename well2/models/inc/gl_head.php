@@ -9,8 +9,11 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="assets/css/normalize.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+
 </head>
 <body class="<?php echo $bodyClass ?>">
 <div id="outter_rim">

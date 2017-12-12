@@ -178,6 +178,7 @@ include("../models/inc/gl_header.php");
                 $trs[] = "<input type='hidden' name='action' value='edit_img'/>";
                 $trs[] = "<input type='hidden' name='id' value='$recordid'/>";
                 $trs[] = "<input type='file' name='well_cms_pic'/>";
+                $trs[] = "<i>WxH must be 3:4 ratio (ie. 300px by 400px)</i>";
                 $trs[] = "</form>";
                 $trs[] = "</td>";
                 $trs[] = "<td class='active'><select name='well_cms_active'>";
@@ -263,7 +264,7 @@ include("../models/inc/gl_header.php");
                       $fields[] = "<span>$label</span>";
                       $fields[] = "<input type='file' name='$varid'/>";
                       if($varid == "well_cms_pic"){
-                        $fields[] = "<i>WxH must be 150x150px</i>";
+                        $fields[] = "<i>WxH must be 3:4 ratio (ie. 300px by 400px)</i>";
                       }
                       $fields[] = "</label>";
                     break;
@@ -467,6 +468,7 @@ $(document).ready(function(){
     display:block;
   }
 
+  .edit_img i,
   .newevent_item label i{
     color:red;
     font-weight:normal;

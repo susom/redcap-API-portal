@@ -6,6 +6,259 @@ include("dashboard/inc/classes/Survey.php");
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
 
+//SPECIAL CUSTOM MAT SCORINGCAPTURE
+if(isset($_REQUEST["TCM"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'tcm_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+}
+
+//SPECIAL CUSTOM MAT SCORINGCAPTURE
+if(isset($_REQUEST["IPAQ"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'tcm_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+}
+
+//SPECIAL CUSTOM MAT SCORINGCAPTURE
+if(isset($_REQUEST["mat"])){
+  include "MAT_scoring.php";
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $mat_answers  = $_REQUEST["mat_answers"] ?: null;
+  $mat_answers  = json_decode($mat_answers,1);
+
+  $matstring  = "";
+  foreach($mat_answers as $fieldlabel => $values){
+    $mat_key  = $values["vid"];
+    $q_val    = $values["value"];
+    $mat_category = $MAT_cat[$mat_key];
+    $matvalue = getMATscoreCAT($mat_category,$q_val);
+    $matstring .= $matvalue;
+  }
+  
+  $matscore = isset($scoring[$matstring]) ? $scoring[$matstring] : 0 ;
+  $data[]   = array(
+      "record"            => $record_id,
+      "field_name"        => 'mat_score',
+      "value"             => $matscore
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  $data   = array_shift($data);
+  $data["matstring"] = $matstring;
+  print_r( json_encode($data) );
+  exit;
+}
+
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["met"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'met_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["sleep"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = $_REQUEST["sid"] ?: null;
+  $value        = $_REQUEST["met_score"] ?: null;
+
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'psqi_score',
+      "value"             => $value
+    );
+
+  if($event_name){
+    $data[0]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
+//SPECIAL CUSTOM MET SCORECAPTURE
+if(isset($_REQUEST["ipaq"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $loggedInUser->user_event_arm;
+  $survey_id    = $_REQUEST["sid"] ?: null;
+
+  $ipaqscores   = $_REQUEST["ipaq_scores"] ?: null;
+  $scores       = json_decode($ipaqscores,1);
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_walking',
+      "value"             => $scores["ipaq_total_walking"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_moderate',
+      "value"             => $scores["ipaq_total_moderate"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_vigorous',
+      "value"             => $scores["ipaq_total_vigorous"]
+    );
+  $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => 'ipaq_total_overall',
+      "value"             => $scores["ipaq_total_overall"]
+    );
+
+
+  if(!empty($event_name)){
+    $data[0]["redcap_event_name"] = $event_name;
+    $data[1]["redcap_event_name"] = $event_name;
+    $data[2]["redcap_event_name"] = $event_name;
+    $data[3]["redcap_event_name"] = $event_name;
+  }
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+  print_r($data);
+  exit;
+}
+
+//POSTING DATA TO REDCAP API
+if(isset($_REQUEST["ajax"])){
+  $project_name = $_REQUEST["project"] ?: null;
+  $projects     = SurveysConfig::$projects;
+  $API_TOKEN    = $projects[$project_name]["TOKEN"];
+  $API_URL      = $projects[$project_name]["URL"];
+
+  $data         = array();
+  $record_id    = $project_name !== $_CFG->SESSION_NAME ? $loggedInUser->{$project_name} : $loggedInUser->id;
+  $event_name   = $project_name !== $_CFG->SESSION_NAME ? null : $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+  $survey_id    = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : null;
+  
+  //IF DOING A END OF SURVEY FINAL SUBMIT
+  if(isset($_REQUEST["surveycomplete"])){
+    $result     = RC::callApi(array(
+        "hash"    => $_REQUEST["hash"], 
+        "format"  => "csv"
+      ), true, $custom_surveycomplete_API, $API_TOKEN);
+  }
+
+  //WRITE TO API
+  //ADD OVERIDE PARAMETER 
+  unset($_POST["project"]);
+  foreach($_POST as $field_name => $value){
+    if($value === 0){
+      $value = 0;
+    }else if($value == ""){
+      $value = NULL;
+    }
+
+    $record_id  = $loggedInUser->id;
+    $event_name = $_SESSION[$_CFG->SESSION_NAME]["survey_context"]["event"];
+
+    $is_date    = preg_match('/^\d{2}-\d{2}\-\d{4}$/', $value);
+    if($is_date){
+      list($mm,$dd,$yyyy) = explode("-",$value);
+      $value = "$yyyy-$mm-$dd";
+    }
+
+    $data[] = array(
+      "record"            => $record_id,
+      "field_name"        => $field_name,
+      "value"             => $value
+    );
+
+    if($event_name){
+      $data[0]["redcap_event_name"] = $event_name;
+    }
+    $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+    // print_r($data);
+    // print_r($result);
+  }
+  exit;
+}
+
 //GET THE CURRENT TOP NAV CATEGORy
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
@@ -28,7 +281,7 @@ if(!empty($sid)){
 }
 
 // IF SUPP SURVEY GET PROJECT TOO
-$pid = $project = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
+$pid = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
 if(!empty($pid)){
     if(array_key_exists($pid, SurveysConfig::$projects)){
         $supp_project = $supp_surveys[$pid]->getSingleInstrument($sid);
@@ -66,6 +319,38 @@ if(array_key_exists($sid, $surveys)){
   exit; 
 }
 
+//POP UP IN BETWEEN SURVEYS 
+//NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
+if(isset($_GET["survey_complete"])){
+  //ONLY SHOW THESE POPUPS FOR LONG ANNIVERSARIES
+  if(empty(strpos($user_event_arm,"short")) && strpos($user_event_arm,"short") !== 0){
+    //ONLY LONG ANNIVERSARIES GET POP UP TREATMENT
+    //IF NO URL PASSED IN THEN REDIRECT BACK
+    $surveyid = $_GET["survey_complete"];
+    
+    if(array_key_exists($surveyid,$surveys)){
+      $index  = array_search($surveyid, $all_survey_keys);
+      $survey = $surveys[$surveyid];
+      $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
+      if(isset($all_survey_keys[$index+1])){
+        $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
+        $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
+        addSessionMessage( $success_msg , "success");
+      }
+    }
+
+    if(array_key_exists($surveyid,$supp_surveys)){
+      $index  = array_search($surveyid, $supp_surveys_keys);
+      $survey = $supp_surveys[$surveyid];
+      $success_msg  = $lang["FITNESS_BADGE"]. ": <span class='fitness " . SurveysConfig::$fitness[$index] . "'></span>" ;
+      if(isset($all_survey_keys[$index+1])){
+        $success_msg .= $lang["GET_ALL_BADGES"]. "<br> ";
+        addSessionMessage( $success_msg , "success");
+      }
+    }
+  }
+}
+
 $pageTitle = "Well v2 Survey";
 $bodyClass = "survey";
 include_once("models/inc/gl_head.php");
@@ -97,7 +382,7 @@ include_once("models/inc/gl_foot.php");
 <?php
   //TODO : MOVE THE FRUIT GIVING TO SURVEY PAGES
   $index      = array_search($current_surveyid, $all_survey_keys);
-  $nextsurvey = $project == "Supp2" ? null : (isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null);
+  $nextsurvey = "Supp2" ? null : (isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null);
 
   echo "$('#customform').attr('data-next','". $nextsurvey ."');\n\n";
 

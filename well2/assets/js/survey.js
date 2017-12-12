@@ -232,20 +232,20 @@ $(document).ready(function(){
   });
 
   // this is core functionality to generate the numbers
-  $.fn.roundSlider.prototype.defaults.create = function () {
-    var o = this.options;
-    for (var i = o.min; i <= o.max; i += o.step) {
-      var allValues = ["0 Best", "", "", "","", "", "","", "", "", "", "Average", "", "", "","", "", "","", "", "", "21 Worst"], val = allValues[i];
-      var angle = this._valueToAngle(i);
-      var numberTag = this._addSeperator(angle, "rs-custom");
-      var number = numberTag.children();
-      number.clone().css({ "width": o.width + this._border(), "margin-top": this._border(true) / -2 }).appendTo(numberTag);
-      number.removeClass().addClass("rs-number").html(val).rsRotate(-angle);
+  // $.fn.roundSlider.prototype.defaults.create = function () {
+  //   var o = this.options;
+  //   for (var i = o.min; i <= o.max; i += o.step) {
+  //     var allValues = ["0 Best", "", "", "","", "", "","", "", "", "", "Average", "", "", "","", "", "","", "", "", "21 Worst"], val = allValues[i];
+  //     var angle = this._valueToAngle(i);
+  //     var numberTag = this._addSeperator(angle, "rs-custom");
+  //     var number = numberTag.children();
+  //     number.clone().css({ "width": o.width + this._border(), "margin-top": this._border(true) / -2 }).appendTo(numberTag);
+  //     number.removeClass().addClass("rs-number").html(val).rsRotate(-angle);
 
-      if (i == o.min) number.css("margin-left", "-35px");
-      else if (i == o.max) number.css("margin-left", "-25px");
-    }
-  }
+  //     if (i == o.min) number.css("margin-left", "-35px");
+  //     else if (i == o.max) number.css("margin-left", "-25px");
+  //   }
+  // }
 
   //for fFS
   $("#psqi_slider").ready(function(){

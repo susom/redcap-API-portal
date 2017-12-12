@@ -1,6 +1,6 @@
 <aside>
     <h3>MyWELL</h3>
-    <ul>
+    <ul class="nav">
         <li class="surveys">
             <a href="#">Surveys</a>
             <ol>
@@ -21,9 +21,10 @@
                   $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
                   $completeclass  = ($surveycomplete ? "completed":"");
                   $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
-                  $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :null);
+                  $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :"<b class='badge bg-danger pull-right'>new!</b>");
+
                   if(!$surveycomplete && is_null($new)){
-                    $new = $index;
+                    // $new = $index;
                     $next_survey =  $surveylink;
                   }
 
@@ -40,8 +41,10 @@
                 }
                 echo implode("",$core_surveys);
   
-                $index  = 0;
-                $fruits = array("strawberry","grapes","apple","orange","cherry","blueberry","bananas","longans","pineapple");
+                $fruits     = SurveysConfig::$fruits;
+                $fitness    = SurveysConfig::$fitness;
+                $index      = -1;
+                
                 foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                     $index++;
                     if($supp_instrument["survey_complete"]){
@@ -53,18 +56,18 @@
                     $title_trans  = $projnotes["translations"];
                     $tooltips     = $projnotes["tooltips"];
                     $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
-                    $fruitcss     = $fruits[$index];
+                    $iconcss      = $fitness[$index];
                     
                     $titletext    = $core_surveys_complete ? $tooltips[$supp_instrument_id] : $lang["COMPLETE_CORE_FIRST"];
                     $surveylink   = $core_surveys_complete ? "survey.php?sid=". $supp_instrument_id. "&project=" . $supp_instrument["project"] : "#";
+                    $na           = $core_surveys_complete ? "" : "na";
                     $icon_update  = " icon_update";
                     $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
-                
-                    $news[]       = "<li class='list-group-item $icon_update $fruitcss  ".$surveyon[$supp_instrument_id]."'>
+                    $suppsurvs[]  = "<li class='fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
                                         ".$survey_alinks[$supp_instrument_id]." 
                                     </li>";
                   }
-                echo implode("",$news);
+                echo implode("",$suppsurvs);
                 ?>  
             </ol>
         </li>

@@ -250,12 +250,13 @@ class SurveysConfig {
 	);
 
 	STATIC $fitness 			= array( 
-		  "running"
+		  "basketball"
 		, "biking"
 		, "weightlifting"
 		, "cardio"
 		, "tbone"
 		, "carrot"
+		, 
 	);
 
 	STATIC $core_surveys 		= array(

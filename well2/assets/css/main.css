@@ -310,8 +310,9 @@ nav a:visited {
 }
 .main-container figure img {
     float:left; 
-    max-width:150px;
-    max-height:150px;
+    /*3:4 ratio?*/
+    max-width:126px;
+    max-height:168px;
 
 }
 .main-container figcaption {
@@ -424,8 +425,37 @@ nav a:visited {
     background-position:0 -188px;
 }
 
+.main aside li li.fitness:before{
+    position:absolute;
+    left:5px; 
+    top:50%;
+    transform: translateY(-50%);
+    content:"";
+    background:url(../img/ico_fitness_sprites.png) 2px 1px no-repeat;
+    background-size:180%;
+    width:20px;
+    height:20px;
+}
+.main aside li li.fitness.biking:before{
+    background-position: 2px -19px;
+}
+.main aside li li.fitness.weightlifting:before{
+    background-position:2px -35px;
+}
+.main aside li li.fitness.cardio:before{
+    background-position:2px -51px;
+}
+.main aside li li.fitness.tbone:before{
+    background-position:1px -71px;
+}
+.main aside li li.fitness.carrot:before{
+    background-position:2px -90px;
+}
 
-
+/*THIS IS FOR NOT AVAIALBLE*/
+.main aside li li.fitness.na:before {
+    background-position-x:-18px !important;
+}
 
 .footer-container footer {
     color: #000;
@@ -817,6 +847,38 @@ footer .li a{
     display: none;
 }
 
+
+.under_construction {
+    position: relative;
+}
+
+.under_construction:after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    top: -20px;
+    background: url(../img/under_construction.gif) no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+}
+
+.badge.bg-danger.pull-right {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+    background-color: none;
+    position: absolute;
+    background: url(../img/ico_left_arrow.gif) no-repeat;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    top: 10px;
+    right: 10px;
+    text-indent: -5000px;
+}
+
+
 .surveyFrame {
     position: relative;
     overflow: hidden;
@@ -856,6 +918,19 @@ footer .li a{
     padding: 20px 0 0;
 }
 
+.customform .section {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 10px;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    opacity: 0;
+    transition: .8s opacity, .2s left ease-in-out;
+}
 
 .customform .section .inputwrap:last-child:after {
     position: relative;

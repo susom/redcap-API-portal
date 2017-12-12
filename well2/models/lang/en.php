@@ -151,7 +151,7 @@
 		,"DONE_CORE" 								=> "All done with core surveys!"
 		,"TAKE_BLOCK_DIET" 							=> "Take the Block diet assessment, free to WELL participants.  This survey typically takes 30-50 minutes to complete and provides instant feedback."
 		,"HOW_WELL_EAT" 							=> "How well do you eat?"
-		,"COMPLETE_CORE_FIRST" 						=> "Please complete Core Survyes first"
+		,"COMPLETE_CORE_FIRST" 						=> "Please complete core surveys first"
 		,"PLEASE_COMPLETE" 							=> "Please complete "
 		,"WELCOME_TO_WELL" 							=> "<b>Wellcome</b> to WELL for Life! <u>Click here</u> to start your adventure here…</a>"
 		,"WELCOME_BACK_TO" 							=> "<b>Wellcome Back</b> to WELL for Life!</a>"

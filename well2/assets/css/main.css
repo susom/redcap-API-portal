@@ -954,8 +954,8 @@ footer .li a{
 }
 
 .customform .section h2 {
-    font-size: 90%;
-    line-height: 130%;
+    font-size: 100%;
+    line-height: 120%;
     /*position:fixed;*/
     z-index: 3;
     width: auto;

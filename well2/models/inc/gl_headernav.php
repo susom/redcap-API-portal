@@ -10,7 +10,7 @@
         <h1 class="title">WELL for Life</h1>
         <a id="account_drop" href="#"><span></span> <?php  echo $loggedInUser->firstname . " " . $loggedInUser->lastname?> <b class="caret"></b></a>
         <ul id="drop_menu">
-            <li><a href="dashboard/profile.php">Profile</a></li>
+            <li><a href="profile.php">Profile</a></li>
             <li><a href="index.php?logout=1">Logout</a></li>
         </ul>
         <a href="#" class="hamburger"></a>

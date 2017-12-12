@@ -792,6 +792,7 @@ footer .li a{
     margin: 0 10px;
     color: #C6303A;
     font-size: 180%;
+    width: 450px;
 }
 #survey_progress .progress-bar{
     font-size:14px; 
@@ -1210,3 +1211,78 @@ footer .li a{
     font-size:140%;
     line-height:140%;
 }
+
+
+
+.alert-info {
+    background: #f0f8ff;
+}
+
+.alert-danger {
+    /*background:#f0f8ff;*/
+}
+
+.alert-success {
+    /*background:#f0f8ff;*/
+}
+
+.alert {
+    position: fixed;
+    /*transition: .9s top ease;*/
+    z-index: 1100;
+    top: 35%;
+    left: 50%;
+    width: 40%;
+    margin-left: -20%;
+    box-shadow: 0 0 3px #000;
+    transform: translateY(-50%);
+}
+
+.alert + section {
+    position: relative;
+}
+
+.alert + section:before {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    opacity: .4;
+    background: #333;
+}
+
+.alert a {
+    text-decoration: none;
+}
+
+.alert ul {
+    margin: 20px 40px 40px;
+    padding: 0 0 20px;
+}
+
+.alert.multi-message ul {
+    list-style: disc;
+}
+
+.alert.multi-message li {
+    display: block;
+}
+
+.alert.text-center ul {
+    margin: 30px 40px 50px;
+    list-style: none;
+}
+
+.alert .btn {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    width: 80px;
+    margin-left: -40px;
+}
+

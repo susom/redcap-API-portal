@@ -281,7 +281,7 @@ if(!empty($sid)){
 }
 
 // IF SUPP SURVEY GET PROJECT TOO
-$pid = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
+$pid = $project = isset($_REQUEST["project"]) ? $_REQUEST["project"] : "";
 if(!empty($pid)){
     if(array_key_exists($pid, SurveysConfig::$projects)){
         $supp_project = $supp_surveys[$pid]->getSingleInstrument($sid);
@@ -323,14 +323,15 @@ if(array_key_exists($sid, $surveys)){
 //NEEDS TO GO BELOW SUPPLEMENTALL PROJECTS WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //ONLY SHOW THESE POPUPS FOR LONG ANNIVERSARIES
-  if(empty(strpos($user_event_arm,"short")) && strpos($user_event_arm,"short") !== 0){
+  if(!strpos($user_event_arm,"short") && strpos($user_event_arm,"short") !== 0){
+
     //ONLY LONG ANNIVERSARIES GET POP UP TREATMENT
     //IF NO URL PASSED IN THEN REDIRECT BACK
     $surveyid = $_GET["survey_complete"];
     
     if(array_key_exists($surveyid,$surveys)){
-      $index  = array_search($surveyid, $all_survey_keys);
-      $survey = $surveys[$surveyid];
+      $index        = array_search($surveyid, $all_survey_keys);
+      $survey       = $surveys[$surveyid];
       $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
@@ -382,7 +383,7 @@ include_once("models/inc/gl_foot.php");
 <?php
   //TODO : MOVE THE FRUIT GIVING TO SURVEY PAGES
   $index      = array_search($current_surveyid, $all_survey_keys);
-  $nextsurvey = "Supp2" ? null : (isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null);
+  $nextsurvey = $project == "Supp2" ? null : (isset($all_survey_keys[$index+1]) ? $all_survey_keys[$index+1] : null);
 
   echo "$('#customform').attr('data-next','". $nextsurvey ."');\n\n";
 

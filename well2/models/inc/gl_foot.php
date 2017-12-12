@@ -31,4 +31,17 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+<script>
+$(document).on('click', function(event) {
+  if ($(event.target).closest('.alert').length) {
+    $(".alert").fadeOut("fast",function(){
+      $(".alert").remove();
+    });
+  }
+});
+
+$("a.disabled").click(function(){
+  return false;
+});
+</script>
 <?php

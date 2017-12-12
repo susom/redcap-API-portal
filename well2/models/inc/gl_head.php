@@ -16,6 +16,9 @@
 
 </head>
 <body class="<?php echo $bodyClass ?>">
+<?php
+  print getSessionMessages();
+?>
 <div id="outter_rim">
 <div id="inner_rim">
-	<?php  include("gl_headernav.php"); ?>
+	<?php include("gl_headernav.php"); ?>

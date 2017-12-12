@@ -1,5 +1,6 @@
 models/my_settings.php
 .tmp
+well2/models/my_settings.php
 .DS_Store
 .svn
 test.php

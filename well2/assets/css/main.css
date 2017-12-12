@@ -392,38 +392,65 @@ nav a:visited {
     top:50%;
     transform: translateY(-50%);
     content:"";
-    background:url(../img/sprites_fruit.png) 1px 0 no-repeat;
-    background-size:180%;
+    background:url(../img/sprites_fruits.png) 0px -73px no-repeat;
+    background-size:200%;
     width:20px;
     height:20px;
 }
-.main aside li li.strawberry:before{
-    background-position: 0 0;
-}
+
 .main aside li li.grapes:before{
-    background-position:0 -25px;
+    background-position:0 0;
 }
-.main aside li li.apple:before{
-    background-position:0 -47px;
+.main aside li li.watermelon:before{
+    background-position:0 -110px;
 }
-.main aside li li.orange:before{
-    background-position:1px -71px;
-}
-.main aside li li.cherry:before{
-    background-position:0 -95px;
-}
-.main aside li li.blueberry:before{
-    background-position:0 -118px;
+.main aside li li.peach:before{
+    background-position:0 -54px;
 }
 .main aside li li.bananas:before{
-    background-position:2px -141px;
+    background-position:0 -220px;
 }
-.main aside li li.longans:before{
-    background-position:1px -164px;
+.main aside li li.raspberry:before{
+    background-position:0 -166px;
 }
-.main aside li li.pineapple:before{
-    background-position:0 -188px;
+.main aside li li.greenapple:before{
+    background-position:0 -184px;
 }
+.main aside li li.pear:before{
+    background-position:0 -240px;
+}
+.main aside li li.cherries:before{
+    background-position:0 -314px;
+}
+.main aside li li.plum:before{
+    background-position:0 -203px;
+}
+.main aside li li.pomegranate:before{
+    background-position:0 -19px;
+}
+.main aside li li.mango:before{
+    background-position:0 -128px;
+}
+.main aside li li.redapple:before{
+    background-position:0 -278px;
+}
+.main aside li li.ranier:before{
+    background-position:0 -257px;
+}
+.main aside li li.orange:before{
+    background-position:0 -92px;
+}
+.main aside li li.apricot:before{
+    background-position:0 -36px;
+}
+.main aside li li.lime:before{
+    background-position:0 -147px;
+}
+.main aside li li.lemon:before{
+    background-position:0 -295px;
+}
+
+
 
 .main aside li li.fitness:before{
     position:absolute;

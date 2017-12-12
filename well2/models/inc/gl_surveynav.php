@@ -8,7 +8,12 @@
                 $new = null;
                 $core_surveys           = array();
                 $supp_surveys           = array();
-
+                $fruits                 = SurveysConfig::$fruits;
+                $iconcss                = "";
+                if(isset($sid)){
+                  $index   = array_search($sid, $all_survey_keys);
+                  $iconcss = $fruits[$index];
+                }
                 foreach($surveys as $surveyid => $survey){
                   if($core_surveys_complete){
                     break;
@@ -29,7 +34,7 @@
                   }
 
                   if(in_array($surveyid, $available_instruments)){
-                    array_push($core_surveys, "<li class='".$surveyon[$surveyid]."'>
+                    array_push($core_surveys, "<li class='".$surveyon[$surveyid]."  $iconcss'>
                         <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
                           $newbadge                                                   
                           <span class='fruit $completeclass'></span>
@@ -41,10 +46,8 @@
                 }
                 echo implode("",$core_surveys);
   
-                $fruits     = SurveysConfig::$fruits;
                 $fitness    = SurveysConfig::$fitness;
                 $index      = -1;
-                
                 foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                     $index++;
                     if($supp_instrument["survey_complete"]){

@@ -335,7 +335,7 @@ if(isset($_GET["survey_complete"])){
       $success_msg  = $lang["YOUVE_BEEN_AWARDED"] . " : <span class='fruit " . $fruits[$index] . "'></span> " ;
       if(isset($all_survey_keys[$index+1])){
         $nextlink     = "survey.php?sid=". $all_survey_keys[$index+1];
-        $success_msg .= $lang["GET_WHOLE_BASKET"]."<br> <a class='takenext' href='$nextlink'>".$lang["CONTINUE_SURVEY"]."</a>";
+        $success_msg .= $lang["GET_WHOLE_BASKET"];
         addSessionMessage( $success_msg , "success");
       }
     }

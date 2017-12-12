@@ -92,6 +92,7 @@ body {
 .splash-container blockquote{
     position:relative;
     margin:103px auto 5px; padding:0;
+    border:none;
 }
 .splash-container .wrapper:before{
     content:"";

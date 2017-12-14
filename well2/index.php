@@ -39,7 +39,11 @@ foreach($cats as $cat){
               $eventpic = '<img class="event_img" src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
             }
 
-            $order = intval($event["well_cms_displayord"]);
+            $order = intval($event["well_cms_displayord"]) - 1;
+            if($order == 0 && $core_surveys_complete){
+                //first event is only for core survey incomplete people
+                continue;
+            }
             $cats[0][$order] = array(
                  "subject"  => $event["well_cms_subject"] 
                 ,"content"  => $event["well_cms_content"] 
@@ -47,6 +51,7 @@ foreach($cats as $cat){
                 ,"link"     => $event["well_cms_event_link"] 
             );
         }
+        ksort($cats[0]);
     }else{
         $recordid   = $events[0]["id"];
         $eventpic   = "";
@@ -64,6 +69,58 @@ foreach($cats as $cat){
             ,"pic"      => $eventpic 
         );
     }
+}
+
+//NEEDS TO GO BELOW SHORTSCALE WORK FOR NOW
+if(isset($_GET["survey_complete"])){
+  //IF NO URL PASSED IN THEN REDIRECT BACK
+  $surveyid = $_GET["survey_complete"];
+  if(array_key_exists($surveyid,$surveys)){
+    $index  = array_search($surveyid, $all_survey_keys);
+    $survey = $surveys[$surveyid];
+
+    if(!isset($all_survey_keys[$index+1])){ 
+      if(strpos($user_event_arm,"enrollment") > -1){
+
+        // require_once('../FPDI-2.0.1/fpdf181/fpdf.php');
+        // require_once('../FPDI-2.0.1/src/autoload.php');
+        
+        // // initiate FPDI
+        // $pdf = new Fpdi();
+        // // add a page
+        // $pdf->AddPage();
+        // // set the source file
+        // $pdf->setSourceFile('cert_of_completion.pdf');
+        // // import page 1
+        // $tplIdx = $pdf->importPage(1);
+        // // // use the imported page and place it at position 10,10 with a width of 100 mm
+        // $pdf->useTemplate($tplIdx, 10, 10, 100);
+
+        // // // now write some text above the imported page
+        // $pdf->SetFont('Helvetica');
+        // $pdf->SetTextColor(255, 0, 0);
+        // $pdf->SetXY(30, 30);
+        // $pdf->Write(0, 'This is just a simple text');
+
+        // $pdf->Output();
+
+
+        $success_msg    = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+      }else{
+        $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
+        $arm_year       = $arm_year + count($short_scores) - 1;
+        $for_popup      = array_slice($short_scores, -1);
+
+        //THIS SHOULD BE THE MOST RECENT ONE
+        $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
+        $scale          = 2*array_sum($for_popup[$user_event_arm])+100;
+        $extracss       = "width: ".$scale."px; height: ".$scale."px";
+        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
+      }
+
+      addSessionMessage( $success_msg , "success");
+    }
+  }
 }
 
 $pageTitle = "Well v2 Home Page";

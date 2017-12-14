@@ -297,7 +297,7 @@ if(!empty($pid)){
     foreach($surveys as $surveyid => $survey){
       $surveycomplete = $survey["survey_complete"];
       if(!$surveycomplete){
-        $sid = $surveyid;
+        $sid = $current_surveyid = $surveyid;
         break;
       }
     }

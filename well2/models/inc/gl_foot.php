@@ -6,7 +6,7 @@
 <!-- Bootstrap -->
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/jquery.maskedinput.min.js"></script>
-<!-- <script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+ <script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="assets/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
 <script src="assets/js/charts/sparkline/jquery.sparkline.min.js"></script>
 <script src="assets/js/charts/flot/jquery.flot.min.js"></script>
@@ -26,8 +26,7 @@
 <script src="assets/js/weather.js"></script>
 <script src="assets/js/roundslider.js"></script>
 <script src="assets/js/verify.notify.min.js"></script>
-<script src="assets/js/underscore-min.js"></script>-->
-
+<script src="assets/js/underscore-min.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

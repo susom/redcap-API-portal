@@ -1,7 +1,7 @@
 <?php 
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
-include("dashboard/inc/classes/Survey.php");
+include("models/class.Survey.php");
 
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];

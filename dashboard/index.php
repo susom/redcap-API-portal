@@ -343,7 +343,12 @@ if(isset($_GET["survey_complete"])){
 
     if(!isset($all_survey_keys[$index+1])){ 
       if(strpos($user_event_arm,"enrollment") > -1){
-        $success_msg = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+        //TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
+        require_once('../PDF/fpdf181/fpdf.php');
+        require_once('../PDF/FPDI-2.0.1/src/autoload.php');
+        include_once("../PDF/generatePDFcertificate.php");
+
+        $success_msg = $lang["CONGRATS_FRUITS"] . "<a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
       }else{
         $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
         $arm_year       = $arm_year + count($short_scores) - 1;

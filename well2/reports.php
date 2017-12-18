@@ -2,99 +2,274 @@
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
 
-
-$nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
-$navon  = array("home" => "", "reports" => "", "game" => "");
-$navon[$nav] = "on";
+$navon          = array("home" => "", "reports" => "on", "game" => "");
+//IF CORE SURVEY GET THE SURVEY ID
+$sid            = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
+$surveyon       = array();
+$surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
+foreach($surveynav as $surveyitem){
+    $surveyon[$surveyitem] = "";
+}
+if(!empty($sid)){
+    if(!array_key_exists($sid,$surveyon)){
+        $surveyon["wellbeing_questions"] = "on";
+    }else{
+        $surveyon[$sid] = "on";   
+    }
+}
+$core_gender    = $surveys["a_little_bit_about_you"]["raw"][1]["user_answer"];
 
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
-$extra_params   = array();
-$loc            = !isset($_REQUEST["loc"])  ? 1 : 2; //1 US , 2 Taiwan
-$cats           = array(0,1);
-foreach($cats as $cat){
-    $filterlogic                    = array();
-    $filterlogic[]                  = '[well_cms_loc] = "'.$loc.'"';
-    $filterlogic[]                  = '[well_cms_catagory] = "'.$cat.'"';
-    $filterlogic[]                  = '[well_cms_active] = "1"';
-    $extra_params["filterLogic"]    = implode(" and ", $filterlogic);
-    $events                         = RC::callApi($extra_params, true, $API_URL, $API_TOKEN); 
-    
-    if($cat == 0){
-        //is events
-        $cats[0] = array();
-        foreach($events as $event){
-            $recordid   = $event["id"];
-            $eventpic   = "";
-            $file_curl  = RC::callFileApi($recordid, "well_cms_pic", null, $API_URL,$API_TOKEN);
-            if(strpos($file_curl["headers"]["content-type"][0],"image") > -1){
-              $split    = explode("; ",$file_curl["headers"]["content-type"][0]);
-              $mime     = $split[0];
-              $split2   = explode('"',$split[1]);
-              $imgname  = $split2[1];
-              $eventpic = '<img class="event_img" src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
-            }
 
-            $order = intval($event["well_cms_displayord"]);
-            $cats[0][$order] = array(
-                 "subject"  => $event["well_cms_subject"] 
-                ,"content"  => $event["well_cms_content"] 
-                ,"pic"      => $eventpic
-                ,"link"     => $event["well_cms_event_link"] 
-            );
-        }
-    }else{
-        $recordid   = $events[0]["id"];
-        $eventpic   = "";
-        $file_curl  = RC::callFileApi($recordid, "well_cms_pic", null, $API_URL,$API_TOKEN);
-        if(strpos($file_curl["headers"]["content-type"][0],"image") > -1){
-          $split    = explode("; ",$file_curl["headers"]["content-type"][0]);
-          $mime     = $split[0];
-          $split2   = explode('"',$split[1]);
-          $imgname  = $split2[1];
-          $eventpic = "data:".$mime.";base64,". base64_encode($file_curl["file_body"]);
-        }
-        $cats[1] = array(
-             "subject"  => $events[0]["well_cms_subject"] 
-            ,"content"  => $events[0]["well_cms_content"] 
-            ,"pic"      => $eventpic 
-        );
-    }
-}
-
-$pageTitle = "Well v2 Reports";
+$pageTitle = "Well v2 Assessments";
 $bodyClass = "reports";
 include_once("models/inc/gl_head.php");
 ?>
     <div class="main-container">
         <div class="main wrapper clearfix">
             <article>
-                <h3>How can I enhance my wellbeing?</h3>
-                <?php  
-                if(isset($cats[0])){
-                    foreach($cats[0] as $event){
-                ?>
-                    <section>
-                        <figure>
-                            <?php echo $event["pic"] ?>
-                            <figcaption>
-                                <h2><?php echo $event["subject"] ?></h2>
-                                <p><?php echo $event["content"] ?></p>
-                                <a href="<?php echo $event["link"] ?>">Read More</a>
-                            </figcaption>
-                        </figure>
-                    </section>
+                <div id="results" class="assessments">
                 <?php 
-                    }
+                if(!empty($sid)){
+                  echo "<div id='hidesurvey'>";
+                  //PRINT OUT THE HTML FOR THIS SURVEY
+                  echo "</div>";
+                }else{
+                    echo "<p><i>".lang("NO_ASSESSMENTS")."</i></p>";
                 }
                 ?>
+                </div>
             </article>
+            <aside>
+                <h3>My Asessments</h3>
+                <ul class="nav">
+                    <li class="surveys">
+                        <h4>Completed Surveys</h4>
+                        <ol>
+                            <?php
+                            $suppsurvs      = array();
+                            $fitness        = SurveysConfig::$fitness;
+                            $index          = -1;
+                            foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
+                                $index++;
+                                if(!$supp_instrument["survey_complete"]){
+                                  continue;
+                                }
 
-            <?php 
-            include_once("models/inc/gl_surveynav.php");
-            ?>
+                                //if bucket is A make sure that three other ones are complete before showing.
+                                $projnotes    = json_decode($supp_instrument["project_notes"],1);
+                                $title_trans  = $projnotes["translations"];
+                                $tooltips     = $projnotes["tooltips"];
+                                $surveyname   = isset($title_trans[$_SESSION["use_lang"]][$supp_instrument_id]) ?  $title_trans[$_SESSION["use_lang"]][$supp_instrument_id] : $supp_instrument["label"];
+                                $iconcss      = $fitness[$index];
+                                
+                                $titletext    = $core_surveys_complete ? $tooltips[$supp_instrument_id] : $lang["COMPLETE_CORE_FIRST"];
+                                $surveylink   = $core_surveys_complete ? "?sid=". $supp_instrument_id : "#";
+                                $na           = $core_surveys_complete ? "" : "na";
+                                $icon_update  = " icon_update";
+                                $survey_alinks[$supp_instrument_id] = "<a class='assessments' href='$surveylink' title='$titletext'>$surveyname</a>";
+                                $suppsurvs[]  = "<li class='fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
+                                                    ".$survey_alinks[$supp_instrument_id]." 
+                                                </li>";
+                              }
+                            if(count($suppsurvs)){
+                                echo implode("",$suppsurvs);
+                            }else{
+                                echo "<i>None Available</i>";
+                            }
+                            ?>  
+                        </ol>
+                    </li>
+                </ul>
+            </aside>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
 <?php 
 include_once("models/inc/gl_foot.php");
 ?>
+<script src="assets/js/custom_assessments.js"></script>
+<script>
+<?php 
+echo "var uselang   = '" . $_SESSION["use_lang"] . "';\n";
+echo "var poptitle  = '".lang("YOUR_ASSESSMENT")."';\n";
+?>
+function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
+  var winwidth        = Math.round(.85 * $( window ).width() );
+  var winheight       = Math.round(.85 * $( window ).height() );
+  var dualScreenLeft  = window.screenLeft != undefined ? window.screenLeft : screen.left;
+  var dualScreenTop   = window.screenTop != undefined ? window.screenTop : screen.top;
+  var width           = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+  var height          = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+  var left            = ((width / 2) - (winwidth / 2)) + dualScreenLeft;
+  var top             = ((height / 2) - (winheight / 2)) + dualScreenTop;
+  
+  var newwin    = window.open("",'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight + ', top=' + top + ', left=' + left);
+  newwin.document.write('<html><head>');
+  newwin.document.write('<title>'+title+'</title>');
+  for(var i in styles){
+    var linkhref = styles[i].href;
+    if(linkhref){
+      newwin.document.write('<link rel="stylesheet" type="text/css" href="'+linkhref+'">');
+    }
+  }
+  newwin.document.write('<style>#content { margin:20px; }</style>');
+  newwin.document.write('</head><body>');
+  newwin.document.write('<div id="content" style="color:#222">');
+  newwin.document.write('<h2 style="margin:0 0 40px; padding-bottom:10px; color:#333; border-bottom:1px solid #999">'+poptitle+' : "'+title+'"</h2>');
+  newwin.document.write(insertHTML);
+  newwin.document.write('</div>');
+  for(var i in scrips){
+    var scriptsrc = scrips[i].src;
+    var newscript = document.createElement('script');
+    newscript.src = scriptsrc;
+    if(scriptsrc){
+      newwin.document.body.appendChild(newscript);
+    }
+  }
+  newwin.document.write(bottom_scrips);
+  newwin.document.write('</body></html>');
+  return;
+}
+
+$(document).ready(function(){
+  $(".assessments a").click(function(){
+    var sid       = $(this).data("sid");
+    var udata     = $(this).data("completed");
+    var title     = $(this).text();
+
+    //get proper styles/ sripts and div containers for the pop up page
+    var sheets    = document.styleSheets;
+    var scrips    = document.scripts;
+    var bottom_scrips = "";
+
+    switch(sid){
+      case "find_out_your_body_type_according_to_chinese_medic":
+        showTCMScoring(udata, function(resultData){
+          bottom_scrips += "<script>";
+          bottom_scrips += "setTimeout(function(){";
+          bottom_scrips += "$('.constitution dt').click(function(){";
+          bottom_scrips += "if($(this).next('dd').is(':visible')){";
+          bottom_scrips += "$(this).next('dd').slideUp();";
+          bottom_scrips += "}else{";
+          bottom_scrips += "$(this).next('dd').slideDown();";
+          bottom_scrips += "}";
+          bottom_scrips += "return false;";
+          bottom_scrips += "});";
+          bottom_scrips += "},1500);";
+          bottom_scrips += "<\/script>";
+
+          centeredNewWindow(title,resultData,sheets,scrips,bottom_scrips);
+        });
+      break;
+
+      case "how_well_do_you_sleep":
+        showSleepScoring(udata,function(resultData){
+          bottom_scrips += "<script>";
+          bottom_scrips += "setTimeout(function(){";
+          bottom_scrips += "  $('#psqi_slider').roundSlider({";
+          bottom_scrips += "    sliderType: 'min-range',";
+          bottom_scrips += "    handleShape: 'square',";
+          bottom_scrips += "    circleShape: 'half-top',";
+          bottom_scrips += "    showTooltip: false,";
+          bottom_scrips += "    handleSize: 0,";
+          bottom_scrips += "    radius: 120,";
+          bottom_scrips += "    width: 14,";
+          bottom_scrips += "    min: 0,";
+          bottom_scrips += "    max: 21,";
+          bottom_scrips += "    value: 10";
+          bottom_scrips += "  });";
+          bottom_scrips += "},2000);";
+          bottom_scrips += "<\/script>";
+
+          centeredNewWindow(title,resultData,sheets,scrips,bottom_scrips);
+        });
+      break;
+
+      case "how_fit_are_you":
+        showMETScoring(udata,function(resultData){
+          bottom_scrips += "<style>";
+          bottom_scrips += "#met_results {opacity:1}";
+          bottom_scrips += "<\/style>";
+
+          bottom_scrips += "<script>";
+          bottom_scrips += "$('a.moreinfo').click(function(){";
+          bottom_scrips += "  var content   = $(this).parent().next();";
+          bottom_scrips += "  content.slideDown('medium');";
+          bottom_scrips += "});";
+          bottom_scrips += "$('a.closeparent').click(function(){";
+          bottom_scrips += "  $(this).parent().slideUp('fast');";
+          bottom_scrips += "});";
+          bottom_scrips += "<\/script>";
+           
+          centeredNewWindow(title,resultData,sheets,scrips,bottom_scrips);
+        });
+      break;
+
+      case "how_resilient_are_you_to_stress":
+        udata["core_gender"] = '<?php echo $core_gender ?>';
+        showGRITScoring(udata,function(resultData){
+          bottom_scrips += "<script>";
+          bottom_scrips += "setTimeout(function(){";
+          bottom_scrips += "var _this = $('#grit_results');";
+          bottom_scrips += "customGRIT_BS(_this);";
+          bottom_scrips += "},1500);";
+          bottom_scrips += "<\/script>";
+          centeredNewWindow(title,resultData,sheets,scrips,bottom_scrips);
+        });
+      break;
+
+      case "how_physically_mobile_are_you":
+        showMATScoring(udata,function(resultData){
+          var mat_score_desc = {
+             40  : '<?php echo lang("MAT_SCORE_40") ?>'
+            ,50  : '<?php echo lang("MAT_SCORE_50") ?>'
+            ,60  : '<?php echo lang("MAT_SCORE_60") ?>'
+            ,70  : '<?php echo lang("MAT_SCORE_70") ?>'
+          };
+
+          var matscore  = resultData.value;
+          if(matscore < 40){
+              var picperc = 7;
+              var desc = mat_score_desc[40];
+          }else if(matscore < 50){
+              var picperc = 5;
+              var desc = mat_score_desc[50];
+          }else if(matscore < 60){
+              var picperc = 3;
+              var desc = mat_score_desc[60];
+          }else{
+              var picperc = 0;
+              var desc = mat_score_desc[70];
+          }
+
+          var makeHTML   = "<div id='mat_results'>";
+          makeHTML      += "  <div id='matscore'></div>";
+          makeHTML      += "  <div id='mat_pic'>";
+          makeHTML      += "    <ul>";
+          for(var i = 0;i < 10; i++){
+            if(i < picperc){
+              makeHTML      += "      <li class='dead'></li>";
+            }else{
+              makeHTML      += "      <li></li>";
+            }
+          }
+          makeHTML      += "    </ul>";
+          makeHTML      += "  </div>";
+          makeHTML      += "  <div id='mat_text'>"+desc+"</div>";
+          makeHTML      += "</div>";
+
+          bottom_scrips += "<script>";
+          bottom_scrips += "setTimeout(function(){";
+          bottom_scrips += "var _this = $('#mat_results');";
+          bottom_scrips += "customMAT_BS(_this);";
+          bottom_scrips += "},1500);";
+          bottom_scrips += "<\/script>";
+          centeredNewWindow(title,makeHTML,sheets,scrips,bottom_scrips);
+        });
+      break;
+    }
+    return false;
+  });
+});
+</script>

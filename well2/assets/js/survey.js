@@ -321,7 +321,7 @@ function checkRequired(){
         req_missing = true;
 
         $("#customform section.active").addClass("annoying_message")
-        var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left some fields empty.  If this was intentional please click Submit/Next again or go back and provide the missing information.<li></ul>");
+        var reqmsg  = $("<div>").addClass("required_message alert alert-danger").html("<ul><li>You have left some fields empty.  If this was intentional please click Submit/Next again or go back and provide the missing information.</li></ul>");
         reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
         $("body").append(reqmsg);
         return;
@@ -406,6 +406,17 @@ function getIPAQScores(){
   var ipaq_job_walk_day           = parseInt($("#ipaq_job_walk_day :selected").val());
   var ipaq_job_walk_day_hr        = parseInt($("#ipaq_job_walk_day_hr :selected").val());
   var ipaq_job_walk_day_min       = parseInt($("#ipaq_job_walk_day_min :selected").val());
+
+  console.log($("#ipaq_job_vigorous_day :selected").val());
+  console.log(ipaq_job_vigorous_day   
+,ipaq_job_vigorous_hr    
+,ipaq_job_vigorous_min   
+,ipaq_job_moderate_day   
+,ipaq_job_moderate_hr    
+,ipaq_job_moderate_min   
+,ipaq_job_walk_day       
+,ipaq_job_walk_day_hr    
+,ipaq_job_walk_day_min   );
 
   var walking_met                 = 3.3 * ipaq_job_walk_day * (ipaq_job_walk_day_hr*60 + ipaq_job_walk_day_min); //3.3 * walking minutes * walking days at work
   var moderate_met                = 4.0 * ipaq_job_moderate_day * (ipaq_job_moderate_hr*60 + ipaq_job_moderate_min); //4.0 * moderate-intensity activity minutes * moderate-intensity days at work
@@ -501,7 +512,7 @@ function getMETScore(gender,age,bmi,isSmoker,PA_level){
 
 function customMET_BS(_this){
   if(_this.find("#met_results").length > 0){
-    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>"+MET_DATA_DISCLAIM+"<li></ul>");
+    var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>"+MET_DATA_DISCLAIM+"</li></ul>");
     reqmsg.append($("<button>").addClass("btn btn-alert").text("Close"));
     reqmsg.click(function(){
       $("#met_results").addClass("disclaimed");
@@ -819,6 +830,7 @@ function showIPAQScoring(){
         $("#ipaq_results").remove();
       }
 
+      console.log(ipaqScores);
       var results   = $("<div>").attr("id","ipaq_results");
       var dl        = $("<dl>");
       // for(var i in ipaqScores){

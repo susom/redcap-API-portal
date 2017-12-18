@@ -82,30 +82,41 @@ if(isset($_GET["survey_complete"])){
     if(!isset($all_survey_keys[$index+1])){ 
       if(strpos($user_event_arm,"enrollment") > -1){
 
-        // require_once('../FPDI-2.0.1/fpdf181/fpdf.php');
-        // require_once('../FPDI-2.0.1/src/autoload.php');
-        
-        // // initiate FPDI
-        // $pdf = new Fpdi();
-        // // add a page
-        // $pdf->AddPage();
-        // // set the source file
-        // $pdf->setSourceFile('cert_of_completion.pdf');
-        // // import page 1
-        // $tplIdx = $pdf->importPage(1);
-        // // // use the imported page and place it at position 10,10 with a width of 100 mm
-        // $pdf->useTemplate($tplIdx, 10, 10, 100);
+//TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
+require_once('../PDF/fpdf181/fpdf.php');
+require_once('../PDF/FPDI-2.0.1/src/autoload.php');
 
-        // // // now write some text above the imported page
-        // $pdf->SetFont('Helvetica');
-        // $pdf->SetTextColor(255, 0, 0);
-        // $pdf->SetXY(30, 30);
-        // $pdf->Write(0, 'This is just a simple text');
+// initiate FPDI
+$pdf = new \setasign\Fpdi\Fpdi();
+// add a page
+$pdf->AddPage("L");
+// set the source file
+$pdf->setSourceFile('../cert_of_completion.pdf');
+// import page 1
+$tplIdx = $pdf->importPage(1);
+// use the imported page and place it at position 10,10 with a width of 100 mm
+$pdf->useTemplate($tplIdx, -20, -28, 341);
 
-        // $pdf->Output();
+// now write some text above the imported page
+$pdf->SetFont('Arial');
+$pdf->SetFontSize(24);
+$pdf->SetTextColor(0, 0, 0);
+$_w     = $pdf->GetPageWidth();
+$_h     = $pdf->GetPageHeight();
+$txt    = $loggedInUser->firstname . " " . $loggedInUser->lastname . " on " . date("l") . ", " . date("M d Y");
+$_wtext = $pdf->GetStringWidth($txt);
 
+$pdf->SetXY(($_w/2)-($_wtext/2), ($_h/2));
+$pdf->Write(0, $txt);
+$filename = array();
+$filename[] = $loggedInUser->id;
+$filename[] = $loggedInUser->firstname;
+$filename[] = $loggedInUser->lastname;
+$filename[] = date("Ymd");
+$filename ="../PDF/certs/".implode("_",$filename).".pdf";
+$pdf->Output($filename,'F');
 
-        $success_msg    = $lang["CONGRATS_FRUITS"] . " <iframe width='100%' height='315' src='https://www.youtube.com/embed/NBDj5WJpSLM' frameborder='0' allowfullscreen></iframe>";
+        $success_msg    = $lang["CONGRATS_FRUITS"] . "<a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
       }else{
         $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
         $arm_year       = $arm_year + count($short_scores) - 1;

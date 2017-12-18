@@ -56,6 +56,8 @@ if(isset($_REQUEST["IPAQ"])){
     $data[0]["redcap_event_name"] = $event_name;
   }
   $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $API_URL, $API_TOKEN);
+
+  exit;
 }
 
 //SPECIAL CUSTOM MAT SCORINGCAPTURE
@@ -379,6 +381,7 @@ include_once("models/inc/gl_head.php");
 <?php 
 include_once("models/inc/gl_foot.php");
 ?>
+<script src="assets/js/custom_assessments.js"></script>
 <script>
 <?php
   //TODO : MOVE THE FRUIT GIVING TO SURVEY PAGES
@@ -488,7 +491,7 @@ include_once("models/inc/gl_foot.php");
   var breaklength = 6000; //100000 = 10 minutes
   // var takeBreak = setTimeout(SessionExpireEvent, 300000);
   function SessionExpireEvent() {
-      var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>We recommend taking a periodic breaks from looking at the computer screen to reduce eye strain and fatigue.  <br>Click 'Close' to continue survey.<li></ul>");
+      var reqmsg  = $("<div>").addClass("required_message alert alert-info").html("<ul><li>We recommend taking a periodic breaks from looking at the computer screen to reduce eye strain and fatigue.  <br>Click 'Close' to continue survey.</li></ul>");
       reqmsg.append($("<button>").addClass("btn btn-alert takebreak").text("Close").click(function(){
         $("section.vbox").removeClass("blur");
         var takeBreak = setTimeout(SessionExpireEvent, 300000);

@@ -330,63 +330,63 @@ nav a:visited {
     margin:0 0 10px;
     padding:0 ;
 }
-.main aside {
+.main > aside {
     color: #000;
     padding: 0px 15px 10px;
 }
-.main-container .main aside h3{
+.main-container .main > aside h3{
     margin-left:0;
 }
-.main aside a{
+.main > aside a{
     color:#000;
     text-decoration:none;
     display:block;
     line-height:120%;
 }
-.main aside ul{
+.main > aside ul{
     list-style:none;
     margin:0;
     padding:0;
 
 }
-.main aside ul > li{
+.main > aside ul > li{
     position:relative;
     padding-left:0;
     min-height:55px;
     margin-bottom:5px;
 }
-.main aside ul > li:before{
+.main > aside ul > li:before{
 
 }
-.main aside ul > li.notifs:before{
+.main > aside ul > li.notifs:before{
     background-position:top left;
 }
-.main aside ul > li.rewards:before{
+.main > aside ul > li.rewards:before{
     background-position:bottom right;
 }
-.main aside ul > li.surveys:before{
+.main > aside ul > li.surveys:before{
     background-position:top right;
 }   
-.main aside ul > li >a {
+.main > aside ul > li >a {
     display:inline-block;
     font-size:140%;
 }
-.main aside li ol{
+.main > aside li ol{
     margin:0 0 0 0; padding:0;
     list-style:none;
 }
-.main aside li li{
+.main > aside li li{
     padding-left:30px;
     padding-top:8px;
     padding-bottom: 8px;
     position:relative;
 }
-.main aside li li:hover,
-.main aside li li.on{
+.main > aside li li:hover,
+.main > aside li li.on{
     background: #f2f2f2;
     border-radius: 5px;
 }
-.main aside li li:before{
+.main > aside li li:before{
     position:absolute;
     left:5px; 
     top:50%;
@@ -398,61 +398,61 @@ nav a:visited {
     height:20px;
 }
 
-.main aside li li.grapes:before{
+.main > aside li li.grapes:before{
     background-position:0 0;
 }
-.main aside li li.watermelon:before{
+.main > aside li li.watermelon:before{
     background-position:0 -110px;
 }
-.main aside li li.peach:before{
+.main > aside li li.peach:before{
     background-position:0 -54px;
 }
-.main aside li li.bananas:before{
+.main > aside li li.bananas:before{
     background-position:0 -220px;
 }
-.main aside li li.raspberry:before{
+.main > aside li li.raspberry:before{
     background-position:0 -166px;
 }
-.main aside li li.greenapple:before{
+.main > aside li li.greenapple:before{
     background-position:0 -184px;
 }
-.main aside li li.pear:before{
+.main > aside li li.pear:before{
     background-position:0 -240px;
 }
-.main aside li li.cherries:before{
+.main > aside li li.cherries:before{
     background-position:0 -314px;
 }
-.main aside li li.plum:before{
+.main > aside li li.plum:before{
     background-position:0 -203px;
 }
-.main aside li li.pomegranate:before{
+.main > aside li li.pomegranate:before{
     background-position:0 -19px;
 }
-.main aside li li.mango:before{
+.main > aside li li.mango:before{
     background-position:0 -128px;
 }
-.main aside li li.redapple:before{
+.main > aside li li.redapple:before{
     background-position:0 -278px;
 }
-.main aside li li.ranier:before{
+.main > aside li li.ranier:before{
     background-position:0 -257px;
 }
-.main aside li li.orange:before{
+.main > aside li li.orange:before{
     background-position:0 -92px;
 }
-.main aside li li.apricot:before{
+.main > aside li li.apricot:before{
     background-position:0 -36px;
 }
-.main aside li li.lime:before{
+.main > aside li li.lime:before{
     background-position:0 -147px;
 }
-.main aside li li.lemon:before{
+.main > aside li li.lemon:before{
     background-position:0 -295px;
 }
 
 
 
-.main aside li li.fitness:before{
+.main > aside li li.fitness:before{
     position:absolute;
     left:5px; 
     top:50%;
@@ -463,24 +463,24 @@ nav a:visited {
     width:20px;
     height:20px;
 }
-.main aside li li.fitness.biking:before{
+.main > aside li li.fitness.biking:before{
     background-position: 2px -19px;
 }
-.main aside li li.fitness.weightlifting:before{
+.main > aside li li.fitness.weightlifting:before{
     background-position:2px -35px;
 }
-.main aside li li.fitness.cardio:before{
+.main > aside li li.fitness.cardio:before{
     background-position:2px -51px;
 }
-.main aside li li.fitness.tbone:before{
+.main > aside li li.fitness.tbone:before{
     background-position:1px -71px;
 }
-.main aside li li.fitness.carrot:before{
+.main > aside li li.fitness.carrot:before{
     background-position:2px -90px;
 }
 
 /*THIS IS FOR NOT AVAIALBLE*/
-.main aside li li.fitness.na:before {
+.main > aside li li.fitness.na:before {
     background-position-x:-18px !important;
 }
 
@@ -602,7 +602,7 @@ footer .li a{
    ==================== */
 
     .header-container,
-    .main aside {
+    .main > aside {
       
     }
 
@@ -650,7 +650,7 @@ footer .li a{
         border-radius:10px;
     }
 
-    .main aside {
+    .main > aside {
         float: left;
         width: 27%;
         position:relative;
@@ -1633,7 +1633,9 @@ footer .li a{
     font-size: 14px;
 }
 
-
+.required_message li{
+    list-style:none;
+}
 
 #met_results {
     overflow: hidden;
@@ -1848,6 +1850,7 @@ a.closeparent {
 #psqi_slider{
     width: 100% !important;
     min-height: 150px !important;
+    margin-bottom:5px;
 }
 
 /*For handle customization*/
@@ -1971,10 +1974,10 @@ span.rs-number {
 }
 
 #mat_text {
-    font-size: 200%;
+    font-size: 140%;
     font-weight: bold;
     padding: 5px 20px 0px;
-    line-height: 140%;
+    line-height: 110%;
 }
 
 .video_frame {
@@ -1995,6 +1998,7 @@ span.rs-number {
     width:10%; 
     position:relative;
     vertical-align: bottom;
+    line-height: 120%;
 }
 #tcm_results td div {
     height:200px;
@@ -2089,9 +2093,9 @@ span.rs-number {
 
 
 #grit_results{
-    background:url(../img/photo_sisyphus_mountain.jpg) -197px -170px no-repeat;
-    width:960px;
-    height:650px;
+    background:url(../img/photo_sisyphus_mountain.jpg) -197px -140px no-repeat;
+    width:730px;
+    height:494px;
     margin:0 auto;
     background-size:120%;
     position:relative;
@@ -2116,9 +2120,9 @@ span.rs-number {
 #grit_results .grit_score_bubble {
     opacity:0;
     position:absolute;
-    width:200px; height:200px;
-    top:50px;
-    right:170px;
+    width:180px; height:180px;
+    top:20px;
+    right:80px;
     padding:25px 15px;
     background: gold;
     border-radius: 100px;
@@ -2138,50 +2142,50 @@ span.rs-number {
     opacity:1;
 }
 #grit_results li.one_hundred {
-    top:45px;
-    left:203px;
+    top:15px;
+    left:106px;
 }
 #grit_results li.ninety {
-    top:75px;
-    left:268px;
+    top:35px;
+    left:155px;
 }
 #grit_results li.eighty {
-    top:150px;
-    left:333px;
+    top:90px;
+    left:203px;
 }
 #grit_results li.seventy {
-    top:245px;
-    left:398px;
+    top:165px;
+    left:250px;
 }
 #grit_results li.sixty {
-    top:286px;
-    left:463px;
+    top:190px;
+    left:303px;
 }
 #grit_results li.fifty {
-    top:315px;
-    left:528px;
+    top:210px;
+    left:340px;
 }
 #grit_results li.forty {
-    top:345px;
-    left:593px;
+    top:238px;
+    left:400px;
 }
 #grit_results li.thirty {
-    top:373px;
-    left:658px;
+    top:262px;
+    left:450px;
 }
 #grit_results li.twenty {
-    top:407px;
-    left:723px;
+    top:293px;
+    left:500px;
 }
 #grit_results li.ten {
-    top:455px;
-    left:788px;
+    top:325px;
+    left:548px;
 }
 #grit_results .sisyphus {
     position:absolute;
-    width:200px;
-    height:200px;
-    z-index:1;
+    width:152px;
+    height:152px;
+    z-index:11;
     bottom:-50px; right:-55px; 
 }
 #grit_results.one_hundred .one_hundred{
@@ -2249,12 +2253,12 @@ span.rs-number {
 #grit_results .sisyphus:before{
     position:absolute;
     content:"";
-    width:100px; 
-    height:83px;
+    width:60px; 
+    height:63px;
     background:url(../img/figure_sisyphus.png) 0 0 no-repeat;
     background-size:contain;
-    top:70px;
-    left:70px;
+    top:90px;
+    left:50px;
     transform:rotate(30deg);
     z-index:2;
 }

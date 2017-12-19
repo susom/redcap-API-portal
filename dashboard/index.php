@@ -396,7 +396,7 @@ include("inc/gl_head.php");
                       <h3 class="m-b-xs text-black"><?php echo  $lang["DASHBOARD"] ?></h3>
                       <small><?php echo  $lang["WELCOME_BACK"] ?>, <span class="fullname"><?php echo $firstname . " " . $lastname; ?></span>, <i class="fa fa-map-marker fa-lg text-primary"></i> <?php echo ucfirst($city) ?></small>
                     </div>
-                    <div class="col-sm-8 col_ipad_port col_ipad_land">
+                    <div class="col-sm-9 col_ipad_port col_ipad_land">
                       <?php
                       //THIS STUFF IS FOR NEWS AND REMINDERS FURTHER DOWN PAGE
                       $news         = array();
@@ -506,7 +506,17 @@ include("inc/gl_head.php");
                             </a>
                           </li>";
                       }
-                      $fruit_row .= "<ul>\n";
+
+                      $cert_complete = "../PDF/certs/" . $loggedInUser->id . "_" . $loggedInUser->firstname . "_" . $loggedInUser->lastname . ".pdf";
+                      if($core_surveys_complete && file_exists($cert_complete)){
+                        $fruit_row      .= "<li class='nav'>
+                            <a target='blank' href='$cert_complete' class='certcomplete completed'>                                                        
+                              <span>Certificate of Completion</span>
+                            </a>
+                          </li>";
+                      }
+
+                      $fruit_row .= "</ul>\n";
                       if(!$user_short_scale){
                         echo $fruit_row;
                       }

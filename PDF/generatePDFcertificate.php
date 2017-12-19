@@ -26,6 +26,5 @@ $filename = array();
 $filename[] = $loggedInUser->id;
 $filename[] = $loggedInUser->firstname;
 $filename[] = $loggedInUser->lastname;
-$filename[] = date("Ymd");
 $filename ="../PDF/certs/".implode("_",$filename).".pdf";
 $pdf->Output($filename,'F');

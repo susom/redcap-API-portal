@@ -1141,6 +1141,8 @@ input[readonly] {
     line-height: 135%;
 }
 
+
+.nav .certcomplete,
 .nav .fruit,
 .nav .fitness {
     position: relative;
@@ -1148,6 +1150,21 @@ input[readonly] {
     width: 35px;
     height: 35px;
     vertical-align: middle;
+    text-indent:-5000%;
+}
+.nav .certcomplete{
+    width:50px;
+    height:35px;
+    margin-top: 15px;
+}
+.nav .certcomplete:before{
+    position: absolute;
+    left: 0;
+    width: 50px;
+    height: 35px;
+    content: '';
+    background: url(../../PDF/ico_cert_completion.png) 100% 0 no-repeat;
+    background-size: contain
 }
 
 .nav .fruit:before {

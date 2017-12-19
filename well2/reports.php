@@ -26,21 +26,10 @@ $pageTitle = "Well v2 Assessments";
 $bodyClass = "reports";
 include_once("models/inc/gl_head.php");
 ?>
+    
     <div class="main-container">
         <div class="main wrapper clearfix">
-            <article>
-                <div id="results" class="assessments">
-                <?php 
-                if(!empty($sid)){
-                  echo "<div id='hidesurvey'>";
-                  //PRINT OUT THE HTML FOR THIS SURVEY
-                  echo "</div>";
-                }else{
-                    echo "<p><i>".lang("NO_ASSESSMENTS")."</i></p>";
-                }
-                ?>
-                </div>
-            </article>
+            
             <aside>
                 <h3>My Asessments</h3>
                 <ul class="nav">
@@ -49,6 +38,14 @@ include_once("models/inc/gl_head.php");
                         <ol>
                             <?php
                             $suppsurvs      = array();
+                            $file_cert      = "../PDF/certs/" . $loggedInUser->id . "_" . $loggedInUser->firstname . "_" . $loggedInUser->lastname . ".pdf";
+                            if($core_surveys_complete && file_exists($file_cert)){
+                                $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Completion Certificate</a>";
+                                $suppsurvs[]  = "<li class='assesments fruits ".$surveyon["wellbeing_questions"]."'>
+                                                    ".$survey_alinks["wellbeing_questions"]." 
+                                                </li>";
+                            }
+
                             $fitness        = SurveysConfig::$fitness;
                             $index          = -1;
                             foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
@@ -68,11 +65,18 @@ include_once("models/inc/gl_head.php");
                                 $surveylink   = $core_surveys_complete ? "?sid=". $supp_instrument_id : "#";
                                 $na           = $core_surveys_complete ? "" : "na";
                                 $icon_update  = " icon_update";
-                                $survey_alinks[$supp_instrument_id] = "<a class='assessments' href='$surveylink' title='$titletext'>$surveyname</a>";
-                                $suppsurvs[]  = "<li class='fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
+                                $completed    = json_encode($supp_instrument["completed_fields"]);
+                                $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed'>$surveyname</a>";
+                                $assessmentsclass = $supp_instrument_id !== "international_physical_activity_questionnaire" ? "assessments" :"";
+                                $list         = "<li class='$assessmentsclass fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
                                                     ".$survey_alinks[$supp_instrument_id]." 
                                                 </li>";
-                              }
+                                $suppsurvs[]  = $list;
+                                if($sid == $supp_instrument_id){
+                                    $viewlink = "<a id='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed'>View assessment for '$surveyname'</a>";
+                                }
+                            }
+
                             if(count($suppsurvs)){
                                 echo implode("",$suppsurvs);
                             }else{
@@ -83,12 +87,79 @@ include_once("models/inc/gl_head.php");
                     </li>
                 </ul>
             </aside>
+            <article>
+                <script src="assets/js/custom_assessments.js"></script>
+                <div id="results" class="assessments">
+                <?php 
+                $API_TOKEN    = SurveysConfig::$projects["Supp2"]["TOKEN"];
+                $API_URL      = SurveysConfig::$projects["Supp2"]["URL"];
+                if(count($suppsurvs)){
+                    if(!empty($sid)){
+                        echo "<div id='results'>";
+                        switch($sid){
+                            case "wellbeing_questions":
+                                //cert complete 
+                                echo "<a class='certcomplete' target='blank' href='$file_cert'>WELL for Life Completion Certificate</a>";
+                            break;
+
+                            case "international_physical_activity_questionnaire":
+                                $extra_params = array(
+                                  'content'     => 'record',
+                                  'records'     => [$loggedInUser->id] ,
+                                  'fields'      => ["ipaq_total_overall"],
+                                  'events'      => array(REDCAP_PORTAL_EVENT)
+                                );
+                                $result         = RC::callApi($extra_params, true, $API_URL, $API_TOKEN); 
+                                $ipaq           = isset($result[0]["ipaq_total_overall"]) ? $result[0]["ipaq_total_overall"] : "N/A";
+                                ?>
+                                <div id="ipaq_results">
+                                    <h3>Your physical activity MET-minutes/week score is: <b><?php echo $ipaq ?></b></h3>
+                                </div>
+                                <?php
+                            break;
+
+                            default:
+                                echo $viewlink;
+                            break;
+
+                        }
+                        echo "</div>";
+                    }else{
+                        echo "<p><i>Click on a survey link to view assessment.</i></p>";
+                    }
+                }else{
+                    echo "<p><i>".lang("NO_ASSESSMENTS")."</i></p>";
+                }
+                ?>
+                </div>
+            </article>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
 <?php 
 include_once("models/inc/gl_foot.php");
 ?>
-<script src="assets/js/custom_assessments.js"></script>
+<style>
+.certcomplete {
+    display:inline-block;
+    vertical-align: bottom;
+    padding-left:80px;
+    height:50px;
+    background:url(../PDF/ico_cert_completion.png) 0 0 no-repeat;
+    background-size:70px 50px;
+    line-height:290%;
+}
+
+#ipaq_results{
+    background:#f2f2f2;
+    border-radius:10px;
+    padding:20px;
+    box-shadow: 2px 2px 5px #999;
+}
+#ipaq_results h3{
+    color:#000;
+}
+</style>
+<script src="js/custom_assessments.js"></script>
 <script>
 <?php 
 echo "var uselang   = '" . $_SESSION["use_lang"] . "';\n";
@@ -104,7 +175,7 @@ function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
   var left            = ((width / 2) - (winwidth / 2)) + dualScreenLeft;
   var top             = ((height / 2) - (winheight / 2)) + dualScreenTop;
   
-  var newwin    = window.open("",'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight + ', top=' + top + ', left=' + left);
+  var newwin          = window.open("",'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight + ', top=' + top + ', left=' + left);
   newwin.document.write('<html><head>');
   newwin.document.write('<title>'+title+'</title>');
   for(var i in styles){
@@ -133,7 +204,8 @@ function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
 }
 
 $(document).ready(function(){
-  $(".assessments a").click(function(){
+  $("#viewassessment").click(function(){
+
     var sid       = $(this).data("sid");
     var udata     = $(this).data("completed");
     var title     = $(this).text();

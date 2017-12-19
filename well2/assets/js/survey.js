@@ -208,6 +208,7 @@ $(document).ready(function(){
   });
 
   $("body").on("click","a.closeparent",function(){
+    // close
     $(this).parent().slideUp("fast");
   });
 

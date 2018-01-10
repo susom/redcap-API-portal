@@ -267,9 +267,12 @@ $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";
 
 //IF CORE SURVEY GET THE SURVEY ID
+$avail_surveys      = $available_instruments;
+$first_core_survey  = array_splice($avail_surveys,0,1);
 $sid = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
+
 $surveyon       = array();
-$surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
+$surveynav      = array_merge($first_core_survey, $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
     $surveyon[$surveyitem] = "";
 }

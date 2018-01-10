@@ -5,9 +5,9 @@ $(document).ready(function(){
     saveFormData($(this));
     $(this).remove();
   });
-  
+
   //SUBMIT/NEXT
-  $("button[role='saverecord']").click(function(){
+  $(".submits").on("click", "button[role='saverecord']" ,function(){
     $("#customform section.active").each(function(idx){
       //IF THERE IS ANOTHER SECTION THEN ITS A "NEXT" ACTION OTHERWISE, FINAL SUBMIT
       if(checkValidation()){
@@ -787,15 +787,9 @@ function showSleepScoring(){
     type:'POST',
     data: "&sleep=" + JSON.stringify(all_answers),
     success:function(result){
-      console.log(result);
-
       var sleepTitle    = $("#checkmutation h2").clone();
-      var sleepButtons  = $("#checkmutation .submits").clone();
-
-      $("#checkmutation").empty();
-      $("#checkmutation").append(sleepTitle);
-      $("#checkmutation").append(sleepButtons);
-
+      $("#checkmutation").find("h2","#psqi_results").not(".submits").remove();
+      $("#checkmutation").prepend(sleepTitle);
       nextSection.find("h2").after(result);
 
       var PSQI_SCORE      = $("#psqi_score").text();

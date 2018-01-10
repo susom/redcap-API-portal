@@ -6,8 +6,10 @@ $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";
 
-$surveyon       = array();
-$surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
+$avail_surveys      = $available_instruments;
+$first_core_survey  = array_splice($avail_surveys,0,1);
+$surveyon           = array();
+$surveynav          = array_merge($first_core_survey, $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
     $surveyon[$surveyitem] = "";
 }

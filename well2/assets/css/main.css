@@ -2613,7 +2613,7 @@ span.rs-number {
         transform: rotate(180deg);
     }
 
-    #grit_results {
+   /* #grit_results {
         background-position: -130px -50px;
         width: 432px;
         height: 370px;
@@ -2930,7 +2930,7 @@ span.rs-number {
             bottom:40px;
             right:10px;
         } 
-    }  
+    }  */
 }
 
 /*Landscape width exact width height*/

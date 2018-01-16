@@ -17,7 +17,8 @@ if(!empty($sid)){
         $surveyon[$sid] = "on";   
     }
 }
-$core_gender    = $surveys["a_little_bit_about_you"]["raw"][1]["user_answer"];
+
+$core_gender    = $loggedInUser->gender == 5 || $loggedInUser->gender == 3 ? "m" : "f";
 
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
@@ -73,7 +74,7 @@ include_once("models/inc/gl_head.php");
                                                 </li>";
                                 $suppsurvs[]  = $list;
                                 if($sid == $supp_instrument_id){
-                                    $viewlink = "<a id='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed'>View assessment for '$surveyname'</a>";
+                                    $viewlink = "<a id='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' target='theFrame'>View assessment for '$surveyname'</a>";
                                 }
                             }
 
@@ -82,7 +83,7 @@ include_once("models/inc/gl_head.php");
                             }else{
                                 echo "<i>None Available</i>";
                             }
-                            ?>  
+                            ?>
                         </ol>
                     </li>
                 </ul>
@@ -131,6 +132,8 @@ include_once("models/inc/gl_head.php");
                     echo "<p><i>".lang("NO_ASSESSMENTS")."</i></p>";
                 }
                 ?>
+                <iframe  width="700" height="800" name="theFrame" style="border:none"></iframe>
+
                 </div>
             </article>
         </div> <!-- #main -->
@@ -158,6 +161,11 @@ include_once("models/inc/gl_foot.php");
 #ipaq_results h3{
     color:#000;
 }
+#viewassessment {
+  opacity:0;
+  position:absolute;
+  left:-5000px;
+}
 </style>
 <script src="js/custom_assessments.js"></script>
 <script>
@@ -175,7 +183,7 @@ function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
   var left            = ((width / 2) - (winwidth / 2)) + dualScreenLeft;
   var top             = ((height / 2) - (winheight / 2)) + dualScreenTop;
   
-  var newwin          = window.open("",'targetWindow','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight + ', top=' + top + ', left=' + left);
+  var newwin          = window.open("",'theFrame','toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width='+winwidth+', height=' + winheight + ', top=' + top + ', left=' + left);
   newwin.document.write('<html><head>');
   newwin.document.write('<title>'+title+'</title>');
   for(var i in styles){
@@ -205,7 +213,6 @@ function centeredNewWindow(title,insertHTML,styles,scrips,bottom_scrips){
 
 $(document).ready(function(){
   $("#viewassessment").click(function(){
-
     var sid       = $(this).data("sid");
     var udata     = $(this).data("completed");
     var title     = $(this).text();
@@ -343,5 +350,8 @@ $(document).ready(function(){
     }
     return false;
   });
+
+
+ $("#viewassessment").trigger("click");
 });
 </script>

@@ -9,7 +9,7 @@ $pdf->setSourceFile('../cert_of_completion.pdf');
 // import page 1
 $tplIdx = $pdf->importPage(1);
 // use the imported page and place it at position 10,10 with a width of 100 mm
-$pdf->useTemplate($tplIdx, -20, -28, 341);
+$pdf->useTemplate($tplIdx, -8, 0, 305);
 
 // now write some text above the imported page
 $pdf->SetFont('Arial');

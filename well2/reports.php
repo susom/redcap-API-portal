@@ -92,8 +92,8 @@ include_once("models/inc/gl_head.php");
                 <script src="assets/js/custom_assessments.js"></script>
                 <div id="results" class="assessments">
                 <?php 
-                $API_TOKEN    = SurveysConfig::$projects["Supp2"]["TOKEN"];
-                $API_URL      = SurveysConfig::$projects["Supp2"]["URL"];
+                $API_TOKEN    = SurveysConfig::$projects["Supp"]["TOKEN"];
+                $API_URL      = SurveysConfig::$projects["Supp"]["URL"];
                 if(count($suppsurvs)){
                     if(!empty($sid)){
                         echo "<div id='results'>";

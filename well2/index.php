@@ -73,6 +73,304 @@ foreach($cats as $cat){
     }
 }
 
+if(!$user_short_scale){
+  //GATHER DATA FOR DATA VISUALIZATIONS
+  //FOR THE PIE CHART
+  $graph_fields               = array(
+                                   "core_sitting_hh"
+                                  ,"core_sitting_mm"
+                                  ,"core_sitting_nowrk_hh"
+                                  ,"core_sitting_nowrk_mm"
+                                  ,"core_sitting_weekend_hh"
+                                  ,"core_sitting_weekend_mm"
+                                  ,"core_walking_hh"
+                                  ,"core_walking_mm"
+                                  ,"core_pa_mod_hh"
+                                  ,"core_pa_mod_mm"
+                                  ,"core_pa_vig_hh"
+                                  ,"core_pa_vig_mm"
+                                  ,"core_sleep_hh"
+                                  ,"core_sleep_mm"
+                                );
+  $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
+
+  //GET ANSWERS FOR ALL USERS
+  $all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fields,$instrument_event["event"]);
+
+  //GATHER UP THIS USERS ANSWERS
+  $health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
+  $user_answers               = array_intersect_key( $all_completed,  array_flip($graph_fields) );
+
+  // AGGREGATE OF ALL PARTICIPANTS
+  $ALL_TIME_PA_MOD_IN_HOURS   = array();
+  $ALL_TIME_PA_VIG_IN_HOURS   = array();
+  $ALL_TIME_WALKING_IN_HOURS  = array();
+  $ALL_TIME_SITTING_IN_HOURS  = array();
+  $ALL_TIME_SLEEP_HOURS       = array();
+  $sitting_count              = 0;
+
+  foreach($all_answers as $users_answers){
+    $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
+    foreach($u_ans as $fieldname => $hhmm){
+      if(!empty($hhmm)){
+        if(strpos($fieldname,"hh") > -1){
+          $answer_value = (int) $hhmm;
+        }else if(strpos($fieldname,"mm") > -1){
+          $answer_value = (float) $hhmm/60;
+        }
+
+        if(strpos($fieldname,"core_pa_mod") > -1){
+          $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
+        }
+        
+        if(strpos($fieldname,"core_pa_vig") > -1){
+          $ALL_TIME_PA_VIG_IN_HOURS[]  = $answer_value;
+        }
+
+        if(strpos($fieldname,"walking") > -1){
+          $ALL_TIME_WALKING_IN_HOURS[] = $answer_value;
+        }
+        
+        if(strpos($fieldname,"sitting") > -1){
+          $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
+          $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
+
+          if(strpos($fieldname,"nowrk") > -1){
+            $sitting_count = $sitting_count  + 1;
+          }else{
+            $sitting_count = $sitting_count  +  .5;
+          }
+        }
+
+        if(strpos($fieldname,"sleep") > -1){
+          if($answer_value <= 0){
+            continue;
+          }
+          $ALL_TIME_SLEEP_HOURS[] = $answer_value;
+        }
+      }
+    }
+  }
+
+  if($health_behaviors_complete){
+    $ALL_TIME_PA_MOD_IN_HOURS   = count($ALL_TIME_PA_MOD_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_MOD_IN_HOURS )/count($ALL_TIME_PA_MOD_IN_HOURS ),2) : 0;
+    $ALL_TIME_PA_VIG_IN_HOURS   = count($ALL_TIME_PA_VIG_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_VIG_IN_HOURS )/count($ALL_TIME_PA_VIG_IN_HOURS ),2) : 0;
+    $ALL_TIME_WALKING_IN_HOURS  = count($ALL_TIME_WALKING_IN_HOURS) ? round(array_sum($ALL_TIME_WALKING_IN_HOURS)/count($ALL_TIME_WALKING_IN_HOURS),2) : 0;
+    $ALL_TIME_SITTING_IN_HOURS  = count($ALL_TIME_SITTING_IN_HOURS) ? round(array_sum($ALL_TIME_SITTING_IN_HOURS)/$sitting_count,2) : 0;
+    $ALL_TIME_SLEEP_HOURS       = count($ALL_TIME_SLEEP_HOURS)      ? round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) : 0;
+    $ALL_NO_ACTIVITY            = ($ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS;
+    $ALL_NO_ACTIVITY            = $ALL_NO_ACTIVITY < 0 ? 0 : $ALL_NO_ACTIVITY  ;
+  }else{
+    $ALL_TIME_PA_MOD_IN_HOURS   = 0;
+    $ALL_TIME_PA_VIG_IN_HOURS   = 0;
+    $ALL_TIME_WALKING_IN_HOURS  = 0;
+    $ALL_TIME_SITTING_IN_HOURS  = 0;
+    $ALL_TIME_SLEEP_HOURS       = 0;
+    $ALL_NO_ACTIVITY            = 0;
+    $ALL_NO_ACTIVITY            = 0;
+  }
+  
+  //CURRENT USERS VALUES
+  $USER_TIME_PA_MOD_IN_HOURS  = 0;
+  $USER_TIME_PA_VIG_IN_HOURS  = 0;
+  $USER_TIME_WALKING_IN_HOURS = 0;
+  $USER_TIME_SITTING_IN_HOURS = 0;
+  $USER_TIME_SLEEP_HOURS      = 0;
+  foreach($user_answers as $fieldname => $hhmm){
+    if(!empty($hhmm)){
+      if(strpos($fieldname,"hh") > -1){
+        $answer_value = (int) $hhmm;
+      }else if(strpos($fieldname,"mm") > -1){
+        $answer_value = (float) $hhmm/60;
+      }
+
+      if(strpos($fieldname,"core_pa_mod") > -1){
+        $USER_TIME_PA_MOD_IN_HOURS += $answer_value;
+      }
+      
+      if(strpos($fieldname,"core_pa_vig") > -1){
+        $USER_TIME_PA_VIG_IN_HOURS += $answer_value;
+      }
+
+      if(strpos($fieldname,"walking") > -1){
+        $USER_TIME_WALKING_IN_HOURS += $answer_value;
+      }
+      
+      if(strpos($fieldname,"sitting") > -1){
+        $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
+        $USER_TIME_SITTING_IN_HOURS += $answer_value;
+      }
+
+      if(strpos($fieldname,"sleep") > -1){
+        $USER_TIME_SLEEP_HOURS += $answer_value;
+      }
+    }
+  }
+  $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
+  $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
+}else{
+  //GATHER DATA FOR USERS SHORT SCORES
+  $short_scores   = array();
+  if($core_surveys_complete){
+    $extra_params = array(
+      'content'     => 'record',
+      'records'     => array($loggedInUser->id) ,
+      'fields'      => array("id","well_score"),
+    );
+    $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
+    $user_ws      = array_filter($user_ws,function($item){
+      return !empty($item["well_score"]);
+    });
+
+    // ONLY WANT TO SHOW IT IF AT LEAST THE 1st anniversary WAS COMPLETED
+    $min_well_score_show    = false;
+    if( count($user_ws) > 1){
+      $min_well_score_show  = true;
+    }
+
+    //GET ALL EVENT ARMS
+    $extra_params   = array(
+      'content'     => 'event',
+      'format'      => 'json'
+    );
+    $result         = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+    $events         = array_column($result, 'unique_event_name');
+
+    // GET ALL STORED WELLSCORES FOR EVERYONE, 
+    // TODO : maybe some other day
+    // $others_scores  = array();
+    // foreach($events as $eventarm){
+    //     $all_well_scores = $user_survey_data->getUserAnswers(NULL,array("well_score"),$eventarm, "[well_score] <> ''"); // , [id] <> '".$loggedInUser->id."'
+    //     if(!empty($all_well_scores[0]["well_score"])){
+    //       $others_scores[$eventarm] = array("well_score" => getAvgWellScoreOthers($all_well_scores) );
+    //     }
+    // };
+
+    //CALCULATE WELL_SCORE FOR CURRENT USER IF NOT ALREADY STORED
+    if(!$min_well_score_show){
+      //SHORT SCALE SCORE
+      $short_q_fields  = array(
+         //SOCIAL CONNECTEDNESS
+         "core_lack_companionship"
+        ,"core_people_upset"
+        ,"core_energized_help"
+
+        //Lifestyle BEHAVIORS
+        ,"core_vegatables_intro"
+        ,"core_vegatables_intro_v2"
+        ,"core_vegetables_intro_v2_1"
+        ,"core_vegetables_intro_v2_2"
+        ,"core_vegetables_intro_v2_3"
+        ,"core_sugar_intro"
+        ,"core_sugar_intro_v2"
+        ,"core_sugar_intro_v2_1"
+        ,"core_sugar_intro_v2_2"
+        ,"core_sugar_intro_v2_3"
+        ,"core_lpaq"
+        ,"core_smoke_100"
+        ,"core_smoke_freq"
+        ,"core_sleep_quality"
+        ,"core_bngdrink_female_freq"
+        ,"core_bngdrink_male_freq"
+
+        //STRESS AND RESILIENCE
+        ,"core_important_time"
+        ,"core_deal_whatever"
+
+        //EXPERIENCE OF EMOTIONS
+        ,"core_joyful"
+        ,"core_worried"
+
+        //PHYSICAL HEALTH
+        ,"core_fitness_level"
+
+        //PURPOSE AND MEANING
+        ,"core_contribute_doing"
+
+        //SENSE OF SELF
+        ,"core_satisfied_yourself"
+
+        //FINANCIAL SECURITY/SATISFACTION
+        ,"core_money_needs"
+
+        //SPIRITUALITY AND RELIGION
+        ,"core_religious_beliefs"
+
+        //EXPLORATION AND CREATIVITY
+        ,"core_engage_oppo"
+      );
+
+      $short_circuit_diff_ar = array(
+         "core_contribute_doing" => 1
+        ,"core_satisfied_yourself" => 1
+        ,"core_money_needs" => 1
+        ,"core_religious_beliefs" => 1
+        ,"core_engage_oppo" => 1
+        ,"core_fitness_level" => 1
+        ,"core_important_time" => 1
+        ,"core_deal_whatever" => 1
+        ,"core_joyful" => 1
+        ,"core_worried" => 1
+        ,"core_lack_companionship" => 1
+        ,"core_people_upset" => 1
+        ,"core_energized_help" => 1
+        ,"core_lpaq" => 1
+        ,"core_vegatables_intro_v2" => 1
+        ,"core_sugar_intro_v2" => 1
+        ,"core_smoke_100" => 1
+        ,"core_sleep_quality" => 1
+      );
+
+      $arms_answers     = array();
+      $long_survey_data = false;
+      foreach($events as $eventarm){
+        if($eventarm == "enrollment_arm_1"){
+          $long_survey_data = new Project($loggedInUser, SESSION_NAME, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+          $user_answers     = $long_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
+        }elseif(strpos($eventarm,"short") > -1){
+          //SHORT YEAR , CAUSE WE ALREADY DID it in surveys.php
+          $user_answers   = $user_survey_data->getUserAnswers($loggedInUser->id,$short_q_fields,$eventarm);
+        }
+
+        if(!isset($user_answers[0])){
+          continue;
+        }
+
+        $user_completed_keys        = array_filter(array_intersect_key( $user_answers[0],  array_flip($short_q_fields)),function($v){
+            return $v !== false && !is_null($v) && ($v != '' || $v == '0');
+        });
+        $missing_data_keys          = array_diff_key($short_circuit_diff_ar,$user_completed_keys);
+        $minimumData                = checkMinimumForShortScore($missing_data_keys);
+        
+        //ENOUGH DATA TO CALC SCORE
+        $arms_answers[$eventarm]    = $minimumData ? $user_completed_keys : array();
+
+        //THESE EVENTS ARE IN CHRONOLOGICAL ORDER LONGITUDINAL, 
+        //SO NO NEED TO DO ANYMORE IF THE user_event_arm IS SAME AS THE EVENT ARM
+        if($user_event_arm  == $eventarm){
+          break;
+        }
+      };
+
+      $short_scores = getShortScores($arms_answers);
+      foreach($short_scores as $arm => $parts){
+        $score  = round(array_sum($parts));
+        $data[] = array(
+          "record"            => $loggedInUser->id,
+          "field_name"        => "well_score",
+          "value"             => $score,
+          "redcap_event_name" => $arm
+        );
+        $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+      }
+    }else{
+      foreach($user_ws as $idx => $well_score){
+        $short_scores[$well_score["redcap_event_name"]] = array("junk" => $well_score["well_score"]);
+      }
+    }
+  }
+}
+
 //NEEDS TO GO BELOW SHORTSCALE WORK FOR NOW
 if(isset($_GET["survey_complete"])){
   //IF NO URL PASSED IN THEN REDIRECT BACK

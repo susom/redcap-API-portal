@@ -5,6 +5,7 @@ include("models/inc/checklogin.php");
 $navon          = array("home" => "", "reports" => "on", "game" => "");
 //IF CORE SURVEY GET THE SURVEY ID
 $sid            = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
+$sid            = empty($sid) ? "wellbeing_questions" : $sid;
 $surveyon       = array();
 $surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
 foreach($surveynav as $surveyitem){

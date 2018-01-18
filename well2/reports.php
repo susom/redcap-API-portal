@@ -39,8 +39,12 @@ include_once("models/inc/gl_head.php");
                         <ol>
                             <?php
                             $suppsurvs      = array();
-                            $file_cert      = "../PDF/certs/" . $loggedInUser->id . "_" . $loggedInUser->firstname . "_" . $loggedInUser->lastname . ".pdf";
-                            
+                            $filename       = array();
+                            $filename[]     = $loggedInUser->id;
+                            $filename[]     = $loggedInUser->firstname;
+                            $filename[]     = $loggedInUser->lastname;
+                            $filename[]     = 2018;
+                            $file_cert      = "../PDF/certs/" . implode("_",$filename) . ".pdf";
                             if($core_surveys_complete && file_exists($file_cert)){
                                 $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Completion Certificate</a>";
                                 $suppsurvs[]  = "<li class='assesments fruits'>

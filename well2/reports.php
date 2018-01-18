@@ -40,9 +40,10 @@ include_once("models/inc/gl_head.php");
                             <?php
                             $suppsurvs      = array();
                             $file_cert      = "../PDF/certs/" . $loggedInUser->id . "_" . $loggedInUser->firstname . "_" . $loggedInUser->lastname . ".pdf";
+                            
                             if($core_surveys_complete && file_exists($file_cert)){
                                 $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Completion Certificate</a>";
-                                $suppsurvs[]  = "<li class='assesments fruits ".$surveyon["wellbeing_questions"]."'>
+                                $suppsurvs[]  = "<li class='assesments fruits'>
                                                     ".$survey_alinks["wellbeing_questions"]." 
                                                 </li>";
                             }

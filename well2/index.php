@@ -2,6 +2,12 @@
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
 
+//TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
+        require_once('../PDF/fpdf181/fpdf.php');
+        require_once('../PDF/FPDI-2.0.1/src/autoload.php');
+        include_once("../PDF/generatePDFcertificate.php");
+
+        exit;
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";

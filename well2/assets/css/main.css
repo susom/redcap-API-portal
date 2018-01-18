@@ -337,12 +337,14 @@ nav a:visited {
 .main-container .main > aside h3{
     margin-left:0;
 }
+.main > aside .surveys h4 {
+    font-weight:bold;
+}
 .main > aside a{
     color:#333;
     text-decoration:none;
     display:block;
     line-height:120%;
-    font-weight:bold;
 }
 .main > aside ul{
     list-style:none;

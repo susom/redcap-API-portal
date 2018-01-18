@@ -1,6 +1,9 @@
 <?php 
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
+include("models/inc/scoring_functions.php");
+
+
 
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");

@@ -48,7 +48,7 @@ include_once("models/inc/gl_head.php");
                             $filename[]     = 2018;
                             $file_cert      = "../PDF/certs/" . implode("_",$filename) . ".pdf";
                             if($core_surveys_complete && file_exists($file_cert)){
-                                $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Completion Certificate</a>";
+                                $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Questions</a>";
                                 $suppsurvs[]  = "<li class='assesments fruits ".$surveyon["wellbeing_questions"]."'>
                                                     ".$survey_alinks["wellbeing_questions"]." 
                                                 </li>";

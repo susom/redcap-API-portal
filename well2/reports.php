@@ -6,6 +6,7 @@ $navon          = array("home" => "", "reports" => "on", "game" => "");
 //IF CORE SURVEY GET THE SURVEY ID
 $sid            = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
 $sid            = empty($sid) ? "wellbeing_questions" : $sid;
+
 $surveyon       = array();
 $surveynav      = array_merge(array_splice($available_instruments,0,1), $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
@@ -48,7 +49,7 @@ include_once("models/inc/gl_head.php");
                             $file_cert      = "../PDF/certs/" . implode("_",$filename) . ".pdf";
                             if($core_surveys_complete && file_exists($file_cert)){
                                 $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' >Wellbeing Completion Certificate</a>";
-                                $suppsurvs[]  = "<li class='assesments fruits'>
+                                $suppsurvs[]  = "<li class='assesments fruits ".$surveyon["wellbeing_questions"]."'>
                                                     ".$survey_alinks["wellbeing_questions"]." 
                                                 </li>";
                             }

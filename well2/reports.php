@@ -79,7 +79,7 @@ include_once("models/inc/gl_head.php");
                                                 </li>";
                                 $suppsurvs[]  = $list;
                                 if($sid == $supp_instrument_id){
-                                    $viewlink = "<a id='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' target='theFrame'>View assessment for '$surveyname'</a>";
+                                    $viewlink = "<a id='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' target='theFrame'>$surveyname</a>";
                                 }
                             }
 

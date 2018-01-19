@@ -771,25 +771,21 @@ function showSleepScoring(){
   var nextSection = $("#customform section:last").prev();
   nextSection.attr("id","checkmutation");
 
+  if(!$("#psqi_display_results").length){
+    var psqi_container = $("<div id='psqi_display_results'>");
+    nextSection.find("h2").after(psqi_container);
+  }
+
   var dataURL     = "SLEEP_PSQI.php";
   $.ajax({
     url:  dataURL,
     type:'POST',
     data: "&sleep=" + JSON.stringify(all_answers),
     success:function(result){
-      var sleepTitle    = $("#checkmutation h2").clone();
-      
       if($("#psqi_display_results").length){
         $("#psqi_display_results").empty();
         $("#psqi_display_results").append(result);
-      }else{
-        var psqi_container = $("<div id='psqi_display_results'>");
-        nextSection.find("h2").after(psqi_container);
       }
-      // $("#checkmutation").find("h2","#psqi_results").not(".submits").remove();
-      // $("#checkmutation").prepend(sleepTitle);
-      // $("#checkmutation #psqi_results").remove();
-      // nextSection.find("h2").after(result);
 
       var PSQI_SCORE      = $("#psqi_score").text();
       var dataURL         = "survey.php?sleep=1";

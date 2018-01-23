@@ -1,10 +1,9 @@
 <div class="footer-container">
     <footer class="wrapper">
         <ul>
-            <li class="fb"><a href="#">Facebook</a></li>
-            <li class="tw"><a href="#">Twitter</a></li>
-            <li class="in"><a href="#">Instagram</a></li>
-            <li class="li"><a href="#">LinkedIn</a></li>
+            <li class="fb"><a href="https://www.facebook.com/wellforlifeatstanford/">Facebook</a></li>
+            <li class="in"><a href="https://www.instagram.com/well_for_life/?hl=en">Instagram</a></li>
+            <li class="tw"><a href="https://twitter.com/Well_For_Life?lang=en">Twitter</a></li>
         </ul>
     </footer>
 </div>

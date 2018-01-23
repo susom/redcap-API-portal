@@ -426,7 +426,13 @@ include_once("models/inc/gl_head.php");
                             <figcaption>
                                 <h2><?php echo $event["subject"] ?></h2>
                                 <p><?php echo $event["content"] ?></p>
+                                <?php
+                                if(!empty($event["link"])){
+                                ?>
                                 <a href="<?php echo $event["link"] ?>">Read More</a>
+                                <?php
+                                }
+                                ?>
                             </figcaption>
                         </figure>
                     </section>

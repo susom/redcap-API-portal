@@ -97,7 +97,7 @@ body {
 .splash-container .wrapper:before{
     content:"";
     position:absolute;
-    top:50%;
+    top:100px;
     transform:translateY(-50%);
     left:50%;
     margin-left:-39px;

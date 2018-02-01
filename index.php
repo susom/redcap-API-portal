@@ -14,7 +14,7 @@ include("models/inc/gl_header.php");
         include("models/inc/language_select.php");
       ?>
       <div class="well">
-        <p class="login_reg">
+        <p class="login_reg">test
           <a href="login.php<?php echo $lang_req ?>" class="btn btn-success"><?php echo lang("ACCOUNT_LOGIN_PAGE") ?></a>  
           <a href="register.php<?php echo $lang_req ?>" class="btn btn-success"><?php echo lang("ACCOUNT_REGISTER_PAGE") ?></a>
         </p>

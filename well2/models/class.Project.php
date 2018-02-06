@@ -405,20 +405,21 @@ class Project {
 
 class PreGenAccounts extends Project{
 	//NOW INSTRUMENT HAS ACCESS TO THE METHODS THAT PROJECT HAS.
-	
+
 	//BUT... IT WILL NEED ALSO ITS API URL AND API TOKEN?
 	public function __construct($loggedInUser, $projectName, $api_url, $api_token){
 		parent::__construct($loggedInUser,$projectName, $api_url, $api_token);
     }
 
     public function getAccount(){
-    	$ffq_ts 	  		= strToTime($this->LOGGED_IN_USER->ffq_generated_ts);
+    	$ffq_ts 	  		= strToTime($this->LOGGED_IN_USER->consent_ts);
 		$generate_new 		= false;
 
 		if(!empty($ffq_ts)){
 			$datediff    	= time() - $ffq_ts;
 			$days_active 	= floor($datediff / (60 * 60 * 24));
 			$years 			= ceil($days_active/365);
+
 			if($years > 1){
 				$generate_new = true;
 			}
@@ -426,10 +427,10 @@ class PreGenAccounts extends Project{
 			$generate_new = true;
 		}
 
-	    if($generate_new){
+		$result = $this->checkExisting();
+		if($generate_new && count($result) < $years){
 	    	$ffq = $this->genNewAccount();
 	    }else{
-	    	$result = $this->checkExisting();
 	    	if(!empty($result)){
 	    		$ffq = array_pop($result);
     			unset($ffq["portal_id"]);
@@ -437,7 +438,7 @@ class PreGenAccounts extends Project{
 	    		$ffq = $this->genNewAccount();
 	    	}
 	    }
-    	return $ffq;
+	    return $ffq;
     }
 
     private function genNewAccount(){

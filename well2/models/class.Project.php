@@ -20,7 +20,7 @@ class Project {
 	protected $current_arm 				 	= 0; //WHAT EVEN IS THIS
 	protected $name                       	= "";
 
-	public function __construct($loggedInUser, $projectName="", $api_url, $api_token){
+	public function __construct($loggedInUser, $projectName="", $api_url, $api_token, $specific_event=null){
 		//DO ALL THE ONE TIME CALLS OUT HERE
 		//THEN I CAN GRANULARLY REFRESH JUST THE LIVE DATA
 		//WHILE LEAVING THE OBJECT ITSELF STORED IN THE SESSION
@@ -32,6 +32,7 @@ class Project {
 		$this->instrument_list 	= SurveysConfig::$core_surveys;
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
+		$this->specific_event 	= $specific_event;
 
 		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
 			$all_instruments 		= self::getInstruments($projectName);
@@ -42,6 +43,10 @@ class Project {
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 				$user_current_event = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
+				
+				if($this->specific_event){
+					$user_current_event = $this->specific_event;
+				}
 
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
@@ -54,6 +59,7 @@ class Project {
 				}
 			}, $all_events);
 		}
+
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 		if(strpos($user_current_event,"short") > -1){
 			$this->SHORT_SCALE 		= true;

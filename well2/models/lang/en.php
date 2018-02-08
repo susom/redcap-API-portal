@@ -144,7 +144,7 @@
 		,"YOUVE_BEEN_AWARDED" 						=> "You've been awarded a"
 		,"GET_WHOLE_BASKET" 						=> "Get the whole fruit basket!"
 		,"CONTINUE_SURVEY" 							=> "Continue the rest of the survey."
-		,"CONGRATS_FRUITS" 							=> "Congratulations, you've completed all of <br>the core wellbeing questions! <br/><br/> We'd like to present you with this completition certifcate.<br/><br/>"
+		,"CONGRATS_FRUITS" 							=> "Congratulations, you've completed all of <br>the wellbeing questions! <br/> We'd like to present you with this completition certifcate.<br/><br/>"
 		,"FITNESS_BADGE" 							=> "You've been awarded a fitness badge"
 		,"GET_ALL_BADGES" 							=> "Get all the fitness badges!"
 		,"CONGRATS_ALL_FITNESS_BADGES"				=> "Congratulations, you got all the fitness badges! <br/> Check back soon for the opportunity to earn new awards!"

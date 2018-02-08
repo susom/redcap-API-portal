@@ -34,7 +34,7 @@ class Project {
 		$all_events 			= self::getEvents();
 		$this->specific_event 	= $specific_event;
 
-		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
+		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){	
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
 			//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
@@ -44,10 +44,9 @@ class Project {
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 				$user_current_event = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 				
-				if($this->specific_event){
+				if(!is_null($this->specific_event)){
 					$user_current_event = $this->specific_event;
 				}
-
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
 						 "arm_num" 				=> $event["arm_num"]

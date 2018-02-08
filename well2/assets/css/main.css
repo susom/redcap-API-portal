@@ -817,6 +817,12 @@ footer .li a{
     text-indent:10px;
     white-space:nowrap;
     border-radius: 5px;
+    overflow:visible;
+}
+.section_progress {
+    position:absolute;
+    bottom:-23px;
+    left:50px;
 }
 .progress{
     height:30px;

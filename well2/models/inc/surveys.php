@@ -47,6 +47,7 @@ if(isset($_SESSION["user_survey_data"])){
 	$user_survey_data 	= $_SESSION["user_survey_data"];
 	$user_survey_data->refreshData();
 }else{
+
 	if ($user_short_scale){
 		$api_url 	= SurveysConfig::$projects["SHORT_SCALE"]["URL"];
 		$api_token 	= SurveysConfig::$projects["SHORT_SCALE"]["TOKEN"];
@@ -119,7 +120,7 @@ if(isset($_SESSION["supplemental_surveys"])){
 	    continue;
 	  }
 
-	  $supplementalProject 	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"],"goddamint");
+	  $supplementalProject 	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
 	  $suppsurveys 			= $supplementalProject->getActiveAll();
 	  $supp_branching 		= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){
@@ -135,6 +136,7 @@ $supp_instruments = array();
 foreach($_SESSION["supplemental_surveys"] as $projname => $supp_project){
 	$supp_instruments 	= array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
+
 $supp_surveys_keys 		= array_keys($supp_instruments);
 $available_instruments  = $user_short_scale ? SurveysConfig::$short_surveys : SurveysConfig::$core_surveys;
 

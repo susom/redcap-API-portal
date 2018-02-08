@@ -3,8 +3,6 @@ require_once("models/config.php");
 include("models/inc/checklogin.php");
 include("models/inc/scoring_functions.php");
 
-
-
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
 $navon  = array("home" => "", "reports" => "", "game" => "");
 $navon[$nav] = "on";
@@ -383,27 +381,20 @@ if(isset($_GET["survey_complete"])){
     $survey = $surveys[$surveyid];
 
     if(!isset($all_survey_keys[$index+1])){ 
-      if(strpos($user_event_arm,"enrollment") > -1){
 
-        //TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
-        require_once('../PDF/fpdf181/fpdf.php');
-        require_once('../PDF/FPDI-2.0.1/src/autoload.php');
-        include_once("../PDF/generatePDFcertificate.php");
+      //TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
+      require_once('../PDF/fpdf181/fpdf.php');
+      require_once('../PDF/FPDI-2.0.1/src/autoload.php');
+      include_once("../PDF/generatePDFcertificate.php");
+    
+      $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
+      $arm_year       = $arm_year + count($short_scores) - 1;
+      $for_popup      = array_slice($short_scores, -1);
 
-        $success_msg    = $lang["CONGRATS_FRUITS"] . "<a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
-      }else{
-        $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
-        $arm_year       = $arm_year + count($short_scores) - 1;
-        $for_popup      = array_slice($short_scores, -1);
-
-        //THIS SHOULD BE THE MOST RECENT ONE
-        $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
-        $scale          = 2*array_sum($for_popup[$user_event_arm])+100;
-        $extracss       = "width: ".$scale."px; height: ".$scale."px";
-        $success_msg    = "Thank you for completing this year's WELL surveys. <br> Your WELL being Score for $arm_year is: <ul class='eclipse_well_score'><li class='eclipse' style='$extracss' data-size='$new_well_score'><div><b></b><i>$new_well_score<em>%</em></i></div></li></ul>";
-      }
-
+      $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
+      $success_msg    = $lang["CONGRATS_FRUITS"] . "<p>Your WELL Score for $arm_year is $new_well_score</p><a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
       addSessionMessage( $success_msg , "success");
+    
     }
   }
 }

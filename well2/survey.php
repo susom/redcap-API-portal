@@ -309,8 +309,14 @@ if(!empty($pid)){
 }
 
 //GET THE SURVEY DATA
+$survey_num = $survey_count = 1;
 if(array_key_exists($sid, $surveys)){
-    $survey_data = $surveys[$sid];
+    $survey_data  = $surveys[$sid];
+    
+    if($survey_data["project"] == "REDCAP_PORTAL"){
+      $survey_num   = array_search($sid, array_keys($surveys)) + 1;
+      $survey_count = count($surveys);
+    }
 
     //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
     $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
@@ -368,7 +374,8 @@ include_once("models/inc/gl_head.php");
                   if(!$active_survey->surveycomplete){
                       ?>
                       <div id="survey_progress" class='progress progress-striped active'>
-                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_survey->surveypercent?>%' style='width: <?php echo $active_survey->surveypercent?>%'>Survey Progress</div>
+                        <div class='progress-bar bg-info lter' data-toggle='tooltip' data-original-title='<?php echo $active_survey->surveypercent?>%' style='width: <?php echo $active_survey->surveypercent?>%'></div>
+                        <div class='section_progress'><?php echo "Section $survey_num of $survey_count"; ?></div>
                       </div>
                       <?php    
                   }

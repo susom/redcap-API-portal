@@ -213,6 +213,7 @@ nav a:visited {
     text-decoration:none;
     color:#000;
     font-size:85%;
+    text-transform: capitalize;
 }
 
 #account_drop span {

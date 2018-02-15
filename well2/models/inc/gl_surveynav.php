@@ -8,6 +8,7 @@
                 $new = null;
                 $core_surveys           = array();
                 $supp_surveys           = array();
+                $completed_surveys      = array();
                 $fruits                 = SurveysConfig::$fruits;
                 $iconcss                = "";
                 if(isset($sid)){
@@ -15,9 +16,6 @@
                   $iconcss = $fruits[$index];
                 }
                 foreach($surveys as $surveyid => $survey){
-                  if($core_surveys_complete){
-                    break;
-                  }
                   $surveycomplete = $survey["survey_complete"];
                   $index          = array_search($surveyid, $all_survey_keys);
                   $projnotes      = json_decode($survey["project_notes"],1);
@@ -34,7 +32,8 @@
                   }
 
                   if(in_array($surveyid, $available_instruments)){
-                    array_push($core_surveys, "<li class='".$surveyon[$surveyid]."  $iconcss'>
+                    $incomplete_complete = $surveycomplete ? "completed_surveys" : "core_surveys";
+                    array_push($$incomplete_complete, "<li class='".$surveyon[$surveyid]."  $iconcss'>
                         <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
                           $newbadge                                                   
                           <span class='fruit $completeclass'></span>
@@ -63,10 +62,7 @@
                 $index      = -1;
                 foreach($supp_instruments as $supp_instrument_id => $supp_instrument){
                     $index++;
-                    if($supp_instrument["survey_complete"]){
-                      continue;
-                    }
-
+                    
                     //if bucket is A make sure that three other ones are complete before showing.
                     $projnotes    = json_decode($supp_instrument["project_notes"],1);
                     $title_trans  = $projnotes["translations"];
@@ -79,17 +75,25 @@
                     $na           = $core_surveys_complete ? "" : "na";
                     $icon_update  = " icon_update";
                     $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext'>$surveyname</a>";
-                    $suppsurvs[]  = "<li class='fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
+                    
+                    $incomplete_complete = $supp_instrument["survey_complete"] ? "completed_surveys" : "suppsurvs";
+ 
+                    array_push($$incomplete_complete,  "<li class='fitness $na $icon_update $iconcss  ".$surveyon[$supp_instrument_id]."'>
                                         ".$survey_alinks[$supp_instrument_id]." 
-                                    </li>";
+                                    </li>");
                 }
 
 
                 
                 echo implode("",$suppsurvs);
 
-                
                 ?>  
+            </ol>
+            <h4>Completed Surveys</h4>
+            <ol class="completed">
+            <?php
+              echo implode("",$completed_surveys);
+            ?>
             </ol>
         </li>
     </ul>

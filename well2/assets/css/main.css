@@ -376,7 +376,7 @@ nav a:visited {
     font-size:140%;
 }
 .main > aside li ol{
-    margin:0 0 0 0; padding:0;
+    margin:0 0 50px 0; padding:0;
     list-style:none;
 }
 .main > aside li li{
@@ -920,7 +920,9 @@ footer .li a{
     right: 10px;
     text-indent: -5000px;
 }
-
+.completed .badge.bg-danger.pull-right {
+    display:none;
+}
 
 .surveyFrame {
     position: relative;

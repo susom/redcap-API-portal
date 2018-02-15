@@ -30,12 +30,11 @@ $supp_surveys_keys = array();
 foreach($events as $arm){
   $supp_surveys_keys = array_merge($supp_surveys_keys, array_keys($arm));
 };
-$supp_surveys_keys = array_merge($supp_surveys_keys, array("certificates"));
 
 //IF CORE SURVEY GET THE SURVEY ID
 $navon          = array("home" => "", "reports" => "on", "game" => "");
 $sid            = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
-$sid            = empty($sid) ? "certificates" : $sid;
+$sid            = empty($sid) ? "wellbeing_questions" : $sid;
 $surveyon       = array();
 $surveynav      = array_merge(array_splice($available_instruments,0,1) , $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
@@ -70,41 +69,15 @@ include_once("models/inc/gl_head.php");
                         <h4>Completed Surveys</h4>
                         <ol>
                             <?php
-                            $certs_available  = array();
                             $suppsurvs        = array();
                             $firstyear        = $first_year;
 
-                            $filename         = array();
-                            $filename[]       = $loggedInUser->id;
-                            $filename[]       = $loggedInUser->firstname;
-                            $filename[]       = $loggedInUser->lastname;
-                            $user_folder      = implode("_",$filename);
-
-                            // var comes from surveys.php
-                            while($firstyear <= $this_year){
-                              $curyear        = $firstyear;
-                              $file_cert      = "../PDF/certs/$user_folder/" . $user_folder . "_$curyear.pdf";
-                              if(file_exists($file_cert)){
-                                $certs_available[] = $file_cert;
-                              }
-                              $firstyear++;
-                            }
-                            if(!empty($certs_available)){
-                                $survey_alinks["certificates"]  = "<a class='assessments' href='reports.php?sid=certificates'>Certificates</a>";
-                                $default_surveynav              = $surveyon["certificates"];
-                                $suppsurvs["certificates"]      = "<li class='assesments fruits lemon $default_surveynav'>
-                                                                        ".$survey_alinks["certificates"]." 
-                                                                   </li>";
-                            }
-
                             // TODO WELLBEING SCORE (RADAR CHART)
-                            if(!empty($certs_available)){
-                                $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions'>Wellbeing Questions</a>";
-                                $default_surveynav = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
-                                $suppsurvs["wellbeing_questions"]     = "<li class='assesments fruits $default_surveynav'>
-                                                    ".$survey_alinks["wellbeing_questions"]." 
-                                                </li>";
-                            }
+                            $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions'>Stanford WELL for Life Scale</a>";
+                            $default_surveynav = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
+                            $suppsurvs["wellbeing_questions"]     = "<li class='assesments fruits $default_surveynav'>
+                                                ".$survey_alinks["wellbeing_questions"]." 
+                                            </li>";
 
                             $viewlink = array();
                             $armnames = array_keys($events);
@@ -163,6 +136,27 @@ include_once("models/inc/gl_head.php");
                             }
                             ?>
                         </ol>
+
+                        <h4>WEll Certificates</h4>
+                        <ol>
+                          <?php
+                            $filename         = array();
+                            $filename[]       = $loggedInUser->id;
+                            $filename[]       = $loggedInUser->firstname;
+                            $filename[]       = $loggedInUser->lastname;
+                            $user_folder      = implode("_",$filename);
+
+                            // var comes from surveys.php
+                            while($firstyear <= $this_year){
+                              $curyear        = $firstyear;
+                              $file_cert      = "../PDF/certs/$user_folder/" . $user_folder . "_$curyear.pdf";
+                              if(file_exists($file_cert)){
+                                echo "<li class='nofruit'><a class='certcomplete' target='blank' href='$file_cert'>$curyear</a></li>";
+                              }
+                              $firstyear++;
+                            }
+                          ?>
+                        </ol>
                     </li>
                 </ul>
             </aside>
@@ -176,16 +170,15 @@ include_once("models/inc/gl_head.php");
                     if(!empty($sid)){
                         echo "<div id='results'>";
                         switch($sid){
-                            case "certificates":
-                                //cert complete 
-                                foreach($certs_available as $cert){
-                                  $getyear = substr(substr($cert,-8), 0,4);
-                                  echo "<a class='certcomplete' target='blank' href='$cert'>$getyear WELL for Life Completion Certificate</a>";
-                                }
-                            break;
-
                             case "wellbeing_questions":
-                                echo " show the radar charts";
+                              $extra_params = array(
+                                'content'     => 'record',
+                                'records'     => array($loggedInUser->id) ,
+                                'fields'      => array("id","well_long_score"),
+                              );
+                              $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
+                              $long_scores  = json_decode($user_ws[0]["well_long_score"],1);
+                              print_rr($long_scores);  
                             break;
 
                             case "international_physical_activity_questionnaire":
@@ -229,14 +222,26 @@ include_once("models/inc/gl_head.php");
 include_once("models/inc/gl_foot.php");
 ?>
 <style>
-.certcomplete {
+.main > aside li ol {
+  margin-bottom:50px;
+}
+.main > aside a.certcomplete {
     display:inline-block;
     vertical-align: bottom;
-    padding-left:80px;
+    padding-left:59px;
     height:50px;
     background:url(../PDF/ico_cert_completion.png) 0 0 no-repeat;
-    background-size:70px 50px;
-    line-height:290%;
+    background-size:49px 35px;
+    line-height:200%;
+}
+.main > aside li li.nofruit{
+  padding-left:10px;
+}
+.main > aside li li.nofruit:hover{
+  background:none;
+}
+.main > aside li li.nofruit:before {
+  display:none;
 }
 
 #ipaq_results{
@@ -249,9 +254,9 @@ include_once("models/inc/gl_foot.php");
     color:#000;
 }
 .viewassessment {
-  /*opacity:0;
+  opacity:0;
   position:absolute;
-  left:-5000px;*/
+  left:-5000px;
 }
 </style>
 <script src="js/custom_assessments.js"></script>
@@ -439,6 +444,6 @@ $(document).ready(function(){
   });
 
 
- // $(".viewassessment").trigger("click");
+ $(".viewassessment").trigger("click");
 });
 </script>

@@ -75,140 +75,171 @@ foreach($cats as $cat){
 }
 
 if(!$user_short_scale){
-  //GATHER DATA FOR DATA VISUALIZATIONS
-  //FOR THE PIE CHART
-  $graph_fields               = array(
-                                   "core_sitting_hh"
-                                  ,"core_sitting_mm"
-                                  ,"core_sitting_nowrk_hh"
-                                  ,"core_sitting_nowrk_mm"
-                                  ,"core_sitting_weekend_hh"
-                                  ,"core_sitting_weekend_mm"
-                                  ,"core_walking_hh"
-                                  ,"core_walking_mm"
-                                  ,"core_pa_mod_hh"
-                                  ,"core_pa_mod_mm"
-                                  ,"core_pa_vig_hh"
-                                  ,"core_pa_vig_mm"
-                                  ,"core_sleep_hh"
-                                  ,"core_sleep_mm"
-                                );
-  $instrument_event           = $user_survey_data->getSingleInstrument("your_physical_activity");
+  //10 DOMAINS TO CALCULATE THE WELL LONG SCORE
+  $domain_fields  = array(
+     "Exploration and Creativity" => array("core_engage_oppo") 
+    ,"Spirituality and Religion"  => array("core_religious_beliefs")
+    ,"Financial Security"         => array("core_money_needs")
 
-  //GET ANSWERS FOR ALL USERS
-  $all_answers                = $user_survey_data->getUserAnswers(NULL,$graph_fields,$instrument_event["event"]);
+    ,"Purpose and Meaning"        => array("core_contribute_doing"
+                                          ,"core_contribute_alive")
 
-  //GATHER UP THIS USERS ANSWERS
-  $health_behaviors_complete  = $instrument_event["survey_complete"] ?: false;
-  $user_answers               = array_intersect_key( $all_completed,  array_flip($graph_fields) );
+    ,"Physical Health"            => array("core_fitness_level"
+                                          ,"core_health_selfreported"
+                                          ,"core_physical_illness"
+                                          ,"core_energy_level"
+                                          ,"core_interfere_life")
 
-  // AGGREGATE OF ALL PARTICIPANTS
-  $ALL_TIME_PA_MOD_IN_HOURS   = array();
-  $ALL_TIME_PA_VIG_IN_HOURS   = array();
-  $ALL_TIME_WALKING_IN_HOURS  = array();
-  $ALL_TIME_SITTING_IN_HOURS  = array();
-  $ALL_TIME_SLEEP_HOURS       = array();
-  $sitting_count              = 0;
+    ,"Sense of Self"              => array("core_true_person"
+                                          ,"core_accepting_yourself"
+                                          ,"core_satisfied_yourself"
+                                          ,"core_capable"
+                                          ,"core_daily_activities")
 
-  foreach($all_answers as $users_answers){
-    $u_ans = array_intersect_key( $users_answers,  array_flip($graph_fields) );
-    foreach($u_ans as $fieldname => $hhmm){
-      if(!empty($hhmm)){
-        if(strpos($fieldname,"hh") > -1){
-          $answer_value = (int) $hhmm;
-        }else if(strpos($fieldname,"mm") > -1){
-          $answer_value = (float) $hhmm/60;
-        }
+    ,"Experience of Emotions"     => array("core_calm"
+                                          ,"core_content"
+                                          ,"core_drained"
+                                          ,"core_excited"
+                                          ,"core_frustrated"
+                                          ,"core_happy"
+                                          ,"core_hopeless"
+                                          ,"core_joyful"
+                                          ,"core_sad"
+                                          ,"core_secure"
+                                          ,"core_worried")
 
-        if(strpos($fieldname,"core_pa_mod") > -1){
-          $ALL_TIME_PA_MOD_IN_HOURS[]  = $answer_value;
-        }
-        
-        if(strpos($fieldname,"core_pa_vig") > -1){
-          $ALL_TIME_PA_VIG_IN_HOURS[]  = $answer_value;
-        }
+    ,"Stress and Resilience"      => array("core_bounce_back"
+                                          ,"core_adapt_change"
+                                          ,"core_deal_whatever"
+                                          ,"core_humorous_side"
+                                          ,"core_overcome_obstacles"
+                                          ,"core_focused_pressure"
+                                          ,"core_strong_person"
+                                          ,"core_unpleasant_feelings"
+                                          ,"core_disheartened_setbacks"
+                                          ,"core_important_time"
+                                          ,"core_confident_psnlproblem"
+                                          ,"core_going_way"
+                                          ,"core_overwhelm_difficult"
+                                          ,"core_important_energy")
 
-        if(strpos($fieldname,"walking") > -1){
-          $ALL_TIME_WALKING_IN_HOURS[] = $answer_value;
-        }
-        
-        if(strpos($fieldname,"sitting") > -1){
-          $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
-          $ALL_TIME_SITTING_IN_HOURS[] = $answer_value;
+    ,"Social Connectedness"       => array("core_lack_companionship"
+                                          ,"core_left_out"
+                                          ,"core_isolated_others"
+                                          ,"core_tune_people"
+                                          ,"core_people_talk"
+                                          ,"core_people_rely"
+                                          ,"core_drained_helping"
+                                          ,"core_people_close"
+                                          ,"core_group_friends"
+                                          ,"core_people_upset"
+                                          ,"core_meet_expectations"
+                                          ,"core_energized_help"
+                                          ,"core_help")
 
-          if(strpos($fieldname,"nowrk") > -1){
-            $sitting_count = $sitting_count  + 1;
-          }else{
-            $sitting_count = $sitting_count  +  .5;
-          }
-        }
-
-        if(strpos($fieldname,"sleep") > -1){
-          if($answer_value <= 0){
-            continue;
-          }
-          $ALL_TIME_SLEEP_HOURS[] = $answer_value;
-        }
-      }
-    }
-  }
-
-  if($health_behaviors_complete){
-    $ALL_TIME_PA_MOD_IN_HOURS   = count($ALL_TIME_PA_MOD_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_MOD_IN_HOURS )/count($ALL_TIME_PA_MOD_IN_HOURS ),2) : 0;
-    $ALL_TIME_PA_VIG_IN_HOURS   = count($ALL_TIME_PA_VIG_IN_HOURS ) ? round(array_sum($ALL_TIME_PA_VIG_IN_HOURS )/count($ALL_TIME_PA_VIG_IN_HOURS ),2) : 0;
-    $ALL_TIME_WALKING_IN_HOURS  = count($ALL_TIME_WALKING_IN_HOURS) ? round(array_sum($ALL_TIME_WALKING_IN_HOURS)/count($ALL_TIME_WALKING_IN_HOURS),2) : 0;
-    $ALL_TIME_SITTING_IN_HOURS  = count($ALL_TIME_SITTING_IN_HOURS) ? round(array_sum($ALL_TIME_SITTING_IN_HOURS)/$sitting_count,2) : 0;
-    $ALL_TIME_SLEEP_HOURS       = count($ALL_TIME_SLEEP_HOURS)      ? round(array_sum($ALL_TIME_SLEEP_HOURS)/count($ALL_TIME_SLEEP_HOURS),2) : 0;
-    $ALL_NO_ACTIVITY            = ($ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $ALL_TIME_SLEEP_HOURS - $ALL_TIME_SITTING_IN_HOURS - $ALL_TIME_WALKING_IN_HOURS - $ALL_TIME_PA_MOD_IN_HOURS - $ALL_TIME_PA_VIG_IN_HOURS;
-    $ALL_NO_ACTIVITY            = $ALL_NO_ACTIVITY < 0 ? 0 : $ALL_NO_ACTIVITY  ;
-  }else{
-    $ALL_TIME_PA_MOD_IN_HOURS   = 0;
-    $ALL_TIME_PA_VIG_IN_HOURS   = 0;
-    $ALL_TIME_WALKING_IN_HOURS  = 0;
-    $ALL_TIME_SITTING_IN_HOURS  = 0;
-    $ALL_TIME_SLEEP_HOURS       = 0;
-    $ALL_NO_ACTIVITY            = 0;
-    $ALL_NO_ACTIVITY            = 0;
-  }
+    ,"Lifestyle Behaviors"        => array("core_lpaq"
+                                          ,"core_sleep_total", "core_sleep_hh", "core_sleep_mm"
+                                          ,"core_fallasleep_min"
+                                          ,"core_fallasleep"
+                                          ,"core_wokeup"
+                                          ,"core_wokeup_early"
+                                          ,"core_wokeup_unrefresh"
+                                          ,"core_sleep_quality"
+                                          ,"core_vegatables_intro_v2"
+                                          ,"core_fruit_intro_v2"
+                                          ,"core_grain_intro_v2"
+                                          ,"core_bean_intro_v2"
+                                          ,"core_sweet_intro_v2"
+                                          ,"core_meat_intro_v2"
+                                          ,"core_nuts_intro_v2"
+                                          ,"core_sodium_intro_v2"
+                                          ,"core_sugar_intro_v2"
+                                          ,"core_fish_intro_v2"
+                                          ,"core_cook_intro_v2"
+                                          ,"core_fastfood_intro_v2"
+                                          ,"core_bngdrink_female_freq"
+                                          ,"core_bngdrink_male_freq"
+                                          ,"core_smoke_100"
+                                          ,"core_smoke_freq")
+  );
   
-  //CURRENT USERS VALUES
-  $USER_TIME_PA_MOD_IN_HOURS  = 0;
-  $USER_TIME_PA_VIG_IN_HOURS  = 0;
-  $USER_TIME_WALKING_IN_HOURS = 0;
-  $USER_TIME_SITTING_IN_HOURS = 0;
-  $USER_TIME_SLEEP_HOURS      = 0;
-  foreach($user_answers as $fieldname => $hhmm){
-    if(!empty($hhmm)){
-      if(strpos($fieldname,"hh") > -1){
-        $answer_value = (int) $hhmm;
-      }else if(strpos($fieldname,"mm") > -1){
-        $answer_value = (float) $hhmm/60;
-      }
+  //JUST GET THE INDIVIDUAL FIELDS
+  $q_fields   = array();
+  foreach($domain_fields as $domains){
+    $q_fields = array_merge($q_fields, array_values($domains));
+  }
 
-      if(strpos($fieldname,"core_pa_mod") > -1){
-        $USER_TIME_PA_MOD_IN_HOURS += $answer_value;
-      }
-      
-      if(strpos($fieldname,"core_pa_vig") > -1){
-        $USER_TIME_PA_VIG_IN_HOURS += $answer_value;
-      }
+  //INTERSECT ALL USER COMPLETED FIELDS WITH THE REQUIRED ONES TO GET THE USER ANSWERS
+  $user_completed_keys = array_filter(array_intersect_key( $all_completed, array_flip($q_fields) ),function($v){
+      return $v !== false && !is_null($v) && ($v != '' || $v == '0');
+  });
 
-      if(strpos($fieldname,"walking") > -1){
-        $USER_TIME_WALKING_IN_HOURS += $answer_value;
-      }
-      
-      if(strpos($fieldname,"sitting") > -1){
-        $answer_value = strpos($fieldname,"nowrk") > -1 ? $answer_value : $answer_value/2;
-        $USER_TIME_SITTING_IN_HOURS += $answer_value;
-      }
-
-      if(strpos($fieldname,"sleep") > -1){
-        $USER_TIME_SLEEP_HOURS += $answer_value;
-      }
+  //MAKE SURE THAT AT LEAST 70% OF THE FIELDS IN EACH DOMAIN IS COMPLETE OR ELSE CANCEL THE SCORING
+  $minimumData = true;
+  foreach($domain_fields as $domain => $fields){
+    $dq_threshold   = ceil(count($fields) * .3);
+    $missing_keys   = array_diff($fields, array_keys($user_completed_keys)) ;
+    if(count($missing_keys) >= $dq_threshold){
+      $minimumData  = false;
     }
   }
-  $USER_NO_ACTIVITY  = ($USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS == 0) ? 0 : 24 - $USER_TIME_SLEEP_HOURS - $USER_TIME_SITTING_IN_HOURS -$USER_TIME_WALKING_IN_HOURS - $USER_TIME_PA_MOD_IN_HOURS - $USER_TIME_PA_VIG_IN_HOURS;
-  $USER_NO_ACTIVITY  = $USER_NO_ACTIVITY < 0 ? 0 : $USER_NO_ACTIVITY;
+
+  if($minimumData){
+    $q_fields = array_merge($q_fields, array("core_vegatables_intro_v2_1"
+                                            ,"core_vegatables_intro_v2_2"
+                                            ,"core_vegatables_intro_v2_3"
+                                            ,"core_fruit_intro_v2_1"
+                                            ,"core_fruit_intro_v2_2"
+                                            ,"core_fruit_intro_v2_3"
+                                            ,"core_grain_intro_v2_1"
+                                            ,"core_grain_intro_v2_2"
+                                            ,"core_grain_intro_v2_3"
+                                            ,"core_bean_intro_v2_1"
+                                            ,"core_bean_intro_v2_2"
+                                            ,"core_bean_intro_v2_3"
+                                            ,"core_sweet_intro_v2_1"
+                                            ,"core_sweet_intro_v2_2"
+                                            ,"core_sweet_intro_v2_3"
+                                            ,"core_meat_intro_v2_1"
+                                            ,"core_meat_intro_v2_2"
+                                            ,"core_meat_intro_v2_3"
+                                            ,"core_nuts_intro_v2_1"
+                                            ,"core_nuts_intro_v2_2"
+                                            ,"core_nuts_intro_v2_3"
+                                            ,"core_sodium_intro_v2_1"
+                                            ,"core_sodium_intro_v2_2"
+                                            ,"core_sodium_intro_v2_3"
+                                            ,"core_sugar_intro_v2_1"
+                                            ,"core_sugar_intro_v2_2"
+                                            ,"core_sugar_intro_v2_3"
+                                            ,"core_fish_intro_v2_1"
+                                            ,"core_fish_intro_v2_2"
+                                            ,"core_fish_intro_v2_3"
+                                            ,"core_cook_intro_v2_1"
+                                            ,"core_cook_intro_v2_2"
+                                            ,"core_cook_intro_v2_3"
+                                            ,"core_fastfood_intro_v2_1"
+                                            ,"core_fastfood_intro_v2_2"
+                                            ,"core_fastfood_intro_v2_3"
+                                          ) );
+
+    // DAMNIT TOHELL, GOTTA DO THIS PROCESS AGAIN SINCE THE ABOVE ISNT USED FOR THE "minimum data"
+    $user_completed_keys = array_filter(array_intersect_key( $all_completed, array_flip($q_fields) ),function($v){
+        return $v !== false && !is_null($v) && ($v != '' || $v == '0');
+    });
+
+    $long_scores = getLongScores($domain_fields, $user_completed_keys);
+  }else{
+    $long_scores = array();
+  }
+
+  $data[] = array(
+    "record"            => $loggedInUser->id,
+    "field_name"        => "well_long_score",
+    "value"             => json_encode($long_scores),
+    "redcap_event_name" => $user_event_arm
+  );
+  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
 }else{
   //GATHER DATA FOR USERS SHORT SCORES
   $short_scores   = array();
@@ -381,7 +412,6 @@ if(isset($_GET["survey_complete"])){
     $survey = $surveys[$surveyid];
 
     if(!isset($all_survey_keys[$index+1])){ 
-
       //TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
       require_once('../PDF/fpdf181/fpdf.php');
       require_once('../PDF/FPDI-2.0.1/src/autoload.php');
@@ -394,7 +424,6 @@ if(isset($_GET["survey_complete"])){
       $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
       $success_msg    = $lang["CONGRATS_FRUITS"] . "<p>Your WELL Score for $arm_year is $new_well_score</p><a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
       addSessionMessage( $success_msg , "success");
-    
     }
   }
 }

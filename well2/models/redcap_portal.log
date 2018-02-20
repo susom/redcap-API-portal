@@ -322,3 +322,18 @@ The WELL for Life team
 2018-02-20 11:26:52	DEBUG		CREATE NEW USER RESULT:["11"]
 2018-02-20 11:26:52	SUCCESS		Thank you for registering with the WELL for Life initiative!  We have sent an account activation link to your email.  Please check your email and click the link inside. If you do not receive the email within 1 hour, contact us at wellforlife@stanford.edu
 2018-02-20 11:27:07	ALERT		Username already exists.
+2018-02-20 15:50:11	DEBUG		Session updated after 326 secs
+2018-02-20 15:50:13	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:50:14	DEBUG		Session updated after 3 secs
+2018-02-20 15:50:16	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:50:18	DEBUG		Session updated after 4 secs
+2018-02-20 15:51:35	DEBUG		Session updated after 77 secs
+2018-02-20 15:51:47	DEBUG		Session updated after 12 secs
+2018-02-20 15:51:49	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:51:50	DEBUG		Session updated after 3 secs
+2018-02-20 15:51:51	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:55:29	DEBUG		Session updated after 219 secs
+2018-02-20 15:55:30	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:55:32	DEBUG		Session updated after 3 secs
+2018-02-20 15:55:33	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-20 15:55:34	DEBUG		Session updated after 2 secs

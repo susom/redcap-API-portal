@@ -1,4 +1,4 @@
- <?php
+<?php
 class Project {
 	protected $LOGGED_IN_USER;
 	protected $API_URL;

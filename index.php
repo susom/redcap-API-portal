@@ -25,4 +25,3 @@ include("models/inc/gl_header.php");
 <?php 
 include("models/inc/gl_footer.php");
 ?>
-

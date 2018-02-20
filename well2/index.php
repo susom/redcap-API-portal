@@ -179,15 +179,19 @@ if(!$user_short_scale){
   foreach($domain_fields as $domain => $fields){
     $dq_threshold   = ceil(count($fields) * .3);
     $missing_keys   = array_diff($fields, array_keys($user_completed_keys)) ;
-    if(count($missing_keys) >= $dq_threshold){
+    if(count($missing_keys) >= $dq_threshold
+       || (!isset($user_completed_keys["core_lpaq"]) 
+          || (!isset($user_completed_keys["core_bngdrink_female_freq"]) && !isset($user_completed_keys["core_bngdrink_male_freq"]) 
+          || (!isset($user_completed_keys["core_smoke_100"]) || !isset($user_completed_keys["core_smoke_freq"])) ))
+      ){
       $minimumData  = false;
     }
   }
 
   if($minimumData){
-    $q_fields = array_merge($q_fields, array("core_vegatables_intro_v2_1"
-                                            ,"core_vegatables_intro_v2_2"
-                                            ,"core_vegatables_intro_v2_3"
+    $q_fields = array_merge($q_fields, array("core_vegetables_intro_v2_1"
+                                            ,"core_vegetables_intro_v2_2"
+                                            ,"core_vegetables_intro_v2_3"
                                             ,"core_fruit_intro_v2_1"
                                             ,"core_fruit_intro_v2_2"
                                             ,"core_fruit_intro_v2_3"

@@ -20,7 +20,7 @@ class Project {
 	protected $current_arm 				 	= 0; //WHAT EVEN IS THIS
 	protected $name                       	= "";
 
-	public function __construct($loggedInUser, $projectName="", $api_url, $api_token){
+	public function __construct($loggedInUser, $projectName="", $api_url, $api_token, $specific_event=null){
 		//DO ALL THE ONE TIME CALLS OUT HERE
 		//THEN I CAN GRANULARLY REFRESH JUST THE LIVE DATA
 		//WHILE LEAVING THE OBJECT ITSELF STORED IN THE SESSION
@@ -32,8 +32,9 @@ class Project {
 		$this->instrument_list 	= SurveysConfig::$core_surveys;
 		$all_instruments 		= array();
 		$all_events 			= self::getEvents();
+		$this->specific_event 	= $specific_event;
 
-		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){				
+		if(empty($all_events) || (is_array($all_events) && array_key_exists("error",$all_events)) ){	
 			$all_instruments 		= self::getInstruments($projectName);
 		}else{
 			//GET ALL INSTRUMENTS/EVENTS IN THIS PROJECT
@@ -42,7 +43,10 @@ class Project {
 				$instrument_id 		= $event["form"];
 				$instrument_label 	= str_replace("_"," ",$instrument_id);
 				$user_current_event = !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
-
+				
+				if(!is_null($this->specific_event)){
+					$user_current_event = $this->specific_event;
+				}
 				if($event["unique_event_name"] == $user_current_event){
 					return array(
 						 "arm_num" 				=> $event["arm_num"]
@@ -54,6 +58,7 @@ class Project {
 				}
 			}, $all_events);
 		}
+
 		$user_current_event 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm  : REDCAP_PORTAL_EVENT ;
 		if(strpos($user_current_event,"short") > -1){
 			$this->SHORT_SCALE 		= true;
@@ -405,20 +410,21 @@ class Project {
 
 class PreGenAccounts extends Project{
 	//NOW INSTRUMENT HAS ACCESS TO THE METHODS THAT PROJECT HAS.
-	
+
 	//BUT... IT WILL NEED ALSO ITS API URL AND API TOKEN?
 	public function __construct($loggedInUser, $projectName, $api_url, $api_token){
 		parent::__construct($loggedInUser,$projectName, $api_url, $api_token);
     }
 
     public function getAccount(){
-    	$ffq_ts 	  		= strToTime($this->LOGGED_IN_USER->ffq_generated_ts);
+    	$ffq_ts 	  		= strToTime($this->LOGGED_IN_USER->consent_ts);
 		$generate_new 		= false;
 
 		if(!empty($ffq_ts)){
 			$datediff    	= time() - $ffq_ts;
 			$days_active 	= floor($datediff / (60 * 60 * 24));
 			$years 			= ceil($days_active/365);
+
 			if($years > 1){
 				$generate_new = true;
 			}
@@ -426,10 +432,10 @@ class PreGenAccounts extends Project{
 			$generate_new = true;
 		}
 
-	    if($generate_new){
+		$result = $this->checkExisting();
+		if($generate_new && count($result) < $years){
 	    	$ffq = $this->genNewAccount();
 	    }else{
-	    	$result = $this->checkExisting();
 	    	if(!empty($result)){
 	    		$ffq = array_pop($result);
     			unset($ffq["portal_id"]);
@@ -437,7 +443,7 @@ class PreGenAccounts extends Project{
 	    		$ffq = $this->genNewAccount();
 	    	}
 	    }
-    	return $ffq;
+	    return $ffq;
     }
 
     private function genNewAccount(){

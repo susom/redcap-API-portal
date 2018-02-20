@@ -45,19 +45,19 @@ if(isset($_REQUEST["ajax"])){
 }
 
 $active_survey = null;
-foreach($surveys as $survey){
-  if($survey["survey_complete"]){
-    continue;
-  }else{
-    $survey_data    = $surveys[$survey["instrument_name"]];
-    //LOAD UP THE SURVEY PRINTER HERE
-    $active_survey  = new Survey($survey_data);
+// foreach($surveys as $survey){
+//   if($survey["survey_complete"]){
+//     continue;
+//   }else{
+//     $survey_data    = $surveys[$survey["instrument_name"]];
+//     //LOAD UP THE SURVEY PRINTER HERE
+//     $active_survey  = new Survey($survey_data);
 
-    //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
-    $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
-    break;
-  }
-}
+//     //ON SURVEY PAGE STORE THIS FOR USE WITH THE AJAX EVENTS 
+//     $_SESSION[SESSION_NAME]["survey_context"] = array("event" => $survey_data["event"]);
+//     break;
+//   }
+// }
 
 
 $pageTitle = "Well v2 Game";

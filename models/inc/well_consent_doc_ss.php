@@ -7,7 +7,7 @@
 
 <section class="lang en">
 	<h2>PROGRAM ACTIVITIES</h2> 
-	<p>The WELL for Life Registry consists of a number of online surveys. The first survey takes about 20-30 minutes and asks for your contact details and about your basic demographics (e.g., age, gender, language), lifestyle habits and behaviors (e.g., diet, physical activity, tobacco use), and your community. Later surveys will ask similar questions about your lifestyle habits, health, and wellness. You also may be asked to provide a photograph, voice or video recording as a measure of wellbeing. You have the right to refuse to answer particular questions.</p>
+	<p>The WELL for Life Registry consists of a number of online surveys. The first survey takes about 20-30 minutes and asks for your contact details and about your basic demographics (e.g., age, gender, language), lifestyle habits and behaviors (e.g., diet, physical activity, sleep, and the use of alcohol, tobacco and marijuana), and your community. Later surveys will ask similar questions about your lifestyle habits, health, and wellness. You also may be asked to provide a photograph, voice or video recording as a measure of wellbeing. You have the right to refuse to answer particular questions.</p>
 	<p>We will test different strategies to make participation in the WELL for Life Registry engaging. For example, we may “gamify” the survey, provide you with varying types of feedback, change the order in which you answer the surveys or the messages and reminders that we send you, and provide you with informational content.</p>
 	<p>You may be asked if you would be interested in being interviewed about your experience as a WELL for Life participant. If you do NOT wish to be contacted about being interviewed, please indicate that on the first survey.</p>
 	<p>You may also be asked if you would be interested in being contacted about participating in other non-WELL related studies in the future.  If you do NOT wish to be contacted, please indicate that on the first survey.</p>
@@ -33,7 +33,7 @@
 <section class="lang en"> 
 	<h2>FINANCIAL CONSIDERATIONS</h2>
 	<h3>Payment and Costs</h3>
-	<p>You will not be paid for participating in this study. Program-branded items, however, may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys. If you are a student, you are eligible to receive course credit.</p>
+	<p>In general, you will not be paid to be part of the WELL for Life study.  However, a small sub sample of up to 100 participants who complete the Stanford WELL for Life Survey twice in a short period of time will be offered a small thank you gift of a $10 gift card which will be sent to them electronically when they complete the well-being section of the survey the second time.  Program-branded items may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys. If you are a student, you are eligible to receive course credit.</p>
 </section>
 
 <section class="lang en">
@@ -44,7 +44,7 @@
 <section class="lang en">
 	<h2>FOR QUESTIONS ABOUT THE STUDY</h2>
 	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.</p>
-	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB at:
+	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB:
 
 	<br><br>
 	<addr>

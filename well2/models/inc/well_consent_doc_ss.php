@@ -7,11 +7,12 @@
 
 <section class="lang en">
 	<h2>PROGRAM ACTIVITIES</h2> 
-	<p>The WELL for Life Registry consists of a number of online surveys. The first survey takes about 20-30 minutes and asks for your contact details and about your basic demographics (e.g., age, gender, language), lifestyle habits and behaviors (e.g., diet, physical activity, tobacco use), and your community. Later surveys will ask similar questions about your lifestyle habits, health, and wellness. You also may be asked to provide a photograph, voice or video recording as a measure of wellbeing. You have the right to refuse to answer particular questions.</p>
+	<p>The WELL for Life Registry consists of a number of online surveys. The first survey takes about 20-30 minutes and asks for your contact details and about your basic demographics (e.g., age, gender, language), lifestyle habits and behaviors (e.g., diet, physical activity, sleep, and the use of alcohol, tobacco and marijuana), and your community. Later surveys will ask similar questions about your lifestyle habits, health, and wellness. You also may be asked to provide a photograph, voice or video recording as a measure of wellbeing. You have the right to refuse to answer particular questions.</p>
 	<p>We will test different strategies to make participation in the WELL for Life Registry engaging. For example, we may “gamify” the survey, provide you with varying types of feedback, change the order in which you answer the surveys or the messages and reminders that we send you, and provide you with informational content.</p>
 	<p>You may be asked if you would be interested in being interviewed about your experience as a WELL for Life participant. If you do NOT wish to be contacted about being interviewed, please indicate that on the first survey.</p>
 	<p>You may also be asked if you would be interested in being contacted about participating in other non-WELL related studies in the future.  If you do NOT wish to be contacted, please indicate that on the first survey.</p>
 	<p>You may be asked for your permission to include your name, contact details, and responses from the first survey you complete in the Stanford Research Registry.  This is a registry of individuals who agree to be contacted in the future to learn more about research studies being conducted at Stanford.  It does not obligate you to participate in these studies.  If you do NOT wish to be contacted, please indicate that on the first survey.</p>
+	<p>If you are a primary care patient of Stanford Hospitals and Clinics, you may be asked for your permission to share your survey responses with your Stanford primary care provider. If you do NOT wish to share your survey data, please indicate that on the first survey.</p>
 </section>
 
 <section class="lang en">
@@ -33,7 +34,7 @@
 <section class="lang en"> 
 	<h2>FINANCIAL CONSIDERATIONS</h2>
 	<h3>Payment and Costs</h3>
-	<p>You will not be paid for participating in this study. Program-branded items, however, may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys. If you are a student, you are eligible to receive course credit.</p>
+	<p>In general, you will not be paid to be part of the WELL for Life study.  However, a small sub sample of up to 100 participants who complete the Stanford WELL for Life Survey twice in a short period of time will be offered a small thank you gift of a $10 gift card which will be sent to them electronically when they complete the well-being section of the survey the second time.  Program-branded items may be provided during your time in the study such as pens, folders, clothing items, etc. There is no cost to you for participating in this study, other than the time it takes you to complete the surveys. If you are a student, you are eligible to receive course credit.</p>
 </section>
 
 <section class="lang en">
@@ -44,7 +45,7 @@
 <section class="lang en">
 	<h2>FOR QUESTIONS ABOUT THE STUDY</h2>
 	<p>Questions, Concerns, or Complaints: If you have any questions, concerns or complaints about this research study, its procedures, risks and benefits, you should ask the Protocol Director, John Ioannidis at (650) 725-5465 or the Protocol Co-Director, Sandra Winter at 650-723-8513.</p>
-	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB at:
+	<p>Independent Contact: If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-5244 or toll free at 1-866-680-2906. You can also write to the Stanford IRB:
 
 	<br><br>
 	<addr>
@@ -66,7 +67,7 @@
 	<p>You do not have to provide your authorization. But if you do not, you will not be able to participate in this research study. Providing your authorization is not a condition for receiving any medical care outside the study.</p>
 
 	<h3>If I provide my authorization, can I revoke it or withdraw from the research later?</h3>
-	<p>If you decide to participate, you are free to withdraw your authorization regarding the use and disclosure of your health information (and to discontinue any other participation in the study) at any time. After any revocation, your health information will no longer be used or disclosed in the study, except to the extent that the law allows us to continue using your information (e.g., necessary to maintain integrity of research). If you wish to revoke your authorization for the research use or disclosure of your health information in this study, you must write to: the Protocol Director, Sandra Winter, Stanford Prevention Research Center, Department of Medicine, Stanford University, Medical School Office Building, X3C02. 1265 Welch Road. Stanford, CA 94305-5411, or e-mail sjwinter@stanford.edu</p>
+	<p>If you decide to participate, you are free to withdraw your authorization regarding the use and disclosure of your health information (and to discontinue any other participation in the study) at any time. After any revocation, your health information will no longer be used or disclosed in the study, except to the extent that the law allows us to continue using your information (e.g., necessary to maintain integrity of research). If you wish to revoke your authorization for the research use or disclosure of your health information in this study, you must write to: the Protocol Director, John Ioannidis, Stanford Prevention Research Center, Department of Medicine, Stanford University, Medical School Office Building, X306. 1265 Welch Road. Stanford, CA 94305-5411, or e-mail sjwinter@stanford.edu</p>
 
 	<h3>What Personal Information Will Be Obtained, Used or Disclosed?</h3>
 	<p>Your health information related to this study, may be used or disclosed in connection with this research study, including, but not limited to the following protected health information:</p>
@@ -74,7 +75,7 @@
 	<li>Contact information (e.g., name, address, phone number, e-mail address, contact details of a friend/family member, Web Uniform Resource Locators (URLs), Internet Protocol (IP) address numbers</li>
 	<li>Socio-demographic data (e.g., age, gender, place of birth, ethnicity, race, language, marital status, number of children, number of people in household, education, income, employment status)</li> 
 	<li>Health information (e.g., self-reported health, number of prescribed medications, self-reported height and weight, brief health history)</li>
-	<li>Health behavior information (e.g., relating to physical activity, sleep, tobacco and alcohol use, diet)</li>
+	<li>Health behavior information (e.g., relating to physical activity, sleep, tobacco, marijuana and alcohol use, diet)</li>
 	<li>Perceptual information (e.g., your wellbeing and mood and your social and neighborhood environment)</li>
 	<li>Biometric identifiers, including finger, retinal and voice prints</li>
 	<li>Full face photographic images and any comparable images</li>
@@ -83,7 +84,7 @@
 	<h3>Who May Use or Disclose the Information?</h3>
 	<p>The following parties are authorized to use and/or disclose your health information in connection with this research study:</p>
 	<ul>
-	<li>The Protocol Director (Sandra Winter, PhD)</li>
+	<li>The Protocol Director</li>
 	<li>The Stanford University Administrative Panel on Human Subjects in Medical Research and any other unit of Stanford University as necessary</li>
 	<li>Research Staff</li>
 	</ul>
@@ -101,7 +102,7 @@
 	<p>Your authorization for the use and/or disclosure of your health information will end on 12/31/2099 or when the research project ends, whichever is earlier.</p>
 
 	<p>Please print a copy of this page for your records</p>
-	<p>If you wish to be in this study, please click the button that says “I agree”  You will then be directed to complete the first WELL for Life survey.</p>
+	<p>If you wish to be in this study, please click the button that says "I agree to participate".  You will then be directed to complete the first WELL for Life survey.</p>
 </section>
 
 <section class="lang sp">

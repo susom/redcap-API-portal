@@ -5,6 +5,8 @@
 $consent_date		= strToTime($loggedInUser->consent_ts);
 $datediff    		= time() - $consent_date;
 $days_active 		= floor($datediff / (60 * 60 * 24));
+$first_year 		= Date("Y",$consent_date);
+$this_year      	= Date("Y");
 
 $user_event_arm 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
 $user_short_scale 	= false;
@@ -45,6 +47,7 @@ if(isset($_SESSION["user_survey_data"])){
 	$user_survey_data 	= $_SESSION["user_survey_data"];
 	$user_survey_data->refreshData();
 }else{
+
 	if ($user_short_scale){
 		$api_url 	= SurveysConfig::$projects["SHORT_SCALE"]["URL"];
 		$api_token 	= SurveysConfig::$projects["SHORT_SCALE"]["TOKEN"];
@@ -116,7 +119,8 @@ if(isset($_SESSION["supplemental_surveys"])){
 	  if(in_array($proj_name,array($_CFG->SESSION_NAME,"SHORT_SCALE","Studies","taiwan_admin","miniintervention","foodquestions")) ){
 	    continue;
 	  }
-	  $supplementalProject 	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"],"goddamint");
+
+	  $supplementalProject 	= new Project($loggedInUser, $proj_name, SurveysConfig::$projects[$proj_name]["URL"], SurveysConfig::$projects[$proj_name]["TOKEN"]);
 	  $suppsurveys 			= $supplementalProject->getActiveAll();
 	  $supp_branching 		= $supplementalProject->getAllInstrumentsBranching();
 	  if(!empty($supp_branching)){
@@ -132,6 +136,7 @@ $supp_instruments = array();
 foreach($_SESSION["supplemental_surveys"] as $projname => $supp_project){
 	$supp_instruments 	= array_merge( $supp_instruments,  $supp_project->getActiveAll() );
 } 
+
 $supp_surveys_keys 		= array_keys($supp_instruments);
 $available_instruments  = $user_short_scale ? SurveysConfig::$short_surveys : SurveysConfig::$core_surveys;
 

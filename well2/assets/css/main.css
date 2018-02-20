@@ -97,7 +97,7 @@ body {
 .splash-container .wrapper:before{
     content:"";
     position:absolute;
-    top:50%;
+    top:100px;
     transform:translateY(-50%);
     left:50%;
     margin-left:-39px;
@@ -213,6 +213,7 @@ nav a:visited {
     text-decoration:none;
     color:#000;
     font-size:85%;
+    text-transform: capitalize;
 }
 
 #account_drop span {
@@ -337,8 +338,11 @@ nav a:visited {
 .main-container .main > aside h3{
     margin-left:0;
 }
+.main > aside .surveys h4 {
+    font-weight:bold;
+}
 .main > aside a{
-    color:#000;
+    color:#333;
     text-decoration:none;
     display:block;
     line-height:120%;
@@ -372,7 +376,7 @@ nav a:visited {
     font-size:140%;
 }
 .main > aside li ol{
-    margin:0 0 0 0; padding:0;
+    margin:0 0 50px 0; padding:0;
     list-style:none;
 }
 .main > aside li li{
@@ -814,6 +818,12 @@ footer .li a{
     text-indent:10px;
     white-space:nowrap;
     border-radius: 5px;
+    overflow:visible;
+}
+.section_progress {
+    position:absolute;
+    bottom:-23px;
+    left:50px;
 }
 .progress{
     height:30px;
@@ -910,7 +920,9 @@ footer .li a{
     right: 10px;
     text-indent: -5000px;
 }
-
+.completed .badge.bg-danger.pull-right {
+    display:none;
+}
 
 .surveyFrame {
     position: relative;
@@ -2613,7 +2625,7 @@ span.rs-number {
         transform: rotate(180deg);
     }
 
-    #grit_results {
+   /* #grit_results {
         background-position: -130px -50px;
         width: 432px;
         height: 370px;
@@ -2930,7 +2942,7 @@ span.rs-number {
             bottom:40px;
             right:10px;
         } 
-    }  
+    }  */
 }
 
 /*Landscape width exact width height*/

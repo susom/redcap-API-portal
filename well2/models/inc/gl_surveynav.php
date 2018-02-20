@@ -9,6 +9,7 @@
                 $core_surveys           = array();
                 $supp_surveys           = array();
                 $completed_surveys      = array();
+                $suppsurvs              = array();
                 $fruits                 = SurveysConfig::$fruits;
                 $iconcss                = "";
                 if(isset($sid)){

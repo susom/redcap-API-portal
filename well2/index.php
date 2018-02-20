@@ -182,7 +182,7 @@ if(!$user_short_scale){
     if(count($missing_keys) >= $dq_threshold
        || (!isset($user_completed_keys["core_lpaq"]) 
           || (!isset($user_completed_keys["core_bngdrink_female_freq"]) && !isset($user_completed_keys["core_bngdrink_male_freq"]) 
-          || (!isset($user_completed_keys["core_smoke_100"]) || !isset($user_completed_keys["core_smoke_freq"])) ))
+          || (!isset($user_completed_keys["core_smoke_100"]) || (isset($user_completed_keys["core_smoke_100"]) && !isset($user_completed_keys["core_smoke_freq"]))   ) ))
       ){
       $minimumData  = false;
     }
@@ -236,7 +236,6 @@ if(!$user_short_scale){
   }else{
     $long_scores = array();
   }
-
   $data[] = array(
     "record"            => $loggedInUser->id,
     "field_name"        => "well_long_score",

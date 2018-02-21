@@ -2,6 +2,10 @@
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
 //include("models/funcs.general.php");
+
+//SITE NAV
+$navon = array("home" => "", "reports" => "on", "game" => "");
+
 //GET ALL DATA FOR SUPP INSTRUMENTS IN ALL AVAILABLE ARMS
 $extra_params = array(
   'content'   => 'event',
@@ -26,31 +30,43 @@ foreach($result as $event){
     $events[$event["unique_event_name"]] = $r_supp_instruments;
   }
 }
+
+// match arms to years
+$firstyear = $first_year;
+$armnames  = array_keys($events);
+$armyears  = array();
+foreach($armnames as $armname){
+  $armyears[$armname] = $first_year;
+  $first_year++;
+}
+$current_year = $first_year;
+
 $supp_surveys_keys = array();
-foreach($events as $arm){
-  $supp_surveys_keys = array_merge($supp_surveys_keys, array_keys($arm));
+foreach($events as $arm=> $event){
+  foreach(array_keys($event) as $instrument_id){
+    $supp_surveys_keys[] = $instrument_id."_".$armyears[$arm];
+  }
 };
 
 //IF CORE SURVEY GET THE SURVEY ID
-$navon          = array("home" => "", "reports" => "on", "game" => "");
 $sid            = $current_surveyid = isset($_REQUEST["sid"]) ? $_REQUEST["sid"] : "";
-$sid            = empty($sid) ? "wellbeing_questions" : $sid;
 $surveyon       = array();
 $surveynav      = array_merge(array_splice($available_instruments,0,1) , $supp_surveys_keys);
 foreach($surveynav as $surveyitem){
     $surveyon[$surveyitem] = "";
 }
+
 if(!empty($sid)){
     if(!array_key_exists($sid,$surveyon)){
-        $surveyon["brief_well_for_life_scale"] = "on";
         $surveyon["wellbeing_questions"] = "on";
     }else{
         $surveyon[$sid] = "on";   
     }
+}else{
+
 }
 
 $core_gender    = $loggedInUser->gender == 5 || $loggedInUser->gender == 3 ? "m" : "f";
-
 $API_URL        = SurveysConfig::$projects["ADMIN_CMS"]["URL"];
 $API_TOKEN      = SurveysConfig::$projects["ADMIN_CMS"]["TOKEN"];
 
@@ -58,43 +74,30 @@ $pageTitle = "Well v2 Assessments";
 $bodyClass = "reports";
 include_once("models/inc/gl_head.php");
 ?>
-    
     <div class="main-container">
-        <div class="main wrapper clearfix">
-            
+        <div class="main wrapper clearfix">   
             <aside>
-                <h3>My Asessments</h3>
+                <h3>My Reports</h3>
                 <ul class="nav">
                     <li class="surveys">
-                        <h4>Completed Surveys</h4>
                         <ol>
                             <?php
-                            $suppsurvs        = array();
-                            $firstyear        = $first_year;
-
-                            $viewlink = array();
-                            $armnames = array_keys($events);
-                            $armyears = array();
-
-                            foreach($armnames as $armname){
-                              $armyears[$armname] = $first_year;
-                              $first_year++;
-                            }
-
+                            $suppsurvs  = array();
+                            $viewlink   = array();
+                     
                             foreach($events as $armname => $supp_instruments_event){
                               $fitness  = SurveysConfig::$fitness;
                               $index    = -1;
+                              $armyear  = $armyears[$armname];
+                              $suppsurvs[$armyear][]  = "<ol>";
 
-                              $suppsurvs[]  = "<h4>".$armyears[$armname]."</h4>";
-                              $suppsurvs[]  = "<ol>";
+                              $WELL_SCALE = strpos($armname,"short") > -1 ? "Brief WELL for Life Scale" : "Stanford WELL for Life Scale";
 
-                              // TODO WELLBEING SCORE (RADAR CHART)
-                              $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions'>Stanford WELL for Life Scale</a>";
-                              $default_surveynav = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
-                              $suppsurvs["wellbeing_questions"]     = "<li class='assesments fruits $default_surveynav'>
+                              $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions' data-year=$armyear>$WELL_SCALE</a>";
+                              $default_surveynav      = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
+                              $suppsurvs[$armyear][]  = "<li class='assesments fruits $default_surveynav'>
                                                   ".$survey_alinks["wellbeing_questions"]." 
                                               </li>";
-
 
                               foreach($supp_instruments_event as $supp_instrument_id => $supp_instrument){
                                 $index++;
@@ -115,7 +118,7 @@ include_once("models/inc/gl_head.php");
                                 $icon_update  = " icon_update";
                                 $completed    = json_encode($supp_instrument["completed_fields"]);
                                 
-                                $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed'>$surveyname</a>";
+                                $survey_alinks[$supp_instrument_id] = "<a href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' data-year=$armyear>$surveyname</a>";
                                 $assessmentsclass = $supp_instrument_id !== "international_physical_activity_questionnaire" ? "assessments" :"";
                                 $surveyonclass = isset($surveyon[$supp_instrument_id]) ? $surveyon[$supp_instrument_id] : "";
                                 
@@ -123,7 +126,7 @@ include_once("models/inc/gl_head.php");
                                                     ".$survey_alinks[$supp_instrument_id]." 
                                                 </li>";
                                 if(!array_key_exists($supp_instrument_id,$suppsurvs)){
-                                  $suppsurvs[$supp_instrument_id]  = $list;
+                                  $suppsurvs[$armyear][]  = $list;
                                 }
 
                                 if($sid == $supp_instrument_id){
@@ -131,12 +134,16 @@ include_once("models/inc/gl_head.php");
                                   $viewlink[] = "<a class='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' target='theFrame'>$year $surveyname</a>";
                                 }
                               }
-                              $suppsurvs[]  = "</ol>";
-
+                              $suppsurvs[$armyear][]  = "</ol>";
                             }
 
                             if(count($suppsurvs)){
-                                echo implode("",$suppsurvs);
+                              krsort($suppsurvs);
+
+                              foreach($suppsurvs as $armyear => $html){
+                                echo "<h4>$armyear</h4>";
+                                echo implode("",$html);
+                              }
                             }else{
                                 echo "<i>None Available</i>";
                             }
@@ -152,15 +159,18 @@ include_once("models/inc/gl_head.php");
                             $filename[]       = $loggedInUser->lastname;
                             $user_folder      = implode("_",$filename);
 
+                            $cert_year        = array();
                             // var comes from surveys.php
                             while($firstyear <= $this_year){
                               $curyear        = $firstyear;
                               $file_cert      = "../PDF/certs/$user_folder/" . $user_folder . "_$curyear.pdf";
                               if(file_exists($file_cert)){
-                                echo "<li class='nofruit'><a class='certcomplete' target='blank' href='$file_cert'>$curyear</a></li>";
+                                $cert_year[] = "<li class='nofruit'><a class='certcomplete' target='blank' href='$file_cert'>$curyear</a></li>";
                               }
                               $firstyear++;
                             }
+                            rsort($cert_year);
+                            echo implode("\n",$cert_year);
                           ?>
                         </ol>
                     </li>
@@ -188,6 +198,7 @@ include_once("models/inc/gl_head.php");
                               );
                               $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
                               $long_scores  = json_decode($user_ws[0]["well_long_score"],1);
+                              
                               //createResultsFile(); put the following code within funcs general and include later
                               if(file_exists("../Results.csv")){
                                   file_put_contents("../Results.csv","");
@@ -236,9 +247,9 @@ include_once("models/inc/gl_head.php");
                     echo "<p><i>".lang("NO_ASSESSMENTS")."</i></p>";
                 }
                 ?>
-                <iframe  width="700" height="800" name="theFrame" style="border:none"></iframe>
 
-                </div> <!-- results -->
+                <iframe  width="740" height="800" name="theFrame" style="border:none"></iframe>
+                </div>
             </article>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
@@ -253,7 +264,7 @@ include_once("models/inc/gl_foot.php");
     display:inline-block;
     vertical-align: bottom;
     padding-left:48px;
-    height:50px;
+    height:32px;
     background:url(../PDF/ico_cert_completion.png) 0 0 no-repeat;
     background-size:37px 30px;
     line-height:170%;

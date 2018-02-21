@@ -76,27 +76,40 @@ foreach($cats as $cat){
 
 if(!$user_short_scale){
   //10 DOMAINS TO CALCULATE THE WELL LONG SCORE
-  $domain_fields  = array(
-     "Exploration and Creativity" => array("core_engage_oppo") 
-    ,"Spirituality and Religion"  => array("core_religious_beliefs")
-    ,"Financial Security"         => array("core_money_needs")
+  $domain_mapping = array(
+     "well_score_creativity" => "Exploration and Creativity"
+    ,"well_score_religion"   => "Spirituality and Religion"
+    ,"well_score_financial"  => "Financial Security"
+    ,"well_score_purpose"    => "Purpose and Meaning"
+    ,"well_score_health"     => "Physical Health"
+    ,"well_score_senseself"  => "Sense of Self"
+    ,"well_score_emotion"    => "Experience of Emotions"
+    ,"well_score_stress"     => "Stress and Resilience"
+    ,"well_score_social"     => "Social Connectedness"
+    ,"lifestyle"             => "Lifestyle Behaviors"
+  );
 
-    ,"Purpose and Meaning"        => array("core_contribute_doing"
+  $domain_fields  = array(
+     "well_score_creativity"      => array("core_engage_oppo") 
+    ,"well_score_religion"        => array("core_religious_beliefs")
+    ,"well_score_financial"       => array("core_money_needs")
+
+    ,"well_score_purpose"         => array("core_contribute_doing"
                                           ,"core_contribute_alive")
 
-    ,"Physical Health"            => array("core_fitness_level"
+    ,"well_score_health"            => array("core_fitness_level"
                                           ,"core_health_selfreported"
                                           ,"core_physical_illness"
                                           ,"core_energy_level"
                                           ,"core_interfere_life")
 
-    ,"Sense of Self"              => array("core_true_person"
+    ,"well_score_senseself"       => array("core_true_person"
                                           ,"core_accepting_yourself"
                                           ,"core_satisfied_yourself"
                                           ,"core_capable"
                                           ,"core_daily_activities")
 
-    ,"Experience of Emotions"     => array("core_calm"
+    ,"well_score_emotion"         => array("core_calm"
                                           ,"core_content"
                                           ,"core_drained"
                                           ,"core_excited"
@@ -108,7 +121,7 @@ if(!$user_short_scale){
                                           ,"core_secure"
                                           ,"core_worried")
 
-    ,"Stress and Resilience"      => array("core_bounce_back"
+    ,"well_score_stress"      => array("core_bounce_back"
                                           ,"core_adapt_change"
                                           ,"core_deal_whatever"
                                           ,"core_humorous_side"
@@ -123,7 +136,7 @@ if(!$user_short_scale){
                                           ,"core_overwhelm_difficult"
                                           ,"core_important_energy")
 
-    ,"Social Connectedness"       => array("core_lack_companionship"
+    ,"well_score_social"       => array("core_lack_companionship"
                                           ,"core_left_out"
                                           ,"core_isolated_others"
                                           ,"core_tune_people"
@@ -137,7 +150,7 @@ if(!$user_short_scale){
                                           ,"core_energized_help"
                                           ,"core_help")
 
-    ,"Lifestyle Behaviors"        => array("core_lpaq"
+    ,"lifestyle"                => array("core_lpaq"
                                           ,"core_sleep_total", "core_sleep_hh", "core_sleep_mm"
                                           ,"core_fallasleep_min"
                                           ,"core_fallasleep"
@@ -236,13 +249,47 @@ if(!$user_short_scale){
   }else{
     $long_scores = array();
   }
-  $data[] = array(
+
+  // save individual scores
+  foreach($long_scores as $redcap_var => $value){
+    if($redcap_var == "ls_sub_domains"){
+      foreach($value as $rc_var => $val){
+        $data = array(
+          "record"            => $loggedInUser->id,
+          "field_name"        => $rc_var,
+          "value"             => $val,
+          "redcap_event_name" => $user_event_arm
+        );
+        $result = RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+      }
+    }elseif($redcap_var == "lifestyle"){
+      // do nothing
+    }else{
+      $data = array(
+        "record"            => $loggedInUser->id,
+        "field_name"        => $redcap_var,
+        "value"             => $value,
+        "redcap_event_name" => $user_event_arm
+      );
+      $result = RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+    }
+  }
+
+
+  // save the entire block as json
+  array_pop($long_scores);
+  $remapped_long_scores = array();
+  foreach($long_scores as $rc_var => $value){
+    $remapped_long_scores[$domain_mapping[$rc_var]] = $value;
+  }
+  $data = array(
     "record"            => $loggedInUser->id,
     "field_name"        => "well_long_score",
-    "value"             => json_encode($long_scores),
+    "value"             => json_encode($remapped_long_scores),
     "redcap_event_name" => $user_event_arm
   );
-  $result = RC::writeToApi($data, array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+  $result = RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+  
 }else{
   //GATHER DATA FOR USERS SHORT SCORES
   $short_scores   = array();

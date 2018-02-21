@@ -1,6 +1,10 @@
 <?php
 // ob_start("ob_gzhandler"); //gzip outputted html
 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 //START TIMER FOR PAGE LOAD
 $start_time	= microtime(true);
 

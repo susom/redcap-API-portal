@@ -420,3 +420,48 @@ The WELL for Life team
 2018-02-21 13:58:19	DEBUG		Session updated after 12 secs
 2018-02-21 13:58:20	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
 2018-02-21 13:58:22	DEBUG		Session updated after 3 secs
+2018-02-21 14:15:39	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 14:15:39	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 14:15:40	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 14:15:41	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 14:15:41	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 14:15:41	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 14:15:41	DEBUG		Session started: 2018-02-21 14:15:41
+2018-02-21 14:15:51	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 14:15:53	DEBUG		Session updated after 12 secs
+2018-02-21 14:15:54	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 14:15:55	DEBUG		Session updated after 2 secs
+2018-02-21 14:17:03	DEBUG		Session updated after 68 secs
+2018-02-21 14:23:55	DEBUG		Session updated after 412 secs
+2018-02-21 14:52:55	DEBUG		Session updated after 1740 secs
+2018-02-21 14:54:20	DEBUG		Session updated after 85 secs
+2018-02-21 14:54:53	DEBUG		Session updated after 33 secs
+2018-02-21 14:59:25	DEBUG		Session updated after 272 secs
+2018-02-21 14:59:26	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 14:59:26	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 14:59:28	DEBUG		Session updated after 3 secs
+2018-02-21 14:59:29	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 14:59:29	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 14:59:30	DEBUG		Session updated after 2 secs
+2018-02-21 15:00:34	DEBUG		Session updated after 64 secs
+2018-02-21 15:42:35	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 15:42:35	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 15:42:36	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 15:42:36	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 15:42:36	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 15:42:37	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 15:42:37	DEBUG		Session started: 2018-02-21 15:42:37
+2018-02-21 15:42:46	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:42:47	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:42:48	DEBUG		Session updated after 11 secs
+2018-02-21 15:42:49	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:42:49	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:42:50	DEBUG		Session updated after 2 secs
+2018-02-21 15:43:10	DEBUG		Session updated after 20 secs
+2018-02-21 15:44:09	DEBUG		Session updated after 59 secs
+2018-02-21 15:44:10	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:44:11	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:44:12	DEBUG		Session updated after 3 secs
+2018-02-21 15:44:13	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:44:13	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:44:23	DEBUG		Session updated after 11 secs

@@ -465,3 +465,24 @@ The WELL for Life team
 2018-02-21 15:44:13	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
 2018-02-21 15:44:13	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
 2018-02-21 15:44:23	DEBUG		Session updated after 11 secs
+2018-02-21 15:47:45	DEBUG		Session updated after 202 secs
+2018-02-21 15:48:01	DEBUG		Session updated after 16 secs
+2018-02-21 15:48:03	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_score_health
+2018-02-21 15:48:05	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:48:05	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:48:07	DEBUG		Session updated after 6 secs
+2018-02-21 15:48:09	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_score_health
+2018-02-21 15:48:11	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: well_long_score
+2018-02-21 15:48:11	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:48:12	DEBUG		Session updated after 5 secs
+2018-02-21 15:48:30	DEBUG		Session updated after 18 secs
+2018-02-21 15:50:14	DEBUG		Session updated after 104 secs
+2018-02-21 15:51:49	DEBUG		Session updated after 95 secs
+2018-02-21 15:51:54	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:51:55	DEBUG		Session updated after 6 secs
+2018-02-21 15:52:00	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 15:52:01	DEBUG		Session updated after 6 secs
+2018-02-21 15:52:15	DEBUG		Session updated after 14 secs
+2018-02-21 15:55:37	DEBUG		Session updated after 202 secs
+2018-02-21 15:56:22	DEBUG		Session updated after 45 secs
+2018-02-21 15:57:53	DEBUG		Session updated after 91 secs

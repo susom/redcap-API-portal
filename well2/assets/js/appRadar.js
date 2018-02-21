@@ -14,7 +14,7 @@
     function init() {
       // initialize controller variables
       ctrl.examples = [
-        "Results"
+        "well2/RadarUserCSV/Results"
       ];
       ctrl.exampleSelected = ctrl.examples[0];
       ctrl.getData = getData;

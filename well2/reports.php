@@ -72,13 +72,6 @@ include_once("models/inc/gl_head.php");
                             $suppsurvs        = array();
                             $firstyear        = $first_year;
 
-                            // TODO WELLBEING SCORE (RADAR CHART)
-                            $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions'>Stanford WELL for Life Scale</a>";
-                            $default_surveynav = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
-                            $suppsurvs["wellbeing_questions"]     = "<li class='assesments fruits $default_surveynav'>
-                                                ".$survey_alinks["wellbeing_questions"]." 
-                                            </li>";
-
                             $viewlink = array();
                             $armnames = array_keys($events);
                             $armyears = array();
@@ -91,6 +84,17 @@ include_once("models/inc/gl_head.php");
                             foreach($events as $armname => $supp_instruments_event){
                               $fitness  = SurveysConfig::$fitness;
                               $index    = -1;
+
+                              $suppsurvs[]  = "<h4>".$armyears[$armname]."</h4>";
+                              $suppsurvs[]  = "<ol>";
+
+                              // TODO WELLBEING SCORE (RADAR CHART)
+                              $survey_alinks["wellbeing_questions"] = "<a class='assessments' href='reports.php?sid=wellbeing_questions'>Stanford WELL for Life Scale</a>";
+                              $default_surveynav = isset($surveyon["wellbeing_questions"]) ? $surveyon["wellbeing_questions"] : $surveyon["brief_well_for_life_scale"];
+                              $suppsurvs["wellbeing_questions"]     = "<li class='assesments fruits $default_surveynav'>
+                                                  ".$survey_alinks["wellbeing_questions"]." 
+                                              </li>";
+
 
                               foreach($supp_instruments_event as $supp_instrument_id => $supp_instrument){
                                 $index++;
@@ -127,6 +131,8 @@ include_once("models/inc/gl_head.php");
                                   $viewlink[] = "<a class='viewassessment' href='$surveylink' title='$titletext' data-sid='$supp_instrument_id' data-completed='$completed' target='theFrame'>$year $surveyname</a>";
                                 }
                               }
+                              $suppsurvs[]  = "</ol>";
+
                             }
 
                             if(count($suppsurvs)){
@@ -228,11 +234,11 @@ include_once("models/inc/gl_foot.php");
 .main > aside a.certcomplete {
     display:inline-block;
     vertical-align: bottom;
-    padding-left:59px;
+    padding-left:48px;
     height:50px;
     background:url(../PDF/ico_cert_completion.png) 0 0 no-repeat;
-    background-size:49px 35px;
-    line-height:200%;
+    background-size:37px 30px;
+    line-height:170%;
 }
 .main > aside li li.nofruit{
   padding-left:10px;

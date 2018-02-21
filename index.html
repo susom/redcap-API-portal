@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="RadarChart">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+  <link rel="stylesheet" href="Radarstyle.css" />
+</head>
+
+<body class="container" ng-controller="MainCtrl as radar">
+ 
+
+  <!-- main content -->
+  <div class="main container">
+    <h2>Visualization</h2>
+
+    <!-- visualization -->
+    <div class="visualization col-xs-7">
+      <p>Select example:
+        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+      </p>
+      <div class="visualization">
+        <radar csv="radar.csv" config="radar.config"></radar>
+      </div>
+    </div>
+
+
+    <!-- configuration -->
+    <div class="configuration col-xs-5">
+      <form>
+        <h3>Configuration Parameters</h3>
+        <div class="form-group">
+          <label>Width:</label>
+          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.w" />
+          <label>Height:</label>
+          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.h" />
+        </div>
+        <div class="form-group">
+          <label>Levels:</label>
+          <input type="number" class="form-control-inline" step="1" ng-model="radar.config.levels" />
+        </div>
+        <div class="form-group">
+          <label>Padding Scale:</label>
+          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.facetPaddingScale" />
+        </div>
+        <div class="form-group">
+          <label>Label Scale:</label>
+          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.labelScale" />
+        </div>
+        <div class="form-group">
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet" /><span class="text-primary">Facet Plot</span></label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels" />Levels</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxes" />Axes</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showVertices" />Vertices</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showPolygons" />Polygons</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLegend" />Legend</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevelsLabels" />Levels Labels</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxesLabels" />Axes Labels</label>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  <hr />
+
+  <!-- footer -->
+  <div>
+    <p><a href="https://gist.github.com/chrisrzhou/2421ac6541b68c1680f8" target="_blank">D3 Radar Chart</a> by chrisrzhou, 2015-01-15
+      <br />
+      <a href="http://github.com/chrisrzhou" target="_blank"><i class="fa fa-github"></i></a> |
+      <a href="http://bl.ocks.org/chrisrzhou" target="_blank"><i class="fa fa-cubes"></i></a> |
+      <a href="http://www.linkedin.com/in/chrisrzhou" target="_blank"><i class="fa fa-linkedin"></i></a>
+    </p>
+  </div>
+
+
+  <!-- scripts -->
+  <script src="http://code.angularjs.org/1.3.5/angular.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="well2/assets/js/appRadar.js"></script>
+  <script src="well2/assets/js/radar.js"></script>
+  <script src="well2/assets/js/radarDraw.js"></script>
+  <script>
+    // Hack to make this example display correctly in an iframe on bl.ocks.org
+    d3.select(self.frameElement).style("height", "1000px");
+  </script>
+</body>
+
+</html>

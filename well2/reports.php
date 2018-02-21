@@ -1,7 +1,7 @@
 <?php 
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
-
+//include("models/funcs.general.php");
 //GET ALL DATA FOR SUPP INSTRUMENTS IN ALL AVAILABLE ARMS
 $extra_params = array(
   'content'   => 'event',
@@ -163,6 +163,10 @@ include_once("models/inc/gl_head.php");
             <article>
                 <script src="assets/js/custom_assessments.js"></script>
                 <div id="results" class="assessments">
+                
+
+
+
                 <?php 
                 $API_TOKEN    = SurveysConfig::$projects["Supp"]["TOKEN"];
                 $API_URL      = SurveysConfig::$projects["Supp"]["URL"];
@@ -178,7 +182,21 @@ include_once("models/inc/gl_head.php");
                               );
                               $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
                               $long_scores  = json_decode($user_ws[0]["well_long_score"],1);
-                              print_rr($long_scores);  
+                              //createResultsFile(); put the following code within funcs general and include later
+                              if(file_exists("../Results.csv")){
+                                  file_put_contents("../Results.csv","");
+                                  $file = "../Results.csv";
+                                  $current = file_get_contents($file);
+                                  $current .= "group, axis, value, description\n";
+                                  foreach ($long_scores as $key => $value) 
+                                    $current .= "User, ".$key.", ". $value.",\n";
+                                  file_put_contents($file,$current);
+                              }else
+                                  print_rr("file doesnt exist");
+                              ?>
+                                <object type = "text/html" data = "../index.html" width = 100%></object>
+
+                              <?php
                             break;
 
                             case "international_physical_activity_questionnaire":
@@ -214,7 +232,7 @@ include_once("models/inc/gl_head.php");
                 ?>
                 <iframe  width="700" height="800" name="theFrame" style="border:none"></iframe>
 
-                </div>
+                </div> <!-- results -->
             </article>
         </div> <!-- #main -->
     </div> <!-- #main-container -->

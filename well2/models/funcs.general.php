@@ -14,6 +14,19 @@
  * 
  * @return array The sorted array.
  */
+function createResultsFile(){
+	if(file_exists("../Results.csv")){
+	    file_put_contents("../Results.csv","");
+	    $file = "../Results.csv";
+	    $current = file_get_contents($file);
+	    $current .= "group, axis, value, description\n";
+	    foreach ($long_scores as $key => $value) 
+	      $current .= "User, ".$key.", ". $value.",\n";
+	    file_put_contents($file,$current);
+	}else
+	    print_rr("file doesnt exist");
+}
+
 function msort($array, $key, $sort_flags = SORT_REGULAR) {
     if (is_array($array) && count($array) > 0) {
         if (!empty($key)) {

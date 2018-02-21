@@ -337,3 +337,86 @@ The WELL for Life team
 2018-02-20 15:55:32	DEBUG		Session updated after 3 secs
 2018-02-20 15:55:33	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
 2018-02-20 15:55:34	DEBUG		Session updated after 2 secs
+2018-02-21 10:45:16	INFO		Session timeout.  Last activity 67782 sec ago
+2018-02-21 10:45:16	DEBUG		Session cleared
+2018-02-21 10:45:55	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 10:45:55	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 10:45:56	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 10:45:57	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 10:45:57	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 10:45:57	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 10:45:57	DEBUG		Session started: 2018-02-21 10:45:57
+2018-02-21 10:46:07	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 10:46:09	DEBUG		Session updated after 12 secs
+2018-02-21 10:46:10	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 10:46:16	DEBUG		Session updated after 7 secs
+2018-02-21 12:03:57	INFO		Session timeout.  Last activity 4661 sec ago
+2018-02-21 12:03:57	DEBUG		Session cleared
+2018-02-21 12:04:09	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 12:04:09	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 12:04:10	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 12:04:11	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 12:04:11	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 12:04:11	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 12:04:11	DEBUG		Session started: 2018-02-21 12:04:11
+2018-02-21 12:04:21	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 12:04:22	DEBUG		Session updated after 11 secs
+2018-02-21 12:04:24	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 12:04:26	DEBUG		Session updated after 4 secs
+2018-02-21 12:05:49	DEBUG		Session updated after 83 secs
+2018-02-21 12:07:22	DEBUG		Session updated after 93 secs
+2018-02-21 12:07:52	DEBUG		Session updated after 30 secs
+2018-02-21 12:11:04	DEBUG		Session updated after 192 secs
+2018-02-21 12:27:21	DEBUG		Session updated after 977 secs
+2018-02-21 12:28:49	DEBUG		Session updated after 88 secs
+2018-02-21 12:34:30	DEBUG		Session updated after 341 secs
+2018-02-21 12:45:09	DEBUG		Session updated after 639 secs
+2018-02-21 12:47:10	DEBUG		Session updated after 121 secs
+2018-02-21 12:48:30	DEBUG		Session updated after 80 secs
+2018-02-21 12:49:07	DEBUG		Session updated after 37 secs
+2018-02-21 12:50:16	DEBUG		Session updated after 69 secs
+2018-02-21 12:52:03	DEBUG		Session updated after 107 secs
+2018-02-21 12:55:13	DEBUG		Session updated after 190 secs
+2018-02-21 13:30:18	INFO		Session timeout.  Last activity 2105 sec ago
+2018-02-21 13:30:18	DEBUG		Session cleared
+2018-02-21 13:30:24	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 13:30:24	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 13:30:26	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 13:30:26	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 13:30:26	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 13:30:27	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 13:30:27	DEBUG		Session started: 2018-02-21 13:30:27
+2018-02-21 13:30:37	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 13:30:38	DEBUG		Session updated after 11 secs
+2018-02-21 13:30:40	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 13:30:41	DEBUG		Session updated after 3 secs
+2018-02-21 13:30:54	DEBUG		Session updated after 13 secs
+2018-02-21 13:31:18	DEBUG		Session updated after 24 secs
+2018-02-21 13:33:16	DEBUG		Session updated after 118 secs
+2018-02-21 13:36:02	DEBUG		Session updated after 166 secs
+2018-02-21 13:37:29	DEBUG		Session updated after 87 secs
+2018-02-21 13:39:58	DEBUG		Session updated after 149 secs
+2018-02-21 13:54:05	DEBUG		Session updated after 847 secs
+2018-02-21 13:54:49	DEBUG		Session updated after 44 secs
+2018-02-21 13:56:04	DEBUG		Session updated after 75 secs
+2018-02-21 13:56:30	DEBUG		Session updated after 26 secs
+2018-02-21 13:57:56	DEBUG		Session updated after 86 secs
+2018-02-21 13:57:56	DEBUG	[12]	updateUser data1:Array
+(
+    [id] => 12
+    [redcap_event_name] => enrollment_arm_1
+)
+
+2018-02-21 13:57:56	DEBUG		Session cleared
+2018-02-21 13:57:56	NOTICE		Goodbye!
+2018-02-21 13:58:05	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 13:58:05	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-02-21 13:58:07	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-02-21 13:58:07	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 13:58:07	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-02-21 13:58:07	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-02-21 13:58:07	DEBUG		Session started: 2018-02-21 13:58:07
+2018-02-21 13:58:18	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 13:58:19	DEBUG		Session updated after 12 secs
+2018-02-21 13:58:20	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 13:58:22	DEBUG		Session updated after 3 secs

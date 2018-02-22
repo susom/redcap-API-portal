@@ -486,3 +486,10 @@ The WELL for Life team
 2018-02-21 15:55:37	DEBUG		Session updated after 202 secs
 2018-02-21 15:56:22	DEBUG		Session updated after 45 secs
 2018-02-21 15:57:53	DEBUG		Session updated after 91 secs
+2018-02-21 16:00:21	DEBUG		Session updated after 148 secs
+2018-02-21 16:00:54	DEBUG		Session updated after 33 secs
+2018-02-21 16:00:58	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 16:01:00	DEBUG		Session updated after 6 secs
+2018-02-21 16:01:04	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-02-21 16:01:05	DEBUG		Session updated after 5 secs
+2018-02-21 16:01:20	DEBUG		Session updated after 15 secs

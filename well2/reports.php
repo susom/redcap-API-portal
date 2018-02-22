@@ -198,7 +198,7 @@ include_once("models/inc/gl_head.php");
                               );
                               $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
                               $long_scores  = json_decode($user_ws[0]["well_long_score"],1);
-                              print_rr($long_scores);
+
                               //createResultsFile(); put the following code within funcs general and include later
                               if(file_exists("RadarUserCSV/Results.csv")){
                                   file_put_contents("RadarUserCSV/Results.csv","");

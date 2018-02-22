@@ -235,7 +235,7 @@ function getLongScores($domain_fields, $user_completed_fields){
       case "well_score_creativity" :
       case "well_score_religion" :
       case "well_score_financial" :
-        $denom = $domain == "Financial Security" ? 6 : 5;
+        $denom = $domain == "well_score_financial" ? 6 : 5;
         $field = array_pop($fields);
         $score[$domain] = 10*$user_completed_fields[$field]/$denom;
       break;
@@ -268,8 +268,10 @@ function getLongScores($domain_fields, $user_completed_fields){
           $denom = 5;
           $domain_items[] = $user_completed_fields[$field]/$denom;
         }
-        $weight = $domain == "Sense of Self" ? 2 : 5;
+        $weight = $domain == "well_score_senseself" ? 2 : 5;
         $temp_score     = $weight*array_sum($domain_items);
+        print_rr($domain);
+        print_rr(array_sum($domain_items));
         $score[$domain] = scaleDomainScore($temp_score, count($domain_items), count($fields));
       break;
       

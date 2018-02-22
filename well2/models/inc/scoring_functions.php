@@ -270,8 +270,6 @@ function getLongScores($domain_fields, $user_completed_fields){
         }
         $weight = $domain == "well_score_senseself" ? 2 : 5;
         $temp_score     = $weight*array_sum($domain_items);
-        print_rr($domain);
-        print_rr(array_sum($domain_items));
         $score[$domain] = scaleDomainScore($temp_score, count($domain_items), count($fields));
       break;
       

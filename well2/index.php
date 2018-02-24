@@ -436,9 +436,9 @@ if(isset($_GET["survey_complete"])){
       $for_popup      = array_slice($short_scores, -1);
 
       // will pass $arm_year into the include
-      require_once('../PDF/fpdf181/fpdf.php');
-      require_once('../PDF/FPDI-2.0.1/src/autoload.php');
-      include_once("../PDF/generatePDFcertificate.php");
+      require_once('PDF/fpdf181/fpdf.php');
+      require_once('PDF/FPDI-2.0.1/src/autoload.php');
+      include_once("PDF/generatePDFcertificate.php");
     
       $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
       $success_msg    = $lang["CONGRATS_FRUITS"] . "<p>Your WELL Score for $arm_year is $new_well_score</p><a target='blank' href='$filename'>[Click here to download your certificate!]</a>";

@@ -156,7 +156,7 @@ include_once("models/inc/gl_head.php");
                             // var comes from surveys.php
                             while($firstyear <= $this_year){
                               $curyear        = $firstyear;
-                              $file_cert      = "../PDF/certs/$user_folder/" . $user_folder . "_$curyear.pdf";
+                              $file_cert      = "PDF/certs/$user_folder/" . $user_folder . "_$curyear.pdf";
                               if(file_exists($file_cert)){
                                 $cert_year[] = "<li class='nofruit'><a class='certcomplete' target='blank' href='$file_cert'>$curyear</a></li>";
                               }
@@ -189,7 +189,7 @@ include_once("models/inc/gl_head.php");
 
                               if(strpos($sid_arm,"short") > -1){
                                 $brief_score = $user_ws[0]["well_score"];
-                                echo "<blockquote>Your ".$armyears[$sid_arm]." Brief WELL for Life Scale Score : $brief_score </blockquote>";
+                                echo "<blockquote>Your ".$armyears[$sid_arm]." Brief WELL for Life Scale Score : <b>".($brief_score*2)."/100</b> </blockquote>";
                               }else{
                                 $long_scores = json_decode($user_ws[0]["well_long_score_json"],1);
                                 //createResultsFile(); put the following code within funcs general and include later
@@ -250,6 +250,9 @@ include_once("models/inc/gl_head.php");
 include_once("models/inc/gl_foot.php");
 ?>
 <style>
+blockquote{
+  font-size:200%;
+}
 details {
   margin-bottom:50px;
 }

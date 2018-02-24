@@ -199,8 +199,8 @@ include_once("models/inc/gl_head.php");
                                 // if(!file_exists($users_file_csv)){
                                   $csv_data = "group, axis, value, description\n";
                                   foreach ($long_scores as $key => $value){
-                                    $csv_data = "temporary place holder text";
-                                    $current .= "User, ". $key .", ". $value .", ". $desc ."\n";
+                                    $desc   = "temporary place holder text";
+                                    $csv_data .= "User, ". $key .", ". $value .", ". $desc ."\n";
                                   }
                                   file_put_contents($users_file_csv, $csv_data);
                                 // }

@@ -507,9 +507,4 @@ function getLongScores($domain_fields, $user_completed_fields){
   return $score;
 }
 
-function checkMinimumForLongScore(){
-  // Missing 30% more items in a domain/or subdomain -> no domain score
-  // Missing any domain score -> no SWLS score
-}
-
 

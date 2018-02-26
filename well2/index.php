@@ -272,7 +272,7 @@ if($core_surveys_complete){
               "value"             => $val,
               "redcap_event_name" => $user_event_arm
             );
-            $result = RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
+            $result =  RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
           }
         }elseif($redcap_var == "lifestyle"){
           // do nothing
@@ -286,7 +286,6 @@ if($core_surveys_complete){
           $result = RC::writeToApi(array($data), array("overwriteBehavior" => "overwite", "type" => "eav"), $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN);
         }
       }
-
 
       // save the entire block as json
       array_pop($long_scores);
@@ -431,17 +430,21 @@ if(isset($_GET["survey_complete"])){
 
     if(!isset($all_survey_keys[$index+1])){ 
       //TODO PUT THIS INTO A FUNCTION OR SOMEWHERE
-      $arm_year       = substr($loggedInUser->consent_ts,0,strpos($loggedInUser->consent_ts,"-"));
-      $arm_year       = $arm_year + count($short_scores) - 1;
-      $for_popup      = array_slice($short_scores, -1);
+      $get_well_score = $user_short_scale ? $short_score : $long_scores;
+      if($user_short_scale){
+        $for_popup        = array_slice($get_well_score, -1);
+        $new_well_score   = round((array_sum($for_popup[$user_event_arm])/50)*100);
+      }else{
+        $new_well_score   = round(array_sum($get_well_score)) . "/100";
+      }
+      $show_well_score  = "<p>Your WELL Score for $current_year is $new_well_score</p>";
 
       // will pass $arm_year into the include
       require_once('PDF/fpdf181/fpdf.php');
       require_once('PDF/FPDI-2.0.1/src/autoload.php');
       include_once("PDF/generatePDFcertificate.php");
     
-      $new_well_score = round((array_sum($for_popup[$user_event_arm])/50)*100);
-      $success_msg    = $lang["CONGRATS_FRUITS"] . "<p>Your WELL Score for $arm_year is $new_well_score</p><a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
+      $success_msg    = $lang["CONGRATS_FRUITS"] . "$show_well_score<a target='blank' href='$filename'>[Click here to download your certificate!]</a>";
       addSessionMessage( $success_msg , "success");
     }
   }

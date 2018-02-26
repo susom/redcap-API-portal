@@ -12,7 +12,7 @@ $extra_params = array(
 $result = RC::callApi($extra_params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
 $events = array();
 foreach($result as $event){
-  if($event["unique_event_name"] == $loggedInUser->user_event_arm){
+  if($event["unique_event_name"] == $user_event_arm){
     //ALREADY HAVE THIS YEAR SO DONT WASTE RESOURCE GETTING IT
     $events[$event["unique_event_name"]] = $supp_instruments;
     break;
@@ -29,17 +29,8 @@ foreach($result as $event){
     $events[$event["unique_event_name"]] = $r_supp_instruments;
   }
 }
+$firstyear  = Date("Y", $consent_date);
 
-// MAP ARMS TO CALENDAR YEARS
-$firstyear = $first_year;
-$armnames  = array_keys($events);
-$armyears  = array();
-foreach($armnames as $armname){
-  $armyears[$armname] = $first_year;
-  $first_year++;
-}
-$current_year = end($armyears);
-$current_arm  = $armname;
 
 //SET UP ARRAY OF COMPLETED REPORTS TO USE FOR NAV STATE
 $supp_surveys_keys = array();

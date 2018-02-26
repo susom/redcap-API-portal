@@ -5,11 +5,31 @@
 $consent_date		= strToTime($loggedInUser->consent_ts);
 $datediff    		= time() - $consent_date;
 $days_active 		= floor($datediff / (60 * 60 * 24));
-$first_year 		= Date("Y",$consent_date);
+$first_year 		= Date("Y", $consent_date);
 $this_year      	= Date("Y");
 
 $user_event_arm 	= !empty($loggedInUser->user_event_arm) ? $loggedInUser->user_event_arm : REDCAP_PORTAL_EVENT;
 $user_short_scale 	= false;
+
+// MAP EVENTS TO CALENDAR YEARs, DIFFERENT FOR EVERY USER
+$extra_params = array(
+  'content'   => 'event',
+);
+$result = RC::callApi($extra_params, true, REDCAP_API_URL, REDCAP_API_TOKEN);
+$events = array();
+foreach($result as $event){
+	$events[$event["unique_event_name"]] = 1;
+	if($event["unique_event_name"] == $user_event_arm){
+		break;
+	}
+}
+$armyears  = array();
+foreach(array_keys($events) as $armname){
+  $armyears[$armname] = $first_year;
+  $first_year++;
+}
+$current_year = end($armyears);
+$current_arm  = $armname;
 
 // OH MY WORD, THIS JUST TO CHECK IF THEY DID 1 FRACKING QUESTION?
 $extra_params = array(

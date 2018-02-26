@@ -30,6 +30,6 @@ $filename 	= array();
 $filename[] = $loggedInUser->id;
 $filename[] = $loggedInUser->firstname;
 $filename[] = $loggedInUser->lastname;
-$filename[] = $arm_year;
+$filename[] = $current_year;
 $filename ="PDF/certs/$userfolder/".implode("_",$filename).".pdf";
 $pdf->Output($filename,'F');

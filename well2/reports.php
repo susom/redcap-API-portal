@@ -186,25 +186,6 @@ include_once("models/inc/gl_head.php");
                                 'events'      => $sid_arm
                               );
                               $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
-<<<<<<< HEAD
-                              $long_scores  = json_decode($user_ws[0]["well_long_score"],1);
-
-                              //createResultsFile(); put the following code within funcs general and include later
-                              if(file_exists("RadarUserCSV/Results.csv")){
-                                  file_put_contents("RadarUserCSV/Results.csv","");
-                                  $file = "RadarUserCSV/Results.csv";
-                                  $current = file_get_contents($file);
-                                  $current .= "group, axis, value, description\n";
-                                  foreach ($long_scores as $key => $value) 
-                                    $current .= "User, ".$key.", ". $value.",\n";
-                                  file_put_contents($file,$current);
-                              }else
-                                  print_rr("file doesnt exist");
-                              ?>
-                                <object type = "text/html" data = "../index.html" width = 100%></object>
-
-                              <?php
-=======
 
                               if(strpos($sid_arm,"short") > -1){
                                 $brief_score = $user_ws[0]["well_score"];
@@ -228,7 +209,6 @@ include_once("models/inc/gl_head.php");
                                 <object type = "text/html" data = "radar_chart_template.php?well_long_score=<?php echo $sum_long_score?>" width = 100%></object>
                                 <?php
                               }
->>>>>>> 36a2bf9f9cfdab317592c75f0f7ded20209242cd
                             break;
 
                             case "international_physical_activity_questionnaire":

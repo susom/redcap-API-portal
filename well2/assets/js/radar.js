@@ -169,9 +169,11 @@ var RadarChart = {
       vis.svg = d3.select(id)
         .append("svg").classed("svg-vis", true)
         .attr("width", config.w + config.paddingX)
-        .attr("height", config.h + config.paddingY)
+        .attr("height", config.h + config.translateY*2)
         .append("svg:g")
-        .attr("transform", "translate(" + config.translateX + "," + config.translateY + ")");;
+        .attr("transform", "translate(" + (config.translateX*2) + "," + config.translateY + ")");;
+
+console.log(config.h + config.paddingY);
 
       // create verticesTooltip
       vis.verticesTooltip = d3.select("body")

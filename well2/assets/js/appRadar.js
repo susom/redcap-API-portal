@@ -14,17 +14,19 @@
     function init() {
       // initialize controller variables
       ctrl.examples = [
-        "well2/RadarUserCSV/Results"
+        "RadarUserCSV/Results"
       ];
       ctrl.exampleSelected = ctrl.examples[0];
+
       ctrl.getData = getData;
       ctrl.selectExample = selectExample;
 
       // initialize controller functions
+      
       ctrl.selectExample(ctrl.exampleSelected);
       ctrl.config = {
-        w: 300,
-        h: 300,
+        w: 440,
+        h: 440,
         facet: false,
         levels: 5,
         levelScale: 0.85,

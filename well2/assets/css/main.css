@@ -339,7 +339,11 @@ nav a:visited {
     margin-left:0;
 }
 .main > aside .surveys h4 {
-    font-weight:bold;
+    color: chocolate;
+    font-size: 180%;
+    font-weight: normal;
+    margin: 0 0 20px;
+    padding: 0;
 }
 .main > aside a{
     color:#333;

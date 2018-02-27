@@ -134,7 +134,7 @@ include_once("models/inc/gl_head.php");
                             ?>
                         </ol>
 
-                        <h4>WEll Certificates</h4>
+                        <h4>Certificates</h4>
                         <ol>
                           <?php
                             $filename         = array();

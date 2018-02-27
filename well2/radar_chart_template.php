@@ -14,8 +14,8 @@
     </div>
   </div>
 </body>
-<script src="http://code.angularjs.org/1.3.5/angular.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="assets/js/angular.js"></script>
+<script src="assets/js/d3.v3.min.js"></script>
 
 <script src="assets/js/appRadar.js"></script>
 <script src="assets/js/radar.js"></script>

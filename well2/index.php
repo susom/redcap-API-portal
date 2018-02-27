@@ -86,7 +86,7 @@ if($core_surveys_complete){
     );
     $user_ws      = RC::callApi($extra_params, true, $_CFG->REDCAP_API_URL, $_CFG->REDCAP_API_TOKEN); 
 
-    if(!isset($user_ws[0]) || (isset($user_ws[0]) && empty($user_ws[0]["well_long_score_json"])) ){
+    if(!isset($user_ws[0]) || (isset($user_ws[0]) && empty( json_decode($user_ws[0]["well_long_score_json"],1) )) ){
       //10 DOMAINS TO CALCULATE THE WELL LONG SCORE
       $domain_mapping = array(
          "well_score_creativity" => "Exploration and Creativity"

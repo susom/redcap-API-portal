@@ -5,14 +5,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
   <link rel="stylesheet" href="assets/css/Radarstyle.css" />
 </head>
-<body class="container" ng-controller="MainCtrl as radar">
+<body class="container" ng-controller="MainCtrl as radar" data-csvfile="RadarUserCSV/<?php echo $_GET["id"]; ?>Results">
   <div class="main container">
     <h2>Results Summary</h2>
-    <input type='hidden' ng-model="radar.exampleSelected" value="RadarUserCSV/Results"/>
     <div class="visualization">
         <radar csv="radar.csv" config="radar.config"></radar>
-
-        <h3>Overall WELL-Being Score: <b><?php echo $_REQUEST["well_long_score"]?>/100</b></h3>
+        <h3>Overall WELL-Being Score: <b><?php echo $_GET["well_long_score"]?>/100</b></h3>
     </div>
   </div>
 </body>
@@ -27,3 +25,5 @@
   d3.select(self.frameElement).style("height", "1000px");
 </script>
 </html>
+
+

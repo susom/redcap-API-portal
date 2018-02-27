@@ -186,7 +186,7 @@ include_once("models/inc/gl_head.php");
                                 //createResultsFile(); put the following code within funcs general and include later
                                 // NEED TO MAKE THIS DYNAMIC
                                 // $users_file_csv = "RadarUserCSV/{$loggedInUser->id}_results.csv";
-                                $users_file_csv = "RadarUserCSV/Results.csv";
+                                $users_file_csv = "RadarUserCSV/".$loggedInUser->id."Results.csv";
                                 // if(!file_exists($users_file_csv)){
                                   $csv_data = "group, axis, value, description\n";
                                   foreach ($long_scores as $key => $value){
@@ -197,7 +197,7 @@ include_once("models/inc/gl_head.php");
                                 // }
                                 $sum_long_score = round(array_sum($long_scores));
                                 ?>
-                                <object type = "text/html" data = "radar_chart_template.php?well_long_score=<?php echo $sum_long_score?>" width = 100%></object>
+                                <object type = "text/html" data = "radar_chart_template.php?well_long_score=<?php echo $sum_long_score?>&id=<?php echo $loggedInUser->id?>" width = 100%></object>
                                 <?php
                               }
                             break;

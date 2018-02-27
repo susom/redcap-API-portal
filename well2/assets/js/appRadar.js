@@ -2,21 +2,17 @@
   angular.module("RadarChart", [])
     .directive("radar", radar)
     .directive("onReadFile", onReadFile)
-    .controller("MainCtrl", MainCtrl);
+    .controller("MainCtrl", ['$http','$scope','$attrs', 
 
+  // https://qiita.com/yorkxin/items/c5899314d63214fb5409
   // controller function MainCtrl
-  function MainCtrl($http) {
+  function ($http,$scope,$attrs) {
     var ctrl = this;
     init();
-
-
     // function init
     function init() {
       // initialize controller variables
-      ctrl.examples = [
-        "RadarUserCSV/Results"
-      ];
-      ctrl.exampleSelected = ctrl.examples[0];
+      ctrl.exampleSelected = $attrs.csvfile;
 
       ctrl.getData = getData;
       ctrl.selectExample = selectExample;
@@ -54,7 +50,8 @@
         ctrl.csv = data;
       });
     }
-  }
+  }]);
+
 
   // directive function sunburst
   function radar() {

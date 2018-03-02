@@ -1284,6 +1284,7 @@ footer .li a{
     margin-left: -20%;
     box-shadow: 0 0 3px #000;
     transform: translateY(-50%);
+    opacity:0;
 }
 
 .alert + section {

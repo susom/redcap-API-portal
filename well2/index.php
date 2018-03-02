@@ -74,7 +74,9 @@ foreach($cats as $cat){
     }
 }
 
-//CALCULATE WELL SCORES
+//CALCULATE WELL SCORE
+$long_scores = array();
+$short_score = 0;
 if($core_surveys_complete){
   if(!$user_short_scale){
     // CHECK IF EXISTING LONG SCORE
@@ -201,14 +203,49 @@ if($core_surveys_complete){
 
       //MAKE SURE THAT AT LEAST 70% OF THE FIELDS IN EACH DOMAIN IS COMPLETE OR ELSE CANCEL THE SCORING
       $minimumData = true;
+
+      if(!isset($user_completed_keys["core_lpaq"])){
+        $minimumData  = false;
+      }
+      if(!isset($user_completed_keys["core_bngdrink_female_freq"]) && !isset($user_completed_keys["core_bngdrink_male_freq"])){
+        $minimumData  = false;
+      }
+      if(!isset($user_completed_keys["core_smoke_100"])){
+        $minimumData  = false;
+      }
+      if(isset($user_completed_keys["core_smoke_100"]) && $user_completed_keys["core_smoke_100"] != 0 && !isset($user_completed_keys["core_smoke_freq"]) ){
+        $minimumData  = false;
+      }
+
+
       foreach($domain_fields as $domain => $fields){
+        if($domain == "lifestyle"){
+          if(isset($user_completed_keys["core_sleep_hh"])){
+            $remove_index = array_search("core_sleep_mm",$fields);
+            array_splice($fields,$remove_index,1);
+          }
+          if(isset($user_completed_keys["core_sleep_mm"])){
+            $remove_index = array_search("core_sleep_hh",$fields);
+            array_splice($fields,$remove_index,1);
+          }
+
+          if(isset($user_completed_keys["core_bngdrink_female_freq"])){
+            $remove_index = array_search("core_bngdrink_male_freq",$fields);
+            array_splice($fields,$remove_index,1);
+          }
+          if(isset($user_completed_keys["core_bngdrink_male_freq"])){
+            $remove_index = array_search("core_bngdrink_female_freq",$fields);
+            array_splice($fields,$remove_index,1);
+          }
+          if(isset($user_completed_keys["core_smoke_100"]) && $user_completed_keys["core_smoke_100"] < 1){
+            $remove_index = array_search("core_smoke_freq",$fields);
+            array_splice($fields,$remove_index,1);
+          }
+        }
+
         $dq_threshold   = ceil(count($fields) * .3);
         $missing_keys   = array_diff($fields, array_keys($user_completed_keys)) ;
-        if(count($missing_keys) >= $dq_threshold
-           || (!isset($user_completed_keys["core_lpaq"]) 
-              || (!isset($user_completed_keys["core_bngdrink_female_freq"]) && !isset($user_completed_keys["core_bngdrink_male_freq"]) 
-              || (!isset($user_completed_keys["core_smoke_100"]) || (isset($user_completed_keys["core_smoke_100"]) && $user_completed_keys["core_smoke_100"] != 0 && !isset($user_completed_keys["core_smoke_freq"]))   ) ))
-          ){
+        if(count($missing_keys) >= $dq_threshold){
           $minimumData  = false;
         }
       }
@@ -258,8 +295,6 @@ if($core_surveys_complete){
         });
 
         $long_scores = getLongScores($domain_fields, $user_completed_keys);
-      }else{
-        $long_scores = array();
       }
 
       // save individual scores
@@ -435,9 +470,13 @@ if(isset($_GET["survey_complete"])){
         $for_popup        = array_slice($get_well_score, -1);
         $new_well_score   = round((array_sum($for_popup[$user_event_arm])/50)*100);
       }else{
-        $new_well_score   = round(array_sum($get_well_score)) . "/100";
+        $new_well_score   = round(array_sum($get_well_score));
       }
-      $show_well_score  = "<p>Your WELL Score for $current_year is $new_well_score</p>";
+      if($new_well_score > 0){
+        $show_well_score  = "<p>Your WELL Score for $current_year is $new_well_score/100</p>";
+      }else{
+        $show_well_score  = "<p>".$lang["NOT_ENOUGH_OTHER_DATA"]."</p>";
+      }
 
       // will pass $arm_year into the include
       require_once('PDF/fpdf181/fpdf.php');
@@ -449,7 +488,6 @@ if(isset($_GET["survey_complete"])){
     }
   }
 }
-
 $pageTitle = "Well v2 Home Page";
 $bodyClass = "home";
 include_once("models/inc/gl_head.php");

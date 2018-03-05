@@ -3,6 +3,8 @@
         <li class="<?php echo $navon["home"]; ?>"><a href="index.php?nav=home">Home</a></li>
         <li class="<?php echo $navon["reports"]; ?>"><a href="reports.php?nav=reports">Reports</a></li>
         <li class="<?php echo $navon["game"]; ?>"><a href="game.php?nav=game">Game</a></li>
+        <li class="<?php echo $navon["resources"]; ?>"><a href="resources.php?nav=resources">Resources</a></li>
+
     </ul>
 </nav>
 <div class="header-container">

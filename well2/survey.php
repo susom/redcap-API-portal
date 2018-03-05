@@ -263,7 +263,7 @@ if(isset($_REQUEST["ajax"])){
 
 //GET THE CURRENT TOP NAV CATEGORy
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
-$navon  = array("home" => "", "reports" => "", "game" => "");
+$navon  = array("home" => "", "reports" => "", "game" => "", "resources" => "");
 $navon[$nav] = "on";
 
 //IF CORE SURVEY GET THE SURVEY ID

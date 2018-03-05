@@ -42,5 +42,8 @@ $(document).on('click', function(event) {
 $("a.disabled").click(function(){
   return false;
 });
+
+// this will wait to show alert boxes until after page loads
+$(".alert").css("opacity",1);
 </script>
 <?php

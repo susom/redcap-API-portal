@@ -16,33 +16,44 @@
                   $index   = array_search($sid, $all_survey_keys);
                   $iconcss = $fruits[$index];
                 }
+                
+                $umbrella_sid   = "wellbeing_questions";
                 foreach($surveys as $surveyid => $survey){
                   $surveycomplete = $survey["survey_complete"];
                   $index          = array_search($surveyid, $all_survey_keys);
                   $projnotes      = json_decode($survey["project_notes"],1);
                   $title_trans    = $projnotes["translations"];
                   $surveylink     = "survey.php?sid=" . $surveyid;
-                  $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$surveyid]) ?  $title_trans[$_SESSION["use_lang"]][$surveyid] : $survey["label"];
+
+                  //every one of the core surveys will be labled "wellbeing_questions"
+                  $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$umbrella_sid]) ?  $title_trans[$_SESSION["use_lang"]][$umbrella_sid] : "Wellbeing Questions";
+
                   $completeclass  = ($surveycomplete ? "completed":"");
                   $hreflink       = (is_null($new) || $surveycomplete ? "href" : "rel");
                   $newbadge       = (is_null($new) && !$surveycomplete ? "<b class='badge bg-danger pull-right'>new!</b>" :"<b class='badge bg-danger pull-right'>new!</b>");
 
                   if(!$surveycomplete && is_null($new)){
                     // $new = $index;
-                    $next_survey =  $surveylink;
+                    $next_survey  =  $surveylink;
+                    break;
                   }
+                }
 
-                  if(in_array($surveyid, $available_instruments)){
-                    $incomplete_complete = $surveycomplete ? "completed_surveys" : "core_surveys";
-                    array_push($$incomplete_complete, "<li class='".$surveyon[$surveyid]."  $iconcss'>
-                        <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
-                          $newbadge                                                   
-                          <span class='fruit $completeclass'></span>
-                          <span class='survey_name'>$surveyname</span>     
-                        </a>
-                      </li>\n");
+                if(in_array($umbrella_sid, $available_instruments)){
+                   // if we are on survey page for supplemental survey , that means core surveys are complete. 
+                  if(!empty($pid) && array_key_exists($pid, SurveysConfig::$projects)){
+                    $surveycomplete = true;
+                    $hreflink       = "href";
+                    $surveylink     = "survey.php?sid=wellbeing_questions";
                   }
-                  break;
+                  $incomplete_complete = $surveycomplete ? "completed_surveys" : "core_surveys";
+                  array_push($$incomplete_complete, "<li class='".$surveyon[$umbrella_sid]."  $iconcss'>
+                      <a $hreflink='$surveylink' class='auto' title='".$survey["label"]."'>
+                        $newbadge                                                   
+                        <span class='fruit $completeclass'></span>
+                        <span class='survey_name'>$surveyname</span>     
+                      </a>
+                    </li>\n");
                 }
                 echo implode("",$core_surveys);
                 
@@ -83,11 +94,8 @@
                                         ".$survey_alinks[$supp_instrument_id]." 
                                     </li>");
                 }
-
-
                 
                 echo implode("",$suppsurvs);
-
                 ?>  
             </ol>
             <h4>Completed Surveys</h4>

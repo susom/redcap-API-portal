@@ -17,7 +17,7 @@
                   $iconcss = $fruits[$index];
                 }
                 
-                $umbrella_sid   = "wellbeing_questions";
+                $umbrella_sid     = "wellbeing_questions";
                 foreach($surveys as $surveyid => $survey){
                   $surveycomplete = $survey["survey_complete"];
                   $index          = array_search($surveyid, $all_survey_keys);
@@ -39,7 +39,10 @@
                   }
                 }
 
-                if(in_array($umbrella_sid, $available_instruments)){
+                if($user_short_scale){
+                  $umbrella_sid = "brief_well_for_life_scale";
+                }
+                if(in_array($umbrella_sid, $available_instruments)  || $user_short_scale){
                    // if we are on survey page for supplemental survey , that means core surveys are complete. 
                   if(!empty($pid) && array_key_exists($pid, SurveysConfig::$projects)){
                     $surveycomplete = true;

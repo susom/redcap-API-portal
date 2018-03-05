@@ -23,7 +23,8 @@
                   $index          = array_search($surveyid, $all_survey_keys);
                   $projnotes      = json_decode($survey["project_notes"],1);
                   $title_trans    = $projnotes["translations"];
-                  $surveylink     = "survey.php?sid=" . $surveyid;
+                  $linksid        = $surveycomplete ? $umbrella_sid : $surveyid;
+                  $surveylink     = "survey.php?sid=" . $linksid;
 
                   //every one of the core surveys will be labled "wellbeing_questions"
                   $surveyname     = isset($title_trans[$_SESSION["use_lang"]][$umbrella_sid]) ?  $title_trans[$_SESSION["use_lang"]][$umbrella_sid] : "Wellbeing Questions";

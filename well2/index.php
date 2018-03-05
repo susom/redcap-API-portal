@@ -4,7 +4,7 @@ include("models/inc/checklogin.php");
 include("models/inc/scoring_functions.php");
 
 $nav    = isset($_REQUEST["nav"]) ? $_REQUEST["nav"] : "home";
-$navon  = array("home" => "", "reports" => "", "game" => "");
+$navon  = array("home" => "", "reports" => "", "game" => "", "resources" => "");
 $navon[$nav] = "on";
 
 $avail_surveys      = $available_instruments;
@@ -95,7 +95,7 @@ if($core_surveys_complete){
         ,"well_score_purpose"    => "Purpose and Meaning"
         ,"well_score_health"     => "Physical Health"
         ,"well_score_senseself"  => "Sense of Self"
-        ,"well_score_emotion"    => "Experience of Emotions"
+        ,"well_score_emotion"    => "Emotional and Mental Health"
         ,"well_score_stress"     => "Stress and Resilience"
         ,"well_score_social"     => "Social Connectedness"
         ,"lifestyle"             => "Lifestyle Behaviors"

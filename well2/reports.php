@@ -1,9 +1,11 @@
 <?php 
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
+include("models/domain_descriptions.php");
 
 //SITE NAV
-$navon = array("home" => "", "reports" => "on", "game" => "");
+$navon = array("home" => "", "reports" => "on", "game" => "", "resources" => "");
+
 
 //GET ALL DATA FOR SUPP INSTRUMENTS IN ALL AVAILABLE ARMS
 $extra_params = array(
@@ -184,18 +186,16 @@ include_once("models/inc/gl_head.php");
                               }else{
                                 $long_scores = json_decode($user_ws[0]["well_long_score_json"],1);
                                 //createResultsFile(); put the following code within funcs general and include later
-                                // NEED TO MAKE THIS DYNAMIC
-                                // $users_file_csv = "RadarUserCSV/{$loggedInUser->id}_results.csv";
                                 $users_file_csv = "RadarUserCSV/".$loggedInUser->id."Results.csv";
-                                // if(!file_exists($users_file_csv)){
-                                  $csv_data = "group, axis, value, description\n";
-                                  foreach ($long_scores as $key => $value){
-                                    $desc   = "temporary place holder text";
-                                    $csv_data .= "User, ". $key .", ". $value .", ". $desc ."\n";
-                                  }
-                                  file_put_contents($users_file_csv, $csv_data);
-                                // }
+                                $csv_data = "group, axis, value, description\n";
+                                $ct = 0;
+                                foreach ($long_scores as $key => $value){
+                                  $ct++;
+                                  $csv_data .= "User, ". $key .", ". $value .", ". $domain_desc[$ct] ."\n";
+                                }
+                                file_put_contents($users_file_csv, $csv_data);
                                 $sum_long_score = round(array_sum($long_scores));
+                                
                                 ?>
                                 <object type = "text/html" data = "radar_chart_template.php?well_long_score=<?php echo $sum_long_score?>&id=<?php echo $loggedInUser->id?>" width = 100%></object>
                                 <?php

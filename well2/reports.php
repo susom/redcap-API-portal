@@ -182,7 +182,8 @@ include_once("models/inc/gl_head.php");
 
                               if(strpos($sid_arm,"short") > -1){
                                 $brief_score = $user_ws[0]["well_score"];
-                                echo "<blockquote>Your ".$armyears[$sid_arm]." Brief WELL for Life Scale Score : <b>".($brief_score*2)."/100</b> </blockquote>";
+                                echo "<blockquote>Your ".$armyears[$sid_arm]." Brief* WELL for Life Scale Score <b>".($brief_score*2)."/100</b> </blockquote>";
+                                echo "<i>*Because of the shortened scale we are only able to provide an overall well-being score, not individual domain scores. Make sure to take the standard WELL for Life Scale next year for a full report. If you wish to compare your overall well-being scores, please use the “Compare” feature found in the Reports tab.</i>";
                               }else{
                                 $long_scores = json_decode($user_ws[0]["well_long_score_json"],1);
                                 //createResultsFile(); put the following code within funcs general and include later
@@ -243,6 +244,13 @@ include_once("models/inc/gl_foot.php");
 <style>
 blockquote{
   font-size:200%;
+  padding:0;
+  border:0;
+  text-align:center;
+}
+blockquote b{
+  display:block; 
+  padding:20px 0;
 }
 details {
   margin-bottom:50px;

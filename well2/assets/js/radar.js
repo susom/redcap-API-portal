@@ -183,7 +183,7 @@ console.log(config.h + config.paddingY);
           "position": "absolute",
           "color": "black",
           "font-size": "10px",
-          "width": "100px",
+          "width": "200px",
           "height": "auto",
           "padding": "5px",
           "border": "2px solid gray",

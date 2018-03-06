@@ -1,6 +1,19 @@
 <?php
 require_once("models/config.php");
 
+$radar_domains = array(
+  "0" => "Exploration and Creativity",
+  "1" => "Lifestyle Behaviors",
+  "2" => "Social Connectedness",
+  "3" => "Stress and Resilience",
+  "4" => "Experience of Emotions",
+  "5" => "Sense of Self",
+  "6" => "Physical Health",
+  "7" => "Purpose and Meaning",
+  "8" => "Financial Security",
+  "9" => "Spirituality and Religion"
+);
+
 $lang_req     = isset($_GET["lang"]) ? "?lang=".$_GET["lang"] : "";
 $pg_title     = "$websiteName";
 $body_classes = "cms";
@@ -28,7 +41,6 @@ if(!empty($_POST) && isset($_POST["action"])){
       $data["well_cms_active"] = "0";
     }
     $result = RC::writeToApi($data, array("forceAutoNumber" => "true", "returnContent" => "auto_ids", "overwriteBehavior" => "overwite", "type" => "flat"), $API_URL, $API_TOKEN);
-
     //import the picture file
     $split  = explode(",",$result[0]);
     $new_id = $split[0];
@@ -78,7 +90,7 @@ if(!empty($_POST) && isset($_POST["action"])){
 $loc          = isset($_REQUEST["loc"]) ? $_REQUEST["loc"] : "1";
 $cat          = isset($_REQUEST["cat"]) ? $_REQUEST["cat"] : "1";
 
-$types        = array(0 => "Events", 1 => "Monthly Goals", 99 => "Others");
+$types        = array(0 => "Events", 1 => "Monthly Goals", 2 => "Resources");
 $locs         = array(1 => "US", 2 => "Taiwan");
 
 include("../models/inc/gl_header.php");
@@ -96,7 +108,7 @@ include("../models/inc/gl_header.php");
         <ul id="folders">
           <li><a href="?cat=1"  data-val=1 class="<?php if($cat == 1) echo "on"?>"><?php echo $types[1] ?></a></li>
           <li><a href="?cat=0"  data-val=0 class="<?php if($cat == 0) echo "on"?>"><?php echo $types[0] ?></a></li>
-          <li><a href="?cat=99" data-val=99 class="<?php if($cat == 99) echo "on"?>"><?php echo $types[99] ?></a></li>
+          <li><a href="?cat=2" data-val=2 class="<?php if($cat == 2) echo "on"?>"><?php echo $types[2] ?></a></li>
         </ul>
 
         <?php
@@ -111,7 +123,8 @@ include("../models/inc/gl_header.php");
         $labels       = array_column($results, 'field_label'); 
         $mon_display  = array(3,4,5,8,11);
         $evt_display  = array(9,6,3,4,5,8,11);
-        
+        $res_display  = array(9,6,12,5,8,11);
+//        print_rr($fields); probably edit some of these out for res
         $extra_params = array(
           'content'   => 'record',
           'format'    => 'json'
@@ -132,7 +145,22 @@ include("../models/inc/gl_header.php");
           <thead>
             <tr>
               <?php
-              $display = $cat == 0 ? $evt_display : $mon_display;
+              $display = $cat;
+              // == 0 ? $evt_display : $mon_display;
+              switch($display){
+                case 0:
+                  $display = $evt_display;
+                  break;
+                case 1:
+                  $display = $mon_display;
+                  break;
+                case 2:
+                  $display = $res_display;
+                  break;
+                default:
+                  $display = $mon_display;
+              }
+             // print_r($labels);
               foreach($display as $item){
                 echo "<th>".$labels[$item]."</th>\n";
               }
@@ -162,17 +190,23 @@ include("../models/inc/gl_header.php");
                 $active   = $event["well_cms_active"] ? "Yes" : "No";
                 $selected[$active] = "selected";
 
-                if($cat == 0){
+                if($cat == 0){ //event 
                   $trs[] = "<td class='order'><input type='number' name='well_cms_displayord' value='".$event["well_cms_displayord"] ."'/></td>";
                   $trs[] = "<td class='link'><input type='text' name='well_cms_event_link' value='".$event["well_cms_event_link"] ."'/></td>";
-                }else{
+                  $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
+                  $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
+                }elseif ($cat == 1){ //monthly goals
                   if(!$monthly_active && $active == "Yes"){
                     $monthly_active = true;
                   }
+                  $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
+                  $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
+                }elseif ($cat == 2){
+                  $trs[] = "<td class='order'><input type='number' name='well_cms_displayord' value='".$event["well_cms_displayord"] ."'/></td>";
+                  $trs[] = "<td class='link'><input type='text' name='well_cms_event_link' value='".$event["well_cms_event_link"] ."'/></td>";
+                  $trs[] = "<td class='domain'>".$radar_domains[$event["well_cms_domain"]-1]."</td>";
                 }
 
-                $trs[] = "<td class='subject'><input type='text' name='well_cms_subject' value='".$event["well_cms_subject"]  ."'/></td>";
-                $trs[] = "<td class='content'><textarea name='well_cms_content'>".$event["well_cms_content"]."</textarea></td>";
                 $trs[] = "<td class='pic'>$eventpic";
                 $trs[] = "<form class='edit_img' action='cms.php' method='post' enctype='multipart/form-data'>";
                 $trs[] = "<input type='hidden' name='action' value='edit_img'/>";
@@ -186,6 +220,7 @@ include("../models/inc/gl_header.php");
                 $trs[] = "<option value='1' ".$selected["Yes"].">Yes</option>";
                 $trs[] = "</select></td>";
                 $trs[] = "<td class='updated'>".$event["well_cms_update_ts"]."</td>";
+               // $trs[] = "<td class='domain'>".$event["well_cms_domain"]."</td>";
                 $trs[] = "<td class='editbtns'><a href='#' class='deleteid btn btn-danger' data-id='".$event["id"]."'>Delete</a></td>";
                 $trs[] = "</tr>";
               }

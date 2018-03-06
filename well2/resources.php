@@ -2,6 +2,19 @@
 require_once("models/config.php"); 
 include("models/inc/checklogin.php");
 
+$radar_domains = array(
+  "0" => "Exploration and Creativity",
+  "1" => "Lifestyle Behaviors",
+  "2" => "Social Connectedness",
+  "3" => "Stress and Resilience",
+  "4" => "Experience of Emotions",
+  "5" => "Sense of Self",
+  "6" => "Physical Health",
+  "7" => "Purpose and Meaning",
+  "8" => "Financial Security",
+  "9" => "Spirituality and Religion"
+);
+
 //SITE NAV
 $navon = array("home" => "", "reports" => "", "game" => "", "articles" => "on");
 
@@ -22,14 +35,13 @@ $cats           = array();
 
   $filterlogic                    = array();
   $filterlogic[]                  = '[well_cms_loc] = "'.$loc.'"';
-  $filterlogic[]                  = '[well_cms_catagory] = "'.$cat.'"';
+  $filterlogic[]                  = '[well_cms_catagory] = "'."2".'"';
   $filterlogic[]                  = '[well_cms_active] = "1"';
   $extra_params["filterLogic"]    = implode(" and ", $filterlogic);
   $events                         = RC::callApi($extra_params, true, $API_URL, $API_TOKEN); 
-  
       //is resources
       $cats[2] = array();
-      print_rr($cats);
+
       foreach($events as $event){
           $recordid   = $event["id"];
           $eventpic   = "";
@@ -41,60 +53,96 @@ $cats           = array();
             $imgname  = $split2[1];
             $eventpic = '<img class="event_img" src="data:'.$mime.';base64,' . base64_encode($file_curl["file_body"]) . '">';
           }
+            $order = intval($event["well_cms_displayord"]);
 
         
           $cats[2][$order] = array(
-               "subject"  => $event["well_cms_subject"] 
-              ,"content"  => $event["well_cms_content"] 
-              ,"pic"      => $eventpic
-              ,"link"     => $event["well_cms_text_link"] 
+              "pic"      => $eventpic
+              ,"link"     => $event["well_cms_event_link"] 
               ,"domain"   => $event["well_cms_domain"]
           );
       }
       ksort($cats[2]);
-      print_rr($cats);
 
-
-
+// if( then render)
+// $default = "?domain=creativity" 
+$url = $_SERVER['REQUEST_URI'];
+$domain_page = $url[strlen($url)-1];
 
 
 include_once("models/inc/gl_head.php");
 ?>
     <div class="main-container">
         <div class="main wrapper clearfix">
-            <article>
-                <h3>How can I enhance my wellbeing?</h3>
+          <div class = domains>
                 <?php  
-                if(isset($cats[2])){
-                    foreach($cats[2] as $event){
-                ?>
+                if(!is_numeric($domain_page)){
+                    foreach($radar_domains as $key=>$val){
+                  ?>
                     <section>
                         <figure>
-                            <?php echo $event["pic"] ?>
-                            <figcaption>
-                                <h2><?php echo $event["subject"] ?></h2>
-                                <p><?php echo $event["content"] ?></p>
-                                <?php
-                                if(!empty($event["link"])){
-                                ?>
-                                <a href="<?php echo $event["link"] ?>">Read More</a>
-                                <?php
-                                }
-                                ?>
-                            </figcaption>
+                            <img src = assets/img/0<?php echo $key;?>-domain.jpg> 
                         </figure>
+                        <a href = "resources.php?nav=resources-<?php echo $key; ?>" style = "font-size: 13px;"> 
+                          <?php echo $radar_domains[$key]; ?>
+                        </a>
                     </section>
                 <?php 
-                    }
+                    }//foreach
+                }//if isset
+                else{
+                  print_rr("Implement second page here");
+                  switch($domain_page){
+                    case 0:
+                      ?> <li>nice</li> <?php
+                      break;
+                    case 1:
+                      break;
+                    case 2:
+                      break;
+                    case 3:
+                      break;
+                    case 4:
+                      break;
+                    case 5:
+                      break;
+                    case 6:
+                      break;
+                    case 7:
+                      break;
+                    case 8:
+                      break;
+                    case 9:
+                      break;
+                    default:
+
+                  }
                 }
                 ?>
-            </article>
+          
 
             <?php 
            // include_once("models/inc/gl_surveynav.php");
             ?>
+          </div>
         </div> <!-- #main -->
     </div> <!-- #main-container -->
 <?php 
 include_once("models/inc/gl_foot.php");
 ?>
+
+<style>
+li{
+  display: block;
+  font-size: 12px;
+}
+section{
+  width:200px;
+  height: 100px;
+  display: inline-block;
+}
+img{
+  max-width: 126px;
+  max-height: 168px;
+}
+</style>

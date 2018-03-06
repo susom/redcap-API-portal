@@ -27,6 +27,7 @@ foreach($cats as $cat){
     $filterlogic[]                  = '[well_cms_active] = "1"';
     $extra_params["filterLogic"]    = implode(" and ", $filterlogic);
     $events                         = RC::callApi($extra_params, true, $API_URL, $API_TOKEN); 
+    
     if($cat == 0){
         //is events
         $cats[0] = array();

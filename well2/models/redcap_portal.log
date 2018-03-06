@@ -1,1 +1,288 @@
 2018-02-26 13:58:10	DEBUG		Session updated after 568 secs
+2018-03-05 11:33:01	DEBUG		Session updated after 688 secs
+2018-03-05 11:33:03	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:33:04	DEBUG		Session updated after 3 secs
+2018-03-05 11:33:06	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:33:07	DEBUG		Session updated after 3 secs
+2018-03-05 11:38:40	DEBUG		Session updated after 333 secs
+2018-03-05 11:38:42	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:38:44	DEBUG		Session updated after 4 secs
+2018-03-05 11:38:46	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:39:14	DEBUG		Session updated after 30 secs
+2018-03-05 11:40:14	DEBUG		Session updated after 60 secs
+2018-03-05 11:40:17	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:40:18	DEBUG		Session updated after 4 secs
+2018-03-05 11:40:20	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:40:21	DEBUG		Session updated after 3 secs
+2018-03-05 11:41:15	DEBUG		Session updated after 54 secs
+2018-03-05 11:41:18	DEBUG		Session updated after 3 secs
+2018-03-05 11:41:20	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:41:21	DEBUG		Session updated after 3 secs
+2018-03-05 11:41:23	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:41:25	DEBUG		Session updated after 4 secs
+2018-03-05 11:57:25	DEBUG		Session updated after 960 secs
+2018-03-05 11:57:27	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:57:28	DEBUG		Session updated after 3 secs
+2018-03-05 11:57:30	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 11:57:31	DEBUG		Session updated after 3 secs
+2018-03-05 12:05:44	DEBUG		Session updated after 493 secs
+2018-03-05 12:05:46	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:05:47	DEBUG		Session updated after 3 secs
+2018-03-05 12:05:49	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:05:50	DEBUG		Session updated after 3 secs
+2018-03-05 12:08:17	DEBUG		Session updated after 147 secs
+2018-03-05 12:08:43	DEBUG		Session updated after 26 secs
+2018-03-05 12:13:20	DEBUG		Session updated after 277 secs
+2018-03-05 12:13:22	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:13:23	DEBUG		Session updated after 3 secs
+2018-03-05 12:13:25	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:13:26	DEBUG		Session updated after 3 secs
+2018-03-05 12:13:35	DEBUG		Session updated after 9 secs
+2018-03-05 12:13:46	DEBUG		Session updated after 11 secs
+2018-03-05 12:13:48	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:13:49	DEBUG		Session updated after 3 secs
+2018-03-05 12:13:50	DEBUG		Session updated after 1 secs
+2018-03-05 12:13:52	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:13:53	DEBUG		Session updated after 3 secs
+2018-03-05 12:14:00	DEBUG		Session updated after 7 secs
+2018-03-05 12:14:02	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:14:04	DEBUG		Session updated after 4 secs
+2018-03-05 12:14:06	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:14:08	DEBUG		Session updated after 4 secs
+2018-03-05 12:14:16	DEBUG		Session updated after 8 secs
+2018-03-05 12:14:25	DEBUG		Session updated after 9 secs
+2018-03-05 12:14:28	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:14:29	DEBUG		Session updated after 4 secs
+2018-03-05 12:14:31	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:14:57	DEBUG		Session updated after 28 secs
+2018-03-05 12:14:57	DEBUG	[12]	updateUser data1:Array
+(
+    [id] => 12
+    [redcap_event_name] => enrollment_arm_1
+)
+
+2018-03-05 12:14:57	DEBUG		Session cleared
+2018-03-05 12:14:57	NOTICE		Goodbye!
+2018-03-05 12:15:04	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-03-05 12:15:04	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-03-05 12:15:06	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-03-05 12:15:06	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-03-05 12:15:06	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-03-05 12:15:06	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-03-05 12:15:06	DEBUG		Session started: 2018-03-05 12:15:06
+2018-03-05 12:15:17	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:15:18	DEBUG		Session updated after 12 secs
+2018-03-05 12:15:20	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:15:27	DEBUG		Session updated after 9 secs
+2018-03-05 12:16:53	DEBUG		Session updated after 86 secs
+2018-03-05 12:16:55	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:16:56	DEBUG		Session updated after 3 secs
+2018-03-05 12:16:59	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:17:01	DEBUG		Session updated after 5 secs
+2018-03-05 12:17:26	DEBUG		Session updated after 25 secs
+2018-03-05 12:17:28	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:17:30	DEBUG		Session updated after 4 secs
+2018-03-05 12:17:32	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 12:17:33	DEBUG		Session updated after 3 secs
+2018-03-05 12:34:03	DEBUG		Session updated after 990 secs
+2018-03-05 12:34:11	DEBUG		Session updated after 8 secs
+2018-03-05 12:34:29	DEBUG		Session updated after 18 secs
+2018-03-05 12:34:55	DEBUG		Session updated after 26 secs
+2018-03-05 12:34:57	DEBUG		Session updated after 2 secs
+2018-03-05 12:35:01	DEBUG		Session updated after 4 secs
+2018-03-05 12:37:21	DEBUG		Session updated after 140 secs
+2018-03-05 12:37:35	DEBUG		Session updated after 14 secs
+2018-03-05 12:38:05	DEBUG		Session updated after 30 secs
+2018-03-05 12:38:18	DEBUG		Session updated after 13 secs
+2018-03-05 13:33:09	INFO		Session timeout.  Last activity 3291 sec ago
+2018-03-05 13:33:09	DEBUG		Session cleared
+2018-03-05 13:33:16	DEBUG		Comparing 12:  salt=bUJtkNy!^QJydeDId3yAnY-ea / pass=36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-03-05 13:33:16	DEBUG		Generating: bUJtkNy!^QJydeDId3yAnY-ea36b593e8e27e5d0de41378babb1c3b16b1c94813
+2018-03-05 13:33:18	DEBUG	[12]	Error in writeToApi: The following fields were not found in the project as real data fields: 
+2018-03-05 13:33:18	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-03-05 13:33:18	DEBUG	[12]	Error in writeToApi: You do not have permissions to use the API
+2018-03-05 13:33:18	DEBUG	[12]	Error in writeToApi: The record id field (record_id) is missing.
+2018-03-05 13:33:18	DEBUG		Session started: 2018-03-05 13:33:18
+2018-03-05 13:33:29	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 13:33:30	DEBUG		Session updated after 12 secs
+2018-03-05 13:33:32	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 13:33:33	DEBUG		Session updated after 3 secs
+2018-03-05 13:35:49	DEBUG		Session updated after 136 secs
+2018-03-05 13:36:04	DEBUG		Session updated after 15 secs
+2018-03-05 13:48:04	DEBUG		Session updated after 720 secs
+2018-03-05 13:48:06	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 13:48:08	DEBUG		Session updated after 4 secs
+2018-03-05 13:48:10	DEBUG	[12]	Error in writeToApi: You cannot export form/event mappings for classic projects
+2018-03-05 13:48:49	DEBUG		Session updated after 41 secs
+2018-03-05 13:49:58	DEBUG		Session updated after 69 secs
+2018-03-05 13:52:36	DEBUG		Session updated after 158 secs
+2018-03-05 13:54:25	DEBUG		Session updated after 109 secs
+2018-03-05 13:55:51	DEBUG		Session updated after 86 secs
+2018-03-05 13:57:01	DEBUG		Session updated after 70 secs
+2018-03-05 13:57:04	DEBUG		Session updated after 3 secs
+2018-03-05 13:57:37	DEBUG		Session updated after 33 secs
+2018-03-05 13:57:52	DEBUG		Session updated after 15 secs
+2018-03-05 13:57:59	DEBUG		Session updated after 7 secs
+2018-03-05 13:58:41	DEBUG		Session updated after 42 secs
+2018-03-05 13:58:44	DEBUG		Session updated after 3 secs
+2018-03-05 13:58:54	DEBUG		Session updated after 10 secs
+2018-03-05 14:01:34	DEBUG		Session updated after 160 secs
+2018-03-05 14:02:26	DEBUG		Session updated after 52 secs
+2018-03-05 14:02:31	DEBUG		Session updated after 5 secs
+2018-03-05 14:11:49	DEBUG		Session updated after 558 secs
+2018-03-05 14:14:08	DEBUG		Session updated after 139 secs
+2018-03-05 14:14:24	DEBUG		Session updated after 16 secs
+2018-03-05 14:14:39	DEBUG		Session updated after 15 secs
+2018-03-05 14:15:34	DEBUG		Session updated after 55 secs
+2018-03-05 14:19:34	DEBUG		Session updated after 240 secs
+2018-03-05 14:20:33	DEBUG		Session updated after 59 secs
+2018-03-05 14:20:55	DEBUG		Session updated after 22 secs
+2018-03-05 14:20:59	DEBUG		Session updated after 4 secs
+2018-03-05 14:21:05	DEBUG		Session updated after 6 secs
+2018-03-05 14:22:55	DEBUG		Session updated after 110 secs
+2018-03-05 14:25:18	DEBUG		Session updated after 143 secs
+2018-03-05 14:25:48	DEBUG		Session updated after 30 secs
+2018-03-05 14:27:01	DEBUG		Session updated after 73 secs
+2018-03-05 14:27:31	DEBUG		Session updated after 30 secs
+2018-03-05 14:27:48	DEBUG		Session updated after 17 secs
+2018-03-05 14:30:04	DEBUG		Session updated after 136 secs
+2018-03-05 14:30:22	DEBUG		Session updated after 18 secs
+2018-03-05 14:30:37	DEBUG		Session updated after 15 secs
+2018-03-05 14:31:56	DEBUG		Session updated after 79 secs
+2018-03-05 14:32:05	DEBUG		Session updated after 9 secs
+2018-03-05 14:33:07	DEBUG		Session updated after 62 secs
+2018-03-05 14:33:39	DEBUG		Session updated after 32 secs
+2018-03-05 14:35:52	DEBUG		Session updated after 133 secs
+2018-03-05 14:36:13	DEBUG		Session updated after 21 secs
+2018-03-05 14:38:38	DEBUG		Session updated after 145 secs
+2018-03-05 14:38:45	DEBUG		Session updated after 7 secs
+2018-03-05 14:42:50	DEBUG		Session updated after 245 secs
+2018-03-05 14:42:53	DEBUG		Session updated after 3 secs
+2018-03-05 14:42:59	DEBUG		Session updated after 6 secs
+2018-03-05 14:44:13	DEBUG		Session updated after 74 secs
+2018-03-05 14:44:52	DEBUG		Session updated after 39 secs
+2018-03-05 14:44:55	DEBUG		Session updated after 3 secs
+2018-03-05 14:45:01	DEBUG		Session updated after 6 secs
+2018-03-05 14:45:03	DEBUG		Session updated after 2 secs
+2018-03-05 14:45:23	DEBUG		Session updated after 20 secs
+2018-03-05 14:45:34	DEBUG		Session updated after 11 secs
+2018-03-05 14:46:14	DEBUG		Session updated after 40 secs
+2018-03-05 14:46:17	DEBUG		Session updated after 3 secs
+2018-03-05 14:46:19	DEBUG		Session updated after 2 secs
+2018-03-05 14:46:49	DEBUG		Session updated after 30 secs
+2018-03-05 14:46:51	DEBUG		Session updated after 2 secs
+2018-03-05 14:47:34	DEBUG		Session updated after 43 secs
+2018-03-05 14:47:43	DEBUG		Session updated after 9 secs
+2018-03-05 14:47:46	DEBUG		Session updated after 3 secs
+2018-03-05 14:48:28	DEBUG		Session updated after 42 secs
+2018-03-05 14:48:43	DEBUG		Session updated after 15 secs
+2018-03-05 14:49:13	DEBUG		Session updated after 30 secs
+2018-03-05 14:50:29	DEBUG		Session updated after 76 secs
+2018-03-05 14:50:58	DEBUG		Session updated after 29 secs
+2018-03-05 14:51:35	DEBUG		Session updated after 37 secs
+2018-03-05 14:52:36	DEBUG		Session updated after 61 secs
+2018-03-05 14:53:28	DEBUG		Session updated after 52 secs
+2018-03-05 14:53:54	DEBUG		Session updated after 26 secs
+2018-03-05 14:55:47	DEBUG		Session updated after 113 secs
+2018-03-05 14:56:10	DEBUG		Session updated after 23 secs
+2018-03-05 14:59:30	DEBUG		Session updated after 200 secs
+2018-03-05 15:00:18	DEBUG		Session updated after 48 secs
+2018-03-05 15:00:21	DEBUG		Session updated after 3 secs
+2018-03-05 15:00:23	DEBUG		Session updated after 2 secs
+2018-03-05 15:00:38	DEBUG		Session updated after 15 secs
+2018-03-05 15:00:44	DEBUG		Session updated after 6 secs
+2018-03-05 15:01:43	DEBUG		Session updated after 59 secs
+2018-03-05 15:05:20	DEBUG		Session updated after 217 secs
+2018-03-05 15:06:34	DEBUG		Session updated after 74 secs
+2018-03-05 15:07:03	DEBUG		Session updated after 29 secs
+2018-03-05 15:07:41	DEBUG		Session updated after 38 secs
+2018-03-05 15:08:13	DEBUG		Session updated after 32 secs
+2018-03-05 15:10:37	DEBUG		Session updated after 144 secs
+2018-03-05 15:11:08	DEBUG		Session updated after 31 secs
+2018-03-05 15:11:18	DEBUG		Session updated after 10 secs
+2018-03-05 15:11:43	DEBUG		Session updated after 25 secs
+2018-03-05 15:11:50	DEBUG		Session updated after 7 secs
+2018-03-05 15:12:19	DEBUG		Session updated after 29 secs
+2018-03-05 15:12:35	DEBUG		Session updated after 16 secs
+2018-03-05 15:12:54	DEBUG		Session updated after 19 secs
+2018-03-05 15:13:24	DEBUG		Session updated after 30 secs
+2018-03-05 15:13:32	DEBUG		Session updated after 8 secs
+2018-03-05 15:14:30	DEBUG		Session updated after 58 secs
+2018-03-05 15:14:33	DEBUG		Session updated after 3 secs
+2018-03-05 15:14:36	DEBUG		Session updated after 3 secs
+2018-03-05 15:14:39	DEBUG		Session updated after 3 secs
+2018-03-05 15:14:42	DEBUG		Session updated after 3 secs
+2018-03-05 15:14:49	DEBUG		Session updated after 7 secs
+2018-03-05 15:14:53	DEBUG		Session updated after 4 secs
+2018-03-05 15:17:21	DEBUG		Session updated after 148 secs
+2018-03-05 15:17:40	DEBUG		Session updated after 19 secs
+2018-03-05 15:18:14	DEBUG		Session updated after 34 secs
+2018-03-05 15:18:39	DEBUG		Session updated after 25 secs
+2018-03-05 15:18:56	DEBUG		Session updated after 17 secs
+2018-03-05 15:19:13	DEBUG		Session updated after 17 secs
+2018-03-05 15:24:37	DEBUG		Session updated after 324 secs
+2018-03-05 15:24:41	DEBUG		Session updated after 4 secs
+2018-03-05 15:24:45	DEBUG		Session updated after 4 secs
+2018-03-05 15:24:52	DEBUG		Session updated after 7 secs
+2018-03-05 15:24:56	DEBUG		Session updated after 4 secs
+2018-03-05 15:25:25	DEBUG		Session updated after 29 secs
+2018-03-05 15:25:31	DEBUG		Session updated after 6 secs
+2018-03-05 15:25:35	DEBUG		Session updated after 4 secs
+2018-03-05 15:25:51	DEBUG		Session updated after 16 secs
+2018-03-05 15:27:34	DEBUG		Session updated after 103 secs
+2018-03-05 15:28:11	DEBUG		Session updated after 37 secs
+2018-03-05 15:28:38	DEBUG		Session updated after 27 secs
+2018-03-05 15:29:01	DEBUG		Session updated after 23 secs
+2018-03-05 15:29:05	DEBUG		Session updated after 4 secs
+2018-03-05 15:29:15	DEBUG		Session updated after 10 secs
+2018-03-05 15:29:18	DEBUG		Session updated after 3 secs
+2018-03-05 15:29:36	DEBUG		Session updated after 18 secs
+2018-03-05 15:29:37	DEBUG		Session updated after 1 secs
+2018-03-05 15:29:40	DEBUG		Session updated after 3 secs
+2018-03-05 15:30:48	DEBUG		Session updated after 68 secs
+2018-03-05 15:31:20	DEBUG		Session updated after 32 secs
+2018-03-05 15:31:39	DEBUG		Session updated after 19 secs
+2018-03-05 15:31:52	DEBUG		Session updated after 13 secs
+2018-03-05 15:31:56	DEBUG		Session updated after 4 secs
+2018-03-05 15:31:59	DEBUG		Session updated after 3 secs
+2018-03-05 15:32:03	DEBUG		Session updated after 4 secs
+2018-03-05 15:32:06	DEBUG		Session updated after 3 secs
+2018-03-05 15:33:18	DEBUG		Session updated after 72 secs
+2018-03-05 15:33:22	DEBUG		Session updated after 4 secs
+2018-03-05 15:33:25	DEBUG		Session updated after 3 secs
+2018-03-05 15:33:39	DEBUG		Session updated after 14 secs
+2018-03-05 15:33:42	DEBUG		Session updated after 3 secs
+2018-03-05 15:33:45	DEBUG		Session updated after 3 secs
+2018-03-05 15:33:48	DEBUG		Session updated after 3 secs
+2018-03-05 15:34:54	DEBUG		Session updated after 66 secs
+2018-03-05 15:34:57	DEBUG		Session updated after 3 secs
+2018-03-05 15:35:03	DEBUG		Session updated after 6 secs
+2018-03-05 15:37:57	DEBUG		Session updated after 174 secs
+2018-03-05 15:38:01	DEBUG		Session updated after 4 secs
+2018-03-05 15:38:26	DEBUG		Session updated after 25 secs
+2018-03-05 15:43:43	DEBUG		Session updated after 317 secs
+2018-03-05 15:44:47	DEBUG		Session updated after 64 secs
+2018-03-05 15:45:02	DEBUG		Session updated after 15 secs
+2018-03-05 15:46:26	DEBUG		Session updated after 84 secs
+2018-03-05 15:46:59	DEBUG		Session updated after 33 secs
+2018-03-05 15:48:29	DEBUG		Session updated after 90 secs
+2018-03-05 15:49:18	DEBUG		Session updated after 49 secs
+2018-03-05 15:49:54	DEBUG		Session updated after 36 secs
+2018-03-05 15:50:54	DEBUG		Session updated after 60 secs
+2018-03-05 15:52:34	DEBUG		Session updated after 100 secs
+2018-03-05 15:52:59	DEBUG		Session updated after 25 secs
+2018-03-05 15:53:13	DEBUG		Session updated after 14 secs
+2018-03-05 15:54:14	DEBUG		Session updated after 61 secs
+2018-03-05 15:54:17	DEBUG		Session updated after 3 secs
+2018-03-05 15:54:20	DEBUG		Session updated after 3 secs
+2018-03-05 15:54:22	DEBUG		Session updated after 2 secs
+2018-03-05 15:55:22	DEBUG		Session updated after 60 secs
+2018-03-05 15:57:05	DEBUG		Session updated after 103 secs
+2018-03-05 15:57:52	DEBUG		Session updated after 47 secs
+2018-03-05 15:59:29	DEBUG		Session updated after 97 secs
+2018-03-05 16:02:53	DEBUG		Session updated after 204 secs
+2018-03-05 16:03:05	DEBUG		Session updated after 12 secs
+2018-03-05 16:03:21	DEBUG		Session updated after 16 secs
+2018-03-05 16:03:31	DEBUG		Session updated after 10 secs
+2018-03-05 16:03:51	DEBUG		Session updated after 20 secs
+2018-03-05 16:04:21	DEBUG		Session updated after 30 secs

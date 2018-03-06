@@ -379,8 +379,21 @@ include_once("models/inc/gl_head.php");
                       </div>
                       <?php    
                   }
+
                   //PRINT OUT THE HTML FOR THIS SURVEY
                   $active_survey->printHTML($survey_data["event"], $sid);
+                  if($sid == "wellbeing_questions" && $active_survey->surveycomplete){
+                    //for long well_being questions, it wraps up all 11 instruments so we need to print out the other 10 as well
+                   
+                    foreach($surveys as $survey_id => $survey_data){
+                      if($survey_id == $sid){
+                        continue;
+                      }
+                      //LOAD UP THE SURVEY PRINTER HERE
+                      $other_core_survey  = new Survey($survey_data);
+                      $other_core_survey->printHTML($survey_data["event"], $survey_id);
+                    }
+                  }
                 ?>
             </article>
             <?php 

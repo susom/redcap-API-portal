@@ -1,0 +1,3 @@
+[submodule "well2"]
+	path = well2
+	url = https://github.com/susom/WELL_PORTAL_V2.git

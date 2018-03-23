@@ -22,10 +22,14 @@ $_wtext = $pdf->GetStringWidth($txt);
 
 $pdf->SetXY(($_w/2)-($_wtext/2), ($_h/2));
 $pdf->Write(0, $txt);
-$filename = array();
+$userfolder = $loggedInUser->id . "_" . $loggedInUser->firstname . "_" . $loggedInUser->lastname;
+if (!file_exists("../PDF/certs/$userfolder")) {
+    mkdir("../PDF/certs/$userfolder", 0777, true);
+}
+$filename 	= array();
 $filename[] = $loggedInUser->id;
 $filename[] = $loggedInUser->firstname;
 $filename[] = $loggedInUser->lastname;
-$filename[] = Date("Y");
-$filename ="../PDF/certs/".implode("_",$filename).".pdf";
+$filename[] = $arm_year;
+$filename ="../PDF/certs/$userfolder/".implode("_",$filename).".pdf";
 $pdf->Output($filename,'F');
